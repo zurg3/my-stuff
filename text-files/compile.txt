@@ -1,0 +1,5 @@
+tar xzf [source].tar.gz
+cd [source]
+./configure
+make
+sudo make install
