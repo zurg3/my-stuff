@@ -1,0 +1,16 @@
+#!/bin/bash
+
+read -p "What's your Linux distro? 1 - Debian/Ubuntu/Mint, 2 - Arch > " a
+read -p "Enter package/packages name > " b
+
+if [[ $a == 1 ]]; then
+  sudo apt update
+  sudo apt install $b
+  echo "$b installed"
+elif [[ $a == 2 ]]; then
+  sudo pacman -Syy
+  sudo pacman -S $b
+  echo "$b installed"
+else
+  echo "Something is wrong."
+fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+read -p "What's your Linux distro? 1 - Debian/Ubuntu/Mint, 2 - Arch > " a
+
+if [[ $a == 1 ]]; then
+  sudo apt update
+  sudo apt upgrade
+  echo "Your system is updated."
+elif [[ $a == 2 ]]; then
+  sudo pacman -Syy
+  sudo pacman -Syu
+  echo "Your system is updated."
+else
+  echo "Something is wrong."
+fi

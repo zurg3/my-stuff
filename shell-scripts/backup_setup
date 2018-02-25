@@ -1,0 +1,76 @@
+#!/bin/bash
+
+echo "Note: you need installed Rsync on your computer!"
+
+read -p "How many directories you need to sync? > " n
+
+if [[ $n > 1 ]]; then
+  read -p "I want backup: [1 - in the same directory, 2 - in the different directories] > " sync_type
+
+  read -p "Enter the file name: " c
+
+  if [[ $sync_type == 1 ]]; then
+    for (( i = 0; i < 1; i++ )); do
+      v=$(($i+1))
+      echo "Dir #$v"
+
+      read -p "I want backup from (full path): " a
+      read -p "I want backup to (full path): " b
+
+      echo "#!/bin/bash
+
+rsync -av --delete $a $b" > $c
+      for (( i = 1; i < $n; i++ )); do
+        v=$(($i+1))
+        echo "Dir #$v"
+
+        read -p "I want backup from (full path): " a
+
+        echo "rsync -av --delete $a $b" >> $c
+      done
+      chmod +x $c
+    done
+
+    echo "Your Rsync script has been created."
+  elif [[ $sync_type == 2 ]]; then
+    for (( i = 0; i < 1; i++ )); do
+      v=$(($i+1))
+      echo "Dir #$v"
+
+      read -p "I want backup from (full path): " a
+      read -p "I want backup to (full path): " b
+
+      echo "#!/bin/bash
+
+rsync -av --delete $a $b" > $c
+      for (( i = 1; i < $n; i++ )); do
+        v=$(($i+1))
+        echo "Dir #$v"
+
+        read -p "I want backup from (full path): " a
+        read -p "I want backup to (full path): " b
+
+        echo "rsync -av --delete $a $b" >> $c
+      done
+      chmod +x $c
+    done
+
+    echo "Your Rsync script has been created."
+  else
+    echo "Something is wrong!"
+  fi
+elif [[ $n == 1 ]]; then
+  read -p "Enter the file name: " c
+  read -p "I want backup from (full path): " a
+  read -p "I want backup to (full path): " b
+
+  echo "#!/bin/bash
+
+rsync -av --delete $a $b" > $c
+
+  chmod +x $c
+
+  echo "Your Rsync script has been created."
+else
+  echo "Something is wrong!"
+fi

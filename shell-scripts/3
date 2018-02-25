@@ -1,0 +1,14 @@
+#!/bin/bash
+
+summa=0
+myFuction()
+{
+  echo "23.10.2017"
+  echo "Next day - 24.10.2017"
+  echo "Num1 = $1"
+  echo "Num2 = $2"
+  summa=$(($1+$2))
+}
+
+myFuction 20 10
+echo "Summa = $summa"

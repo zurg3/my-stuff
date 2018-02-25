@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ "$1" == "Stepan" ]]; then
+  echo "Hello, $1"
+elif [[ "$1" == "Jamie" ]]; then
+  echo "Yo, $1"
+else echo "Hi, $1"
+fi
+
+echo "Enter x"
+read x
+
+echo "Starting CASE..."
+case $x in
+  1) echo "One";;
+  2) echo "Two";;
+  3) echo "Three";;
+  [4-9]) echo "Four-Nine";;
+  10) echo "Ten";;
+  *) echo "Fuck you!";;
+esac

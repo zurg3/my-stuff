@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Введите текст"
+read a
+
+echo "MD5:"
+echo -n $a | md5sum
+echo "SHA1:"
+echo -n $a | sha1sum
