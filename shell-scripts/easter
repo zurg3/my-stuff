@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# echo "Введите текущий год:"
 a=$(date +"%Y")
 b=$(($a-7))
 c=$(($a+7))
@@ -12,8 +11,17 @@ for (( i=$b; i<=$c; i++ )); do
   elif [[ $i>$a ]]; then
     d=`ncal -o $i`
     echo "В $i году Пасха будет: $d"
-  else
+  elif [[ $i==$a ]]; then
     d=`ncal -o $i`
-    echo "В $i году Пасха будет/была: $d"
+    e=$(date)
+    if [[ $d>$e ]]; then
+      echo "В $i году Пасха будет: $d"
+    elif [[ $d<$e ]]; then
+      echo "В $i году Пасха была: $d"
+    else
+      echo "Something is wrong!"
+    fi
+  else
+    echo "Something is wrong!"
   fi
 done

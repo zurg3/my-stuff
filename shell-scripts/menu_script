@@ -20,7 +20,7 @@ case $REPLY in
   a|A ) echo "Hostname: $HOSTNAME"
         uptime
         ;;
-  a|A ) df -h
+  b|B ) df -h
         ;;
   c|C ) if [[ $(id -u) -eq 0 ]]; then
           echo "Home Space Utilization (All Users)"
