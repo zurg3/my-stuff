@@ -1,0 +1,43 @@
+#!/bin/bash
+
+c=/etc/samba/smb.conf # Samba config-file path
+
+if [[ $1 == "" && $2 == "" ]]; then
+  read -p "Enter name of shared directory: " a
+  read -p "Enter path of shared directory: " b
+  sudo echo "
+[$a]
+browseable = yes
+create mode = 0766
+guest ok = yes
+path = $b
+writeable = yes" >> $c
+elif [[ $1 != "" && $2 != "" ]]; then
+  sudo echo "
+[$1]
+browseable = yes
+create mode = 0766
+guest ok = yes
+path = $2
+writeable = yes" >> $c
+elif [[ $1 == " " && $2 != "" ]]; then
+  read -p "Enter name of shared directory: " a
+  sudo echo "
+[$a]
+browseable = yes
+create mode = 0766
+guest ok = yes
+path = $2
+writeable = yes" >> $c
+elif [[ $1 != "" && $2 == "" ]]; then
+  read -p "Enter path of shared directory: " b
+  sudo echo "
+[$1]
+browseable = yes
+create mode = 0766
+guest ok = yes
+path = $b
+writeable = yes" >> $c
+else
+  echo "Something is wrong!"
+fi
