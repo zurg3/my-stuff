@@ -1,24 +1,17 @@
--- calc
-
+io.write("Enter the first number: ")
 a = io.read()
+io.write("Enter the second number: ")
 b = io.read()
-c = io.read()
 
 a = tonumber(a)
-c = tonumber(c)
+b = tonumber(b)
 
-if b == '+' then
-  d = a + c
-  print(d)
-elseif b == '-' then
-  d = a - c
-  print(d)
-elseif b == '*' then
-  d = a * c
-  print(d)
-elseif b == '/' then
-  d = a / c
-  print(d)
-else
-  print('Your input is incorrect!')
-end
+addition = a + b
+subtraction = a - b
+multiplication = a * b
+division = a / b
+
+print(string.format("%g+%g=%g", a, b, addition))
+print(string.format("%g+%g=%g", a, b, subtraction))
+print(string.format("%g+%g=%g", a, b, multiplication))
+print(string.format("%g+%g=%g", a, b, division))
