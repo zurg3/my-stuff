@@ -14,8 +14,8 @@ if [[ $n > 1 ]]; then
       v=$(($i+1))
       echo "Dir #$v"
 
-      read -p "I want backup from (full path): " a
-      read -p "I want backup to (full path): " b
+      read -e -p "I want backup from (full path): " a
+      read -e -p "I want backup to (full path): " b
 
       echo "#!/bin/bash
 
@@ -24,7 +24,7 @@ rsync -av --delete $a $b" > $c
         v=$(($i+1))
         echo "Dir #$v"
 
-        read -p "I want backup from (full path): " a
+        read -e -p "I want backup from (full path): " a
 
         echo "rsync -av --delete $a $b" >> $c
       done
@@ -37,8 +37,8 @@ rsync -av --delete $a $b" > $c
       v=$(($i+1))
       echo "Dir #$v"
 
-      read -p "I want backup from (full path): " a
-      read -p "I want backup to (full path): " b
+      read -e -p "I want backup from (full path): " a
+      read -e -p "I want backup to (full path): " b
 
       echo "#!/bin/bash
 
@@ -47,8 +47,8 @@ rsync -av --delete $a $b" > $c
         v=$(($i+1))
         echo "Dir #$v"
 
-        read -p "I want backup from (full path): " a
-        read -p "I want backup to (full path): " b
+        read -e -p "I want backup from (full path): " a
+        read -e -p "I want backup to (full path): " b
 
         echo "rsync -av --delete $a $b" >> $c
       done
@@ -61,8 +61,8 @@ rsync -av --delete $a $b" > $c
   fi
 elif [[ $n == 1 ]]; then
   read -p "Enter the file name: " c
-  read -p "I want backup from (full path): " a
-  read -p "I want backup to (full path): " b
+  read -e -p "I want backup from (full path): " a
+  read -e -p "I want backup to (full path): " b
 
   echo "#!/bin/bash
 
