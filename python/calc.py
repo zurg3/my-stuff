@@ -1,0 +1,10 @@
+a = float(input('Enter the first number: '))
+b = float(input('Enter the second number: '))
+addition = a + b
+subtraction = a - b
+multiplication = a * b
+division = a / b
+print("%g" % a + '+' + "%g" % b + '=' + "%g" % addition)
+print("%g" % a + '-' + "%g" % b + '=' + "%g" % subtraction)
+print("%g" % a + '*' + "%g" % b + '=' + "%g" % multiplication)
+print("%g" % a + '/' + "%g" % b + '=' + "%g" % division)
