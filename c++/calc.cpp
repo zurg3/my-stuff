@@ -14,9 +14,9 @@ int main()
   subtraction = a - b;
   multiplication = a * b;
   division = a / b;
-  cout << a << "+" << b << "=" << addition  << endl;
+  cout << a << "+" << b << "=" << addition << endl;
   cout << a << "-" << b << "=" << subtraction << endl;
-  cout << a << "*" << b << "=" << multiplication  << endl;
-  cout << a << "/" << b << "=" << division  << endl;
+  cout << a << "*" << b << "=" << multiplication << endl;
+  cout << a << "/" << b << "=" << division << endl;
   return 0;
 }
