@@ -1,8 +1,10 @@
 # this program probably works only on Linux.
+# I recommend you add this script to shell's aliases (file .bashrc)
 
 import os
 
 print('Enter the path of directory with cloned Git repositories.')
+print('Example: /home/$USER/Git')
 git_path = str(input('-> '))
 git_repos = os.listdir(git_path)
 print()
