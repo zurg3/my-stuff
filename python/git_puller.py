@@ -3,8 +3,11 @@
 
 import os
 
+os_user = os.getlogin()
+example_path = str('/home/' + os_user + '/Git')
+
 print('Enter the path of directory with cloned Git repositories.')
-print('Example: /home/$USER/Git')
+print('Example:', example_path)
 git_path = str(input('-> '))
 git_repos = os.listdir(git_path)
 print()
