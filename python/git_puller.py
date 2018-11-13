@@ -10,6 +10,7 @@ print('Enter the path of directory with cloned Git repositories.')
 print('Example:', example_path)
 git_path = str(input('-> '))
 git_repos = os.listdir(git_path)
+git_repos.sort(key=str.lower)
 print()
 git_path_len = len(git_path) - 1
 if git_path[git_path_len] != '/':
