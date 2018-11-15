@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "Введите текст"
-read a
+read -p "Введите текст: " a
 
 echo "MD5:"
 echo -n $a | md5sum
