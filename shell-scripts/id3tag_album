@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Note: you need installed id3v2 on your computer!"
+echo "Warning! Track's filename must be match with track title in the tracklist file!"
+echo
+
+read -e -p "Enter the path to album: " album_path
+read -e -p "Enter the path to file with tracklist: " tracklist_path
+echo
+
+read -p "Artist: " artist
+read -p "Album: " album
+echo "Genre (15 - Rap, 9 - Metal)"
+read -p "-> " genre
+read -p "Year: " year
+
+readarray -t tracklist < $tracklist_path
+
+tracks=${#tracklist[@]}
+
+for (( i = 0; i < $tracks; i++ )); do
+  track_num=$(($i+1))
+  track_file="$album_path/$track_num. ${tracklist[$i]}.mp3"
+  id3v2 -D "$track_file"
+  id3v2 -a "$artist" "$track_file"
+  id3v2 -A "$album" "$track_file"
+  id3v2 -t "${tracklist[$i]}" "$track_file"
+  id3v2 -g "$genre" "$track_file"
+  id3v2 -y "$year" "$track_file"
+  id3v2 -T "$track_num" "$track_file"
+done
