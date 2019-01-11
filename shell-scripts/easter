@@ -13,11 +13,11 @@ for (( i=$b; i<=$c; i++ )); do
     echo "В $i году Пасха будет: $d"
   elif [[ $i==$a ]]; then
     d=`ncal -o $i`
-    e=$(date)
+    e=$(date +"%d.%m.%Y")
     if [[ $d>$e ]]; then
-      echo "В $i году Пасха будет: $d"
+      echo "В $i году Пасха будет: $d (этот год)"
     elif [[ $d<$e ]]; then
-      echo "В $i году Пасха была: $d"
+      echo "В $i году Пасха была: $d (этот год)"
     else
       echo "Something is wrong!"
     fi
