@@ -3,11 +3,11 @@
 
 import os
 
-os_user = os.getlogin()
-example_path = str('/home/' + os_user + '/Git')
+# os_user = os.getlogin()
+# example_path = str('/home/' + os_user + '/Git')
 
 print('Enter the path of directory with cloned Git repositories.')
-print('Example:', example_path)
+# print('Example:', example_path)
 git_path = str(input('-> '))
 git_repos = os.listdir(git_path)
 git_repos.sort(key=str.lower)
