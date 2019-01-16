@@ -6,6 +6,8 @@ elif [[ $1 != "" ]]; then
   file_name=$1
 fi
 
+file_name="$file_name.sh"
+
 echo "#!/bin/bash
 
 # code" > $file_name
