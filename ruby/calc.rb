@@ -10,9 +10,9 @@ division = a.to_f / b.to_f
 
 print(sprintf("%g+%g=%g", a, b, addition))
 puts
-print(sprintf("%g+%g=%g", a, b, subtraction))
+print(sprintf("%g-%g=%g", a, b, subtraction))
 puts
-print(sprintf("%g+%g=%g", a, b, multiplication))
+print(sprintf("%g*%g=%g", a, b, multiplication))
 puts
-print(sprintf("%g+%g=%g", a, b, division))
+print(sprintf("%g/%g=%g", a, b, division))
 puts
