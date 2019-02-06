@@ -4,4 +4,4 @@ hunspell-ru
 minecraft
 rig
 x-arc-shadow
-xed
+xed # Removed from AUR
