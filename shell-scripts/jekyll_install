@@ -1,0 +1,43 @@
+#!/bin/bash
+
+ruby_env_config="~/.bashrc"
+
+echo "Your Linux distro:"
+echo "1 - Ubuntu/Linux Mint"
+echo "2 - Arch Linux"
+read -p "-> " distro
+
+if [[ $distro == "1" ]]; then
+  sudo apt update
+  sudo apt install ruby-full build-essential zlib1g-dev
+
+  echo 'export GEM_HOME="$HOME/gems"' >> $ruby_env_config
+  echo 'export PATH="$HOME/gems/bin:$PATH"' >> $ruby_env_config
+  source $ruby_env_config
+
+  gem install jekyll bundler
+
+  jekyll new myblog
+  cd myblog
+  bundle exec jekyll serve
+
+  bundle update
+elif [[ $distro == "2" ]]; then
+  sudo pacman -Syy
+  sudo pacman -S ruby ruby-docs zlib
+
+  echo "PATH=\"\$PATH:\$(ruby -e 'print Gem.user_dir')/bin\"" >> $ruby_env_config
+  echo 'export GEM_HOME=$HOME/.gem' >> $ruby_env_config
+  source $ruby_env_config
+
+  gem update
+  gem install jekyll bundler
+
+  jekyll new myblog
+  cd myblog
+  bundle exec jekyll serve
+
+  bundle update
+else
+  echo "Something is wrong!"
+fi
