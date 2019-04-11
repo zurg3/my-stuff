@@ -1,0 +1,16 @@
+#!/bin/bash
+
+dir_name="Software"
+mkdir /home/$USER/$dir_name
+install_path="/home/$USER/$dir_name"
+bashrc_path="/home/$USER/.bashrc"
+
+ln python/git_puller.py $install_path
+ln shell-scripts/create_sh_file $install_path
+ln shell-scripts/create_c_cpp_file $install_path
+
+echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
+echo "alias create_sh_file='$install_path/./create_sh_file'" >> $bashrc_path
+echo "alias create_c_cpp_file='$install_path/./create_c_cpp_file'" >> $bashrc_path
+
+echo "Reboot your system to apply changes."
