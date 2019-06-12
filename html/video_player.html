@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video player</title>
+  </head>
+  <body>
+    <script>
+      function open_video() {
+        var video_src_link = document.getElementById('video_src').value;
+
+        document.write("<video src='" + video_src_link + "' width='640' height='480' controls></video>");
+      }
+    </script>
+    <form>
+      <label for="video_src">Enter a link to video source</label>
+      <input type="text" id="video_src" size="50">
+      <input type="button" value="Submit" onclick="open_video()">
+    </form>
+  </body>
+</html>
