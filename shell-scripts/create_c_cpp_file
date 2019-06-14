@@ -15,8 +15,7 @@ fi
 if [[ $file_type == 1 ]]; then
   echo "#include <stdio.h>
 
-int main()
-{
+int main() {
   /* code */
   return 0;
 }" > $file_name.c
@@ -25,8 +24,7 @@ elif [[ $file_type == 2 ]]; then
   echo "#include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
   /* code */
   return 0;
 }" > $file_name.cpp
