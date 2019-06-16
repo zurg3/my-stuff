@@ -5,9 +5,9 @@ read -p "-> " FILE_TYPE
 
 TITLE="System Info"
 if [[ $FILE_TYPE == 1 ]]; then
-  OUTPUT_PATH="/home/$USER/system_info.html"
+  OUTPUT_PATH="$HOME/system_info.html"
 elif [[ $FILE_TYPE == 2 ]]; then
-  OUTPUT_PATH="/home/$USER/system_info.txt"
+  OUTPUT_PATH="$HOME/system_info.txt"
 fi
 SEPARATOR="============================================================"
 
@@ -26,7 +26,7 @@ UPTIME=$(uptime -p)
 DISKS=$(lsblk)
 FREE_SPACE_HEADER=$(df -h | head -n 1)
 FREE_SPACE_INFO=$(df -h | grep '/dev/sda' | sort)
-HOME_DIR=$(ls -l /home/$USER)
+HOME_DIR=$(ls -l $HOME)
 PING_OUTPUT=$(ping -c 10 ya.ru)
 ACTIVE_USERS=$(who)
 
