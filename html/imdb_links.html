@@ -18,6 +18,7 @@
         var imdb_event_link = "https://www.imdb.com/event/";
         var imdb_user_link = "https://www.imdb.com/user/";
         var imdb_list_link = "https://www.imdb.com/list/";
+        var imdb_video_link = "https://www.imdb.com/videoplayer/";
 
         if (imdb_item_type == 'tt') {
           document.write("<head><title>IMDb Title</title></head>");
@@ -139,6 +140,11 @@
 
           document.write("<h3><a href='" + imdb_list_link + get_imdb_id + "/'>List</a></h3>");
         }
+        else if (imdb_item_type == 'vi') {
+          document.write("<head><title>IMDb Video</title></head>");
+
+          document.write("<h3><a href='" + imdb_list_link + get_imdb_id + "/'>Video</a></h3>");
+        }
         else {
           document.write('Invalid ID');
         }
@@ -194,6 +200,10 @@
       <tr>
         <td>List</td>
         <td>ls029730123</td>
+      </tr>
+      <tr>
+        <td>Video</td>
+        <td>vi288275481</td>
       </tr>
     </table>
     <br>
