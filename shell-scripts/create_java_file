@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ $1 == "" ]]; then
+  read -e -p "Enter filename: " file_name
+elif [[ $1 != "" ]]; then
+  file_name=$1
+fi
+
+file_name="$file_name.java"
+
+echo "public class ClassName {
+  public static void main(String[] args) {
+    /* code */
+  }
+}" > $file_name
+echo "File created."
