@@ -5,6 +5,7 @@
 - [D](https://github.com/zurg3/my-stuff/tree/master/d)
 - [HTML](https://github.com/zurg3/my-stuff/tree/master/html)
 - [JavaScript](https://github.com/zurg3/my-stuff/tree/master/java-script)
+- [Java](https://github.com/zurg3/my-stuff/tree/master/java)
 - [Lua](https://github.com/zurg3/my-stuff/tree/master/lua)
 - [Python](https://github.com/zurg3/my-stuff/tree/master/python)
 - [Ruby](https://github.com/zurg3/my-stuff/tree/master/ruby)
