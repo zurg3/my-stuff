@@ -36,7 +36,9 @@ void main() {
 }
 
 create_java_file() {
-  echo "public class $2 {
+  class_name=$(echo $2 | awk -F "/" '{print $NF}')
+
+  echo "public class $class_name {
   public static void main(String[] args) {
     /* code */
   }
