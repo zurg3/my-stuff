@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Calc {
   public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
     float addition, subtraction, multiplication, division;
     float a;
     float b;
-    Scanner in = new Scanner(System.in);
     System.out.print("Enter the first number: ");
     a = in.nextFloat();
     System.out.print("Enter the second number: ");
