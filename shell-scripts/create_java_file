@@ -6,9 +6,10 @@ elif [[ $1 != "" ]]; then
   file_name=$1
 fi
 
+class_name="$file_name"
 file_name="$file_name.java"
 
-echo "public class ClassName {
+echo "public class $class_name {
   public static void main(String[] args) {
     /* code */
   }
