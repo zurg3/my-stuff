@@ -1,0 +1,57 @@
+#!/bin/bash
+
+create_sh_file() {
+  echo "#!/bin/bash
+
+# code" > $2.$1
+
+  chmod +x $2.$1
+}
+
+create_c_file() {
+  echo "#include <stdio.h>
+
+int main() {
+  /* code */
+  return 0;
+}" > $2.$1
+}
+
+create_cpp_file() {
+  echo "#include <iostream>
+using namespace std;
+
+int main() {
+  /* code */
+  return 0;
+}" > $2.$1
+}
+
+create_d_file() {
+  echo "import std.stdio;
+
+void main() {
+  /* code */
+}" > $2.$1
+}
+
+create_java_file() {
+  echo "public class $2 {
+  public static void main(String[] args) {
+    /* code */
+  }
+}" > $2.$1
+}
+
+if [[ $1 == "" || $2 == "" ]]; then
+  echo "create_code_file [sh|c|cpp|d|java] [filename]"
+elif [[ $1 != "" && $2 != "" ]]; then
+  case $1 in
+    sh) create_sh_file $@;;
+    c) create_c_file $@;;
+    cpp) create_cpp_file $@;;
+    d) create_d_file $@;;
+    java) create_java_file $@;;
+  esac
+  echo "File created."
+fi
