@@ -6,15 +6,9 @@ install_path="$HOME/$dir_name"
 bashrc_path="$HOME/.bashrc"
 
 ln python/git_puller.py $install_path
-ln shell-scripts/create_sh_file $install_path
-ln shell-scripts/create_c_cpp_file $install_path
-ln shell-scripts/create_d_file $install_path
-ln shell-scripts/create_java_file $install_path
+ln shell-scripts/create_code_file $install_path
 
 echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
-echo "alias create_sh_file='$install_path/./create_sh_file'" >> $bashrc_path
-echo "alias create_c_cpp_file='$install_path/./create_c_cpp_file'" >> $bashrc_path
-echo "alias create_d_file='$install_path/./create_d_file'" >> $bashrc_path
-echo "alias create_java_file='$install_path/./create_java_file'" >> $bashrc_path
+echo "alias create_code_file='$install_path/./create_code_file'" >> $bashrc_path
 
 echo "Reboot your system to apply changes."
