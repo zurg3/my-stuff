@@ -9,6 +9,7 @@
       function load_gallery() {
         var base_link = document.getElementById('base_link').value;
         var max_images = document.getElementById('max_images').value;
+        var id_additional = document.getElementById('id_additional').value;
         var file_format = document.getElementsByName('file_format');
 
         for (var i = 0; i < file_format.length; i++) {
@@ -17,8 +18,15 @@
           }
         }
 
-        for (var i = 1; i <= max_images; i++) {
-          document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + file_format +'" alt="image' + i + '"></p>');
+        if (id_additional == '') {
+          for (var i = 1; i <= max_images; i++) {
+            document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + file_format +'" alt="image' + i + '"></p>');
+          }
+        }
+        else {
+          for (var i = 1; i <= max_images; i++) {
+            document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + id_additional + file_format +'" alt="image' + i + '"></p>');
+          }
         }
       }
     </script>
@@ -30,6 +38,10 @@
       <p>
         <label for="max_images">Max images</label>
         <input type="text" id="max_images" size="5">
+      </p>
+      <p>
+        <label for="id_additional">Image ID additional text (optional)</label>
+        <input type="text" id="id_additional" size="5">
       </p>
       <p>
         <label for="file_format">File format</label><br>
