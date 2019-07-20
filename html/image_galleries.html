@@ -18,7 +18,7 @@
         }
 
         for (var i = 1; i <= max_images; i++) {
-          document.write('<p align="center"><img style="max-width: 90%;" src="' + base_link + i + file_format +'" alt="image' + i + '"></p>');
+          document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + file_format +'" alt="image' + i + '"></p>');
         }
       }
     </script>
@@ -34,7 +34,8 @@
       <p>
         <label for="file_format">File format</label><br>
         <input type="radio" name="file_format" value=".jpg">.jpg<br>
-        <input type="radio" name="file_format" value=".png">.png<br>
+        <input type="radio" name="file_format" value=".jpeg">.jpeg<br>
+        <input type="radio" name="file_format" value=".png">.png
       </p>
       <p><input type="button" value="Load images" onclick="load_gallery()"></p>
     </form>
