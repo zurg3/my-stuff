@@ -9,6 +9,7 @@
       function load_gallery() {
         var base_link = document.getElementById('base_link').value;
         var max_images = document.getElementById('max_images').value;
+        var max_id_length = document.getElementById('max_id_length').value;
         var id_additional = document.getElementById('id_additional').value;
         var file_format = document.getElementsByName('file_format');
 
@@ -18,26 +19,39 @@
           }
         }
 
-        if (id_additional == '') {
-          for (var i = 1; i <= max_images; i++) {
-            document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + file_format +'" alt="image' + i + '"></p>');
+        for (var i = 1; i <= max_images; i++) {
+          var id_to_string = i.toString();
+
+          if (max_id_length != '') {
+            var id_length = id_to_string.length;
+            var add_zero_count = max_id_length - id_length;
+            for (var j = 0; j < add_zero_count; j++) {
+              id_to_string = '0' + id_to_string;
+            }
           }
-        }
-        else {
-          for (var i = 1; i <= max_images; i++) {
-            document.write('<p align="center"><img style="max-width: 80%;" src="' + base_link + i + id_additional + file_format +'" alt="image' + i + '"></p>');
+
+          var output = '<p align="center"><img style="max-width: 80%;" src="' + base_link + id_to_string;
+          if (id_additional != '') {
+            output = output + id_additional;
           }
+          output = output + file_format + '" alt="image' + id_to_string + '"></p>';
+
+          document.write(output);
         }
       }
     </script>
     <form>
       <p>
         <label for="base_link">Base link</label>
-        <input type="text" id="base_link" size="50">
+        <input type="text" id="base_link" size="60">
       </p>
       <p>
         <label for="max_images">Max images</label>
         <input type="text" id="max_images" size="5">
+      </p>
+      <p>
+        <label for="max_id_length">Max ID length (optional)</label>
+        <input type="text" id="max_id_length" size="5">
       </p>
       <p>
         <label for="id_additional">Image ID additional text (optional)</label>
