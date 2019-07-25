@@ -9,9 +9,11 @@
       function load_gallery() {
         var base_link = document.getElementById('base_link').value;
         var max_images = document.getElementById('max_images').value;
+        var file_format = document.getElementsByName('file_format');
+
+        var start_id = document.getElementById('start_id').value;
         var max_id_length = document.getElementById('max_id_length').value;
         var id_additional = document.getElementById('id_additional').value;
-        var file_format = document.getElementsByName('file_format');
 
         for (var i = 0; i < file_format.length; i++) {
           if (file_format[i].checked) {
@@ -19,7 +21,14 @@
           }
         }
 
-        for (var i = 1; i <= max_images; i++) {
+        if (start_id == '') {
+          start_id = 1;
+        }
+        else {
+          start_id = parseInt(start_id, 10);
+        }
+
+        for (var i = start_id; i <= max_images; i++) {
           var id_to_string = i.toString();
 
           if (max_id_length != '') {
@@ -41,28 +50,38 @@
       }
     </script>
     <form>
-      <p>
-        <label for="base_link">Base link</label>
-        <input type="text" id="base_link" size="60">
-      </p>
-      <p>
-        <label for="max_images">Max images</label>
-        <input type="text" id="max_images" size="5">
-      </p>
-      <p>
-        <label for="max_id_length">Max ID length (optional)</label>
-        <input type="text" id="max_id_length" size="5">
-      </p>
-      <p>
-        <label for="id_additional">Image ID additional text (optional)</label>
-        <input type="text" id="id_additional" size="5">
-      </p>
-      <p>
-        <label for="file_format">File format</label><br>
-        <input type="radio" name="file_format" value=".jpg">.jpg<br>
-        <input type="radio" name="file_format" value=".jpeg">.jpeg<br>
-        <input type="radio" name="file_format" value=".png">.png
-      </p>
+      <fieldset>
+        <legend>Required fields</legend>
+        <p>
+          <label for="base_link">Base link</label><br>
+          <input type="text" id="base_link" size="60">
+        </p>
+        <p>
+          <label for="max_images">Max images</label><br>
+          <input type="text" id="max_images" size="5">
+        </p>
+        <p>
+          <label for="file_format">File format</label><br>
+          <input type="radio" name="file_format" value=".jpg">.jpg<br>
+          <input type="radio" name="file_format" value=".jpeg">.jpeg<br>
+          <input type="radio" name="file_format" value=".png">.png
+        </p>
+      </fieldset>
+      <fieldset>
+        <legend>Optional fields</legend>
+        <p>
+          <label for="start_id">Start ID</label><br>
+          <input type="text" id="start_id" size="5">
+        </p>
+        <p>
+          <label for="max_id_length">Max ID length</label><br>
+          <input type="text" id="max_id_length" size="5">
+        </p>
+        <p>
+          <label for="id_additional">Image ID additional text</label><br>
+          <input type="text" id="id_additional" size="5">
+        </p>
+      </fieldset>
       <p><input type="button" value="Load images" onclick="load_gallery()"></p>
     </form>
   </body>
