@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>IMDb links</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>
     <script>
@@ -20,65 +21,76 @@
         var imdb_list_link = "https://www.imdb.com/list/";
         var imdb_video_link = "https://www.imdb.com/videoplayer/";
 
-        if (imdb_item_type == 'tt') {
-          document.write("<head><title>IMDb Title</title></head>");
+        var api_key = "3c5677f8";
 
-          document.write("<h3><a href='" + imdb_title_link + get_imdb_id + "/'>Title</a></h3>");
-          document.write("<h4>Details</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/fullcredits'>Full cast and crew</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/releaseinfo'>Release dates</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/officialsites'>Official sites</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/companycredits'>Company credits</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/locations'>Filming and production</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/technical'>Technical specs</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Storyline</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/taglines'>Taglines</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/plotsummary'>Plot summary</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/keywords'>Plot keywords</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/parentalguide'>Parents guide</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Related items</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/news'>News</a></li>");
-              document.write("<li><a href='https://www.imdb.com/showtimes/title/" + get_imdb_id + "/'>Showtimes</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/externalsites'>External sites</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Opinion</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/awards'>Awards</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/faq'>FAQ</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/reviews'>User reviews</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/ratings'>User ratings</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/externalreviews'>External reviews</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/criticreviews'>Metacritic reviews</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Photo and video</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/mediaindex'>Photo gallery</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/videogallery'>Trailers and videos</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Did you know?</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/trivia'>Trivia</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/goofs'>Goofs</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/crazycredits'>Crazy credits</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/quotes'>Quotes</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/alternateversions'>Alternate versions</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/movieconnections'>Connections</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/soundtrack'>Soundtracks</a></li>");
-            document.write("</ul>");
-          document.write("<h4>TV</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/episodes'>Episodes list</a></li>");
-              document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/tvschedule'>TV schedule</a></li>");
-            document.write("</ul>");
-          document.write("<h4>Related items</h4>");
-            document.write("<ul>");
-              document.write("<li><a href='" + imdb_list_link + get_imdb_id + "/'>Related lists</a></li>");
-            document.write("</ul>");
+        if (imdb_item_type == 'tt') {
+          var json_url = "http://www.omdbapi.com/?apikey=" + api_key + "&i=" + get_imdb_id;
+
+          $.getJSON(json_url, function(json_data) {
+            var movie_title = json_data["Title"] + " (" + json_data["Year"] + ")";
+
+            document.write("<head><title>" + movie_title + "</title></head>");
+
+            document.write("<h3><a href='" + imdb_title_link + get_imdb_id + "/'>" + movie_title + "</a></h3>");
+
+            document.write("<h4>Details</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/fullcredits'>Full cast and crew</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/releaseinfo'>Release dates</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/officialsites'>Official sites</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/companycredits'>Company credits</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/locations'>Filming and production</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/technical'>Technical specs</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Storyline</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/taglines'>Taglines</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/plotsummary'>Plot summary</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/keywords'>Plot keywords</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/parentalguide'>Parents guide</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Related items</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/news'>News</a></li>");
+                document.write("<li><a href='https://www.imdb.com/showtimes/title/" + get_imdb_id + "/'>Showtimes</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/externalsites'>External sites</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Opinion</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/awards'>Awards</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/faq'>FAQ</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/reviews'>User reviews</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/ratings'>User ratings</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/externalreviews'>External reviews</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/criticreviews'>Metacritic reviews</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Photo and video</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/mediaindex'>Photo gallery</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/videogallery'>Trailers and videos</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Did you know?</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/trivia'>Trivia</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/goofs'>Goofs</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/crazycredits'>Crazy credits</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/quotes'>Quotes</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/alternateversions'>Alternate versions</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/movieconnections'>Connections</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/soundtrack'>Soundtracks</a></li>");
+              document.write("</ul>");
+            document.write("<h4>TV</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/episodes'>Episodes list</a></li>");
+                document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/tvschedule'>TV schedule</a></li>");
+              document.write("</ul>");
+            document.write("<h4>Related items</h4>");
+              document.write("<ul>");
+                document.write("<li><a href='" + "https://www.imdb.com/lists/" + get_imdb_id + "/'>Related lists</a></li>");
+              document.write("</ul>");
+
+              document.write("<hr><p><a href='imdb_links.html'>Back</a><p>");
+          });
         }
         else if (imdb_item_type == 'rw') {
           document.write("<head><title>IMDb Review</title></head>");
@@ -109,7 +121,7 @@
             document.write("<ul>");
               document.write("<li><a href='" + imdb_name_link + get_imdb_id + "/news'>News</a></li>");
               document.write("<li><a href='" + imdb_name_link + get_imdb_id + "/externalsites'>External sites</a></li>");
-              document.write("<li><a href='" + imdb_list_link + get_imdb_id + "/'>Related lists</a></li>");
+              document.write("<li><a href='" + "https://www.imdb.com/lists/" + get_imdb_id + "/'>Related lists</a></li>");
               document.write("<li><a href='https://www.imdb.com/seen/nm0000158/'>How much have you seen?</a></li>");
             document.write("</ul>");
         }
