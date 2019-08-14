@@ -75,6 +75,10 @@
               document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/episodes'>Episodes list</a></li>");
               document.write("<li><a href='" + imdb_title_link + get_imdb_id + "/tvschedule'>TV schedule</a></li>");
             document.write("</ul>");
+          document.write("<h4>Related items</h4>");
+            document.write("<ul>");
+              document.write("<li><a href='" + imdb_list_link + get_imdb_id + "/'>Related lists</a></li>");
+            document.write("</ul>");
         }
         else if (imdb_item_type == 'rw') {
           document.write("<head><title>IMDb Review</title></head>");
@@ -105,6 +109,7 @@
             document.write("<ul>");
               document.write("<li><a href='" + imdb_name_link + get_imdb_id + "/news'>News</a></li>");
               document.write("<li><a href='" + imdb_name_link + get_imdb_id + "/externalsites'>External sites</a></li>");
+              document.write("<li><a href='" + imdb_list_link + get_imdb_id + "/'>Related lists</a></li>");
               document.write("<li><a href='https://www.imdb.com/seen/nm0000158/'>How much have you seen?</a></li>");
             document.write("</ul>");
         }
