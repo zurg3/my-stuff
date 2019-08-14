@@ -24,7 +24,7 @@
         var api_key = "3c5677f8";
 
         if (imdb_item_type == 'tt') {
-          var json_url = "http://www.omdbapi.com/?apikey=" + api_key + "&i=" + get_imdb_id;
+          var json_url = "https://www.omdbapi.com/?apikey=" + api_key + "&i=" + get_imdb_id;
 
           $.getJSON(json_url, function(json_data) {
             var movie_title = json_data["Title"] + " (" + json_data["Year"] + ")";
@@ -89,7 +89,7 @@
                 document.write("<li><a href='" + "https://www.imdb.com/lists/" + get_imdb_id + "/'>Related lists</a></li>");
               document.write("</ul>");
 
-              //document.write("<hr><p><a href='imdb_links.html'>Back</a><p>");
+              document.write("<hr><p><a href='imdb_links.html'>Back</a><p>");
           });
         }
         else if (imdb_item_type == 'rw') {
@@ -165,8 +165,10 @@
         else {
           document.write('Invalid ID');
         }
-
-        document.write("<hr><p><a href='imdb_links.html'>Back</a><p>");
+        
+        if (imdb_item_type != 'tt') {
+            document.write("<hr><p><a href='imdb_links.html'>Back</a><p>");
+        }
       }
 
       function find_year() {
