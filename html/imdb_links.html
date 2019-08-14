@@ -28,10 +28,13 @@
 
           $.getJSON(json_url, function(json_data) {
             var movie_title = json_data["Title"] + " (" + json_data["Year"] + ")";
+            var movie_rating = json_data["imdbRating"];
+            var movie_votes = json_data["imdbVotes"];
 
             document.write("<head><title>" + movie_title + "</title></head>");
 
             document.write("<h3><a href='" + imdb_title_link + get_imdb_id + "/'>" + movie_title + "</a></h3>");
+            document.write("⭐ " + movie_rating + "/10 (" + movie_votes + " votes)");
 
             document.write("<h4>Details</h4>");
               document.write("<ul>");
