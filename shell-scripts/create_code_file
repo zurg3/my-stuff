@@ -45,8 +45,20 @@ create_java_file() {
 }" > $2.$1
 }
 
+create_html_file() {
+  echo "<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"utf-8\">
+    <title></title>
+  </head>
+  <body>
+  </body>
+</html>" > $2.$1
+}
+
 if [[ $1 == "" || $2 == "" ]]; then
-  echo "create_code_file [sh|c|cpp|d|java] [filename]"
+  echo "create_code_file [sh|c|cpp|d|java|html] [filename]"
 elif [[ $1 != "" && $2 != "" ]]; then
   case $1 in
     sh) create_sh_file $@;;
@@ -54,6 +66,7 @@ elif [[ $1 != "" && $2 != "" ]]; then
     cpp) create_cpp_file $@;;
     d) create_d_file $@;;
     java) create_java_file $@;;
+    html) create_html_file $@;;
   esac
   echo "File created."
 fi
