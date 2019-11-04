@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Markdown Editor</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #333;
+        background-color: #fbfbfb;
+        height: 100%;
+      }
+
+      header {
+        height: 40px;
+      }
+
+      textarea {
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+        font-size: 12px;
+        resize: none;
+      }
+
+      #main {
+        display: block;
+      }
+
+      .containers {
+        display: flex;
+        height: calc(100vh - 120px);
+      }
+
+      .container {
+        flex-basis: 50%;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      #input {
+        margin-top: 5px;
+        padding: 0.6em;
+        border: 1px solid #ccc;
+        overflow: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+
+      #output {
+        /*
+        display: flex;
+        */
+        margin-top: 5px;
+        padding: 0.6em;
+        border: 1px solid #ccc;
+        overflow: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HTML -->
+    <header>
+      <h1 align="center">Markdown Editor</h1>
+    </header>
+    <div id="main">
+      <div class="containers">
+        <div class="container">
+          <h3>Input <button type="button" onclick="clear_input()">Clear</button></h3>
+          <textarea id="input" oninput="compile_markdown()">Input</textarea>
+        </div>
+        <div class="container">
+          <h3>Output</h3>
+          <div id="output"></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p align="center">Based on <a href="https://marked.js.org">Marked.js</a></p>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- JS -->
+    <script>
+      document.getElementById('output').innerHTML = marked(document.getElementById('input').value);
+
+      function compile_markdown() {
+        document.getElementById('output').innerHTML = marked(document.getElementById('input').value);
+      }
+
+      function clear_input() {
+        document.getElementById('input').value = "";
+        document.getElementById('output').innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
