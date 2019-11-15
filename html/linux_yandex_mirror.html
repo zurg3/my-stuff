@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Download GNU/Linux ISO images</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Source Sans Pro', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Download GNU/Linux ISO images</h1>
+    <h2>from Russian mirror (Yandex)</h2>
+    <script>
+      var base_mirror_link = 'https://mirror.yandex.ru';
+      var image_format = '';
+      var download_link = '';
+
+      var ubuntu_link_part = '';
+      var ubuntu_type = '';
+
+      // Debian
+      var debian_version = '10.1.0';
+      var debian_arch = 'amd64';
+
+      // Ubuntu
+      var ubuntu_releases = {
+        '19.10': '19.10',
+        '19.04': '19.04',
+        '18.04': '18.04.3 LTS',
+        '16.04': '16.04.6 LTS'
+      };
+      var ubuntu_lts_releases = {
+        '19.10': '19.10',
+        '19.04': '19.04',
+        '18.04': '18.04.3',
+        '16.04': '16.04.6'
+      };
+      var ubuntu_releases_codenames = {
+        '19.10': 'eoan',
+        '19.04': 'disco',
+        '18.04': 'bionic',
+        '16.04': 'xenial'
+      };
+      var ubuntu_releases_full_codenames = {
+        '19.10': 'Eoan Ermine',
+        '19.04': 'Disco Dingo',
+        '18.04': 'Bionic Beaver',
+        '16.04': 'Xenial Xerus'
+      };
+      var ubuntu_editions = {
+        'desktop': 'Desktop',
+        'server': 'Server',
+        'netboot': 'Network Installer',
+        'ubuntu-base': 'Base',
+        'ubuntu-mate': 'Ubuntu MATE',
+        'xubuntu': 'Xubuntu',
+        'lubuntu': 'Lubuntu'
+      };
+      var ubuntu_arch = 'amd64';
+
+      // Linux Mint
+      var linux_mint_releases = {
+        '19.2': '19.2',
+        '19.1': '19.1'
+      };
+      var linux_mint_releases_codenames = {
+        '19.2': 'Tina',
+        '19.1': 'Tessa',
+      };
+      var linux_mint_editions = {
+        'cinnamon': 'Cinnamon',
+        'mate': 'MATE',
+        'xfce': 'Xfce'
+      };
+      var linux_mint_arch = '64bit';
+
+      // Arch Linux
+      var arch_linux_releases = [
+        '2019.11.01',
+        '2019.10.01',
+        '2019.09.01'
+      ];
+      var arch_linux_arch = 'x86_64';
+
+      /* ********** */
+
+      document.write('<br>');
+
+      // Debian
+      document.write('<h3>Debian</h3>');
+      document.write('<ul>');
+      for (var debian_dvd = 1; debian_dvd <= 3; debian_dvd++) {
+        download_link = base_mirror_link + '/debian-cd/current/' + debian_arch + '/iso-dvd/debian-' + debian_version + '-' + debian_arch + '-DVD-' + debian_dvd + '.iso';
+
+        document.write('<li><a href="' + download_link + '">Debian DVD №' + debian_dvd + '</a></li>');
+      }
+      document.write('</ul>');
+
+      document.write('<hr>');
+
+      // Ubuntu
+      document.write('<h3>Ubuntu</h3>');
+      for (var release in ubuntu_releases) {
+        document.write('<h4>' + ubuntu_releases[release] + ' (' + ubuntu_releases_full_codenames[release] + ')</h4>');
+        document.write('<ul>');
+        for (var edition in ubuntu_editions) {
+          if (edition == 'netboot') {
+            download_link = base_mirror_link + '/ubuntu/dists/' + ubuntu_releases_codenames[release] + '/main/installer-amd64/current/images/netboot/mini.iso';
+          }
+          else {
+            if (edition == 'desktop' || edition == 'server') {
+              ubuntu_link_part = '/ubuntu-releases/' + release + '/ubuntu-' + ubuntu_lts_releases[release];
+            }
+            else {
+              ubuntu_link_part = '/ubuntu-cdimage/' + edition + '/releases/' + release + '/release/' + edition + '-' + ubuntu_lts_releases[release];
+            }
+
+            if (edition == 'ubuntu-base') {
+              ubuntu_type = 'base';
+            }
+            else if (release == '16.04' && edition == 'server') {
+              ubuntu_type = 'server';
+            }
+            else if (release != '16.04' && edition == 'server') {
+              ubuntu_type = 'live-server';
+            }
+            else {
+              ubuntu_type = 'desktop';
+            }
+
+            if (edition == 'ubuntu-base') {
+              image_format = '.tar.gz';
+            }
+            else {
+              image_format = '.iso';
+            }
+
+            download_link = base_mirror_link + ubuntu_link_part + '-' + ubuntu_type + '-' + ubuntu_arch + image_format;
+          }
+          if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu') {
+            document.write('<li><a href="' + download_link + '">' + ubuntu_editions[edition] + ' ' + ubuntu_releases[release] + '</a></li>');
+          }
+          else {
+            document.write('<li><a href="' + download_link + '">Ubuntu ' + ubuntu_releases[release] + ' ' + ubuntu_editions[edition] + '</a></li>');
+          }
+
+        }
+        document.write('</ul>');
+      }
+
+      document.write('<hr>');
+
+      // Linux Mint
+      document.write('<h3>Linux Mint</h3>');
+      for (var release in linux_mint_releases) {
+        document.write('<h4>' + linux_mint_releases[release] + ' "'+linux_mint_releases_codenames[release] + '"' + '</h4>');
+        document.write('<ul>');
+        for (var edition in linux_mint_editions) {
+          download_link = base_mirror_link + '/linuxmint/stable/' + release + '/linuxmint-' + release + '-' + edition + '-' + linux_mint_arch + '.iso';
+
+          document.write('<li><a href="' + download_link + '">Linux Mint ' + linux_mint_releases[release] + ' "' + linux_mint_releases_codenames[release] + '"' + ' - ' + linux_mint_editions[edition] + '</a></li>');
+        }
+        document.write('</ul>');
+      }
+
+      document.write('<hr>');
+
+      // Arch Linux
+      document.write('<h3>Arch Linux</h3>');
+      document.write('<ul>');
+      for (var release in arch_linux_releases) {
+        download_link = base_mirror_link + '/archlinux/iso/' + arch_linux_releases[release] + '/archlinux-' + arch_linux_releases[release] + '-' + arch_linux_arch + '.iso';
+
+        document.write('<li><a href="' + download_link + '">Arch Linux ' + arch_linux_releases[release] + '</a></li>');
+      }
+      document.write('</ul>');
+    </script>
+  </body>
+</html>
