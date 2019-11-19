@@ -23,6 +23,7 @@
 
       // Debian
       var debian_version = '10.2.0';
+      var debian_version_codename = 'Buster';
       var debian_arch = 'amd64';
 
       // Ubuntu
@@ -68,7 +69,7 @@
       };
       var linux_mint_releases_codenames = {
         '19.2': 'Tina',
-        '19.1': 'Tessa',
+        '19.1': 'Tessa'
       };
       var linux_mint_editions = {
         'cinnamon': 'Cinnamon',
@@ -95,7 +96,7 @@
       for (var debian_dvd = 1; debian_dvd <= 3; debian_dvd++) {
         download_link = base_mirror_link + '/debian-cd/current/' + debian_arch + '/iso-dvd/debian-' + debian_version + '-' + debian_arch + '-DVD-' + debian_dvd + '.iso';
 
-        document.write('<li><a href="' + download_link + '">Debian DVD №' + debian_dvd + '</a></li>');
+        document.write('<li><a href="' + download_link + '">Debian ' + debian_version + ' "' + debian_version_codename + '"' + ' DVD №' + debian_dvd + '</a></li>');
       }
       document.write('</ul>');
 
