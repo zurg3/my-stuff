@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Replace diacritics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+  </head>
+  <body>
+    <script>
+      new ClipboardJS('#clipboard_button');
+
+      function convert_text() {
+        document.getElementById('output_text').innerText = document.getElementById('input_text').value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+      }
+
+      function clear_input() {
+        document.getElementById('input_text').value = "";
+        document.getElementById('output_text').innerText = "";
+      }
+    </script>
+    <form>
+      <h3>Input</h3>
+      <p><textarea id="input_text" name="input_text" rows="8" cols="50" oninput="convert_text()"></textarea></p>
+      <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+      <h3>Output</h3>
+      <p id="output_text"></p>
+      <p><input type="button" id="clipboard_button" value="Copy output to clipboard" data-clipboard-target="#output_text"></p>
+    </form>
+  </body>
+</html>
