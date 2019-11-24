@@ -97,20 +97,18 @@
       function convert_arabic_to_roman() {
         document.getElementById('arabic').value = document.getElementById('arabic').value.replace(/[^0-9]/, "");
 
-        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
-
         if (document.getElementById('arabic').value != "") {
           document.getElementById('roman').value = arabic_to_roman(document.getElementById('arabic').value);
         }
         else {
           document.getElementById('roman').value = "";
         }
+
+        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
       }
 
       function convert_roman_to_arabic() {
         document.getElementById('roman').value = document.getElementById('roman').value.replace(/[^IiVvXxLlCcDdMm]/, "");
-
-        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
 
         if (document.getElementById('roman').value != "") {
           document.getElementById('arabic').value = roman_to_arabic(document.getElementById('roman').value);
@@ -118,6 +116,8 @@
         else {
           document.getElementById('arabic').value = "";
         }
+
+        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
       }
 
       function clear_input() {
