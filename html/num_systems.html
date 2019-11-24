@@ -102,6 +102,8 @@
           document.getElementById('dec').value = "";
           document.getElementById('hex').value = "";
         }
+
+        document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_oct() {
@@ -117,6 +119,8 @@
           document.getElementById('dec').value = "";
           document.getElementById('hex').value = "";
         }
+
+        document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_dec() {
@@ -132,6 +136,8 @@
           document.getElementById('oct').value = "";
           document.getElementById('hex').value = "";
         }
+
+        document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_hex() {
@@ -147,6 +153,8 @@
           document.getElementById('oct').value = "";
           document.getElementById('dec').value = "";
         }
+
+        document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function cheat_sheet_display() {
@@ -170,10 +178,10 @@
     <h1>Numeral systems converter</h1>
     <div id="converter">
       <form>
-        <p><label for="bin" accesskey="b">BIN:</label> <input type="text" id="bin" name="bin" oninput="convert_from_bin()"></p>
-        <p><label for="oct" accesskey="o">OCT:</label> <input type="text" id="oct" name="oct" oninput="convert_from_oct()"></p>
-        <p><label for="dec" accesskey="1">DEC:</label> <input type="text" id="dec" name="dec" oninput="convert_from_dec()"></p>
-        <p><label for="hex" accesskey="h">HEX:</label> <input type="text" id="hex" name="hex" oninput="convert_from_hex()"></p>
+        <p><label for="bin" accesskey="b">BIN:</label> <input type="text" id="bin" name="bin" spellcheck="false" oninput="convert_from_bin()"></p>
+        <p><label for="oct" accesskey="o">OCT:</label> <input type="text" id="oct" name="oct" spellcheck="false" oninput="convert_from_oct()"></p>
+        <p><label for="dec" accesskey="1">DEC:</label> <input type="text" id="dec" name="dec" spellcheck="false" oninput="convert_from_dec()"></p>
+        <p><label for="hex" accesskey="h">HEX:</label> <input type="text" id="hex" name="hex" spellcheck="false" oninput="convert_from_hex()"></p>
         <p align="center"><input type="button" class="primary_button" value="Clear input" onclick="clear_input()"></p>
         <p align="center"><input type="button" class="primary_button" value="Show cheat sheet" onclick="cheat_sheet_display()"></p>
       </form>
@@ -222,7 +230,7 @@
               document.write('<td>' + bin + '</td>');
               document.write('<td>' + oct + '</td>');
               document.write('<td>' + i + '</td>');
-              document.write('<td>' + hex + '</td>');
+              document.write('<td>' + hex.toUpperCase() + '</td>');
             document.write('</tr>');
           }
         </script>
