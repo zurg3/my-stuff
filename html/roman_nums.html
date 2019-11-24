@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Roman numerals converter</title>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Share Tech Mono', monospace;
+      }
+
+      #arabic, #roman {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 16px;
+        border: 1px solid Grey;
+        border-radius: 4px;
+        width: 350px;
+        height: 20px;
+        padding: 6px;
+      }
+
+      #converter {
+        display: inline-block;
+        float: left;
+        border: 1px solid Black;
+        border-radius: 8px;
+        padding: 12px;
+      }
+
+      #clear_input_button {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        width: 160px;
+        border: 1px solid rgba(27,31,35,0.2);
+        border-radius: 6px;
+        color: #24292e;
+        background-color: #eff3f6;
+        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+        padding: 3px 14px;
+        line-height: 24px;
+        cursor: pointer;
+      }
+
+      #clear_input_button:focus {
+        outline: none;
+      }
+
+      #clear_input_button:hover {
+        background-image: linear-gradient(-180deg,#d0d0d0,#eff3f6 90%);
+      }
+
+      #clear_input_button:active {
+        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var arabic = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+      var roman = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
+
+      function arabic_to_roman(number) {
+        var ret = '';
+        var i = arabic.length - 1;
+        while (number > 0) {
+          if (number >= arabic[i]) {
+            ret += roman[i];
+            number -= arabic[i];
+          }
+          else {
+            i--;
+          }
+        }
+        return ret;
+      }
+
+      function roman_to_arabic(roman_num) {
+        roman_num = roman_num.toUpperCase();
+
+        var ret = 0;
+        var i = arabic.length - 1;
+        var pos = 0;
+        while ((i >= 0) && (pos < roman_num.length)) {
+          if (roman_num.substr(pos, roman[i].length) == roman[i]) {
+            ret += arabic[i];
+            pos += roman[i].length;
+          }
+          else {
+            i--;
+          }
+        }
+        return ret;
+      }
+
+      function convert_arabic_to_roman() {
+        document.getElementById('arabic').value = document.getElementById('arabic').value.replace(/[^0-9]/, "");
+
+        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
+
+        if (document.getElementById('arabic').value != "") {
+          document.getElementById('roman').value = arabic_to_roman(document.getElementById('arabic').value);
+        }
+        else {
+          document.getElementById('roman').value = "";
+        }
+      }
+
+      function convert_roman_to_arabic() {
+        document.getElementById('roman').value = document.getElementById('roman').value.replace(/[^IiVvXxLlCcDdMm]/, "");
+
+        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
+
+        if (document.getElementById('roman').value != "") {
+          document.getElementById('arabic').value = roman_to_arabic(document.getElementById('roman').value);
+        }
+        else {
+          document.getElementById('arabic').value = "";
+        }
+      }
+
+      function clear_input() {
+        document.getElementById('arabic').value = "";
+        document.getElementById('roman').value = "";
+      }
+    </script>
+    <h1>Roman numerals converter</h1>
+    <div id="converter">
+      <form>
+        <p><b>Arabic</b></p>
+        <p><input type="text" id="arabic" name="arabic" spellcheck="false" oninput="convert_arabic_to_roman()"></p>
+        <p><b>Roman</b></p>
+        <p><input type="text" id="roman" name="roman" spellcheck="false" oninput="convert_roman_to_arabic()"></p>
+        <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+      </form>
+    </div>
+  </body>
+</html>
