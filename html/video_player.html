@@ -9,8 +9,8 @@
     <script>
       function open_video() {
         var video_src_link = document.getElementById('video_src').value;
-
-        document.write("<video src='" + video_src_link + "' width='640' height='480' controls></video>");
+        
+        document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls></video>`;
       }
     </script>
     <form>
@@ -18,5 +18,7 @@
       <input type="text" id="video_src" size="50">
       <input type="button" value="Submit" onclick="open_video()">
     </form>
+    <hr>
+    <div id="video_player"></div>
   </body>
 </html>
