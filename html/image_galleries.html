@@ -7,6 +7,37 @@
   </head>
   <body>
     <script>
+      var default_img_scale = '80%';
+
+      function decrease_scale() {
+        var changed_scale = parseInt(document.getElementsByTagName('img')[0].style.maxWidth.replace('%',''), 10) - 10;
+
+        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
+          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale + '%';
+        }
+
+        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+      }
+
+      function increase_scale() {
+        var changed_scale = parseInt(document.getElementsByTagName('img')[0].style.maxWidth.replace('%',''), 10) + 10;
+
+        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
+          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale + '%';
+        }
+
+        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+      }
+
+      function reset_scale() {
+        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
+          var changed_scale = default_img_scale;
+
+          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale;
+        }
+        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+      }
+
       function load_gallery() {
         var base_link = document.getElementById('base_link').value;
         var max_images = document.getElementById('max_images').value;
@@ -30,6 +61,14 @@
           max_images = start_id + (max_images - 1);
         }
 
+        document.write('<p align="center">');
+          document.write('<input type="button" value="-" onclick="decrease_scale()">');
+          document.write('<input type="button" value="+" onclick="increase_scale()">');
+        document.write('</p>');
+        document.write('<p align="center">Current scale: <span class="img_scale_value">' + default_img_scale + '</span></p>');
+        document.write('<p align="center"><input type="button" value="Reset" onclick="reset_scale()"></p>');
+        document.write('<hr>');
+
         for (var i = start_id; i <= max_images; i++) {
           var id_to_string = i.toString();
 
@@ -41,7 +80,7 @@
             }
           }
 
-          var output = '<p align="center"><img style="max-width: 80%;" src="' + base_link + id_to_string;
+          var output = '<p align="center"><img style="max-width: ' + default_img_scale + ';" src="' + base_link + id_to_string;
           if (id_additional != '') {
             output = output + id_additional;
           }
