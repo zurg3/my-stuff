@@ -61,12 +61,13 @@
           max_images = start_id + (max_images - 1);
         }
 
+        document.write('<hr>');
         document.write('<p align="center">');
-          document.write('<input type="button" value="-" onclick="decrease_scale()">');
-          document.write('<input type="button" value="+" onclick="increase_scale()">');
+          document.write('<input type="button" value="-" style="width: 40px; height: 30px; margin: 10px;" onclick="decrease_scale()">');
+          document.write('Current scale: <span class="img_scale_value">' + default_img_scale + '</span>');
+          document.write('<input type="button" value="+" style="width: 40px; height: 30px; margin: 10px;" onclick="increase_scale()">');
         document.write('</p>');
-        document.write('<p align="center">Current scale: <span class="img_scale_value">' + default_img_scale + '</span></p>');
-        document.write('<p align="center"><input type="button" value="Reset" onclick="reset_scale()"></p>');
+        document.write('<p align="center"><input type="button" value="Reset" style="padding: 10px;" onclick="reset_scale()"></p>');
         document.write('<hr>');
 
         for (var i = start_id; i <= max_images; i++) {
