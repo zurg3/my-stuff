@@ -85,11 +85,49 @@
       var linux_mint_arch = '64bit';
 
       // Arch Linux
-      var arch_linux_releases = [
-        '2019.11.01',
-        '2019.10.01',
-        '2019.09.01'
-      ];
+      var current_date = new Date();
+      var yyyy = current_date.getFullYear();
+      var mm = parseInt(String(current_date.getMonth() + 1).padStart(2, '0'), 10);
+      var dd = String(current_date.getDate()).padStart(2, '0');
+
+      var arch_linux_releases = [];
+      if (mm == 2) {
+        if (parseInt(dd, 10) >= 3) {
+          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
+        }
+        else {
+          arch_linux_releases[0] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy-1}.${String(mm+9).padStart(2, '0')}.01`;
+        }
+      }
+      else if (mm == 1) {
+        if (parseInt(dd, 10) >= 3) {
+          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy-1}.${String(mm+11).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
+        }
+        else {
+          arch_linux_releases[0] = `${yyyy-1}.${String(mm+11).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy-1}.${String(mm+9).padStart(2, '0')}.01`;
+        }
+      }
+      else {
+        if (parseInt(dd, 10) >= 3) {
+          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy}.${String(mm-2).padStart(2, '0')}.01`;
+        }
+        else {
+          arch_linux_releases[0] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
+          arch_linux_releases[1] = `${yyyy}.${String(mm-2).padStart(2, '0')}.01`;
+          arch_linux_releases[2] = `${yyyy}.${String(mm-3).padStart(2, '0')}.01`;
+        }
+      }
+
       var arch_linux_arch = 'x86_64';
 
       /* ********** */
