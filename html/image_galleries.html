@@ -81,11 +81,13 @@
             }
           }
 
-          var output = '<p align="center"><img style="max-width: ' + default_img_scale + ';" src="' + base_link + id_to_string;
+          var image_url = base_link + id_to_string;
           if (id_additional != '') {
-            output = output + id_additional;
+            image_url = image_url + id_additional;
           }
-          output = output + file_format + '" alt="image' + id_to_string + '"></p>';
+          image_url = image_url + file_format;
+
+          var output = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${default_img_scale};" src="${image_url}" alt="image${id_to_string}"></a></p>`;
 
           document.write(output);
         }
