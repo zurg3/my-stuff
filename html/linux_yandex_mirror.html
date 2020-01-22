@@ -15,11 +15,7 @@
     <h2>from Russian mirror (Yandex)</h2>
     <script>
       var base_mirror_link = 'https://mirror.yandex.ru';
-      var image_format = '';
       var download_link = '';
-
-      var ubuntu_link_part = '';
-      var ubuntu_type = '';
 
       // Debian
       var debian_version = '10.2.0';
@@ -32,12 +28,6 @@
         '19.04': '19.04',
         '18.04': '18.04.3 LTS',
         '16.04': '16.04.6 LTS'
-      };
-      var ubuntu_lts_releases = {
-        '19.10': '19.10',
-        '19.04': '19.04',
-        '18.04': '18.04.3',
-        '16.04': '16.04.6'
       };
       var ubuntu_releases_codenames = {
         '19.10': 'eoan',
@@ -58,7 +48,8 @@
         'ubuntu-base': 'Base',
         'ubuntu-mate': 'Ubuntu MATE',
         'xubuntu': 'Xubuntu',
-        'lubuntu': 'Lubuntu'
+        'lubuntu': 'Lubuntu',
+        'kubuntu': 'Kubuntu'
       };
       var ubuntu_arch = 'amd64';
 
@@ -127,8 +118,12 @@
           arch_linux_releases[2] = `${yyyy}.${String(mm-3).padStart(2, '0')}.01`;
         }
       }
-
       var arch_linux_arch = 'x86_64';
+
+      // Fedora
+      var fedora_version = '31';
+      var fedora_edition = 'Workstation';
+      var fedora_arch = 'x86_64';
 
       /* ********** */
 
@@ -137,11 +132,9 @@
       // Debian
       document.write('<h3 id="debian">Debian</h3>');
       document.write('<ul>');
-      for (var debian_dvd = 1; debian_dvd <= 3; debian_dvd++) {
-        download_link = `${base_mirror_link}/debian-cd/current/${debian_arch}/iso-dvd/debian-${debian_version}-${debian_arch}-DVD-${debian_dvd}.iso`;
+        download_link = `${base_mirror_link}/debian-cd/current/${debian_arch}/iso-dvd/`;
 
-        document.write(`<li><a href="${download_link}">Debian ${debian_version} "${debian_version_codename}" DVD №${debian_dvd}</a></li>`);
-      }
+        document.write(`<li><a href="${download_link}">Debian ${debian_version} "${debian_version_codename}"</a></li>`);
       document.write('</ul>');
 
       document.write('<hr>');
@@ -153,45 +146,22 @@
         document.write('<ul>');
         for (var edition in ubuntu_editions) {
           if (edition == 'netboot') {
-            download_link = `${base_mirror_link}/ubuntu/dists/${ubuntu_releases_codenames[release]}/main/installer-amd64/current/images/netboot/mini.iso`;
+            download_link = `${base_mirror_link}/ubuntu/dists/${ubuntu_releases_codenames[release]}/main/installer-amd64/current/images/netboot/`;
           }
           else {
             if (edition == 'desktop' || edition == 'server') {
-              ubuntu_link_part = `/ubuntu-releases/${release}/ubuntu-${ubuntu_lts_releases[release]}`;
+              download_link = `${base_mirror_link}/ubuntu-releases/${release}/`;
             }
             else {
-              ubuntu_link_part = `/ubuntu-cdimage/${edition}/releases/${release}/release/${edition}-${ubuntu_lts_releases[release]}`;
+              download_link = `${base_mirror_link}/ubuntu-cdimage/${edition}/releases/${release}/release/`;
             }
-
-            if (edition == 'ubuntu-base') {
-              ubuntu_type = 'base';
-            }
-            else if (release == '16.04' && edition == 'server') {
-              ubuntu_type = 'server';
-            }
-            else if (release != '16.04' && edition == 'server') {
-              ubuntu_type = 'live-server';
-            }
-            else {
-              ubuntu_type = 'desktop';
-            }
-
-            if (edition == 'ubuntu-base') {
-              image_format = '.tar.gz';
-            }
-            else {
-              image_format = '.iso';
-            }
-
-            download_link = `${base_mirror_link}${ubuntu_link_part}-${ubuntu_type}-${ubuntu_arch}${image_format}`;
           }
-          if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu') {
+          if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu' || edition == 'kubuntu') {
             document.write(`<li><a href="${download_link}">${ubuntu_editions[edition]} ${ubuntu_releases[release]}</a></li>`);
           }
           else {
             document.write(`<li><a href="${download_link}">Ubuntu ${ubuntu_releases[release]} ${ubuntu_editions[edition]}</a></li>`);
           }
-
         }
         document.write('</ul>');
       }
@@ -204,7 +174,7 @@
         document.write('<h4>' + linux_mint_releases[release] + ' "' + linux_mint_releases_codenames[linux_mint_releases[release]] + '"' + '</h4>');
         document.write('<ul>');
         for (var edition in linux_mint_editions) {
-          download_link = `${base_mirror_link}/linuxmint/stable/${linux_mint_releases[release]}/linuxmint-${linux_mint_releases[release]}-${edition}-${linux_mint_arch}.iso`;
+          download_link = `${base_mirror_link}/linuxmint/stable/${linux_mint_releases[release]}/`;
 
           document.write(`<li><a href="${download_link}">Linux Mint ${linux_mint_releases[release]} "${linux_mint_releases_codenames[linux_mint_releases[release]]}" - ${linux_mint_editions[edition]}</a></li>`);
         }
@@ -217,10 +187,20 @@
       document.write('<h3 id="arch_linux">Arch Linux</h3>');
       document.write('<ul>');
       for (var release in arch_linux_releases) {
-        download_link = `${base_mirror_link}/archlinux/iso/${arch_linux_releases[release]}/archlinux-${arch_linux_releases[release]}-${arch_linux_arch}.iso`;
+        download_link = `${base_mirror_link}/archlinux/iso/${arch_linux_releases[release]}/`;
 
         document.write(`<li><a href="${download_link}">Arch Linux ${arch_linux_releases[release]}</a></li>`);
       }
+      document.write('</ul>');
+
+      document.write('<hr>');
+
+      // Fedora
+      document.write('<h3 id="fedora">Fedora</h3>');
+      document.write('<ul>');
+        download_link = `${base_mirror_link}/fedora/linux/releases/${fedora_version}/${fedora_edition}/${fedora_arch}/iso/`;
+
+        document.write(`<li><a href="${download_link}">Fedora ${fedora_version} ${fedora_edition}</a></li>`);
       document.write('</ul>');
     </script>
   </body>
