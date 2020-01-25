@@ -1,0 +1,7 @@
+athena-jot
+bsdmainutils
+cherrytree
+hunspell-ru
+rig
+vertex-themes
+x-arc-shadow
