@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Facebook links</title>
+  </head>
+  <body>
+    <script>
+      function load_links() {
+        var get_facebook_username = document.getElementById('facebook_username').value;
+
+        var base_facebook_link = 'https://www.facebook.com';
+
+        document.write('<h3>@' + get_facebook_username + '</h3>');
+        document.write('<h4>Main</h4>');
+          document.write('<ul>');
+            document.write('<li><a href="https://www.facebook.com">Facebook</a></li>');
+            document.write('<li><a href="https://m.facebook.com">Facebook (Mobile)</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/messages">Messenger</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/watch">Watch</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/stories">Stories</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/notifications">Notifications</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/settings">Settings</a></li>');
+          document.write('</ul>');
+        document.write('<h4>User</h4>');
+          document.write('<ul>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '">Profile</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/allactivity">Activity Log</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/timeline">Timeline</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/grid">Grid</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/archive">Archive</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/friends">Friends</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/following">Following</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/groups">Groups</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/photos">Photos</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/videos">Videos</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/music">Music</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/movies">Movies</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/books">Books</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/games">Apps & Games</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/sports">Sports</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/likes">Likes</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/map">Check-Ins</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/events">Events</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/did_you_know">Did You Know</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/reviews">Reviews</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/' + get_facebook_username + '/notes">Notes</a></li>');
+          document.write('</ul>');
+        document.write('<h4>Explore</h4>');
+          document.write('<ul>');
+            document.write('<li><a href="' + base_facebook_link + '/groups">Groups</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/pages">Pages</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/events">Events</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/friends/requests">Friend Requests</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/recommendations">Recommendations</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/saved">Saved</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/bookmarks/lists">Friend Lists</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/games">Games</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/memories">Memories</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/jobs">Jobs</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/gaming">Gaming Video</a></li>');
+            document.write('<li><a href="' + base_facebook_link + '/weather">Weather</a></li>');
+          document.write('</ul>');
+
+        document.write("<hr><p><a href='facebook_links.html'>Back</a><p>");
+      }
+    </script>
+    <h1>Facebook</h1>
+    <form>
+      <label for="facebook_username">Enter your Facebook username</label>
+      <input type="text" id="facebook_username" size="30">
+      <input type="button" value="Submit" onclick="load_links()">
+    </form>
+  </body>
+</html>
