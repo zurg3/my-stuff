@@ -1,0 +1,47 @@
+name: C++
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  win:
+    name: Windows (windows-latest)
+    runs-on: windows-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      
+      - name: Create dir (calc.cpp)
+        run: mkdir calc
+
+      - name: Compile (calc.cpp)
+        run: |
+          g++ -Wall -c c++\calc.cpp -o calc_cpp.o
+          g++ -static -static-libgcc -static-libstdc++ -o calc\calc_cpp.exe calc_cpp.o
+      
+      - name: Upload artifact (calc.cpp)
+        uses: actions/upload-artifact@v1
+        with:
+          name: calc_cpp_win
+          path: calc
+
+  linux:
+    name: Linux (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      
+      - name: Create dir (calc.cpp)
+        run: mkdir calc
+
+      - name: Compile (calc.cpp)
+        run: g++ calc.cpp -o calc/calc_cpp
+      
+      - name: Upload artifact (calc.cpp)
+        uses: actions/upload-artifact@v1
+        with:
+          name: calc_cpp_linux
+          path: calc
