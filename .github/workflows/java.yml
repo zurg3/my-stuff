@@ -26,7 +26,7 @@ jobs:
         run: javac java\Calc.java
 
       - name: Move artifact (Calc.java)
-        run: move Calc.class Calc\Calc.class
+        run: move java\Calc.class Calc\Calc.class
 
       - name: Upload artifact (Calc.java)
         uses: actions/upload-artifact@v1
@@ -54,7 +54,7 @@ jobs:
         run: javac java/Calc.java
 
       - name: Move artifact (Calc.java)
-        run: mv Calc.class Calc/Calc.class
+        run: mv java/Calc.class Calc/Calc.class
 
       - name: Upload artifact (Calc.java)
         uses: actions/upload-artifact@v1
