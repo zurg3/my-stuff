@@ -38,7 +38,7 @@ jobs:
         run: mkdir calc
 
       - name: Compile (calc.cpp)
-        run: g++ calc.cpp -o calc/calc_cpp
+        run: g++ c++/calc.cpp -o calc/calc_cpp
       
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v1
