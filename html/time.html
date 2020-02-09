@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Time</title>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Fira Mono', monospace;
+      }
+
+      #main {
+        font-size: 28pt;
+        margin: 3ex auto;
+        width: 100%;
+        text-align: center;
+      }
+
+      #settings {
+        width: 100%;
+        height: 80px;
+        padding-bottom: 18%;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        opacity: 0;
+        transition: 0.8s;
+      }
+
+      #settings:hover {
+        opacity: 1;
+        transition: 0.8s;
+      }
+
+      #font_size {
+        -webkit-appearance: none;
+        width: 40%;
+        height: 15px;
+        border-radius: 5px;
+        background: #e1eaef;
+        outline: none;
+      }
+
+      #font_size::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #40a7e3;
+        cursor: pointer;
+      }
+
+      #font_size::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #40a7e3;
+        cursor: pointer;
+      }
+
+      #options {
+        margin: 3ex 40%;
+        width: 40%;
+      }
+
+      .option {
+        width: 180px;
+        display: block;
+        position: relative;
+        padding-left: 26px;
+        margin-bottom: 6px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .option input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #e1eaef;
+      }
+
+      .option input:checked ~ .checkmark {
+        background-color: #40a7e3;
+      }
+
+      .checkmark::after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      .option input:checked ~ .checkmark::after {
+        display: block;
+      }
+
+      .option .checkmark::after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body onload="start()">
+    <script>
+      var timeout_delay = 500;
+
+      function print_unix_time() {
+        var unix_time = (Math.floor(Date.now() / 1000)).toString();
+
+        document.getElementById('unix_time').innerText = unix_time;
+
+        setTimeout(print_unix_time, timeout_delay);
+      }
+
+      function print_utc_time() {
+        var utc_time = new Date();
+
+        var utc_time_hours = utc_time.getUTCHours().toString();
+        var utc_time_minutes = utc_time.getUTCMinutes().toString();
+        var utc_time_seconds = utc_time.getUTCSeconds().toString();
+
+        if (utc_time_hours.length == 1) {
+          utc_time_hours = '0' + utc_time_hours;
+        }
+        if (utc_time_minutes.length == 1) {
+          utc_time_minutes = '0' + utc_time_minutes;
+        }
+        if (utc_time_seconds.length == 1) {
+          utc_time_seconds = '0' + utc_time_seconds;
+        }
+
+        utc_time = `${utc_time_hours}:${utc_time_minutes}:${utc_time_seconds}`;
+
+        document.getElementById('utc_time').innerText = utc_time;
+
+        setTimeout(print_utc_time, timeout_delay);
+      }
+
+      function print_local_time() {
+        var local_time = new Date();
+
+        var timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
+
+        if (timezone_offset[0] == '-') {
+          timezone_offset = timezone_offset.replace('-', '+');
+        }
+        else if (timezone_offset[0] == '+') {
+          timezone_offset = timezone_offset.replace('+', '-');
+        }
+
+        document.getElementById('timezone_offset').innerText = timezone_offset;
+
+        var local_time_hours = local_time.getHours().toString();
+        var local_time_minutes = local_time.getMinutes().toString();
+        var local_time_seconds = local_time.getSeconds().toString();
+
+        if (local_time_hours.length == 1) {
+          local_time_hours = '0' + local_time_hours;
+        }
+        if (local_time_minutes.length == 1) {
+          local_time_minutes = '0' + local_time_minutes;
+        }
+        if (local_time_seconds.length == 1) {
+          local_time_seconds = '0' + local_time_seconds;
+        }
+
+        local_time = `${local_time_hours}:${local_time_minutes}:${local_time_seconds}`;
+
+        document.getElementById('local_time').innerText = local_time;
+
+        setTimeout(print_local_time, timeout_delay);
+      }
+
+      function change_font_size() {
+        var font_size = document.getElementById('font_size').value;
+
+        document.getElementById('main').style.fontSize = font_size.toString() + 'pt';
+        document.getElementById('current_font_size').innerText = font_size.toString();
+      }
+
+      function check_options() {
+        if (document.getElementById('unix_time_option').checked == true) {
+          document.getElementById('unix_time_full').style.display = 'block';
+        }
+        else if (document.getElementById('unix_time_option').checked == false) {
+          document.getElementById('unix_time_full').style.display = 'none';
+        }
+
+        if (document.getElementById('utc_time_option').checked == true) {
+          document.getElementById('utc_time_full').style.display = 'block';
+        }
+        else if (document.getElementById('utc_time_option').checked == false) {
+          document.getElementById('utc_time_full').style.display = 'none';
+        }
+
+        if (document.getElementById('local_time_option').checked == true) {
+          document.getElementById('local_time_full').style.display = 'block';
+        }
+        else if (document.getElementById('local_time_option').checked == false) {
+          document.getElementById('local_time_full').style.display = 'none';
+        }
+      }
+
+      function start() {
+        print_unix_time();
+        print_utc_time();
+        print_local_time();
+      }
+    </script>
+    <div id="main">
+      <p id="unix_time_full"><b>UNIX Time</b>: <span id="unix_time"></span></p>
+      <p id="utc_time_full"><b>UTC Time</b>: <time id="utc_time"></time></p>
+      <p id="local_time_full"><b>Local Time (UTC <span id="timezone_offset"></span>)</b>: <time id="local_time"></time></p>
+    </div>
+    <div id="settings">
+      <h3 align="center">Settings</h3>
+      <p align="center">Font size: <span id="current_font_size">28</span></p>
+      <p align="center"><span id="min_font_size">20</span> <input type="range" id="font_size" min="20" max="40" step="1" value="28" oninput="change_font_size()"> <span id="max_font_size">40</span></p>
+      <p align="center">Show</p>
+      <div id="options">
+        <label class="option">
+          <input type="checkbox" name="unix_time_option" id="unix_time_option" checked oninput="check_options()">UNIX Time
+          <span class="checkmark"></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" name="utc_time_option" id="utc_time_option" checked oninput="check_options()">UTC Time
+          <span class="checkmark"></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" name="local_time_option" id="local_time_option" checked oninput="check_options()">Local Time
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+  </body>
+</html>
