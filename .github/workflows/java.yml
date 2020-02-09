@@ -1,0 +1,63 @@
+name: Java
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  win:
+    name: Windows (windows-latest)
+    runs-on: windows-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      
+      - name: Set up Java SDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: "10"
+          architecture: "x64"
+      
+      - name: Create dir (Calc.java)
+        run: mkdir Calc
+
+      - name: Compile (Calc.java)
+        run: javac java\Calc.java
+
+      - name: Move artifact (Calc.java)
+        run: move Calc.class Calc\Calc.class
+
+      - name: Upload artifact (Calc.java)
+        uses: actions/upload-artifact@v1
+        with:
+          name: Calc_java_win
+          path: Calc
+
+  linux:
+    name: Linux (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      
+      - name: Set up Java SDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: "10"
+          architecture: "x64"
+      
+      - name: Create dir (Calc.java)
+        run: mkdir Calc
+
+      - name: Compile (Calc.java)
+        run: javac java/Calc.java
+
+      - name: Move artifact (Calc.java)
+        run: mv Calc.class Calc/Calc.class
+
+      - name: Upload artifact (Calc.java)
+        uses: actions/upload-artifact@v1
+        with:
+          name: Calc_java_linux
+          path: Calc
