@@ -31,10 +31,10 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: image_galleries_gui_win
-          path: python\dist
+          path: dist
 
       - name: Clean up (image_galleries_gui.py)
-        run: del python\dist\*
+        run: del dist\*
 
       - name: Build executable (hash_sums_gui.py)
         run: pyinstaller --onefile --windowed python\hash_sums_gui.py
@@ -43,10 +43,10 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: hash_sums_gui_win
-          path: python\dist
+          path: dist
 
       - name: Clean up (hash_sums_gui.py)
-        run: del python\dist\*
+        run: del dist\*
 
   linux:
     name: Linux (ubuntu-latest)
@@ -73,10 +73,10 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: image_galleries_gui_linux
-          path: python/dist
+          path: dist
 
       - name: Clean up (image_galleries_gui.py)
-        run: rm python/dist/*
+        run: rm dist/*
 
       - name: Build executable (hash_sums_gui.py)
         run: pyinstaller --onefile python/hash_sums_gui.py
@@ -85,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: hash_sums_gui_linux
-          path: python/dist
+          path: dist
 
       - name: Clean up (hash_sums_gui.py)
-        run: rm python/dist/*
+        run: rm dist/*
