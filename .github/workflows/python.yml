@@ -1,0 +1,91 @@
+name: Python
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  win:
+    name: Windows (windows-latest)
+    runs-on: windows-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install wget
+          pip install pyinstaller
+
+      - name: Build executable (image_galleries_gui.py)
+        run: pyinstaller --onefile --windowed python\image_galleries_gui.py
+
+      - name: Upload artifact (image_galleries_gui.py)
+        uses: actions/upload-artifact@v1
+        with:
+          name: image_galleries_gui_win
+          path: python\dist
+
+      - name: Clean up (image_galleries_gui.py)
+        run: del python\dist\*
+
+      - name: Build executable (hash_sums_gui.py)
+        run: pyinstaller --onefile --windowed python\hash_sums_gui.py
+
+      - name: Upload artifact (hash_sums_gui.py)
+        uses: actions/upload-artifact@v1
+        with:
+          name: hash_sums_gui_win
+          path: python\dist
+
+      - name: Clean up (hash_sums_gui.py)
+        run: del python\dist\*
+
+  linux:
+    name: Linux (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install wget
+          pip install pyinstaller
+
+      - name: Build executable (image_galleries_gui.py)
+        run: pyinstaller --onefile python/image_galleries_gui.py
+
+      - name: Upload artifact (image_galleries_gui.py)
+        uses: actions/upload-artifact@v1
+        with:
+          name: image_galleries_gui_linux
+          path: python/dist
+
+      - name: Clean up (image_galleries_gui.py)
+        run: rm python/dist/*
+
+      - name: Build executable (hash_sums_gui.py)
+        run: pyinstaller --onefile python/hash_sums_gui.py
+
+      - name: Upload artifact (hash_sums_gui.py)
+        uses: actions/upload-artifact@v1
+        with:
+          name: hash_sums_gui_linux
+          path: python/dist
+
+      - name: Clean up (hash_sums_gui.py)
+        run: rm python/dist/*
