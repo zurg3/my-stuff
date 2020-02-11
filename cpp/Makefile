@@ -12,6 +12,10 @@ num_systems.exe: num_systems.cpp
 	mkdir num_systems_cpp_win
 	g++ num_systems.cpp -Wall -static -static-libgcc -static-libstdc++ -o num_systems_cpp_win\num_systems.exe
 
+clean:
+	rmdir calc_cpp_win /s /q
+	rmdir num_systems_cpp_win /s /q
+
 #######
 # Linux
 else
@@ -25,5 +29,9 @@ calc: calc.cpp
 num_systems: num_systems.cpp
 	mkdir num_systems_cpp_linux
 	g++ num_systems.cpp -o num_systems_cpp_linux/num_systems
+
+clean:
+	rm -rf calc_cpp_linux
+	rm -rf num_systems_cpp_linux
 
 endif
