@@ -1,10 +1,10 @@
 # My stuff
 ## A collection of programs and scripts I wrote for fun
-- [C++](https://github.com/zurg3/my-stuff/tree/master/c%2B%2B)
+- [C++](https://github.com/zurg3/my-stuff/tree/master/cpp)
 - [C](https://github.com/zurg3/my-stuff/tree/master/c)
 - [D](https://github.com/zurg3/my-stuff/tree/master/d)
 - [HTML](https://github.com/zurg3/my-stuff/tree/master/html)
-- [JavaScript](https://github.com/zurg3/my-stuff/tree/master/java-script)
+- [JavaScript](https://github.com/zurg3/my-stuff/tree/master/js)
 - [Java](https://github.com/zurg3/my-stuff/tree/master/java)
 - [Lua](https://github.com/zurg3/my-stuff/tree/master/lua)
 - [Python](https://github.com/zurg3/my-stuff/tree/master/python)

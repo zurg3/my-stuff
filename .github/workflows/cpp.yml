@@ -12,15 +12,13 @@ jobs:
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
-      
+
       - name: Create dir (calc.cpp)
         run: mkdir calc
 
       - name: Compile (calc.cpp)
-        run: |
-          g++ -Wall -c c++\calc.cpp -o calc_cpp.o
-          g++ -static -static-libgcc -static-libstdc++ -o calc\calc_cpp.exe calc_cpp.o
-      
+        run: g++ cpp\calc.cpp -Wall -static -static-libgcc -static-libstdc++ -o calc\calc_cpp.exe
+
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v1
         with:
@@ -33,13 +31,13 @@ jobs:
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
-      
+
       - name: Create dir (calc.cpp)
         run: mkdir calc
 
       - name: Compile (calc.cpp)
-        run: g++ c++/calc.cpp -o calc/calc_cpp
-      
+        run: g++ cpp/calc.cpp -o calc/calc_cpp
+
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v1
         with:
