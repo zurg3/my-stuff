@@ -7,7 +7,7 @@ all: Calc
 Calc:
 	mkdir Calc
 	javac Calc.java
-	move Calc.class Calc\Calc.class
+	mv Calc.class Calc\Calc.class
 
 clean:
 	rmdir Calc /s /q
