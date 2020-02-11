@@ -12,27 +12,23 @@ jobs:
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
-      
+
       - name: Set up Java SDK
         uses: actions/setup-java@v1
         with:
           java-version: "10"
           architecture: "x64"
-      
-      - name: Create dir (Calc.java)
-        run: mkdir Calc
 
-      - name: Compile (Calc.java)
-        run: javac java\Calc.java
-
-      - name: Move artifact (Calc.java)
-        run: move java\Calc.class Calc\Calc.class
+      - name: Build
+        run: |
+          cd java
+          make
 
       - name: Upload artifact (Calc.java)
         uses: actions/upload-artifact@v1
         with:
           name: Calc_java_win
-          path: Calc
+          path: java\Calc
 
   linux:
     name: Linux (ubuntu-latest)
@@ -40,24 +36,20 @@ jobs:
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
-      
+
       - name: Set up Java SDK
         uses: actions/setup-java@v1
         with:
           java-version: "10"
           architecture: "x64"
-      
-      - name: Create dir (Calc.java)
-        run: mkdir Calc
 
-      - name: Compile (Calc.java)
-        run: javac java/Calc.java
-
-      - name: Move artifact (Calc.java)
-        run: mv java/Calc.class Calc/Calc.class
+      - name: Build
+        run: |
+          cd java
+          make
 
       - name: Upload artifact (Calc.java)
         uses: actions/upload-artifact@v1
         with:
           name: Calc_java_linux
-          path: Calc
+          path: java/Calc
