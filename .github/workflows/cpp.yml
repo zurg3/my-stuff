@@ -13,17 +13,22 @@ jobs:
       - name: Git Clone
         uses: actions/checkout@v2
 
-      - name: Create dir (calc.cpp)
-        run: mkdir calc
-
-      - name: Compile (calc.cpp)
-        run: g++ cpp\calc.cpp -Wall -static -static-libgcc -static-libstdc++ -o calc\calc_cpp.exe
+      - name: Build
+        run: |
+          cd cpp
+          make
 
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v1
         with:
           name: calc_cpp_win
-          path: calc
+          path: cpp\calc_cpp_win
+
+      - name: Upload artifact (num_systems.cpp)
+        uses: actions/upload-artifact@v1
+        with:
+          name: num_systems_cpp_win
+          path: cpp\num_systems_cpp_win
 
   linux:
     name: Linux (ubuntu-latest)
@@ -32,14 +37,19 @@ jobs:
       - name: Git Clone
         uses: actions/checkout@v2
 
-      - name: Create dir (calc.cpp)
-        run: mkdir calc
-
-      - name: Compile (calc.cpp)
-        run: g++ cpp/calc.cpp -o calc/calc_cpp
+      - name: Build
+        run: |
+          cd cpp
+          make
 
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v1
         with:
           name: calc_cpp_linux
-          path: calc
+          path: cpp/calc_cpp_linux
+
+      - name: Upload artifact (num_systems.cpp)
+        uses: actions/upload-artifact@v1
+        with:
+          name: num_systems_cpp_linux
+          path: cpp/num_systems_cpp_linux

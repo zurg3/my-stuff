@@ -1,0 +1,29 @@
+#########
+# Windows
+ifeq ($(OS), Windows_NT)
+
+all: calc.exe num_systems.exe
+
+calc.exe: calc.cpp
+	mkdir calc_cpp_win
+	g++ calc.cpp -Wall -static -static-libgcc -static-libstdc++ -o calc_cpp_win\calc.exe
+
+num_systems.exe: num_systems.cpp
+	mkdir num_systems_cpp_win
+	g++ num_systems.cpp -Wall -static -static-libgcc -static-libstdc++ -o num_systems_cpp_win\num_systems.exe
+
+#######
+# Linux
+else
+
+all: calc num_systems
+
+calc: calc.cpp
+	mkdir calc_cpp_linux
+	g++ calc.cpp -o calc_cpp_linux/calc
+
+num_systems: num_systems.cpp
+	mkdir num_systems_cpp_linux
+	g++ num_systems.cpp -o num_systems_cpp_linux/num_systems
+
+endif
