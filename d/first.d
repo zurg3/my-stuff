@@ -2,8 +2,7 @@ import std.stdio;
 import std.algorithm;
 import std.range;
 
-void main()
-{
+void main() {
   writeln("Hello, World!");
 
   int[] arr1 = [4, 9, 7];

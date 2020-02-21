@@ -1,7 +1,7 @@
 import std.stdio;
 
 void main() {
-  int a = 7_000_000;
+  int a = 8_000_000;
   float b = 35.128;
   string c = "Necro";
 
