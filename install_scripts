@@ -1,7 +1,12 @@
 #!/bin/bash
 
 dir_name="Software"
-mkdir $HOME/$dir_name
+
+test -d $HOME/$dir_name
+if [[ $? == "1" ]]; then
+  mkdir $HOME/$dir_name
+fi
+
 install_path="$HOME/$dir_name"
 bashrc_path="$HOME/.bashrc"
 
