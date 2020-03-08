@@ -21,7 +21,7 @@ wget "https://www.torproject.org/dist/torbrowser/$tor_browser_version/tor-browse
 tar -xvJf "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
 mv "tor_browser_$tor_browser_lang" $tor_browser_path
 rm "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
-echo "alias tor_browser='cd $install_path/tor_browser_$tor_browser_lang; ./start-tor-browser.desktop'" >> $HOME/.bashrc
+echo "alias tor_browser='cd $install_path/tor_browser_$tor_browser_lang; ./start-tor-browser.desktop; cd $HOME'" >> $HOME/.bashrc
 
 echo "Tor Browser v$tor_browser_version has been installed."
 echo "Enter 'tor_browser' to launch it."
