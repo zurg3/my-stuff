@@ -1,0 +1,27 @@
+#!/bin/bash
+
+tor_browser_version="9.0.5"
+tor_browser_platform="linux64"
+
+echo "Select Tor Browser language:"
+echo "1 - English (English)"
+echo "2 - Русский (Russian)"
+read -p "-> " tor_browser_lang
+
+if [[ $tor_browser_lang == "1" ]]; then
+  tor_browser_lang="en-US"
+elif [[ $tor_browser_lang == "2" ]]; then
+  tor_browser_lang="ru"
+fi
+
+echo "Select Tor Browser installation path"
+read -e -p "-> " tor_browser_path
+
+wget "https://www.torproject.org/dist/torbrowser/$tor_browser_version/tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
+tar -xvJf "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
+mv "tor_browser_$tor_browser_lang" $tor_browser_path
+rm "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
+echo "alias tor_browser='$install_path/tor_browser_$tor_browser_lang/./start-tor-browser.desktop'" >> $HOME/.bashrc
+
+echo "Tor Browser v$tor_browser_version has been installed."
+echo "Enter 'tor_browser' to launch it."
