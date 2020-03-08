@@ -16,4 +16,4 @@ ln shell-scripts/create_code_file $install_path
 echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
 echo "alias create_code_file='$install_path/./create_code_file'" >> $bashrc_path
 
-echo "Reboot your system to apply changes."
+source $bashrc_path
