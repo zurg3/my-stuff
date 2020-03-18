@@ -9,7 +9,7 @@
     <script>
       function search_user() {
         var username = document.getElementById('username').value;
-        var output = document.getElementById('output').innerHTML;
+        var output = document.getElementById('output');
 
         var sites = {
           'Bandcamp (Artist)': `https://${username}.bandcamp.com/`,
@@ -35,14 +35,14 @@
           'YouTube': `https://www.youtube.com/user/${username}`
         };
 
-        output = '';
+        output.innerHTML = '';
 
-        output = output + `<p>Results for <b>${username}</b></p>`;
-        output = output + '<ul>';
+        output.innerHTML = output.innerHTML + `<p>Results for <b>${username}</b></p>`;
+        output.innerHTML = output.innerHTML + '<ul>';
           for (var i in sites) {
-            output = output + `<li><a href="${sites[i]}">${i}</a></li>`;
+            output.innerHTML = output.innerHTML + `<li><a href="${sites[i]}">${i}</a></li>`;
           }
-        output = output + '</ul>';
+        output.innerHTML = output.innerHTML + '</ul>';
       }
     </script>
     <form id="input">
