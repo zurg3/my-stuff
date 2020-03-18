@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detective</title>
+  </head>
+  <body>
+    <script>
+      function search_user() {
+        var username = document.getElementById('username').value;
+        var output = document.getElementById('output').innerHTML;
+
+        var sites = {
+          'Bandcamp (Artist)': `https://${username}.bandcamp.com/`,
+          'Bandcamp (Fan)': `https://bandcamp.com/${username}`,
+          'Facebook': `https://www.facebook.com/${username}`,
+          'Genius': `https://genius.com/${username}`,
+          'GitHub Gist': `https://gist.github.com/${username}`,
+          'GitHub Pages': `https://${username}.github.io`,
+          'GitHub': `https://github.com/${username}`,
+          'GitLab': `https://gitlab.com/${username}`,
+          'GOG.com': `https://www.gog.com/u/${username}`,
+          'Instagram': `https://www.instagram.com/${username}/`,
+          'Medium': `https://medium.com/@${username}`,
+          'Nick-Name.ru': `https://nick-name.ru/nickname/${username}/`,
+          'RAWG': `https://rawg.io/@${username}`,
+          'SoundCloud': `https://soundcloud.com/${username}`,
+          'Spotify': `https://open.spotify.com/user/${username}`,
+          'Steam': `https://steamcommunity.com/id/${username}`,
+          'Telegram': `https://t.me/${username}`,
+          'Twitter': `https://twitter.com/${username}`,
+          'VK': `https://vk.com/${username}`,
+          'WhoSampled': `https://www.whosampled.com/user/${username}/`,
+          'YouTube': `https://www.youtube.com/user/${username}`
+        };
+
+        output = '';
+
+        output = output + `<p>Results for <b>${username}</b></p>`;
+        output = output + '<ul>';
+          for (var i in sites) {
+            output = output + `<li><a href="${sites[i]}">${i}</a></li>`;
+          }
+        output = output + '</ul>';
+      }
+    </script>
+    <form id="input">
+      <p>
+        <b>Nickname:</b>
+        <input type="text" id="username" size="30">
+        <input type="button" id="search_user_button" value="Search for user" onclick="search_user()">
+      </p>
+    </form>
+    <hr>
+    <div id="output"></div>
+  </body>
+</html>
