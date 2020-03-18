@@ -36,14 +36,23 @@ if [[ $? == "0" ]]; then
   echo "Select Tor Browser installation path"
   read -e -p "-> " tor_browser_path
 
+  echo "Create alias for launching Tor Browser?"
+  echo "1 - Yes"
+  echo "0 - No"
+  read -p "-> " create_alias_option
+
   wget "${tor_browser_base_link}${tor_browser_version}/tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
   tar -xvJf "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
   mv "tor_browser_$tor_browser_lang" $tor_browser_path
   rm "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
-  echo "alias tor_browser='cd $install_path/tor_browser_$tor_browser_lang; ./start-tor-browser.desktop; cd $HOME'" >> $HOME/.bashrc
+  if [[ $create_alias_option == "1" ]]; then
+    echo "alias tor_browser='cd $install_path/tor_browser_$tor_browser_lang; ./start-tor-browser.desktop; cd $HOME'" >> $HOME/.bashrc
+  fi
 
   echo "Tor Browser v$tor_browser_version has been installed."
-  echo "Enter 'tor_browser' to launch it."
+  if [[ $create_alias_option == "1" ]]; then
+    echo "Enter 'tor_browser' to launch it."
+  fi
 elif [[ $? == "1" ]]; then
   echo "You need install 'lftp' package to use this script!"
 fi
