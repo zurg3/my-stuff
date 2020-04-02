@@ -7,7 +7,7 @@ import os
 # os_user = os.getlogin()
 # example_path = str('/home/' + os_user + '/Git')
 
-if len(sys.argv) > 1:
+if str(sys.argv[1]) != '':
     git_path = str(sys.argv[1])
 else:
     print('Enter the path of directory with cloned Git repositories.')
