@@ -63,11 +63,11 @@ if [[ $? == "0" ]]; then
   mv "tor_browser_$tor_browser_lang" $tor_browser_path
   rm "tor-browser-$tor_browser_platform-${tor_browser_version}_$tor_browser_lang.tar.xz"
   if [[ $create_alias_option == "1" ]]; then
-    echo "alias tor_browser='$install_path/tor_browser_$tor_browser_lang/Browser/./start-tor-browser --detach'" >> $HOME/.bashrc
+    echo "alias tor_browser='$tor_browser_path/tor_browser_$tor_browser_lang/Browser/./start-tor-browser --detach'" >> $HOME/.bashrc
   fi
 
   if [[ $add_to_menu_option == "1" ]]; then
-    cd $install_path/tor_browser_$tor_browser_lang
+    cd $tor_browser_path/tor_browser_$tor_browser_lang
     ./start-tor-browser.desktop --register-app
   fi
 
