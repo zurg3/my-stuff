@@ -13,6 +13,7 @@ bashrc_path="$HOME/.bashrc"
 ln python/git_puller.py $install_path
 ln shell-scripts/create_code_file $install_path
 
+echo "" >> $bashrc_path
 echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
 echo "alias create_code_file='$install_path/./create_code_file'" >> $bashrc_path
 
