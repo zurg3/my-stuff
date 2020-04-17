@@ -1,11 +1,11 @@
 // iTunes
 /// Filenames (adds '0' before track number)
-var artist = document.getElementsByClassName('product-header__identity album-header__identity')[0].innerText;
-var album_title = document.getElementsByClassName('product-header__title icon icon-after icon-explicit-large')[0].innerText;
-var release_year = document.getElementsByTagName('time')[0].innerText;
+var artist = document.getElementsByClassName('product-creator typography-title')[0].innerText;
+var album_title = document.getElementsByClassName('product-name typography-title-emphasized clamp-4')[0].innerText;
+var release_year = document.querySelector('meta[property="music:release_date"]').content.split('-')[0];
 
-var tracks = document.getElementsByClassName('spread');
-var tracks_count = document.getElementsByClassName('spread').length;
+var tracks = document.getElementsByClassName('song-name typography-label');
+var tracks_count = tracks.length;
 
 console.log(artist + ' - ' + album_title + ' (' + release_year + ')');
 if (tracks_count > 0 && tracks_count < 10) {
