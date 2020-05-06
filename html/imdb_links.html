@@ -246,7 +246,11 @@
           roles_query = roles_query.join();
           title_type_query = title_type_query.join();
 
-          window.location.assign(`https://www.imdb.com/search/title/?roles=${roles_query}&title_type=${title_type_query}`);
+          document.write('<head><title>IMDb Collaborations Search</title></head>');
+
+          document.write(`<h3><a href="https://www.imdb.com/search/title/?roles=${roles_query}&title_type=${title_type_query}">Open search results</a></h3>`);
+
+          document.write('<hr><p><a href="imdb_links.html">Back</a><p>');
         }
       }
 
@@ -276,7 +280,11 @@
         if (roles_query.length > 0 && roles_query.includes('') == false) {
           roles_query = roles_query.join();
 
-          window.location.assign(`https://www.imdb.com/search/name/?roles=${roles_query}`);
+          document.write('<head><title>IMDb Collaborations Search</title></head>');
+
+          document.write(`<h3><a href="https://www.imdb.com/search/name/?roles=${roles_query}">Open search results</a></h3>`);
+
+          document.write('<hr><p><a href="imdb_links.html">Back</a><p>');
         }
       }
     </script>
