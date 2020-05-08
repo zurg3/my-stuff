@@ -10,7 +10,9 @@
       function open_video() {
         var video_src_link = document.getElementById('video_src').value;
 
-        document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden="true" onloadedmetadata="resize_video()"></video>`;
+        if (video_src_link != '') {
+          document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden="true" onloadedmetadata="resize_video()"></video>`;
+        }
       }
 
       function resize_video() {
