@@ -9,13 +9,55 @@
     <script>
       function open_video() {
         var video_src_link = document.getElementById('video_src').value;
-        document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls></video>`;
+
+        document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden="true" onloadedmetadata="resize_video()"></video>`;
+      }
+
+      function resize_video() {
+        switch (document.getElementsByTagName('video')[0].videoHeight) {
+          case 1080:
+            var video_size_scale = 0.25;
+            break;
+          case 720:
+          case 480:
+            var video_size_scale = 0.5;
+            break;
+          case 360:
+          case 240:
+            var video_size_scale = 1;
+            break;
+          default:
+            var video_size_scale = 1;
+        }
+
+        document.getElementsByTagName('video')[0].width = document.getElementsByTagName('video')[0].videoWidth * video_size_scale;
+        document.getElementsByTagName('video')[0].height = document.getElementsByTagName('video')[0].videoHeight * video_size_scale;
+
+        document.getElementsByTagName('video')[0].hidden = false;
+
+        debug_video();
+      }
+
+      function fit_video() {
+        if (document.getElementsByTagName('video')[0] != undefined) {
+          document.getElementsByTagName('video')[0].removeAttribute('width');
+          document.getElementsByTagName('video')[0].removeAttribute('height');
+
+          document.getElementsByTagName('video')[0].style.width = '100%';
+          document.getElementsByTagName('video')[0].style.height = 'auto';
+        }
+      }
+
+      function debug_video() {
+        console.log(`Current video size: ${document.getElementsByTagName('video')[0].width}x${document.getElementsByTagName('video')[0].height}`);
+        console.log(`Actual video size: ${document.getElementsByTagName('video')[0].videoWidth}x${document.getElementsByTagName('video')[0].videoHeight}`);
       }
     </script>
     <form>
       <label for="video_src">Enter a link to video source</label>
       <input type="text" id="video_src" size="50">
       <input type="button" value="Submit" onclick="open_video()">
+      <input type="button" value="Fit video" onclick="fit_video()">
     </form>
     <hr>
     <div id="video_player"></div>
