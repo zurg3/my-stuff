@@ -5,11 +5,13 @@ from tkinter import messagebox
 import wget
 import urllib.request
 import urllib.error
+import platform
 
 program_name = 'Image galleries (GUI)'
-program_version = 'v0.4.5'
+program_version = 'v0.5'
 program_author = 'zurg3 (Stepan Skryabin)'
 tkinter_version = str(TkVersion)
+python_version = str(platform.python_version())
 
 root = Tk()
 
@@ -22,6 +24,7 @@ output_box = LabelFrame(root, text='Output')
 
 root.title(program_name + ' ' + program_version)
 root.geometry('800x600')
+root.state('zoomed')
 
 selected = IntVar()
 selected_download_path = StringVar()
@@ -126,6 +129,7 @@ def about_window():
     messagebox.showinfo(program_name + ' ' + program_version,
                         program_name + ' ' + program_version + '\n' +
                         'Author: ' + program_author + '\n\n' +
+                        'Python version: ' + python_version + '\n' +
                         'Tkinter version: ' + tkinter_version)
 
 
@@ -177,8 +181,8 @@ load_images_button = Button(buttons,
                             command=load_gallery,
                             width=20,
                             height=2,
-                            bg='green',
-                            fg='white')
+                            bg='#87d132',
+                            fg='black')
 clear_output_button = Button(buttons, text='Clear output', command=clear_output, width=20, height=2)
 reset_fields_button = Button(buttons, text='Reset fields', command=reset_fields, width=20, height=2)
 about_window_button = Button(buttons, text='About', command=about_window, width=20, height=1)
@@ -187,8 +191,8 @@ quit_button = Button(buttons,
                      command=close,
                      width=20,
                      height=1,
-                     bg='red',
-                     fg='white')
+                     bg='#de4743',
+                     fg='black')
 
 # Output
 output_text = scrolledtext.ScrolledText(output_box, bg='black', fg='white', width=780, height=320)
