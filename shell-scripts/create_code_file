@@ -57,8 +57,14 @@ create_html_file() {
 </html>" > $2.$1
 }
 
+create_php_file() {
+  echo "<?php
+  /* code */
+?>" > $2.$1
+}
+
 if [[ $1 == "" || $2 == "" ]]; then
-  echo "create_code_file [sh|c|cpp|d|java|html] [filename]"
+  echo "create_code_file [sh|c|cpp|d|java|html|php] [filename]"
 elif [[ $1 != "" && $2 != "" ]]; then
   case $1 in
     sh) create_sh_file $@;;
@@ -67,6 +73,7 @@ elif [[ $1 != "" && $2 != "" ]]; then
     d) create_d_file $@;;
     java) create_java_file $@;;
     html) create_html_file $@;;
+    php) create_php_file $@;;
   esac
   echo "File created."
 fi
