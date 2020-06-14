@@ -8,7 +8,7 @@ import urllib.error
 import platform
 
 program_name = 'Image galleries (GUI)'
-program_version = 'v0.5'
+program_version = 'v0.5.1'
 program_author = 'zurg3 (Stepan Skryabin)'
 tkinter_version = str(TkVersion)
 python_version = str(platform.python_version())
@@ -24,7 +24,7 @@ output_box = LabelFrame(root, text='Output')
 
 root.title(program_name + ' ' + program_version)
 root.geometry('800x600')
-root.state('zoomed')
+# root.state('zoomed')
 
 selected = IntVar()
 selected_download_path = StringVar()
