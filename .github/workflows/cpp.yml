@@ -48,6 +48,12 @@ jobs:
           name: calc_cpp_linux
           path: cpp/calc_cpp_linux
 
+      - name: Upload artifact (git_puller.cpp)
+        uses: actions/upload-artifact@v1
+        with:
+          name: git_puller_cpp_linux
+          path: cpp/git_puller_cpp_linux
+
       - name: Upload artifact (num_systems.cpp)
         uses: actions/upload-artifact@v1
         with:
