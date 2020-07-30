@@ -27,8 +27,7 @@ calc: calc.cpp
 	g++ calc.cpp -o calc_cpp_linux/calc
 
 git_puller: git_puller.cpp
-	mkdir git_puller_cpp_linux
-	g++ git_puller.cpp -std=c++17 -o git_puller_cpp_linux/git_puller
+	g++ git_puller.cpp -std=c++17 -o git_puller
 
 num_systems: num_systems.cpp
 	mkdir num_systems_cpp_linux
@@ -36,7 +35,7 @@ num_systems: num_systems.cpp
 
 clean:
 	rm -rf calc_cpp_linux
-	rm -rf git_puller_cpp_linux
+	rm git_puller
 	rm -rf num_systems_cpp_linux
 
 endif
