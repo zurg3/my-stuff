@@ -1,14 +1,13 @@
 #!/bin/bash
 
 dir_name="Software"
-
-test -d $HOME/$dir_name
-if [[ $? == "1" ]]; then
-  mkdir $HOME/$dir_name
-fi
-
 install_path="$HOME/$dir_name"
 bashrc_path="$HOME/.bashrc"
+
+test -d $install_path
+if [[ $? == "1" ]]; then
+  mkdir $install_path
+fi
 
 ln python/git_puller.py $install_path
 ln shell-scripts/create_code_file $install_path
