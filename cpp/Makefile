@@ -28,18 +28,18 @@ all: calc git_puller num_systems
 
 calc: calc.cpp
 	mkdir calc_cpp_linux
-	$(CXX) calc.cpp -o calc_cpp_linux/calc
+	$(CXX) calc.cpp $(CXXFLAGS) -o calc_cpp_linux/calc
 
 git_puller: git_puller.cpp
-	$(CXX) git_puller.cpp -std=c++17 -o git_puller
+	$(CXX) git_puller.cpp $(CXXFLAGS) -std=c++17 -o git_puller
 
 num_systems: num_systems.cpp
 	mkdir num_systems_cpp_linux
-	$(CXX) num_systems.cpp -o num_systems_cpp_linux/num_systems
+	$(CXX) num_systems.cpp $(CXXFLAGS) -o num_systems_cpp_linux/num_systems
 
 clean:
 	rm -rf calc_cpp_linux
-	rm git_puller
+	rm -f git_puller
 	rm -rf num_systems_cpp_linux
 
 endif
