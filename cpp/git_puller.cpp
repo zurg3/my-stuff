@@ -11,6 +11,7 @@ Compile: g++ git_puller.cpp -std=c++17 -o git_puller
 #include <cstdlib>
 #include <filesystem>
 #include <algorithm>
+#include <cctype>
 #include <iomanip>
 using namespace std;
 
@@ -37,7 +38,13 @@ int main(int argc, char *argv[]) {
     git_repos.push_back(entry.path().filename().string());
   }
 
-  sort(git_repos.begin(), git_repos.end());
+  sort(git_repos.begin(), git_repos.end(), [](const auto &a, const auto &b) {
+    const auto comp_ci = mismatch(a.cbegin(), a.cend(), b.cbegin(), b.cend(), [](const auto &a, const auto &b) {
+      return tolower(a) == tolower(b);
+    });
+
+    return comp_ci.second != b.cend() && (comp_ci.first == a.cend() || tolower(*comp_ci.first) < tolower(*comp_ci.second));
+  });
 
   cout << endl;
 
