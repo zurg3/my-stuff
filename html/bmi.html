@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Body mass index (BMI)</title>
+  </head>
+  <body>
+    <script>
+      function bmi(mass, height) {
+        if (document.getElementById('mass_input').value != '' && document.getElementById('height_input').value != '') {
+          return mass / (height * height);
+        }
+      }
+
+      function bmi_category(mass, height) {
+        bmi_value = bmi(mass, height).toFixed(4);
+
+        if (bmi_value <= 16) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Severely underweight)`;
+        }
+        else if (bmi_value > 16 && bmi_value <= 18.5) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Underweight)`;
+        }
+        else if (bmi_value > 18.5 && bmi_value <= 25) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Normal (healthy weight))`;
+        }
+        else if (bmi_value > 25 && bmi_value <= 30) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Overweight)`;
+        }
+        else if (bmi_value > 30 && bmi_value <= 35) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Obese Class I (Moderately obese))`;
+        }
+        else if (bmi_value > 35 && bmi_value <= 40) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Obese Class II (Severely obese))`;
+        }
+        else if (bmi_value > 40) {
+          document.getElementById('output').innerText = `BMI = ${bmi_value} (Obese Class III (Very severely obese))`;
+        }
+        else {
+          document.getElementById('output').innerText = `Something is wrong!`;
+        }
+      }
+    </script>
+    <h1>Body mass index (BMI)</h1>
+    <form>
+      <p>
+        <label for="mass_input">Your mass (kg)</label><br>
+        <input type="text" id="mass_input" size="10">
+      </p>
+      <p>
+        <label for="height_input">Your height (m)</label><br>
+        <input type="text" id="height_input" size="10">
+      </p>
+      <p><input type="button" value="Calculate" onclick="bmi_category(document.getElementById('mass_input').value, document.getElementById('height_input').value)"></p>
+      <hr>
+      <p><span id="output"></span></p>
+    </form>
+  </body>
+</html>
