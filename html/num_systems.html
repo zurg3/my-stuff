@@ -90,89 +90,89 @@
   <body>
     <script>
       function convert_from_bin() {
-        document.getElementById('bin').value = document.getElementById('bin').value.replace(/[^0-1]/, "");
+        document.getElementById('bin').value = document.getElementById('bin').value.replace(/[^0-1]/, '');
 
-        if (document.getElementById('bin').value != "") {
+        if (document.getElementById('bin').value != '') {
           document.getElementById('oct').value = parseInt(document.getElementById('bin').value, 2).toString(8);
           document.getElementById('dec').value = parseInt(document.getElementById('bin').value, 2).toString(10);
           document.getElementById('hex').value = parseInt(document.getElementById('bin').value, 2).toString(16);
         }
         else {
-          document.getElementById('oct').value = "";
-          document.getElementById('dec').value = "";
-          document.getElementById('hex').value = "";
+          document.getElementById('oct').value = '';
+          document.getElementById('dec').value = '';
+          document.getElementById('hex').value = '';
         }
 
         document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_oct() {
-        document.getElementById('oct').value = document.getElementById('oct').value.replace(/[^0-7]/, "");
+        document.getElementById('oct').value = document.getElementById('oct').value.replace(/[^0-7]/, '');
 
-        if (document.getElementById('oct').value != "") {
+        if (document.getElementById('oct').value != '') {
           document.getElementById('bin').value = parseInt(document.getElementById('oct').value, 8).toString(2);
           document.getElementById('dec').value = parseInt(document.getElementById('oct').value, 8).toString(10);
           document.getElementById('hex').value = parseInt(document.getElementById('oct').value, 8).toString(16);
         }
         else {
-          document.getElementById('bin').value = "";
-          document.getElementById('dec').value = "";
-          document.getElementById('hex').value = "";
+          document.getElementById('bin').value = '';
+          document.getElementById('dec').value = '';
+          document.getElementById('hex').value = '';
         }
 
         document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_dec() {
-        document.getElementById('dec').value = document.getElementById('dec').value.replace(/[^0-9]/, "");
+        document.getElementById('dec').value = document.getElementById('dec').value.replace(/[^0-9]/, '');
 
-        if (document.getElementById('dec').value != "") {
+        if (document.getElementById('dec').value != '') {
           document.getElementById('bin').value = parseInt(document.getElementById('dec').value, 10).toString(2);
           document.getElementById('oct').value = parseInt(document.getElementById('dec').value, 10).toString(8);
           document.getElementById('hex').value = parseInt(document.getElementById('dec').value, 10).toString(16);
         }
         else {
-          document.getElementById('bin').value = "";
-          document.getElementById('oct').value = "";
-          document.getElementById('hex').value = "";
+          document.getElementById('bin').value = '';
+          document.getElementById('oct').value = '';
+          document.getElementById('hex').value = '';
         }
 
         document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function convert_from_hex() {
-        document.getElementById('hex').value = document.getElementById('hex').value.replace(/[^0-9a-fA-F]/, "");
+        document.getElementById('hex').value = document.getElementById('hex').value.replace(/[^0-9a-fA-F]/, '');
 
-        if (document.getElementById('hex').value != "") {
+        if (document.getElementById('hex').value != '') {
           document.getElementById('bin').value = parseInt(document.getElementById('hex').value, 16).toString(2);
           document.getElementById('oct').value = parseInt(document.getElementById('hex').value, 16).toString(8);
           document.getElementById('dec').value = parseInt(document.getElementById('hex').value, 16).toString(10);
         }
         else {
-          document.getElementById('bin').value = "";
-          document.getElementById('oct').value = "";
-          document.getElementById('dec').value = "";
+          document.getElementById('bin').value = '';
+          document.getElementById('oct').value = '';
+          document.getElementById('dec').value = '';
         }
 
         document.getElementById('hex').value = document.getElementById('hex').value.toUpperCase();
       }
 
       function cheat_sheet_display() {
-        if (document.getElementById('cheat_sheet').style.display == "none" || document.getElementById('cheat_sheet').style.display == "") {
-          document.getElementById('cheat_sheet').style.display = "inline-block";
-          document.getElementsByClassName('primary_button')[1].value = "Hide cheat sheet";
+        if (document.getElementById('cheat_sheet').style.display == 'none' || document.getElementById('cheat_sheet').style.display == '') {
+          document.getElementById('cheat_sheet').style.display = 'inline-block';
+          document.getElementsByClassName('primary_button')[1].value = 'Hide cheat sheet';
         }
-        else if (document.getElementById('cheat_sheet').style.display != "none" || document.getElementById('cheat_sheet').style.display != "") {
-          document.getElementById('cheat_sheet').style.display = "none";
-          document.getElementsByClassName('primary_button')[1].value = "Show cheat sheet";
+        else if (document.getElementById('cheat_sheet').style.display != 'none' || document.getElementById('cheat_sheet').style.display != '') {
+          document.getElementById('cheat_sheet').style.display = 'none';
+          document.getElementsByClassName('primary_button')[1].value = 'Show cheat sheet';
         }
       }
 
       function clear_input() {
-        document.getElementById('bin').value = "";
-        document.getElementById('oct').value = "";
-        document.getElementById('dec').value = "";
-        document.getElementById('hex').value = "";
+        document.getElementById('bin').value = '';
+        document.getElementById('oct').value = '';
+        document.getElementById('dec').value = '';
+        document.getElementById('hex').value = '';
       }
     </script>
     <h1>Numeral systems converter</h1>

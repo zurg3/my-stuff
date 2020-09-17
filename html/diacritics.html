@@ -11,12 +11,12 @@
       new ClipboardJS('#clipboard_button');
 
       function convert_text() {
-        document.getElementById('output_text').innerText = document.getElementById('input_text').value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        document.getElementById('output_text').innerText = document.getElementById('input_text').value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       }
 
       function clear_input() {
-        document.getElementById('input_text').value = "";
-        document.getElementById('output_text').innerText = "";
+        document.getElementById('input_text').value = '';
+        document.getElementById('output_text').innerText = '';
       }
     </script>
     <form>
