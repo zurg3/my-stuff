@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Audio player</title>
+    <style>
+      audio:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function open_audio() {
+        var audio_src_link = document.getElementById('audio_src').value;
+
+        if (audio_src_link != '') {
+          document.getElementById('audio_player').innerHTML = `<audio src="${audio_src_link}" controls preload="metadata"></audio>`;
+        }
+      }
+    </script>
+    <form>
+      <label for="audio_src">Enter a link to audio source</label>
+      <input type="text" id="audio_src" size="50">
+      <input type="button" value="Submit" onclick="open_audio()">
+    </form>
+    <hr>
+    <div id="audio_player"></div>
+  </body>
+</html>
