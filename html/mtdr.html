@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My thousand days roadmap</title>
+  </head>
+  <body>
+    <h1>My thousand days roadmap</h1>
+    <h3>🎂 Birthday: 05.11.1998</h3>
+    <hr>
+    <script>
+      function unix_time_converter(unix_time) {
+        var date = new Date(unix_time * 1000);
+
+        var yyyy = date.getFullYear();
+        var mm = String(date.getMonth() + 1).padStart(2, '0');
+        var dd = String(date.getDate()).padStart(2, '0');
+
+        var formatted_date = `${dd}.${mm}.${yyyy}`;
+
+        return formatted_date;
+      }
+
+      function seconds_to_days(seconds) {
+        return seconds / 60 / 60 / 24;
+      }
+
+      const seconds_per_day = 1 * 60 * 60 * 24;
+      const seconds_per_1k_days = seconds_per_day * 1000;
+
+      var birthday_unix_time = 910249200; // 1998-11-05 10:00:00 (UTC +03:00/MSK)
+      var current_unix_time = Math.floor(Date.now() / 1000);
+      var milestone_unix_time = birthday_unix_time;
+
+      for (var i = 0; i < 30; i++) {
+        milestone_unix_time += seconds_per_1k_days;
+
+        if ((current_unix_time < milestone_unix_time) && (current_unix_time >= (milestone_unix_time - seconds_per_1k_days))) {
+          var current_status = document.createElement('p');
+
+          current_status.innerText = '► YOU ARE HERE ◄';
+
+          document.body.appendChild(current_status);
+        }
+
+        var milestone = document.createElement('p');
+
+        if (current_unix_time >= milestone_unix_time) {
+          milestone.innerText = `✔️ ${seconds_to_days(milestone_unix_time - birthday_unix_time)} days - ${unix_time_converter(milestone_unix_time)}`;
+        }
+        else if (current_unix_time < milestone_unix_time) {
+          milestone.innerText = `❌ ${seconds_to_days(milestone_unix_time - birthday_unix_time)} days - ${unix_time_converter(milestone_unix_time)}`;
+        }
+
+        document.body.appendChild(milestone);
+      }
+    </script>
+  </body>
+</html>
