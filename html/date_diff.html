@@ -21,23 +21,30 @@
       }
 
       function get_difference() {
-        var date_from_unix_time = new Date(document.getElementById('date_from').value).getTime() / 1000;
-        var date_to_unix_time = new Date(document.getElementById('date_to').value).getTime() / 1000;
+        if (document.getElementById('date_from').value != '' && document.getElementById('date_to').value != '') {
+          var date_from_unix_time = new Date(document.getElementById('date_from').value).getTime() / 1000;
+          var date_to_unix_time = new Date(document.getElementById('date_to').value).getTime() / 1000;
 
-        var difference_unix_time = date_to_unix_time - date_from_unix_time;
-        var difference_days = Math.abs(difference_unix_time / 60 / 60 / 24);
+          var difference_unix_time = date_to_unix_time - date_from_unix_time;
+          var difference_days = Math.abs(difference_unix_time / 60 / 60 / 24);
 
-        if (difference_days == 0) {
-          var output = 'Same dates';
-        }
-        else if (difference_days == 1) {
-          var output = `${difference_days} day`;
-        }
-        else if (difference_days > 1) {
-          var output = `${difference_days} days`;
-        }
+          if (difference_days == 0) {
+            var output = 'Same dates';
+          }
+          else if (difference_days == 1) {
+            var output = `${difference_days} day`;
+          }
+          else if (difference_days > 1) {
+            var output = `${difference_days} days`;
+          }
 
-        document.getElementById('output').innerText = output;
+          document.getElementById('output').innerText = output;
+        }
+        else {
+          set_current_date();
+
+          document.getElementById('output').innerText = 'Error';
+        }
       }
     </script>
     <h1>Difference between dates</h1>
