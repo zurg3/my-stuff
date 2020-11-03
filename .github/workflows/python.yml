@@ -7,16 +7,21 @@ on:
 
 jobs:
   win:
-    name: Windows (windows-latest)
+    name: Windows ${{ matrix.python_arch }} (windows-latest)
     runs-on: windows-latest
+    strategy:
+      matrix:
+        python_arch: [x86, x64]
+      fail-fast: false
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
+      - name: Set up Python 3.8 (${{ matrix.python_arch }})
+        uses: actions/setup-python@v2
         with:
           python-version: "3.8"
+          architecture: ${{ matrix.python_arch }}
 
       - name: Install Python packages
         run: |
@@ -28,9 +33,9 @@ jobs:
         run: pyinstaller --onefile --windowed python\image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: image_galleries_gui_win
+          name: image_galleries_gui_win_${{ matrix.python_arch }}
           path: dist
 
       - name: Clean up (image_galleries_gui.py)
@@ -40,9 +45,9 @@ jobs:
         run: pyinstaller --onefile --windowed python\hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: hash_sums_gui_win
+          name: hash_sums_gui_win_${{ matrix.python_arch }}
           path: dist
 
       - name: Clean up (hash_sums_gui.py)
@@ -56,7 +61,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Python 3.8
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: "3.8"
 
@@ -70,7 +75,7 @@ jobs:
         run: pyinstaller --onefile python/image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: image_galleries_gui_linux
           path: dist
@@ -82,7 +87,7 @@ jobs:
         run: pyinstaller --onefile python/hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: hash_sums_gui_linux
           path: dist
