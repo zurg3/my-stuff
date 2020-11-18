@@ -44,7 +44,6 @@
       var ubuntu_editions = {
         'desktop': 'Desktop',
         'server': 'Server',
-        'netboot': 'Network Installer',
         'ubuntu-base': 'Base',
         'ubuntu-mate': 'Ubuntu MATE',
         'xubuntu': 'Xubuntu',
@@ -147,17 +146,13 @@
         document.write('<h4>' + ubuntu_releases[release] + ' (' + ubuntu_releases_full_codenames[release] + ')</h4>');
         document.write('<ul>');
         for (var edition in ubuntu_editions) {
-          if (edition == 'netboot') {
-            download_link = `${base_mirror_link}/ubuntu/dists/${ubuntu_releases_codenames[release]}/main/installer-amd64/current/images/netboot/`;
+          if (edition == 'desktop' || edition == 'server') {
+            download_link = `${base_mirror_link}/ubuntu-releases/${release}/`;
           }
           else {
-            if (edition == 'desktop' || edition == 'server') {
-              download_link = `${base_mirror_link}/ubuntu-releases/${release}/`;
-            }
-            else {
-              download_link = `${base_mirror_link}/ubuntu-cdimage/${edition}/releases/${release}/release/`;
-            }
+            download_link = `${base_mirror_link}/ubuntu-cdimage/${edition}/releases/${release}/release/`;
           }
+          
           if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu' || edition == 'kubuntu') {
             document.write(`<li><a href="${download_link}">${ubuntu_editions[edition]} ${ubuntu_releases[release]}</a></li>`);
           }
