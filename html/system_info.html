@@ -15,10 +15,14 @@
     <h1>System Info</h1>
     <script>
       document.write('<ul>');
-        document.write('<li><b>Browser version</b>: ' + navigator.appVersion + '</li>');
-        document.write('<li><b>Browser vendor</b>: ' + navigator.vendor + '</li>');
+        if (navigator.appVersion.search('Chrome') != -1) {
+          document.write('<li><b>Browser version</b>: ' + navigator.appVersion + '</li>');
+          document.write('<li><b>Browser vendor</b>: ' + navigator.vendor + '</li>');
+        }
         document.write('<li><b>Platform</b>: ' + navigator.platform + '</li>');
-        document.write('<li><b>RAM</b>: ' + navigator.deviceMemory + ' GB</li>');
+        if (navigator.appVersion.search('Chrome') != -1) {
+          document.write('<li><b>RAM</b>: ' + navigator.deviceMemory + ' GB</li>');
+        }
         document.write('<li><b>CPUs</b>: ' + navigator.hardwareConcurrency + '</li>');
         document.write('<li><b>Screen resolution</b>: ' + window.screen["width"] + 'x' + window.screen["height"] + '</li>');
         document.write('<li><b>Language</b>: ' + navigator.language + '</li>');
