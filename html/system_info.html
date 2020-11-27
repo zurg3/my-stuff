@@ -15,12 +15,12 @@
     <h1>System Info</h1>
     <script>
       document.write('<ul>');
-        if (navigator.appVersion.search('Chrome') != -1) {
-          document.write('<li><b>Browser version</b>: ' + navigator.appVersion + '</li>');
+        document.write('<li><b>Browser version</b>: ' + navigator.userAgent + '</li>');
+        if (navigator.userAgent.search('Chrome') != -1) {
           document.write('<li><b>Browser vendor</b>: ' + navigator.vendor + '</li>');
         }
         document.write('<li><b>Platform</b>: ' + navigator.platform + '</li>');
-        if (navigator.appVersion.search('Chrome') != -1) {
+        if (navigator.userAgent.search('Chrome') != -1) {
           document.write('<li><b>RAM</b>: ' + navigator.deviceMemory + ' GB</li>');
         }
         document.write('<li><b>CPUs</b>: ' + navigator.hardwareConcurrency + '</li>');
@@ -28,6 +28,7 @@
         document.write('<li><b>Language</b>: ' + navigator.language + '</li>');
         document.write('<li><b>Cookie enabled</b>: ' + navigator.cookieEnabled + '</li>');
         document.write('<li><b>Java enabled</b>: ' + navigator.javaEnabled() + '</li>');
+        document.write('<li><b>Online</b>: ' + navigator.onLine + '</li>');
       document.write('</ul>');
     </script>
   </body>
