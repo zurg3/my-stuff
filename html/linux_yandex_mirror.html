@@ -54,6 +54,7 @@
 
       // Linux Mint
       var linux_mint_releases = [
+        '20.1',
         '20',
         '19.3',
         '19.2',
@@ -62,6 +63,7 @@
         '18.3'
       ];
       var linux_mint_releases_codenames = {
+        '20.1': 'Ulyssa',
         '20': 'Ulyana',
         '19.3': 'Tricia',
         '19.2': 'Tina',
@@ -152,7 +154,7 @@
           else {
             download_link = `${base_mirror_link}/ubuntu-cdimage/${edition}/releases/${release}/release/`;
           }
-          
+
           if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu' || edition == 'kubuntu') {
             document.write(`<li><a href="${download_link}">${ubuntu_editions[edition]} ${ubuntu_releases[release]}</a></li>`);
           }
