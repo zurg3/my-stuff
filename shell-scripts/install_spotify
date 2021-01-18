@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git clone https://aur.archlinux.org/spotify.git
+cd spotify
+makepkg -sir --skippgpcheck
+cd ..
+rm -rf spotify
