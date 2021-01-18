@@ -1,3 +1,6 @@
+// You need open a list in detail view to use this script
+// Example link: https://www.imdb.com/list/ls083869018/?mode=detail
+
 var list_items_runtime_full = document.getElementsByClassName('runtime');
 var list_items_num = document.getElementsByClassName('runtime').length;
 var total_runtime = 0;

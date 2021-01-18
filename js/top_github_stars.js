@@ -1,3 +1,5 @@
+// Example link: https://github.com/zurg3?direction=desc&sort=stars&tab=stars
+
 var user = document.getElementsByClassName('p-nickname vcard-username d-block')[0].innerText;
 console.log('TOP-10 repositories starred by ' + user + ' on GitHub:');
 var stars_pos = 0;
@@ -9,6 +11,6 @@ for (var i = 0; i < 10; i++) {
   var lang = lang.replace(/\s/g, '');
   var repo_rank = i + 1;
   console.log(repo_rank + '. ' + repo_name + ' | Stars: ' + stars + ' | Lang: ' + lang);
-  
+
   var stars_pos = stars_pos + 2;
 }

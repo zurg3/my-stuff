@@ -1,4 +1,5 @@
 // You need open a list in compact view to use this script
+// Example link: https://www.imdb.com/list/ls083869018/?mode=simple
 
 var list_items = document.getElementsByClassName('lister-item-header');
 var list_items_num = list_items.length;
