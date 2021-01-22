@@ -7,21 +7,16 @@ on:
 
 jobs:
   win:
-    name: Windows ${{ matrix.python_arch }} (windows-latest)
+    name: Windows (windows-latest)
     runs-on: windows-latest
-    strategy:
-      matrix:
-        python_arch: [x86, x64]
-      fail-fast: false
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.8 (${{ matrix.python_arch }})
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
           python-version: "3.8"
-          architecture: ${{ matrix.python_arch }}
 
       - name: Install Python packages
         run: |
@@ -35,11 +30,8 @@ jobs:
       - name: Upload artifact (image_galleries_gui.py)
         uses: actions/upload-artifact@v2
         with:
-          name: image_galleries_gui_win_${{ matrix.python_arch }}
-          path: dist
-
-      - name: Clean up (image_galleries_gui.py)
-        run: del dist\*
+          name: image_galleries_gui_win
+          path: dist\image_galleries_gui.exe
 
       - name: Build executable (hash_sums_gui.py)
         run: pyinstaller --onefile --windowed python\hash_sums_gui.py
@@ -47,11 +39,8 @@ jobs:
       - name: Upload artifact (hash_sums_gui.py)
         uses: actions/upload-artifact@v2
         with:
-          name: hash_sums_gui_win_${{ matrix.python_arch }}
-          path: dist
-
-      - name: Clean up (hash_sums_gui.py)
-        run: del dist\*
+          name: hash_sums_gui_win
+          path: dist\hash_sums_gui.exe
 
   linux:
     name: Linux (ubuntu-latest)
@@ -78,10 +67,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: image_galleries_gui_linux
-          path: dist
-
-      - name: Clean up (image_galleries_gui.py)
-        run: rm dist/*
+          path: dist/image_galleries_gui
 
       - name: Build executable (hash_sums_gui.py)
         run: pyinstaller --onefile python/hash_sums_gui.py
@@ -90,7 +76,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: hash_sums_gui_linux
-          path: dist
-
-      - name: Clean up (hash_sums_gui.py)
-        run: rm dist/*
+          path: dist/hash_sums_gui
