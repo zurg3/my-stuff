@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  win:
-    name: Windows (windows-latest)
+  win-msvc:
+    name: Windows (MSVC) (windows-latest)
     runs-on: windows-latest
     steps:
       - name: Git Clone
@@ -16,19 +16,65 @@ jobs:
       - name: Build
         run: |
           cd cpp
-          make
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 16 2019" -A x64
+          cmake --build . --config Release --target calc
+          cmake --build . --config Release --target num_systems
+          cmake --build . --config Release --target unix_time
 
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v2
         with:
-          name: calc_cpp_win
-          path: cpp\calc_cpp_win
+          name: calc_cpp_win_msvc
+          path: cpp\build\Release\calc.exe
 
       - name: Upload artifact (num_systems.cpp)
         uses: actions/upload-artifact@v2
         with:
-          name: num_systems_cpp_win
-          path: cpp\num_systems_cpp_win
+          name: num_systems_cpp_win_msvc
+          path: cpp\build\Release\num_systems.exe
+
+      - name: Upload artifact (unix_time.cpp)
+        uses: actions/upload-artifact@v2
+        with:
+          name: unix_time_cpp_win_msvc
+          path: cpp\build\Release\unix_time.exe
+
+  win-gcc:
+    name: Windows (GCC) (windows-latest)
+    runs-on: windows-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          cd cpp
+          mkdir build
+          cd build
+          cmake .. -G "MinGW Makefiles"
+          cmake --build . --target calc
+          cmake --build . --target num_systems
+          cmake --build . --target unix_time
+
+      - name: Upload artifact (calc.cpp)
+        uses: actions/upload-artifact@v2
+        with:
+          name: calc_cpp_win_gcc
+          path: cpp\build\calc.exe
+
+      - name: Upload artifact (num_systems.cpp)
+        uses: actions/upload-artifact@v2
+        with:
+          name: num_systems_cpp_win_gcc
+          path: cpp\build\num_systems.exe
+
+      - name: Upload artifact (unix_time.cpp)
+        uses: actions/upload-artifact@v2
+        with:
+          name: unix_time_cpp_win_gcc
+          path: cpp\build\unix_time.exe
 
   linux:
     name: Linux (ubuntu-latest)
@@ -40,17 +86,27 @@ jobs:
       - name: Build
         run: |
           cd cpp
-          make calc
-          make num_systems
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --target calc
+          cmake --build . --target num_systems
+          cmake --build . --target unix_time
 
       - name: Upload artifact (calc.cpp)
         uses: actions/upload-artifact@v2
         with:
           name: calc_cpp_linux
-          path: cpp/calc_cpp_linux
+          path: cpp/build/calc
 
       - name: Upload artifact (num_systems.cpp)
         uses: actions/upload-artifact@v2
         with:
           name: num_systems_cpp_linux
-          path: cpp/num_systems_cpp_linux
+          path: cpp/build/num_systems
+
+      - name: Upload artifact (unix_time.cpp)
+        uses: actions/upload-artifact@v2
+        with:
+          name: unix_time_cpp_linux
+          path: cpp/build/unix_time
