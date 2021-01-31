@@ -5,6 +5,7 @@
 [![Python](https://github.com/zurg3/my-stuff/workflows/Python/badge.svg?branch=master&event=push)](https://github.com/zurg3/my-stuff/actions)
 
 ## A collection of programs and scripts I wrote for fun
+- [Assembly](https://github.com/zurg3/my-stuff/tree/master/asm)
 - [C++](https://github.com/zurg3/my-stuff/tree/master/cpp)
 - [C](https://github.com/zurg3/my-stuff/tree/master/c)
 - [D](https://github.com/zurg3/my-stuff/tree/master/d)
