@@ -3,8 +3,7 @@ package main
 import "fmt"
 
 func main() {
-  var a float32
-  var b float32
+  var a, b float32
 
   fmt.Print("Enter the first number: ")
   fmt.Scanf("%f", &a)
