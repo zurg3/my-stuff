@@ -9,6 +9,7 @@
 - [C++](https://github.com/zurg3/my-stuff/tree/master/cpp)
 - [C](https://github.com/zurg3/my-stuff/tree/master/c)
 - [D](https://github.com/zurg3/my-stuff/tree/master/d)
+- [Go](https://github.com/zurg3/my-stuff/tree/master/go)
 - [HTML](https://github.com/zurg3/my-stuff/tree/master/html)
 - [JavaScript](https://github.com/zurg3/my-stuff/tree/master/js)
 - [Java](https://github.com/zurg3/my-stuff/tree/master/java)
