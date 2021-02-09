@@ -1,0 +1,9 @@
+#!/bin/bash
+
+command -v yay > /dev/null
+
+if [[ $? == "0" ]]; then
+  rm -rf $HOME/.cache/yay/*
+elif [[ $? == "1" ]]; then
+  echo "yay isn't installed."
+fi
