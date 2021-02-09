@@ -10,13 +10,14 @@ if [[ $? == "1" ]]; then
 fi
 
 g++ cpp/git_puller.cpp -static -std=c++17 -o $install_path/git_puller
-
 # ln python/git_puller.py $install_path
 ln shell-scripts/create_code_file $install_path
+ln shell-scripts/clear_yay_cache $install_path
 
 echo "" >> $bashrc_path
 # echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
 echo "alias git_puller='$install_path/./git_puller'" >> $bashrc_path
 echo "alias create_code_file='$install_path/./create_code_file'" >> $bashrc_path
+echo "alias clear_yay_cache='$install_path/./clear_yay_cache'" >> $bashrc_path
 
 source $bashrc_path
