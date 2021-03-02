@@ -347,15 +347,14 @@
           var date = new Date();
           var now_year = date.getFullYear();
           var year_option_end = now_year + 5;
+
           for (var year_option = year_option_end; year_option >= 1900; year_option--) {
-            document.write(`<option `);
             if (year_option == now_year) {
-              document.write(`selected value="${year_option}"`);
+              document.write(`<option selected value="${year_option}">${year_option}</option>`);
             }
             else {
-              document.write(`value="${year_option}"`);
+              document.write(`<option value="${year_option}">${year_option}</option>`);
             }
-            document.write(`>${year_option}</option>`);
           }
         </script>
       </select>
