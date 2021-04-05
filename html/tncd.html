@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tracking number check digit</title>
+    <style>
+      .tn_input {
+        width: 40px;
+        height: 20px;
+      }
+
+      #tncd {
+        background: #c5c5c5;
+        width: 40px;
+        height: 20px;
+      }
+
+      .button {
+        width: 200px;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function get_tncd() {
+        const weights = [8, 6, 4, 2, 3, 5, 9, 7];
+        var sum = 0;
+        var tncd = 0;
+
+        for (var i = 0; i < 8; i++) {
+          sum += document.getElementsByClassName('tn_input')[i].value * weights[i];
+        }
+
+        tncd = 11 - (sum % 11);
+
+        if (tncd == 10) {
+          tncd = 0;
+        }
+        else if (tncd == 11) {
+          tncd = 5;
+        }
+
+        return tncd;
+      }
+
+      function set_tncd() {
+        var k = 0;
+
+        for (var i = 0; i < 8; i++) {
+          if (document.getElementsByClassName('tn_input')[i].value == '' || (document.getElementsByClassName('tn_input')[i].value != '' && document.getElementsByClassName('tn_input')[i].value.length != 1)) {
+            k++;
+          }
+        }
+
+        if (k == 0) {
+          document.getElementById('tncd').value = get_tncd();
+        }
+      }
+
+      function validate_tncd() {
+        var k = 0;
+
+        for (var i = 0; i < 8; i++) {
+          if (document.getElementsByClassName('tn_input')[i].value == '' || (document.getElementsByClassName('tn_input')[i].value != '' && document.getElementsByClassName('tn_input')[i].value.length != 1)) {
+            k++;
+          }
+        }
+
+        if (document.getElementById('tncd').value == '' || (document.getElementById('tncd').value != '' && document.getElementById('tncd').value.length != 1)) {
+          k++;
+        }
+
+        if (k == 0) {
+          if (get_tncd() == document.getElementById('tncd').value) {
+            alert('True');
+          }
+          else {
+            alert('False');
+          }
+        }
+      }
+
+      function fill_tn() {
+        var random_num_min = 0;
+        var random_num_max = 9;
+
+        for (var i = 0; i < 8; i++) {
+          document.getElementsByClassName('tn_input')[i].value = Math.floor(Math.random() * random_num_max) + random_num_min;
+        }
+      }
+
+      function clear_input() {
+        for (var i = 0; i < 8; i++) {
+          document.getElementsByClassName('tn_input')[i].value = '';
+        }
+        document.getElementById('tncd').value = '';
+      }
+    </script>
+    <form>
+      <h1>Tracking number check digit</h1>
+      <p>
+        <span>X</span>
+        <span>X</span>
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" id="tncd" min="0" max="9" step="1">
+        <span>Y</span>
+        <span>Y</span>
+      </p>
+      <p><input type="button" class="button" value="Get TNCD" onclick="set_tncd()"></p>
+      <p><input type="button" class="button" value="Validate TNCD" onclick="validate_tncd()"></p>
+      <p><input type="button" class="button" value="Fill tracking number randomly" onclick="fill_tn()"></p>
+      <p><input type="button" class="button" value="Clear input" onclick="clear_input()"></p>
+    </form>
+  </body>
+</html>
