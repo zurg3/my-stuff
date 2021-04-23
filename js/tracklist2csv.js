@@ -1,8 +1,8 @@
 var release_id = prompt('Release ID');
 
-var tracks = document.getElementsByClassName('spread');
-var tracks_count = document.getElementsByClassName('spread').length;
-var track_len = document.getElementsByClassName('table__row__duration-counter');
+var tracks = document.getElementsByClassName('song-name typography-body-tall');
+var tracks_count = document.getElementsByClassName('song-name typography-body-tall').length;
+var track_len = document.getElementsByClassName('time-data');
 
 for (i = 0; i < tracks_count; i++) {
   var track_num = i + 1;
