@@ -4,7 +4,7 @@ var artist = document.getElementsByClassName('product-creator typography-large-t
 var album_title = document.getElementsByClassName('product-name typography-large-title-semibold clamp-4')[0].innerText;
 var release_year = document.querySelector('meta[property="music:release_date"]').content.split('-')[0];
 
-var tracks = document.getElementsByClassName('song-name typography-body-tall');
+var tracks = document.getElementsByClassName('songs-list-row__song-name');
 var tracks_count = tracks.length;
 
 console.log(artist + ' - ' + album_title + ' (' + release_year + ')');
