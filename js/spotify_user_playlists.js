@@ -1,8 +1,8 @@
 var playlist = [];
-var playlists = document.getElementsByClassName('contentSpacing')[1].children[1].children.length;
+var playlists = document.querySelectorAll('[data-testid="grid-container"]')[0].children.length;
 
 for (var i = 0; i < playlists; i++) {
-  playlist.push(document.getElementsByClassName('contentSpacing')[1].children[1].children[i].children[0].children[0].children[1].children[0].children[0].innerText);
+  playlist.push(document.querySelectorAll('[data-testid="grid-container"]')[0].children[i].children[0].children[1].children[0].innerText);
 }
 
 playlist.sort(function(a, b) {
