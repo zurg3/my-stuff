@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Compare</title>
+  </head>
+  <body>
+    <script>
+      function compare() {
+        if (document.getElementById('repo_owner').value != '' && document.getElementById('repo_name').value != '' && document.getElementById('base_ref').value != '' && document.getElementById('head_ref').value != '') {
+          var repo_owner = document.getElementById('repo_owner').value;
+          var repo_name = document.getElementById('repo_name').value;
+          var base_ref = document.getElementById('base_ref').value;
+          var head_ref = document.getElementById('head_ref').value;
+
+          window.open(`https://github.com/${repo_owner}/${repo_name}/compare/${base_ref}...${head_ref}`, '_blank');
+        }
+      }
+    </script>
+    <h2>GitHub Compare</h2>
+    <form>
+      <p>
+        <label for="repo_owner">Repository owner</label><br>
+        <input type="text" id="repo_owner" size="20">
+      </p>
+      <p>
+        <label for="repo_name">Repository name</label><br>
+        <input type="text" id="repo_name" size="30">
+      </p>
+      <p>
+        <label for="base_ref">Base (old) ref (branch/tag/commit)</label><br>
+        <input type="text" id="base_ref" size="40">
+      </p>
+      <p>
+        <label for="head_ref">Head (new) ref (branch/tag/commit)</label><br>
+        <input type="text" id="head_ref" size="40">
+      </p>
+      <p><input type="button" value="Compare" onclick="compare()"></p>
+    </form>
+  </body>
+</html>
