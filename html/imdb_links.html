@@ -220,7 +220,7 @@
 
         new_input_field.className = 'name_search_input_field';
 
-        new_input_field.innerHTML = `Name ${new_input_field_num} ID<br><input type="text" size="10"> <input type="button" value="[X]" onclick="remove_name(this)">`;
+        new_input_field.innerHTML = `Name ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_name(this)">`;
 
         document.getElementsByClassName('name_search_input_fields')[0].appendChild(new_input_field);
       }
@@ -262,7 +262,7 @@
 
         new_input_field.className = 'title_search_input_field';
 
-        new_input_field.innerHTML = `Title ${new_input_field_num} ID<br><input type="text" size="10"> <input type="button" value="[X]" onclick="remove_title(this)">`;
+        new_input_field.innerHTML = `Title ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_title(this)">`;
 
         document.getElementsByClassName('title_search_input_fields')[0].appendChild(new_input_field);
       }
@@ -337,7 +337,7 @@
     <br>
     <form>
       <label for="imdb_id">Enter IMDb ID</label>
-      <input type="text" id="imdb_id" size="10">
+      <input type="text" id="imdb_id" size="10" autocomplete="off">
       <input type="button" value="Submit" onclick="find_item()">
     </form>
     <br>
@@ -366,8 +366,8 @@
     <form>
       <h3>People in the same title</h3>
       <div class="name_search_input_fields">
-        <p class="name_search_input_field">Name 1 ID<br><input type="text" size="10"></p>
-        <p class="name_search_input_field">Name 2 ID<br><input type="text" size="10"></p>
+        <p class="name_search_input_field">Name 1 ID<br><input type="text" size="10" autocomplete="off"></p>
+        <p class="name_search_input_field">Name 2 ID<br><input type="text" size="10" autocomplete="off"></p>
       </div>
       <h4>Title type</h4>
       <div class="name_search_title_types">
@@ -392,8 +392,8 @@
     <form>
       <h3>Titles with the same people</h3>
       <div class="title_search_input_fields">
-        <p class="title_search_input_field">Title 1 ID<br><input type="text" size="10"></p>
-        <p class="title_search_input_field">Title 2 ID<br><input type="text" size="10"></p>
+        <p class="title_search_input_field">Title 1 ID<br><input type="text" size="10" autocomplete="off"></p>
+        <p class="title_search_input_field">Title 2 ID<br><input type="text" size="10" autocomplete="off"></p>
       </div>
       <p>
         <input type="button" value="Search" onclick="search_title()">
