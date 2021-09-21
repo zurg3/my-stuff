@@ -11,7 +11,7 @@
     <script>
       function find_item() {
         var get_imdb_id = document.getElementById('imdb_id').value;
-        var imdb_item_type = get_imdb_id[0] + get_imdb_id[1];
+        var imdb_item_type = get_imdb_id.slice(0, 2);
 
         var imdb_title_link = 'https://www.imdb.com/title/';
         var imdb_review_link = 'https://www.imdb.com/review/';
@@ -21,7 +21,8 @@
         var imdb_event_link = 'https://www.imdb.com/event/';
         var imdb_user_link = 'https://www.imdb.com/user/';
         var imdb_list_link = 'https://www.imdb.com/list/';
-        var imdb_video_link = 'https://www.imdb.com/videoplayer/';
+        var imdb_gallery_link = 'https://www.imdb.com/gallery/';
+        var imdb_video_link = 'https://www.imdb.com/video/';
 
         var api_key = '3c5677f8';
 
@@ -189,6 +190,11 @@
             document.write(`<li><a href="${imdb_list_link}${get_imdb_id}/?mode=simple">Compact view</a></li>`);
           document.write('</ul>');
         }
+        else if (imdb_item_type == 'rg') {
+          document.write('<head><title>IMDb Gallery</title></head>');
+
+          document.write(`<h3><a href="${imdb_gallery_link}${get_imdb_id}/">Gallery</a></h3>`);
+        }
         else if (imdb_item_type == 'vi') {
           document.write('<head><title>IMDb Video</title></head>');
 
@@ -199,7 +205,7 @@
         }
 
         if (imdb_item_type != 'tt') {
-            document.write('<hr><p><a href="imdb_links.html">Back</a><p>');
+          document.write('<hr><p><a href="imdb_links.html">Back</a><p>');
         }
       }
 
@@ -328,6 +334,10 @@
       <tr>
         <td>List</td>
         <td>ls029730123</td>
+      </tr>
+      <tr>
+        <td>Gallery</td>
+        <td>rg1624939264</td>
       </tr>
       <tr>
         <td>Video</td>
