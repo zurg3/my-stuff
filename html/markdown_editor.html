@@ -89,10 +89,10 @@
 
     <!-- JS -->
     <script>
-      document.getElementById('output').innerHTML = marked(document.getElementById('input').value);
+      document.getElementById('output').innerHTML = marked.parse(document.getElementById('input').value);
 
       function compile_markdown() {
-        document.getElementById('output').innerHTML = marked(document.getElementById('input').value);
+        document.getElementById('output').innerHTML = marked.parse(document.getElementById('input').value);
       }
 
       function clear_input() {
