@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Replace diacritics</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.9/clipboard.min.js"></script>
   </head>
   <body>
     <script>
@@ -25,7 +25,7 @@
       <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
       <h3>Output</h3>
       <p id="output_text"></p>
-      <p><input type="button" id="clipboard_button" value="Copy output to clipboard" data-clipboard-target="#output_text"></p>
+      <p><input type="button" id="clipboard_button" value="Copy output to clipboard" data-clipboard-target="#output_text" data-clipboard-action="copy"></p>
     </form>
   </body>
 </html>
