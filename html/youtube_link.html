@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouTube share link converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+  </head>
+  <body>
+    <script>
+      new ClipboardJS('#clipboard_button');
+
+      var youtube_music_link = '';
+      var youtube_link = '';
+      var video_id = '';
+
+      function convert() {
+        youtube_music_link = document.getElementById('youtube_music_link').value;
+
+        var ytm_url = new URL(youtube_music_link);
+        var params = Object.fromEntries(ytm_url.searchParams.entries());
+
+        if (ytm_url.host == 'music.youtube.com' && params.hasOwnProperty('v')) {
+          video_id = params['v'];
+
+          var yt_url = new URL(`/${video_id}`, 'https://youtu.be');
+          youtube_link = yt_url.href;
+
+          document.getElementById('youtube_link').innerHTML = `<a href="${youtube_link}" target="_blank">${youtube_link}</a>`;
+        }
+      }
+
+      function play_video() {
+        if (video_id != '') {
+          document.getElementById('youtube_video').innerHTML = `<iframe width="640" height="360" src="https://www.youtube.com/embed/${video_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+      }
+
+      function clear_input() {
+        document.getElementById('youtube_music_link').value = '';
+        document.getElementById('youtube_link').innerHTML = '';
+        document.getElementById('youtube_video').innerHTML = '';
+        video_id = '';
+      }
+    </script>
+    <h2>YouTube share link converter</h2>
+    <h3>YouTube Music Link</h3>
+    <p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>
+    <p><input type="button" id="convert_button" value="Get YouTube link" onclick="convert()"></p>
+    <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+    <h3>YouTube Link</h3>
+    <p>
+      <span id="youtube_link"></span>
+      <input type="button" id="clipboard_button" value="Copy" data-clipboard-target="#youtube_link" data-clipboard-action="copy">
+      <input type="button" id="play_video_button" value="Play video" onclick="play_video()">
+    </p>
+    <div id="youtube_video"></div>
+  </body>
+</html>
