@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notepad</title>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Lucida Console', monospace;
+        font-size: 10pt;
+      }
+
+      #textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        overflow-x: auto;
+        overflow-y: scroll;
+        border: 0;
+        box-sizing: border-box;
+        cursor: auto;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="textarea" wrap="soft" autofocus spellcheck="false"></textarea>
+    <script>
+      // https://benborgers.com/posts/textarea-tab
+
+      const textarea = document.getElementById('textarea');
+
+      textarea.addEventListener('keydown', (e) => {
+        if (e.keyCode === 9) {
+          e.preventDefault();
+          textarea.setRangeText('  ', textarea.selectionStart, textarea.selectionStart, 'end');
+        }
+        /*
+        else if (e.keyCode === 116) {
+          e.preventDefault();
+          textarea.focus();
+	        document.execCommand("insertText", false, '03:00 01.01.1970');
+        }
+        */
+      });
+    </script>
+  </body>
+</html>
