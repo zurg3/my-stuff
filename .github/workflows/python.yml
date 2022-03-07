@@ -11,12 +11,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Git Clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
         with:
-          python-version: "3.8"
+          python-version: "3.10"
 
       - name: Install Python packages
         run: |
@@ -28,7 +28,7 @@ jobs:
         run: pyinstaller --onefile --windowed python\image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: image_galleries_gui_win
           path: dist\image_galleries_gui.exe
@@ -37,7 +37,7 @@ jobs:
         run: pyinstaller --onefile --windowed python\hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: hash_sums_gui_win
           path: dist\hash_sums_gui.exe
@@ -47,12 +47,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
         with:
-          python-version: "3.8"
+          python-version: "3.10"
 
       - name: Install Python packages
         run: |
@@ -64,7 +64,7 @@ jobs:
         run: pyinstaller --onefile python/image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: image_galleries_gui_linux
           path: dist/image_galleries_gui
@@ -73,7 +73,7 @@ jobs:
         run: pyinstaller --onefile python/hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: hash_sums_gui_linux
           path: dist/hash_sums_gui
