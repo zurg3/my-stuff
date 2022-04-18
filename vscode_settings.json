@@ -6,6 +6,7 @@
   "extensions.autoUpdate": false,
   "files.autoSave": "off",
   "files.enableTrash": false,
+  "update.mode": "manual",
   "window.menuBarVisibility": "classic",
   "workbench.colorTheme": "Atom One Dark",
   "workbench.editor.enablePreview": false,
