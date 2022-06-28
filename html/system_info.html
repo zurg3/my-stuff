@@ -12,26 +12,58 @@
     </style>
   </head>
   <body>
-    <h1>System Info</h1>
     <script>
-      document.write('<ul>');
-        document.write('<li><b>Browser version</b>: ' + navigator.userAgent + '</li>');
-        if (navigator.userAgent.search('Chrome') != -1) {
-          document.write('<li><b>Browser vendor</b>: ' + navigator.vendor + '</li>');
+      async function print_system_info() {
+        if (navigator.userAgentData) {
+          var user_agent = await navigator.userAgentData.getHighEntropyValues([
+            "architecture",
+            "bitness",
+            "fullVersionList",
+            "mobile",
+            "model",
+            "platform",
+            "platformVersion"
+          ]);
         }
-        document.write('<li><b>Platform</b>: ' + navigator.platform + '</li>');
+
+        document.body.innerHTML += `<h1>System Info</h1>`;
+        document.body.innerHTML += `<ul></ul>`;
+
+        if (navigator.userAgentData) {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version</b>: ${user_agent.fullVersionList[1]["brand"]} ${user_agent.fullVersionList[1]["version"]}/${user_agent.fullVersionList[2]["brand"]} ${user_agent.fullVersionList[2]["version"]}</li>`;
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version (old)</b>: ${navigator.userAgent}</li>`;
+        }
+        else {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version</b>: ${navigator.userAgent}</li>`;
+        }
+        if (navigator.userAgentData) {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>OS</b>: ${user_agent.platform} ${user_agent.platformVersion} ${user_agent.bitness}-bit</li>`;
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Architecture</b>: ${user_agent.architecture}</li>`;
+        }
+        if (navigator.userAgentData && user_agent.model != '') {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Model</b>: ${user_agent.model}</li>`;
+        }
+        if (navigator.userAgentData) {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Mobile</b>: ${user_agent.mobile}</li>`;
+        }
         if (navigator.userAgent.search('Chrome') != -1) {
-          document.write('<li><b>RAM</b>: ' + navigator.deviceMemory + ' GB</li>');
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser vendor</b>: ${navigator.vendor}</li>`;
+        }
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Platform</b>: ${navigator.platform}</li>`;
+        if (navigator.userAgent.search('Chrome') != -1) {
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>RAM</b>: ${navigator.deviceMemory} GB</li>`;
         }
         if (navigator.userAgent.search('Chrome') != -1 || navigator.userAgent.search('Firefox') != -1) {
-          document.write('<li><b>CPUs</b>: ' + navigator.hardwareConcurrency + '</li>');
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>CPUs</b>: ${navigator.hardwareConcurrency}</li>`;
         }
-        document.write('<li><b>Screen resolution</b>: ' + window.screen["width"] + 'x' + window.screen["height"] + '</li>');
-        document.write('<li><b>Language</b>: ' + navigator.language + '</li>');
-        document.write('<li><b>Cookie enabled</b>: ' + navigator.cookieEnabled + '</li>');
-        document.write('<li><b>Java enabled</b>: ' + navigator.javaEnabled() + '</li>');
-        document.write('<li><b>Online</b>: ' + navigator.onLine + '</li>');
-      document.write('</ul>');
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Screen resolution</b>: ${window.screen["width"]}x${window.screen["height"]}</li>`;
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Language</b>: ${navigator.language}</li>`;
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Cookie enabled</b>: ${navigator.cookieEnabled}</li>`;
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Java enabled</b>: ${navigator.javaEnabled()}</li>`;
+        document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Online</b>: ${navigator.onLine}</li>`;
+      }
+
+      print_system_info();
     </script>
   </body>
 </html>

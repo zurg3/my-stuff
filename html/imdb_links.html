@@ -74,7 +74,16 @@
               document.write('</ul>');
             document.write('<h4>Photo and video</h4>');
               document.write('<ul>');
-                document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex">Photo gallery</a></li>`);
+                document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex">Photo gallery</a>`);
+                  document.write('<ul>');
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=still_frame">Still frame</a></li>`);
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=poster">Poster</a></li>`);
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=product">Product</a></li>`);
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=behind_the_scenes">Behind the scenes</a></li>`);
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=event">Event</a></li>`);
+                    document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/mediaindex?refine=publicity">Publicity</a></li>`);
+                  document.write('</ul>');
+                document.write('</li>');
                 document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/videogallery">Trailers and videos</a></li>`);
               document.write('</ul>');
             document.write('<h4>Did you know?</h4>');
