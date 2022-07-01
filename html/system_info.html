@@ -37,7 +37,14 @@
           document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version</b>: ${navigator.userAgent}</li>`;
         }
         if (navigator.userAgentData) {
-          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>OS</b>: ${user_agent.platform} ${user_agent.platformVersion} ${user_agent.bitness}-bit</li>`;
+          if (user_agent.bitness != '') {
+            document.getElementsByTagName('ul')[0].innerHTML += `<li><b>OS</b>: ${user_agent.platform} ${user_agent.platformVersion} ${user_agent.bitness}-bit</li>`; 
+          }
+          else {
+            document.getElementsByTagName('ul')[0].innerHTML += `<li><b>OS</b>: ${user_agent.platform} ${user_agent.platformVersion}</li>`;
+          }
+        }
+        if (navigator.userAgentData && user_agent.architecture != '') {
           document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Architecture</b>: ${user_agent.architecture}</li>`;
         }
         if (navigator.userAgentData && user_agent.model != '') {
