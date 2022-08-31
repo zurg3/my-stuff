@@ -30,7 +30,7 @@
         document.body.innerHTML += `<ul></ul>`;
 
         if (navigator.userAgentData) {
-          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version</b>: ${user_agent.fullVersionList[1]["brand"]} ${user_agent.fullVersionList[1]["version"]}/${user_agent.fullVersionList[2]["brand"]} ${user_agent.fullVersionList[2]["version"]}</li>`;
+          document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version</b>: ${user_agent.fullVersionList[0]["brand"]} ${user_agent.fullVersionList[0]["version"]}/${user_agent.fullVersionList[1]["brand"]} ${user_agent.fullVersionList[1]["version"]}/${user_agent.fullVersionList[2]["brand"]} ${user_agent.fullVersionList[2]["version"]}</li>`;
           document.getElementsByTagName('ul')[0].innerHTML += `<li><b>Browser version (old)</b>: ${navigator.userAgent}</li>`;
         }
         else {
