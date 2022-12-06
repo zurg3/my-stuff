@@ -20,7 +20,7 @@
         var ytm_url = new URL(youtube_music_link);
         var params = Object.fromEntries(ytm_url.searchParams.entries());
 
-        if (ytm_url.host == 'music.youtube.com' && params.hasOwnProperty('v')) {
+        if ((ytm_url.host == 'music.youtube.com' || ytm_url.host == 'www.youtube.com') && params.hasOwnProperty('v')) {
           video_id = params['v'];
 
           var yt_url = new URL(`/${video_id}`, 'https://youtu.be');
@@ -44,11 +44,11 @@
       }
     </script>
     <h2>YouTube share link converter</h2>
-    <h3>YouTube Music Link</h3>
+    <h3>YouTube Music/YouTube Link</h3>
     <p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>
     <p><input type="button" id="convert_button" value="Get YouTube link" onclick="convert()"></p>
     <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
-    <h3>YouTube Link</h3>
+    <h3>YouTube Share Link</h3>
     <p>
       <span id="youtube_link"></span>
       <input type="button" id="clipboard_button" value="Copy" data-clipboard-target="#youtube_link" data-clipboard-action="copy">
