@@ -1,8 +1,8 @@
 /*
 this program probably works only on Linux.
 
-Compile: g++ git_puller.cpp -std=c++17 -o git_puller
-Compile (static): g++ git_puller.cpp -static -std=c++17 -o git_puller
+Compile: g++ git_puller.cpp -std=c++20 -o git_puller
+Compile (static): g++ git_puller.cpp -static -std=c++20 -o git_puller
 */
 
 #include <iostream>
