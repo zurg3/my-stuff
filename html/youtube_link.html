@@ -20,7 +20,7 @@
         var ytm_url = new URL(youtube_music_link);
         var params = Object.fromEntries(ytm_url.searchParams.entries());
 
-        if ((ytm_url.host == 'music.youtube.com' || ytm_url.host == 'www.youtube.com') && params.hasOwnProperty('v')) {
+        if ((ytm_url.host == 'music.youtube.com' || ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com') && params.hasOwnProperty('v')) {
           video_id = params['v'];
 
           var yt_url = new URL(`/${video_id}`, 'https://youtu.be');
