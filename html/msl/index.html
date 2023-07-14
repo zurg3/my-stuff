@@ -5,28 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Spotify library</title>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      a {
+        color: Blue;
+      }
+
+      a:visited {
+        color: Blue;
+      }
+    </style>
   </head>
   <body>
     <script>
-      var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
+      if ((window.location.search == '') || (window.location.search != '' && window.location.search.split('=')[0] == '?playlist')) {
+        var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
+      }
+      else {
+        var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/YourLibrary.json';
+      }
 
       $.getJSON(json_url, function(library) {
         $('body').append(`<h2>My Spotify library</h2>`);
 
-        for (var i = 0; i < library.playlists.length; i++) {
-          $('body').append(`<h3>${library.playlists[i].name}</h3>`);
+        if (window.location.search == '') {
+          $('body').append(`<h3><a href="?all_tracks">All liked tracks</a></h3>`);
+          $('body').append(`<h3>Playlists</h3>`);
+          $('body').append(`<ul></ul>`);
 
-          $('body').append(`<table id="playlist${i}" border="1" width="100%"></table>`);
-          $(`#playlist${i}`).append(`<tr>
+          for (var i = 0; i < library.playlists.length; i++) {
+            $('ul').append(`<li><a href="?playlist=${i}">${library.playlists[i].name}</a> (${library.playlists[i].items.length})</li>`);
+          }
+        }
+        else if (window.location.search != '' && window.location.search.split('=')[0] == '?playlist') {
+          var playlist_id = window.location.search.split('=')[1];
+
+          $('body').append(`<h3>${library.playlists[playlist_id].name}</h3>`);
+          if (library.playlists[playlist_id].description != null) {
+            $('body').append(`<h4><em>${library.playlists[playlist_id].description}</em></h4>`);
+          }
+          $('body').append(`<p><a href="index.html">Back</a></p>`);
+
+          $('body').append(`<table border="1" width="100%"></table>`);
+          $('table').append(`<tr>
+            <th>#</th>
             <th>Artist</th>
             <th>Track</th>
             <th>Album</th>
           </tr>`);
-          for (var j = 0; j < library.playlists[i].items.length; j++) {
+
+          for (var i = 0; i < library.playlists[playlist_id].items.length; i++) {
             $('table').append(`<tr>
-              <td>${library.playlists[i].items[j].track.artistName}</td>
-              <td>${library.playlists[i].items[j].track.trackName}</td>
-              <td>${library.playlists[i].items[j].track.albumName}</td>
+              <td>${i + 1}</td>
+              <td>${library.playlists[playlist_id].items[i].track.artistName}</td>
+              <td>${library.playlists[playlist_id].items[i].track.trackName}</td>
+              <td>${library.playlists[playlist_id].items[i].track.albumName}</td>
+            </tr>`);
+          }
+        }
+        else if (window.location.search != '' && window.location.search == '?all_tracks') {
+          $('body').append(`<h3>All liked tracks</h3>`);
+          $('body').append(`<p><a href="index.html">Back</a></p>`);
+
+          $('body').append(`<table border="1" width="100%"></table>`);
+          $('table').append(`<tr>
+            <th>#</th>
+            <th>Artist</th>
+            <th>Track</th>
+            <th>Album</th>
+          </tr>`);
+
+          for (var i = 0; i < library.tracks.length; i++) {
+            $('table').append(`<tr>
+              <td>${i + 1}</td>
+              <td>${library.tracks[i].artist}</td>
+              <td>${library.tracks[i].track}</td>
+              <td>${library.tracks[i].album}</td>
             </tr>`);
           }
         }
