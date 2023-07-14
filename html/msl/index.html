@@ -8,11 +8,28 @@
   </head>
   <body>
     <script>
-      var json_file = 'Playlist1.json';
+      var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
 
+      $.getJSON(json_url, function(library) {
+        $('body').append(`<h2>My Spotify library</h2>`);
 
-      $.getJSON(json_file, function(library) {
-        //...
+        for (var i = 0; i < library.playlists.length; i++) {
+          $('body').append(`<h3>${library.playlists[i].name}</h3>`);
+
+          $('body').append(`<table id="playlist${i}" border="1" width="100%"></table>`);
+          $(`#playlist${i}`).append(`<tr>
+            <th>Artist</th>
+            <th>Track</th>
+            <th>Album</th>
+          </tr>`);
+          for (var j = 0; j < library.playlists[i].items.length; j++) {
+            $('table').append(`<tr>
+              <td>${library.playlists[i].items[j].track.artistName}</td>
+              <td>${library.playlists[i].items[j].track.trackName}</td>
+              <td>${library.playlists[i].items[j].track.albumName}</td>
+            </tr>`);
+          }
+        }
       });
     </script>
   </body>
