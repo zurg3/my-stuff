@@ -22,10 +22,12 @@
   <body>
     <script>
       if ((window.location.search == '') || (window.location.search != '' && window.location.search.split('=')[0] == '?playlist')) {
-        var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
+        var json_url = 'Playlist1.json';
+        //var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
       }
       else {
-        var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/YourLibrary.json';
+        var json_url = 'YourLibrary.json';
+        //var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/YourLibrary.json';
       }
 
       $.getJSON(json_url, function(library) {
