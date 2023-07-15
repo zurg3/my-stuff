@@ -21,11 +21,47 @@
   </head>
   <body>
     <script>
-      if ((window.location.search == '') || (window.location.search != '' && window.location.search.split('=')[0] == '?playlist')) {
+      /*
+      // https://stackoverflow.com/a/4760279/13261892
+      function dynamic_sort(property) {
+        var sort_order = 1;
+
+        if (property[0] === '-') {
+          sort_order = -1;
+          property = property.substr(1);
+        }
+
+        return function(a, b) {
+          var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+
+          return result * sort_order;
+        }
+      }
+
+      function dynamic_sort_multiple() {
+        var props = arguments;
+
+        return function(obj1, obj2) {
+          var i = 0, result = 0, number_of_properties = props.length;
+
+          while (result === 0 && i < number_of_properties) {
+            result = dynamic_sort(props[i])(obj1, obj2);
+            i++;
+          }
+
+          return result;
+        }
+      }
+      */
+
+      var current_url = new URL(window.location);
+      var params = Object.fromEntries(current_url.searchParams.entries());
+
+      if ((current_url.search == '') || (current_url.search != '' && params.hasOwnProperty('playlist'))) {
         var json_url = 'Playlist1.json';
         //var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/Playlist1.json';
       }
-      else {
+      else if (current_url.search != '' && params.hasOwnProperty('view')) {
         var json_url = 'YourLibrary.json';
         //var json_url = 'https://cdn.statically.io/gh/zurg3/my-stuff/master/html/msl/YourLibrary.json';
       }
@@ -33,8 +69,10 @@
       $.getJSON(json_url, function(library) {
         $('body').append(`<h2>My Spotify library</h2>`);
 
-        if (window.location.search == '') {
-          $('body').append(`<h3><a href="?all_tracks">All liked tracks</a></h3>`);
+        if (current_url.search == '') {
+          $('body').append(`<h3><a href="?view=tracks">All liked tracks</a></h3>`);
+          $('body').append(`<h3><a href="?view=albums">All added albums</a></h3>`);
+          $('body').append(`<h3><a href="?view=artists">All following artists</a></h3>`);
           $('body').append(`<h3>Playlists</h3>`);
           $('body').append(`<ul></ul>`);
 
@@ -42,51 +80,85 @@
             $('ul').append(`<li><a href="?playlist=${i}">${library.playlists[i].name}</a> (${library.playlists[i].items.length})</li>`);
           }
         }
-        else if (window.location.search != '' && window.location.search.split('=')[0] == '?playlist') {
-          var playlist_id = window.location.search.split('=')[1];
+        else if (current_url.search != '') {
+          if (params.hasOwnProperty('playlist')) {
+            var playlist_id = params['playlist'];
 
-          $('body').append(`<h3>${library.playlists[playlist_id].name}</h3>`);
-          if (library.playlists[playlist_id].description != null) {
-            $('body').append(`<h4><em>${library.playlists[playlist_id].description}</em></h4>`);
-          }
-          $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<h3>${library.playlists[playlist_id].name}</h3>`);
+            if (library.playlists[playlist_id].description != null) {
+              $('body').append(`<h4><em>${library.playlists[playlist_id].description}</em></h4>`);
+            }
+            $('body').append(`<p><a href="index.html">Back</a></p>`);
 
-          $('body').append(`<table border="1" width="100%"></table>`);
-          $('table').append(`<tr>
-            <th>#</th>
-            <th>Artist</th>
-            <th>Track</th>
-            <th>Album</th>
-          </tr>`);
-
-          for (var i = 0; i < library.playlists[playlist_id].items.length; i++) {
+            $('body').append(`<table border="1" width="100%"></table>`);
             $('table').append(`<tr>
-              <td>${i + 1}</td>
-              <td>${library.playlists[playlist_id].items[i].track.artistName}</td>
-              <td>${library.playlists[playlist_id].items[i].track.trackName}</td>
-              <td>${library.playlists[playlist_id].items[i].track.albumName}</td>
+              <th>#</th>
+              <th>Artist</th>
+              <th>Track</th>
+              <th>Album</th>
             </tr>`);
+
+            for (var i = 0; i < library.playlists[playlist_id].items.length; i++) {
+              $('table').append(`<tr>
+                <td>${i + 1}</td>
+                <td>${library.playlists[playlist_id].items[i].track.artistName}</td>
+                <td>${library.playlists[playlist_id].items[i].track.trackName}</td>
+                <td>${library.playlists[playlist_id].items[i].track.albumName}</td>
+              </tr>`);
+            }
           }
-        }
-        else if (window.location.search != '' && window.location.search == '?all_tracks') {
-          $('body').append(`<h3>All liked tracks</h3>`);
-          $('body').append(`<p><a href="index.html">Back</a></p>`);
+          else if (params.hasOwnProperty('view') && params['view'] == 'tracks') {
+            $('body').append(`<h3>All liked tracks</h3>`);
+            $('body').append(`<p><a href="index.html">Back</a></p>`);
 
-          $('body').append(`<table border="1" width="100%"></table>`);
-          $('table').append(`<tr>
-            <th>#</th>
-            <th>Artist</th>
-            <th>Track</th>
-            <th>Album</th>
-          </tr>`);
-
-          for (var i = 0; i < library.tracks.length; i++) {
+            $('body').append(`<table border="1" width="100%"></table>`);
             $('table').append(`<tr>
-              <td>${i + 1}</td>
-              <td>${library.tracks[i].artist}</td>
-              <td>${library.tracks[i].track}</td>
-              <td>${library.tracks[i].album}</td>
+              <th>#</th>
+              <th>Artist</th>
+              <th>Track</th>
+              <th>Album</th>
             </tr>`);
+
+            //library.tracks = library.tracks.sort(dynamic_sort_multiple('artist', 'track'));
+
+            for (var i = 0; i < library.tracks.length; i++) {
+              $('table').append(`<tr>
+                <td>${i + 1}</td>
+                <td>${library.tracks[i].artist}</td>
+                <td>${library.tracks[i].track}</td>
+                <td>${library.tracks[i].album}</td>
+              </tr>`);
+            }
+          }
+          else if (params.hasOwnProperty('view') && params['view'] == 'albums') {
+            $('body').append(`<h3>All added albums</h3>`);
+            $('body').append(`<p><a href="index.html">Back</a></p>`);
+
+            $('body').append(`<table border="1" width="100%"></table>`);
+            $('table').append(`<tr>
+              <th>#</th>
+              <th>Artist</th>
+              <th>Album</th>
+            </tr>`);
+
+            //library.albums = library.albums.sort(dynamic_sort_multiple('artist', 'album'));
+
+            for (var i = 0; i < library.albums.length; i++) {
+              $('table').append(`<tr>
+                <td>${i + 1}</td>
+                <td>${library.albums[i].artist}</td>
+                <td>${library.albums[i].album}</td>
+              </tr>`);
+            }
+          }
+          else if (params.hasOwnProperty('view') && params['view'] == 'artists') {
+            $('body').append(`<h3>All following artists</h3>`);
+            $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<ol></ol>`);
+
+            for (var i = 0; i < library.artists.length; i++) {
+              $('ol').append(`<li>${library.artists[i].name}</li>`);
+            }
           }
         }
       });

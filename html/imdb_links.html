@@ -31,9 +31,9 @@
           var json_url = `https://www.omdbapi.com/?apikey=${api_key}&i=${get_imdb_id}`;
 
           $.getJSON(json_url, function(json_data) {
-            var movie_title = `${json_data['Title']} (${json_data['Year']})`;
-            var movie_rating = json_data['imdbRating'];
-            var movie_votes = json_data['imdbVotes'];
+            var movie_title = `${json_data.Title} (${json_data.Year})`;
+            var movie_rating = json_data.imdbRating;
+            var movie_votes = json_data.imdbVotes;
 
             document.write(`<head><title>${movie_title}</title><!-- ${json_url} --></head>`);
 
