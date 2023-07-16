@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Spotify library</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <style>
       body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Open Sans', sans-serif;
+        background: #f0f0f0;
       }
 
       a {
@@ -16,6 +18,14 @@
 
       a:visited {
         color: Blue;
+      }
+
+      .highlighted_th {
+        background: #adbce6;
+      }
+
+      .highlighted_tr:hover {
+        background: #ffc484;
       }
     </style>
   </head>
@@ -91,7 +101,7 @@
             $('body').append(`<p><a href="index.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
-            $('table').append(`<tr>
+            $('table').append(`<tr class="highlighted_th">
               <th>#</th>
               <th>Artist</th>
               <th>Track</th>
@@ -99,7 +109,7 @@
             </tr>`);
 
             for (var i = 0; i < library.playlists[playlist_id].items.length; i++) {
-              $('table').append(`<tr>
+              $('table').append(`<tr class="highlighted_tr">
                 <td>${i + 1}</td>
                 <td>${library.playlists[playlist_id].items[i].track.artistName}</td>
                 <td>${library.playlists[playlist_id].items[i].track.trackName}</td>
@@ -112,7 +122,7 @@
             $('body').append(`<p><a href="index.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
-            $('table').append(`<tr>
+            $('table').append(`<tr class="highlighted_th">
               <th>#</th>
               <th>Artist</th>
               <th>Track</th>
@@ -122,7 +132,7 @@
             //library.tracks = library.tracks.sort(dynamic_sort_multiple('artist', 'track'));
 
             for (var i = 0; i < library.tracks.length; i++) {
-              $('table').append(`<tr>
+              $('table').append(`<tr class="highlighted_tr">
                 <td>${i + 1}</td>
                 <td>${library.tracks[i].artist}</td>
                 <td>${library.tracks[i].track}</td>
@@ -135,7 +145,7 @@
             $('body').append(`<p><a href="index.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
-            $('table').append(`<tr>
+            $('table').append(`<tr class="highlighted_th">
               <th>#</th>
               <th>Artist</th>
               <th>Album</th>
@@ -144,7 +154,7 @@
             //library.albums = library.albums.sort(dynamic_sort_multiple('artist', 'album'));
 
             for (var i = 0; i < library.albums.length; i++) {
-              $('table').append(`<tr>
+              $('table').append(`<tr class="highlighted_tr">
                 <td>${i + 1}</td>
                 <td>${library.albums[i].artist}</td>
                 <td>${library.albums[i].album}</td>
