@@ -22,7 +22,12 @@
 
         if ((ytm_url.host == 'music.youtube.com' || ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com') && params.hasOwnProperty('v')) {
           video_id = params['v'];
+        }
+        else if (ytm_url.host == 'youtu.be' && params.hasOwnProperty('si')) {
+          video_id = ytm_url.pathname.replace('/', '');
+        }
 
+        if (video_id != '') {
           var yt_url = new URL(`/${video_id}`, 'https://youtu.be');
           youtube_link = yt_url.href;
 
