@@ -24,7 +24,8 @@
           video_id = params['v'];
         }
         else if (ytm_url.host == 'youtu.be' && params.hasOwnProperty('si')) {
-          video_id = ytm_url.pathname.replace('/', '');
+          //video_id = ytm_url.pathname.replace('/', '');
+          video_id = ytm_url.pathname.split('/')[1];
         }
 
         if (video_id != '') {
