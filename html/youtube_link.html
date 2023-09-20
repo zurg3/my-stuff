@@ -27,6 +27,9 @@
           //video_id = ytm_url.pathname.replace('/', '');
           video_id = ytm_url.pathname.split('/')[1];
         }
+        else if ((ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com' || ytm_url.host == 'youtube.com') && (ytm_url.pathname.search('/shorts/') == 0 || ytm_url.pathname.search('/live/') == 0)) {
+          video_id = ytm_url.pathname.split('/')[2];
+        }
 
         if (video_id != '') {
           var yt_url = new URL(`/${video_id}`, 'https://youtu.be');
