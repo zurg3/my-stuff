@@ -23,11 +23,10 @@
         if ((ytm_url.host == 'music.youtube.com' || ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com') && params.hasOwnProperty('v')) {
           video_id = params['v'];
         }
-        else if (ytm_url.host == 'youtu.be' && params.hasOwnProperty('si')) {
-          //video_id = ytm_url.pathname.replace('/', '');
+        else if (ytm_url.host == 'youtu.be' && ytm_url.searchParams.size > 0) {
           video_id = ytm_url.pathname.split('/')[1];
         }
-        else if ((ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com' || ytm_url.host == 'youtube.com') && (ytm_url.pathname.search('/shorts/') == 0 || ytm_url.pathname.search('/live/') == 0)) {
+        else if ((ytm_url.host == 'www.youtube.com' || ytm_url.host == 'm.youtube.com' || ytm_url.host == 'youtube.com') && (ytm_url.pathname.search('/shorts/') == 0 || ytm_url.pathname.search('/live/') == 0 || ytm_url.pathname.search('/embed/') == 0)) {
           video_id = ytm_url.pathname.split('/')[2];
         }
 
