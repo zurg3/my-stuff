@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sort Lines</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        color: #333;
+        background-color: #fbfbfb;
+        height: 100%;
+      }
+
+      header {
+        height: 40px;
+      }
+
+      textarea {
+        font-size: 13px;
+        resize: none;
+      }
+
+      #main {
+        display: block;
+      }
+
+      .containers {
+        display: flex;
+        height: calc(100vh - 120px);
+      }
+
+      .container {
+        flex-basis: 50%;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      #input {
+        margin-top: 5px;
+        padding: 0.6em;
+        border: 1px solid #ccc;
+        overflow: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+
+      #output {
+        /*
+        display: flex;
+        */
+        margin-top: 5px;
+        padding: 0.6em;
+        border: 1px solid #ccc;
+        overflow: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      new ClipboardJS('#clipboard_button');
+
+      function comparator(a, b) {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      }
+
+      function sort_lines() {
+        document.getElementById('output').innerText = document.getElementById('input').value.split('\n').sort(comparator).join('\n');
+      }
+
+      function reverse_input() {
+        document.getElementById('output').innerText = document.getElementById('input').value.split('\n').reverse().join('\n');
+      }
+
+      function reverse_output() {
+        document.getElementById('output').innerText = document.getElementById('output').innerText.split('\n').reverse().join('\n');
+      }
+
+      function clear_input() {
+        document.getElementById('input').value = '';
+        document.getElementById('output').innerText = '';
+      }
+    </script>
+    <header>
+      <h1 align="center">Sort Lines</h1>
+    </header>
+    <div id="main">
+      <div class="containers">
+        <div class="container">
+          <h3>Input
+            <button type="button" onclick="sort_lines()">Sort</button>
+            <button type="button" onclick="reverse_input()">Reverse</button>
+            <button type="button" onclick="clear_input()">Clear</button>
+          </h3>
+          <textarea id="input" spellcheck="false"></textarea>
+        </div>
+        <div class="container">
+          <h3>Output
+            <button type="button" onclick="reverse_output()">Reverse</button>
+            <button type="button" id="clipboard_button" data-clipboard-target="#output" data-clipboard-action="copy">Copy</button>
+          </h3>
+          <div id="output"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
