@@ -1,27 +1,41 @@
-// iTunes
+// Apple Music
 /// Filenames (adds '0' before track number)
-var artist = document.getElementsByClassName('product-creator typography-large-title')[0].innerText;
-var album_title = document.getElementsByClassName('product-name typography-large-title-semibold clamp-4')[0].innerText;
+var json_schema = JSON.parse(document.getElementById('schema:music-album').innerText);
+
+var artist = '';
+if (json_schema.byArtist.length == 1) {
+  artist = json_schema.byArtist[0].name;
+}
+else if (json_schema.byArtist.length >= 2) {
+  var artists_array = [];
+
+  for (var i = 0; i < json_schema.byArtist.length; i++) {
+    artists_array.push(json_schema.byArtist[i].name);
+  }
+
+  artist = artists_array.join(', ');
+}
+var album_title = json_schema.name;
 var release_year = document.querySelector('meta[property="music:release_date"]').content.split('-')[0];
 
-var tracks = document.getElementsByClassName('songs-list-row__song-name');
+var tracks = json_schema.tracks;
 var tracks_count = tracks.length;
 
 console.log(artist + ' - ' + album_title + ' (' + release_year + ')');
 if (tracks_count > 0 && tracks_count < 10) {
   for (i = 0; i < tracks_count; i++) {
     var track_num = i + 1;
-    console.log(track_num + '. ' + tracks[i].innerText);
+    console.log(track_num + '. ' + tracks[i].name);
   }
 }
 else if (tracks_count >= 10 && tracks_count < 100) {
   for (i = 0; i < tracks_count; i++) {
     var track_num = i + 1;
     if (track_num > 0 && track_num < 10) {
-      console.log('0' + track_num + '. ' + tracks[i].innerText);
+      console.log('0' + track_num + '. ' + tracks[i].name);
     }
     else {
-      console.log(track_num + '. ' + tracks[i].innerText);
+      console.log(track_num + '. ' + tracks[i].name);
     }
   }
 }
