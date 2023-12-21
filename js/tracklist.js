@@ -20,24 +20,11 @@ var release_year = document.querySelector('meta[property="music:release_date"]')
 
 var tracks = json_schema.tracks;
 var tracks_count = tracks.length;
+var tracks_count_len = tracks_count.toString().length;
 
-console.log(artist + ' - ' + album_title + ' (' + release_year + ')');
-if (tracks_count > 0 && tracks_count < 10) {
-  for (i = 0; i < tracks_count; i++) {
-    var track_num = i + 1;
-    console.log(track_num + '. ' + tracks[i].name);
-  }
-}
-else if (tracks_count >= 10 && tracks_count < 100) {
-  for (i = 0; i < tracks_count; i++) {
-    var track_num = i + 1;
-    if (track_num > 0 && track_num < 10) {
-      console.log('0' + track_num + '. ' + tracks[i].name);
-    }
-    else {
-      console.log(track_num + '. ' + tracks[i].name);
-    }
-  }
+console.log(`${artist} - ${album_title} (${release_year})`);
+for (i = 0; i < tracks_count; i++) {
+  console.log(`${(i + 1).toString().padStart(tracks_count_len, '0')}. ${tracks[i].name}`);
 }
 
 // Yandex Music
