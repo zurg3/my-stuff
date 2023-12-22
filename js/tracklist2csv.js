@@ -15,9 +15,7 @@ for (i = 0; i < tracks_count; i++) {
   track_len = tracks[i].duration.replace('PT', '').replace('M', ':').replace('S', '');
 
   if (track_len.includes(':')) {
-    track_len = track_len.split(':');
-    track_len[1] = track_len[1].padStart(2, '0');
-    track_len = track_len.join(':');
+    track_len = `${track_len.split(':')[0]}:${track_len.split(':')[1].padStart(2, '0')}`;
   }
   else {
     track_len = `0:${track_len.padStart(2, '0')}`;
@@ -32,5 +30,5 @@ for (i = 0; i < tracks_count; i++) {
     track_feats = '';
   }
 
-  console.log(`${release_id},${(i + 1)},${track_title.includes(',') ? `"${track_title}"` : track_title},${track_feats.includes(',') ? `"${track_feats}"` : track_feats},,${track_len},`);
+  console.log(`${release_id},${i + 1},${track_title.includes(',') ? `"${track_title}"` : track_title},${track_feats.includes(',') ? `"${track_feats}"` : track_feats},,${track_len},`);
 }
