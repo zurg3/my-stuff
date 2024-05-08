@@ -1,4 +1,6 @@
 name: Java
+env:
+  JAVA_VERSION: "20"
 
 on:
   push:
@@ -42,7 +44,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "zulu"
-          java-version: "20"
+          java-version: ${{ env.JAVA_VERSION }}
           architecture: "x64"
 
       - name: Build
