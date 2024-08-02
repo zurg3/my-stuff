@@ -24,6 +24,7 @@
         var imdb_list_link = 'https://www.imdb.com/list/';
         var imdb_gallery_link = 'https://www.imdb.com/gallery/';
         var imdb_video_link = 'https://www.imdb.com/video/';
+        var imdb_interest_link = 'https://www.imdb.com/interest/';
 
         var api_key = '3c5677f8';
 
@@ -106,6 +107,7 @@
                 document.write(`<li><a href="https://www.imdb.com/lists/${get_imdb_id}/">Related lists</a></li>`);
                 document.write(`<li><a href="https://pro.imdb.com/title/${get_imdb_id}/">IMDbPro</a></li>`);
                 document.write(`<li><a href="https://www.boxofficemojo.com/title/${get_imdb_id}/">Box Office Mojo</a></li>`);
+                document.write(`<li><a href="${imdb_title_link}${get_imdb_id}/reference">Reference view</a></li>`);
               document.write('</ul>');
 
               document.write('<hr><p><a href="imdb_links.html">Back</a><p>');
@@ -210,6 +212,11 @@
           document.write('<head><title>IMDb Video</title></head>');
 
           document.write(`<h3><a href="${imdb_video_link}${get_imdb_id}/">Video</a></h3>`);
+        }
+        else if (imdb_item_type == 'in') {
+          document.write('<head><title>IMDb Interest</title></head>');
+
+          document.write(`<h3><a href="${imdb_interest_link}${get_imdb_id}/">Interest</a></h3>`);
         }
         else {
           document.write('Invalid ID');
@@ -353,6 +360,10 @@
       <tr>
         <td>Video</td>
         <td>vi288275481</td>
+      </tr>
+      <tr>
+        <td>Interest</td>
+        <td>in0000159</td>
       </tr>
     </table>
     <br>
