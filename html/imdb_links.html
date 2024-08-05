@@ -42,9 +42,9 @@
             var movie_rating = json_data.imdbRating;
             var movie_votes = json_data.imdbVotes;
 
-            console.log(json_url);
+            //console.log(json_url);
 
-            document.title = `${movie_title}`;
+            document.title = movie_title;
 
             document.body.innerHTML = `<h3><a href="${imdb_title_link}/${imdb_id}/">${movie_title}</a></h3>`;
             document.body.innerHTML += `<p>★ ${movie_rating}/10 (${movie_votes} votes)</p>`;
@@ -134,7 +134,7 @@
               get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`;
               get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=year,desc">by Year</a></li>`;
               get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`;
-          document.body.innerHTML += '<h4>Did You Know?</h4>';
+          document.body.innerHTML += '<h4>Did you know?</h4>';
             document.body.innerHTML += '<ul></ul>';
               get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#overview">Overview</a></li>`;
               get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#quotes">Personal quotes</a></li>`;
