@@ -14,6 +14,15 @@
       var youtube_link = '';
       var video_id = '';
 
+      function is_mobile() {
+        if (window.screen.width < window.screen.height) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+
       function convert() {
         youtube_music_link = document.getElementById('youtube_music_link').value;
 
@@ -40,7 +49,16 @@
 
       function play_video() {
         if (video_id != '') {
-          document.getElementById('youtube_video').innerHTML = `<iframe width="640" height="360" src="https://www.youtube.com/embed/${video_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          if (is_mobile()) {
+            var video_width = document.body.offsetWidth;
+            var video_height = Math.floor(video_width / 1.77);
+          }
+          else {
+            var video_width = 640;
+            var video_height = 360;
+          }
+
+          document.getElementById('youtube_video').innerHTML = `<iframe width="${video_width}" height="${video_height}" src="https://www.youtube.com/embed/${video_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
       }
 
@@ -53,7 +71,16 @@
     </script>
     <h2>YouTube share link converter</h2>
     <h3>YouTube Music/YouTube Link</h3>
-    <p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>
+    <script>
+      if (is_mobile()) {
+        var url_input_width = Math.floor(document.body.offsetWidth * 0.9);
+
+        document.write(`<p><input type="url" id="youtube_music_link" autocomplete="off" style="width: ${url_input_width}px;"></p>`);
+      }
+      else {
+        document.write(`<p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>`);
+      }
+    </script>
     <p><input type="button" id="convert_button" value="Get YouTube link" onclick="convert()"></p>
     <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
     <h3>YouTube Share Link</h3>

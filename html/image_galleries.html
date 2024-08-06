@@ -4,93 +4,116 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Image Galleries</title>
+    <style>
+      #output {
+        border: 1px solid Black;
+        border-radius: 5px
+      }
+
+      img {
+        border: 1px solid Black;
+      }
+
+      input[type="number"] {
+        width: 80px;
+      }
+    </style>
   </head>
   <body>
     <script>
-      var default_img_scale = '80%';
+      const default_img_scale = 80; // 80%
+      const change_scale_step = 10; // 10%
 
-      function decrease_scale() {
-        var changed_scale = parseInt(document.getElementsByTagName('img')[0].style.maxWidth.replace('%',''), 10) - 10;
+      var current_img_scale = default_img_scale;
 
-        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
-          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale + '%';
+      function change_scale(operation) {
+        if (operation == 'decrease' && current_img_scale > 10) {
+          current_img_scale -= change_scale_step;
+        }
+        else if (operation == 'increase' && current_img_scale < 100) {
+          current_img_scale += change_scale_step;
+        }
+        else if (operation == 'reset') {
+          current_img_scale = default_img_scale;
         }
 
-        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
+          document.getElementsByTagName('img')[i].style.maxWidth = `${current_img_scale}%`;
+        }
+
+        document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
       }
 
-      function increase_scale() {
-        var changed_scale = parseInt(document.getElementsByTagName('img')[0].style.maxWidth.replace('%',''), 10) + 10;
-
-        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
-          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale + '%';
-        }
-
-        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+      function get_last_img_index() {
+        return document.getElementsByTagName('img').length;
       }
 
-      function reset_scale() {
-        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
-          var changed_scale = default_img_scale;
-
-          document.getElementsByTagName('img')[i].style.maxWidth = changed_scale;
-        }
-        document.getElementsByClassName('img_scale_value')[0].innerText = document.getElementsByTagName('img')[0].style.maxWidth;
+      function get_image_size(img_num) {
+        document.getElementsByClassName('image_size')[img_num].innerText = `${document.getElementsByTagName('img')[img_num].naturalWidth}x${document.getElementsByTagName('img')[img_num].naturalHeight}`;
       }
 
       function load_gallery() {
+        var image_url = '';
+        var image_item = '';
+
+        document.getElementById('scale_control').hidden = false;
+        document.getElementById('output').hidden = false;
+
+        document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
+
+        // Required fields
         var base_link = document.getElementById('base_link').value;
-        var max_images = document.getElementById('max_images').value;
+        var images_amount = document.getElementById('images_amount').value;
         var file_format = document.getElementsByName('file_format');
 
+        // Optional fields
         var start_id = document.getElementById('start_id').value;
-        var max_id_length = document.getElementById('max_id_length').value;
+        var id_length = document.getElementById('id_length').value;
         var id_additional = document.getElementById('id_additional').value;
 
+        // File format
         for (var i = 0; i < file_format.length; i++) {
           if (file_format[i].checked) {
             file_format = file_format[i].value;
           }
         }
 
+        // Start ID
         if (start_id == '') {
           start_id = 1;
         }
         else {
           start_id = parseInt(start_id, 10);
-          max_images = start_id + (max_images - 1);
+          images_amount = start_id + (images_amount - 1);
         }
 
-        document.write('<hr>');
-        document.write('<p align="center">');
-          document.write('<input type="button" value="-" style="width: 40px; height: 30px; margin: 10px;" onclick="decrease_scale()">');
-          document.write('Current scale: <span class="img_scale_value">' + default_img_scale + '</span>');
-          document.write('<input type="button" value="+" style="width: 40px; height: 30px; margin: 10px;" onclick="increase_scale()">');
-        document.write('</p>');
-        document.write('<p align="center"><input type="button" value="Reset" style="padding: 10px;" onclick="reset_scale()"></p>');
-        document.write('<hr>');
-
-        for (var i = start_id; i <= max_images; i++) {
-          var id_to_string = i.toString();
-
-          if (max_id_length != '') {
-            var id_length = id_to_string.length;
-            var add_zero_count = max_id_length - id_length;
-            for (var j = 0; j < add_zero_count; j++) {
-              id_to_string = '0' + id_to_string;
-            }
-          }
-
-          var image_url = base_link + id_to_string;
-          if (id_additional != '') {
-            image_url = image_url + id_additional;
-          }
-          image_url = image_url + file_format;
-
-          var output = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${default_img_scale};" src="${image_url}" alt="image${id_to_string}"></a></p>`;
-
-          document.write(output);
+        // ID length
+        if (id_length != '') {
+          var add_zero = parseInt(id_length, 10);
         }
+        else {
+          var add_zero = 0;
+        }
+
+        clear_output();
+
+        for (var i = start_id; i <= images_amount; i++) {
+          image_url = `${base_link}${i.toString().padStart(add_zero, '0')}${id_additional}${file_format}`;
+          image_item = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${current_img_scale}%;" src="${image_url}" alt="image${i.toString().padStart(add_zero, '0')}" onload="get_image_size(${get_last_img_index()})"></a><br><span class="image_size"></span></p>`;
+
+          document.getElementById('output').innerHTML += image_item;
+        }
+      }
+
+      function clear_output() {
+        document.getElementById('output').innerHTML = '';
+      }
+
+      function clear_input() {
+        clear_output();
+        change_scale('reset');
+        document.getElementById('scale_control').hidden = true;
+        document.getElementById('output').hidden = true;
       }
     </script>
     <form>
@@ -101,8 +124,8 @@
           <input type="text" id="base_link" size="60">
         </p>
         <p>
-          <label for="max_images">Max images</label><br>
-          <input type="text" id="max_images" size="5">
+          <label for="images_amount">Images amount</label><br>
+          <input type="number" id="images_amount">
         </p>
         <p>
           <label for="file_format">File format</label><br>
@@ -117,18 +140,33 @@
         <legend>Optional fields</legend>
         <p>
           <label for="start_id">Start ID</label><br>
-          <input type="text" id="start_id" size="5">
+          <input type="number" id="start_id">
         </p>
         <p>
-          <label for="max_id_length">Max ID length</label><br>
-          <input type="text" id="max_id_length" size="5">
+          <label for="id_length">ID length (leading zeros + ID)</label><br>
+          <input type="number" id="id_length">
         </p>
         <p>
-          <label for="id_additional">Image ID additional text</label><br>
-          <input type="text" id="id_additional" size="5">
+          <label for="id_additional">ID additional text (after ID)</label><br>
+          <input type="text" id="id_additional" size="8">
         </p>
       </fieldset>
-      <p><input type="button" value="Load images" onclick="load_gallery()"></p>
+      <p>
+        <input type="button" value="Load images" onclick="load_gallery()">
+        <input type="reset" value="Clear input" onclick="clear_input()">
+      </p>
     </form>
+    <div id="scale_control" hidden>
+      <hr>
+      <p align="center">
+        <input type="button" value="-" style="width: 40px; height: 30px; margin: 10px;" onclick="change_scale('decrease')">
+        <span>Current scale: </span>
+        <span id="img_scale_value"></span>
+        <input type="button" value="+" style="width: 40px; height: 30px; margin: 10px;" onclick="change_scale('increase')">
+      </p>
+      <p align="center"><input type="button" value="Reset" style="padding: 10px;" onclick="change_scale('reset')"></p>
+      <hr>
+    </div>
+    <div id="output" hidden></div>
   </body>
 </html>
