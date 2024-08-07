@@ -71,14 +71,15 @@
     </script>
     <h2>YouTube share link converter</h2>
     <h3>YouTube Music/YouTube Link</h3>
+    <p><input type="url" id="youtube_music_link" autocomplete="off"></p>
     <script>
       if (is_mobile()) {
         var url_input_width = Math.floor(document.body.offsetWidth * 0.9);
 
-        document.write(`<p><input type="url" id="youtube_music_link" autocomplete="off" style="width: ${url_input_width}px;"></p>`);
+        document.getElementById('youtube_music_link').style.width = `${url_input_width}px`;
       }
       else {
-        document.write(`<p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>`);
+        document.getElementById('youtube_music_link').size = 50;
       }
     </script>
     <p><input type="button" id="convert_button" value="Get YouTube link" onclick="convert()"></p>

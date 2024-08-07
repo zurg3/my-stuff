@@ -10,8 +10,14 @@
         border-radius: 5px;
       }
 
-      img {
-        border: 1px solid Black;
+      #decrease_scale_button, #increase_scale_button {
+        width: 40px;
+        height: 30px;
+        margin: 10px;
+      }
+
+      #reset_scale_button {
+        padding: 10px;
       }
 
       input[type="number"] {
@@ -25,6 +31,15 @@
       const change_scale_step = 10; // 10%
 
       var current_img_scale = default_img_scale;
+
+      function is_mobile() {
+        if (window.screen.width < window.screen.height) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
 
       function change_scale(operation) {
         if (operation == 'decrease' && current_img_scale > 10) {
@@ -49,60 +64,76 @@
       }
 
       function get_image_size(img_num) {
-        document.getElementsByClassName('image_size')[img_num].innerText = `${document.getElementsByTagName('img')[img_num].naturalWidth}x${document.getElementsByTagName('img')[img_num].naturalHeight}`;
+        if (document.getElementsByTagName('img')[img_num].naturalWidth >= 1 && document.getElementsByTagName('img')[img_num].naturalHeight >= 1) {
+          document.getElementsByClassName('image_size')[img_num].innerText = `${document.getElementsByTagName('img')[img_num].naturalWidth}x${document.getElementsByTagName('img')[img_num].naturalHeight}`;
+        }
+      }
+
+      function show_image_options(img_num) {
+        document.getElementsByTagName('img')[img_num].style.border = '1px solid Black';
+        get_image_size(img_num);
       }
 
       function load_gallery() {
-        var image_url = '';
-        var image_item = '';
+        if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && document.querySelector('input[name="file_format"]:checked') != null) {
+          var image_url = '';
+          var image_item = '';
 
-        document.getElementById('scale_control').hidden = false;
-        document.getElementById('output').hidden = false;
+          document.getElementById('scale_control').hidden = false;
+          document.getElementById('output').hidden = false;
 
-        document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
+          document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
 
-        // Required fields
-        var base_link = document.getElementById('base_link').value;
-        var images_amount = document.getElementById('images_amount').value;
-        var file_format = document.getElementsByName('file_format');
+          // Required fields
+          var base_link = document.getElementById('base_link').value;
+          var images_amount = document.getElementById('images_amount').value;
+          var file_format = document.getElementsByName('file_format');
 
-        // Optional fields
-        var start_id = document.getElementById('start_id').value;
-        var id_length = document.getElementById('id_length').value;
-        var id_additional = document.getElementById('id_additional').value;
+          // Optional fields
+          var start_id = document.getElementById('start_id').value;
+          var id_length = document.getElementById('id_length').value;
+          var id_additional = document.getElementById('id_additional').value;
 
-        // File format
-        for (var i = 0; i < file_format.length; i++) {
-          if (file_format[i].checked) {
-            file_format = file_format[i].value;
+          // File format
+          for (var i = 0; i < file_format.length; i++) {
+            if (file_format[i].checked) {
+              file_format = file_format[i].value;
+            }
+          }
+
+          // Start ID
+          if (start_id == '') {
+            start_id = 1;
+          }
+          else {
+            start_id = parseInt(start_id, 10);
+            images_amount = start_id + (images_amount - 1);
+          }
+
+          // ID length
+          if (id_length != '') {
+            var add_zero = parseInt(id_length, 10);
+          }
+          else {
+            var add_zero = 0;
+          }
+
+          clear_output();
+
+          for (var i = start_id; i <= images_amount; i++) {
+            image_url = `${base_link}${i.toString().padStart(add_zero, '0')}${id_additional}${file_format}`;
+            image_item = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${current_img_scale}%;" src="${image_url}" alt="image${i.toString().padStart(add_zero, '0')}" onload="show_image_options(${get_last_img_index()})"></a><br><span class="image_size"></span></p>`;
+
+            document.getElementById('output').innerHTML += image_item;
           }
         }
-
-        // Start ID
-        if (start_id == '') {
-          start_id = 1;
-        }
         else {
-          start_id = parseInt(start_id, 10);
-          images_amount = start_id + (images_amount - 1);
+          alert('Something is wrong!');
         }
+      }
 
-        // ID length
-        if (id_length != '') {
-          var add_zero = parseInt(id_length, 10);
-        }
-        else {
-          var add_zero = 0;
-        }
-
-        clear_output();
-
-        for (var i = start_id; i <= images_amount; i++) {
-          image_url = `${base_link}${i.toString().padStart(add_zero, '0')}${id_additional}${file_format}`;
-          image_item = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${current_img_scale}%;" src="${image_url}" alt="image${i.toString().padStart(add_zero, '0')}" onload="get_image_size(${get_last_img_index()})"></a><br><span class="image_size"></span></p>`;
-
-          document.getElementById('output').innerHTML += image_item;
-        }
+      function clear_base_link() {
+        document.getElementById('base_link').value = '';
       }
 
       function clear_output() {
@@ -121,11 +152,22 @@
         <legend>Required fields</legend>
         <p>
           <label for="base_link">Base link</label><br>
-          <input type="text" id="base_link" size="60">
+          <input type="url" id="base_link">
+          <script>
+            if (is_mobile()) {
+              var base_link_width = Math.floor(document.body.offsetWidth * 0.8);
+
+              document.getElementById('base_link').style.width = `${base_link_width}px`;
+            }
+            else {
+              document.getElementById('base_link').size = 60;
+            }
+          </script>
+          <input type="button" value="X" onclick="clear_base_link()">
         </p>
         <p>
           <label for="images_amount">Images amount</label><br>
-          <input type="number" id="images_amount">
+          <input type="number" id="images_amount" min="1" step="1">
         </p>
         <p>
           <label for="file_format">File format</label><br>
@@ -140,11 +182,11 @@
         <legend>Optional fields</legend>
         <p>
           <label for="start_id">Start ID</label><br>
-          <input type="number" id="start_id">
+          <input type="number" id="start_id" min="1" step="1">
         </p>
         <p>
           <label for="id_length">ID length (leading zeros + ID)</label><br>
-          <input type="number" id="id_length">
+          <input type="number" id="id_length" min="1" max="10" step="1">
         </p>
         <p>
           <label for="id_additional">ID additional text (after ID)</label><br>
@@ -159,12 +201,12 @@
     <div id="scale_control" hidden>
       <hr>
       <p align="center">
-        <input type="button" value="-" style="width: 40px; height: 30px; margin: 10px;" onclick="change_scale('decrease')">
+        <input type="button" id="decrease_scale_button" value="-" onclick="change_scale('decrease')">
         <span>Current scale: </span>
         <span id="img_scale_value"></span>
-        <input type="button" value="+" style="width: 40px; height: 30px; margin: 10px;" onclick="change_scale('increase')">
+        <input type="button" id="increase_scale_button" value="+" onclick="change_scale('increase')">
       </p>
-      <p align="center"><input type="button" value="Reset" style="padding: 10px;" onclick="change_scale('reset')"></p>
+      <p align="center"><input type="button" id="reset_scale_button" value="Reset" onclick="change_scale('reset')"></p>
       <hr>
     </div>
     <div id="output" hidden></div>
