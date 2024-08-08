@@ -32,6 +32,10 @@
 
       var current_img_scale = default_img_scale;
 
+      const default_blur_radius = 16;
+
+      var current_blur_radius = default_blur_radius;
+
       function is_mobile() {
         if (window.screen.width < window.screen.height) {
           return true;
@@ -74,8 +78,23 @@
         get_image_size(img_num);
       }
 
+      function blur_image(image, radius) {
+        image.style.filter = `blur(${radius}px)`;
+      }
+
+      function unblur_image(image) {
+        image.style.filter = 'none';
+      }
+
+      function handle_failed_image(image) {
+        image.style.filter = 'none';
+        image.removeAttribute('onmouseover');
+        image.removeAttribute('onmouseout');
+      }
+
       function load_gallery() {
         if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && document.querySelector('input[name="file_format"]:checked') != null) {
+          var image_id = '';
           var image_url = '';
           var image_item = '';
 
@@ -93,6 +112,7 @@
           var start_id = document.getElementById('start_id').value;
           var id_length = document.getElementById('id_length').value;
           var id_additional = document.getElementById('id_additional').value;
+          var blur_images = document.getElementsByName('blur_images')[0].checked;
 
           // File format
           for (var i = 0; i < file_format.length; i++) {
@@ -121,8 +141,16 @@
           clear_output();
 
           for (var i = start_id; i <= images_amount; i++) {
-            image_url = `${base_link}${i.toString().padStart(add_zero, '0')}${id_additional}${file_format}`;
-            image_item = `<p align="center"><a href="${image_url}" target="_blank"><img style="max-width: ${current_img_scale}%;" src="${image_url}" alt="image${i.toString().padStart(add_zero, '0')}" onload="show_image_options(${get_last_img_index()})"></a><br><span class="image_size"></span></p>`;
+            image_id = `${i.toString().padStart(add_zero, '0')}`;
+            image_url = `${base_link}${image_id}${id_additional}${file_format}`;
+
+            image_item = `<p align="center">
+              <a href="${image_url}" target="_blank">
+                <img style="max-width: ${current_img_scale}%;${blur_images ? `filter: blur(${current_blur_radius}px);` : ''}" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})"${blur_images ? ` onmouseover="unblur_image(this)" onmouseout="blur_image(this, ${current_blur_radius})" onerror="handle_failed_image(this)"` : ''}>
+              </a>
+              <br>
+              <span class="image_size"></span>
+            </p>`;
 
             document.getElementById('output').innerHTML += image_item;
           }
@@ -191,6 +219,10 @@
         <p>
           <label for="id_additional">ID additional text (after ID)</label><br>
           <input type="text" id="id_additional" size="8">
+        </p>
+        <p>
+          <input type="checkbox" name="blur_images">
+          <label for="blur_images">Blur images</label>
         </p>
       </fieldset>
       <p>
