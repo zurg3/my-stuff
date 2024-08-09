@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Image Galleries</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
     <style>
       #output {
         border: 1px solid Black;
@@ -27,13 +28,13 @@
   </head>
   <body>
     <script>
+      new ClipboardJS('.copy_image_url_button');
+
       const default_img_scale = 80; // 80%
       const change_scale_step = 10; // 10%
-
       var current_img_scale = default_img_scale;
 
-      const default_blur_radius = 16;
-
+      const default_blur_radius = 16; // 16px
       var current_blur_radius = default_blur_radius;
 
       function is_mobile() {
@@ -76,20 +77,27 @@
       function show_image_options(img_num) {
         document.getElementsByTagName('img')[img_num].style.border = '1px solid Black';
         get_image_size(img_num);
+        document.getElementsByClassName('open_image_button')[img_num].hidden = false;
+        document.getElementsByClassName('copy_image_url_button')[img_num].hidden = false;
+      }
+
+      function open_image(img_url) {
+        window.open(img_url, '_blank');
       }
 
       function blur_image(image, radius) {
-        image.style.filter = `blur(${radius}px)`;
-      }
-
-      function unblur_image(image) {
-        image.style.filter = 'none';
+        if (image.style.filter == 'none') {
+          image.style.filter = `blur(${radius}px)`;
+        }
+        else if (image.style.filter != 'none') {
+          image.style.filter = 'none';
+        }
       }
 
       function handle_failed_image(image) {
         image.style.filter = 'none';
-        image.removeAttribute('onmouseover');
-        image.removeAttribute('onmouseout');
+        image.removeAttribute('onerror');
+        image.outerHTML = `<a href="${image.src}" target="_blank">${image.outerHTML}</a>`;
       }
 
       function load_gallery() {
@@ -112,6 +120,7 @@
           var start_id = document.getElementById('start_id').value;
           var id_length = document.getElementById('id_length').value;
           var id_additional = document.getElementById('id_additional').value;
+          var id_step = document.getElementById('id_step').value;
           var blur_images = document.getElementsByName('blur_images')[0].checked;
 
           // File format
@@ -127,7 +136,9 @@
           }
           else {
             start_id = parseInt(start_id, 10);
-            images_amount = start_id + (images_amount - 1);
+            if (id_step == '') {
+              images_amount = start_id + (images_amount - 1);
+            }
           }
 
           // ID length
@@ -138,18 +149,27 @@
             var add_zero = 0;
           }
 
+          // ID step
+          if (id_step == '') {
+            id_step = 1;
+          }
+          else {
+            id_step = parseInt(id_step, 10);
+            images_amount = start_id + ((images_amount - 1) * id_step);
+          }
+
           clear_output();
 
-          for (var i = start_id; i <= images_amount; i++) {
+          for (var i = start_id; i <= images_amount; i += id_step) {
             image_id = `${i.toString().padStart(add_zero, '0')}`;
             image_url = `${base_link}${image_id}${id_additional}${file_format}`;
 
             image_item = `<p align="center">
-              <a href="${image_url}" target="_blank">
-                <img style="max-width: ${current_img_scale}%;${blur_images ? `filter: blur(${current_blur_radius}px);` : ''}" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})"${blur_images ? ` onmouseover="unblur_image(this)" onmouseout="blur_image(this, ${current_blur_radius})" onerror="handle_failed_image(this)"` : ''}>
-              </a>
+              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})" onerror="handle_failed_image(this)"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
               <br>
+              <input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>
               <span class="image_size"></span>
+              <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
             </p>`;
 
             document.getElementById('output').innerHTML += image_item;
@@ -219,6 +239,10 @@
         <p>
           <label for="id_additional">ID additional text (after ID)</label><br>
           <input type="text" id="id_additional" size="8">
+        </p>
+        <p>
+          <label for="id_step">ID step</label><br>
+          <input type="number" id="id_step" min="1" step="1">
         </p>
         <p>
           <input type="checkbox" name="blur_images">
