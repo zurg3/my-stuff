@@ -28,15 +28,6 @@
   </head>
   <body>
     <script>
-      new ClipboardJS('.copy_image_url_button');
-
-      const default_img_scale = 80; // 80%
-      const change_scale_step = 10; // 10%
-      var current_img_scale = default_img_scale;
-
-      const default_blur_radius = 16; // 16px
-      var current_blur_radius = default_blur_radius;
-
       function is_mobile() {
         if (window.screen.width < window.screen.height) {
           return true;
@@ -44,6 +35,21 @@
         else {
           return false;
         }
+      }
+
+      new ClipboardJS('.copy_image_url_button');
+
+      const default_img_scale = 80; // 80%
+      const change_scale_step = 10; // 10%
+      var current_img_scale = default_img_scale;
+
+      const default_blur_radius = 16; // 16px
+
+      if (is_mobile()) {
+        var current_blur_radius = 16;
+      }
+      else {
+        var current_blur_radius = 28;
       }
 
       function change_scale(operation) {
@@ -94,10 +100,21 @@
         }
       }
 
-      function handle_failed_image(image) {
-        image.style.filter = 'none';
+      function handle_failed_image(image, hide_failed_option, blur_option) {
         image.removeAttribute('onerror');
-        image.outerHTML = `<a href="${image.src}" target="_blank">${image.outerHTML}</a>`;
+
+        image.style.filter = 'none';
+
+        if (image.hasAttribute('onclick')) {
+          image.removeAttribute('onclick');
+        }
+
+        if (hide_failed_option) {
+          image.parentNode.hidden = true;
+        }
+        else {
+          image.outerHTML = `<a href="${image.src}" target="_blank">${image.outerHTML}</a>`;
+        }
       }
 
       function load_gallery() {
@@ -121,7 +138,10 @@
           var id_length = document.getElementById('id_length').value;
           var id_additional = document.getElementById('id_additional').value;
           var id_step = document.getElementById('id_step').value;
+          var hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
           var blur_images = document.getElementsByName('blur_images')[0].checked;
+
+          var final_id = images_amount;
 
           // File format
           for (var i = 0; i < file_format.length; i++) {
@@ -137,7 +157,7 @@
           else {
             start_id = parseInt(start_id, 10);
             if (id_step == '') {
-              images_amount = start_id + (images_amount - 1);
+              final_id = start_id + (images_amount - 1);
             }
           }
 
@@ -155,17 +175,17 @@
           }
           else {
             id_step = parseInt(id_step, 10);
-            images_amount = start_id + ((images_amount - 1) * id_step);
+            final_id = start_id + ((images_amount - 1) * id_step);
           }
 
           clear_output();
 
-          for (var i = start_id; i <= images_amount; i += id_step) {
+          for (var i = start_id; i <= final_id; i += id_step) {
             image_id = `${i.toString().padStart(add_zero, '0')}`;
             image_url = `${base_link}${image_id}${id_additional}${file_format}`;
 
             image_item = `<p align="center">
-              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})" onerror="handle_failed_image(this)"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
+              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
               <br>
               <input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>
               <span class="image_size"></span>
@@ -243,6 +263,10 @@
         <p>
           <label for="id_step">ID step</label><br>
           <input type="number" id="id_step" min="1" step="1">
+        </p>
+        <p>
+          <input type="checkbox" name="hide_failed_images">
+          <label for="hide_failed_images">Hide failed images</label>
         </p>
         <p>
           <input type="checkbox" name="blur_images">
