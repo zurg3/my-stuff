@@ -21,6 +21,14 @@
         padding: 10px;
       }
 
+      #loaded_counter {
+        color: Green;
+      }
+
+      #failed_counter {
+        color: Red;
+      }
+
       input[type="number"] {
         width: 80px;
       }
@@ -63,25 +71,25 @@
           current_img_scale = default_img_scale;
         }
 
-        for (var i = 0; i < document.getElementsByTagName('img').length; i++) {
-          document.getElementsByTagName('img')[i].style.maxWidth = `${current_img_scale}%`;
+        for (var i = 0; i < document.images.length; i++) {
+          document.images[i].style.maxWidth = `${current_img_scale}%`;
         }
 
         document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
       }
 
       function get_last_img_index() {
-        return document.getElementsByTagName('img').length;
+        return document.images.length;
       }
 
       function get_image_size(img_num) {
-        if (document.getElementsByTagName('img')[img_num].naturalWidth >= 1 && document.getElementsByTagName('img')[img_num].naturalHeight >= 1) {
-          document.getElementsByClassName('image_size')[img_num].innerText = `${document.getElementsByTagName('img')[img_num].naturalWidth}x${document.getElementsByTagName('img')[img_num].naturalHeight}`;
+        if (document.images[img_num].naturalWidth >= 1 && document.images[img_num].naturalHeight >= 1) {
+          document.getElementsByClassName('image_size')[img_num].innerText = `${document.images[img_num].naturalWidth}x${document.images[img_num].naturalHeight}`;
         }
       }
 
       function show_image_options(img_num) {
-        document.getElementsByTagName('img')[img_num].style.border = '1px solid Black';
+        document.images[img_num].style.border = '1px solid Black';
         get_image_size(img_num);
         document.getElementsByClassName('open_image_button')[img_num].hidden = false;
         document.getElementsByClassName('copy_image_url_button')[img_num].hidden = false;
@@ -123,6 +131,7 @@
           var image_url = '';
           var image_item = '';
 
+          document.getElementById('statistics').hidden = false;
           document.getElementById('scale_control').hidden = false;
           document.getElementById('output').hidden = false;
 
@@ -178,6 +187,9 @@
             final_id = start_id + ((images_amount - 1) * id_step);
           }
 
+          reset_statistics();
+          document.getElementById('total_counter').innerText = images_amount;
+
           clear_output();
 
           for (var i = start_id; i <= final_id; i += id_step) {
@@ -193,6 +205,17 @@
             </p>`;
 
             document.getElementById('output').innerHTML += image_item;
+
+            // Statistics
+            var img_test = new Image();
+            img_test.onload = function() {
+              document.getElementById('loaded_counter').innerText = parseInt(document.getElementById('loaded_counter').innerText, 10) + 1;
+              document.getElementById('loaded_rate').innerText = Math.floor(parseInt(document.getElementById('loaded_counter').innerText, 10) / images_amount * 100);
+            };
+            img_test.onerror = function() {
+              document.getElementById('failed_counter').innerText = parseInt(document.getElementById('failed_counter').innerText, 10) + 1;
+            };
+            img_test.src = image_url;
           }
         }
         else {
@@ -208,9 +231,18 @@
         document.getElementById('output').innerHTML = '';
       }
 
+      function reset_statistics() {
+        document.getElementById('loaded_counter').innerText = 0;
+        document.getElementById('failed_counter').innerText = 0;
+        document.getElementById('total_counter').innerText = 0;
+        document.getElementById('loaded_rate').innerText = 0;
+      }
+
       function clear_input() {
+        reset_statistics();
         clear_output();
         change_scale('reset');
+        document.getElementById('statistics').hidden = true;
         document.getElementById('scale_control').hidden = true;
         document.getElementById('output').hidden = true;
       }
@@ -276,6 +308,7 @@
       <p>
         <input type="button" value="Load images" onclick="load_gallery()">
         <input type="reset" value="Clear input" onclick="clear_input()">
+        <span id="statistics" title="Loaded/Failed/Total" hidden>L/F/T - <span id="loaded_counter">0</span>/<span id="failed_counter">0</span>/<span id="total_counter">0</span> (<span id="loaded_rate">0</span>%)</span>
       </p>
     </form>
     <div id="scale_control" hidden>
