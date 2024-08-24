@@ -21,11 +21,11 @@
         padding: 10px;
       }
 
-      #loaded_counter {
+      #loaded_counter_row {
         color: Green;
       }
 
-      #failed_counter {
+      #failed_counter_row {
         color: Red;
       }
 
@@ -78,6 +78,23 @@
         document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
       }
 
+      function is_any_radio_checked(radio_name) {
+        if (document.querySelector(`input[name="${radio_name}"]:checked`) != null) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+
+      function get_checked_radio_value(radio_name) {
+        for (var i = 0; i < document.getElementsByName(radio_name).length; i++) {
+          if (document.getElementsByName(radio_name)[i].checked) {
+            return document.getElementsByName(radio_name)[i].value;
+          }
+        }
+      }
+
       function get_last_img_index() {
         return document.images.length;
       }
@@ -88,15 +105,28 @@
         }
       }
 
-      function show_image_options(img_num) {
+      function handle_loaded_image(img_num, search_option) {
         document.images[img_num].style.border = '1px solid Black';
         get_image_size(img_num);
         document.getElementsByClassName('open_image_button')[img_num].hidden = false;
         document.getElementsByClassName('copy_image_url_button')[img_num].hidden = false;
+
+        if (search_option) {
+          document.getElementsByClassName('search_image_button')[img_num].hidden = false;
+        }
       }
 
       function open_image(img_url) {
         window.open(img_url, '_blank');
+      }
+
+      function search_image(img_url, search_engine) {
+        if (search_engine == 'google') {
+          window.open(`https://lens.google.com/uploadbyurl?url=${img_url}`, '_blank');
+        }
+        else if (search_engine == 'yandex') {
+          window.open(`https://ya.ru/images/search?rpt=imageview&url=${img_url}`, '_blank');
+        }
       }
 
       function blur_image(image, radius) {
@@ -126,11 +156,13 @@
       }
 
       function load_gallery() {
-        if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && document.querySelector('input[name="file_format"]:checked') != null) {
+        if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) {
           var image_id = '';
           var image_url = '';
           var image_item = '';
 
+          document.getElementById('loading_progress').hidden = true;
+          document.getElementById('statistics').hidden = true;
           document.getElementById('scale_control').hidden = false;
           document.getElementById('output').hidden = false;
 
@@ -139,25 +171,19 @@
           // Required fields
           var base_link = document.getElementById('base_link').value;
           var images_amount = document.getElementById('images_amount').value;
-          var file_format = document.getElementsByName('file_format');
+          var file_format = get_checked_radio_value('file_format');
 
           // Optional fields
           var start_id = document.getElementById('start_id').value;
           var id_length = document.getElementById('id_length').value;
           var id_additional = document.getElementById('id_additional').value;
           var id_step = document.getElementById('id_step').value;
+          var search_engine = get_checked_radio_value('search_engine');
           var hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
           var blur_images = document.getElementsByName('blur_images')[0].checked;
           var show_statistics = document.getElementsByName('show_statistics')[0].checked;
 
           var final_id = images_amount;
-
-          // File format
-          for (var i = 0; i < file_format.length; i++) {
-            if (file_format[i].checked) {
-              file_format = file_format[i].value;
-            }
-          }
 
           // Start ID
           if (start_id == '') {
@@ -187,14 +213,30 @@
             final_id = start_id + ((images_amount - 1) * id_step);
           }
 
-          reset_statistics();
+          reset_statistics('gallery');
 
           if (show_statistics) {
+            document.getElementById('loading_progress').hidden = false;
             document.getElementById('statistics').hidden = false;
-            document.getElementById('total_counter').innerText = images_amount;
-          }
-          else {
-            document.getElementById('statistics').hidden = true;
+
+            var loading_progress = document.getElementById('loading_progress_value');
+
+            // Gallery
+            var loaded_counter_gallery = document.getElementById('loaded_counter_gallery');
+            var failed_counter_gallery = document.getElementById('failed_counter_gallery');
+            var total_counter_gallery = document.getElementById('total_counter_gallery');
+            var loaded_rate_gallery = document.getElementById('loaded_rate_gallery');
+
+            // All
+            var loaded_counter_all = document.getElementById('loaded_counter_all');
+            var failed_counter_all = document.getElementById('failed_counter_all');
+            var total_counter_all = document.getElementById('total_counter_all');
+            var loaded_rate_all = document.getElementById('loaded_rate_all');
+
+            var galleries_counter = document.getElementById('galleries_counter');
+
+            total_counter_gallery.innerText = images_amount;
+            total_counter_all.innerText = parseInt(total_counter_all.innerText, 10) + parseInt(total_counter_gallery.innerText, 10);
           }
 
           clear_output();
@@ -204,11 +246,12 @@
             image_url = `${base_link}${image_id}${id_additional}${file_format}`;
 
             image_item = `<p align="center">
-              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="show_image_options(${get_last_img_index()})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
+              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${get_last_img_index()}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
               <br>
               <input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>
               <span class="image_size"></span>
               <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
+              <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>
             </p>`;
 
             document.getElementById('output').innerHTML += image_item;
@@ -217,14 +260,33 @@
             if (show_statistics) {
               var img_test = new Image();
               img_test.onload = function() {
-                document.getElementById('loaded_counter').innerText = parseInt(document.getElementById('loaded_counter').innerText, 10) + 1;
-                document.getElementById('loaded_rate').innerText = Math.floor(parseInt(document.getElementById('loaded_counter').innerText, 10) / images_amount * 100);
+                // Gallery
+                loaded_counter_gallery.innerText = parseInt(loaded_counter_gallery.innerText, 10) + 1;
+                loaded_rate_gallery.innerText = Math.floor(parseInt(loaded_counter_gallery.innerText, 10) / images_amount * 100);
+
+                // All
+                loaded_counter_all.innerText = parseInt(loaded_counter_all.innerText, 10) + 1;
+                loaded_rate_all.innerText = Math.floor(parseInt(loaded_counter_all.innerText, 10) / parseInt(total_counter_all.innerText, 10) * 100);
+
+                // Loading progress
+                loading_progress.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
               };
               img_test.onerror = function() {
-                document.getElementById('failed_counter').innerText = parseInt(document.getElementById('failed_counter').innerText, 10) + 1;
+                // Gallery
+                failed_counter_gallery.innerText = parseInt(failed_counter_gallery.innerText, 10) + 1;
+
+                // All
+                failed_counter_all.innerText = parseInt(failed_counter_all.innerText, 10) + 1;
+
+                // Loading progress
+                loading_progress.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
               };
               img_test.src = image_url;
             }
+          }
+
+          if (show_statistics) {
+            galleries_counter.innerText = parseInt(galleries_counter.innerText, 10) + 1;
           }
         }
         else {
@@ -240,17 +302,30 @@
         document.getElementById('output').innerHTML = '';
       }
 
-      function reset_statistics() {
-        document.getElementById('loaded_counter').innerText = 0;
-        document.getElementById('failed_counter').innerText = 0;
-        document.getElementById('total_counter').innerText = 0;
-        document.getElementById('loaded_rate').innerText = 0;
+      function reset_statistics(reset_scope) {
+        document.getElementById('loading_progress_value').innerText = 0;
+
+        if (reset_scope == 'gallery') {
+          document.getElementById('loaded_counter_gallery').innerText = 0;
+          document.getElementById('failed_counter_gallery').innerText = 0;
+          document.getElementById('total_counter_gallery').innerText = 0;
+          document.getElementById('loaded_rate_gallery').innerText = 0;
+        }
+        else if (reset_scope == 'all') {
+          document.getElementById('loaded_counter_all').innerText = 0;
+          document.getElementById('failed_counter_all').innerText = 0;
+          document.getElementById('total_counter_all').innerText = 0;
+          document.getElementById('loaded_rate_all').innerText = 0;
+
+          document.getElementById('galleries_counter').innerText = 0;
+        }
       }
 
       function clear_input() {
-        reset_statistics();
+        reset_statistics('gallery');
         clear_output();
         change_scale('reset');
+        document.getElementById('loading_progress').hidden = true;
         document.getElementById('statistics').hidden = true;
         document.getElementById('scale_control').hidden = true;
         document.getElementById('output').hidden = true;
@@ -306,6 +381,11 @@
           <input type="number" id="id_step" min="1" step="1">
         </p>
         <p>
+          <label for="search_engine">Search engine</label><br>
+          <input type="radio" name="search_engine" value="google">Google<br>
+          <input type="radio" name="search_engine" value="yandex">Yandex
+        </p>
+        <p>
           <input type="checkbox" name="hide_failed_images">
           <label for="hide_failed_images">Hide failed images</label>
         </p>
@@ -321,9 +401,40 @@
       <p>
         <input type="button" value="Load images" onclick="load_gallery()">
         <input type="reset" value="Clear input" onclick="clear_input()">
-        <span id="statistics" title="Loaded/Failed/Total" hidden>L/F/T - <span id="loaded_counter">0</span>/<span id="failed_counter">0</span>/<span id="total_counter">0</span> (<span id="loaded_rate">0</span>%)</span>
+        <span id="loading_progress" hidden><span id="loading_progress_value">0</span>%</span>
       </p>
     </form>
+    <div id="statistics" hidden>
+      <hr>
+      <table border="0">
+        <tr>
+          <th></th>
+          <th width="60" align="left">Gallery</th>
+          <th width="60" align="left">All</th>
+        </tr>
+        <tr id="loaded_counter_row">
+          <td>Loaded</td>
+          <td id="loaded_counter_gallery">0</td>
+          <td id="loaded_counter_all">0</td>
+        </tr>
+        <tr id="failed_counter_row">
+          <td>Failed</td>
+          <td id="failed_counter_gallery">0</td>
+          <td id="failed_counter_all">0</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td id="total_counter_gallery">0</td>
+          <td id="total_counter_all">0</td>
+        </tr>
+        <tr>
+          <td>Loaded rate</td>
+          <td><span id="loaded_rate_gallery">0</span>%</td>
+          <td><span id="loaded_rate_all">0</span>%</td>
+        </tr>
+      </table>
+      <p>Galleries loaded: <span id="galleries_counter">0</span></p>
+    </div>
     <div id="scale_control" hidden>
       <hr>
       <p align="center">
