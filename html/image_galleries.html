@@ -235,7 +235,7 @@
       }
 
       function load_gallery() {
-        if ((document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) && (document.getElementById('base_link').value.startsWith('https://') || document.getElementById('base_link').value.startsWith('http://'))) {
+        if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) {
           var image_id = '';
           var image_url = '';
           var image_item;
