@@ -75,9 +75,9 @@
 
       const default_blur_radius = 16; // 16px
 
-      const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
+      const scroll_top = 800;
 
-      var scroll_top = 800;
+      const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
 
       function detect_scroll() {
         if (document.body.scrollTop > scroll_top || document.documentElement.scrollTop > scroll_top) {
@@ -235,7 +235,7 @@
       }
 
       function load_gallery() {
-        if (document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) {
+        if ((document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) && (document.getElementById('base_link').value.startsWith('https://') || document.getElementById('base_link').value.startsWith('http://'))) {
           var image_id = '';
           var image_url = '';
           var image_item;
