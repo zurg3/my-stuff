@@ -69,13 +69,18 @@
 
       new ClipboardJS('.copy_image_url_button');
 
-      const default_img_scale = 50; // 50%
+      if (is_mobile()) {
+        var default_img_scale = 80; // 80%
+      }
+      else {
+        var default_img_scale = 50; // 50%
+      }
       const change_scale_step = 10; // 10%
       var current_img_scale = default_img_scale;
 
       const default_blur_radius = 16; // 16px
 
-      const scroll_top = 800;
+      const scroll_top = 1000;
 
       const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
 
@@ -137,10 +142,6 @@
             return document.getElementsByName(radio_name)[i].value;
           }
         }
-      }
-
-      function get_last_img_index() {
-        return document.images.length;
       }
 
       function get_image_size(img_num) {
@@ -236,11 +237,6 @@
 
       function load_gallery() {
         if ((document.getElementById('base_link').value != '' && document.getElementById('images_amount').value != '' && is_any_radio_checked('file_format')) && (document.getElementById('base_link').value.startsWith('https://') || document.getElementById('base_link').value.startsWith('http://'))) {
-          var image_id = '';
-          var image_url = '';
-          var image_item;
-          //var image_gallery = document.createDocumentFragment();
-
           document.getElementById('loading_progress').hidden = true;
           document.getElementById('statistics').hidden = true;
           document.getElementById('scale_control').hidden = false;
@@ -261,7 +257,10 @@
           var search_engine = get_checked_radio_value('search_engine');
           var hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
           var blur_images = document.getElementsByName('blur_images')[0].checked;
+
+          // Experimental options
           var show_statistics = document.getElementsByName('show_statistics')[0].checked;
+          var use_document_fragment = document.getElementsByName('use_document_fragment')[0].checked;
 
           var final_id = images_amount;
 
@@ -322,6 +321,14 @@
             reset_loaded_rate_color();
           }
 
+          var image_id = '';
+          var image_url = '';
+          var image_item;
+          if (use_document_fragment) {
+            var image_gallery = document.createDocumentFragment();
+          }
+          var last_img_index = 0;
+
           clear_output();
 
           for (var i = start_id; i <= final_id; i += id_step) {
@@ -330,9 +337,15 @@
 
             image_item = document.createElement('p');
             image_item.align = 'center';
+            if (use_document_fragment) {
+              last_img_index = image_gallery.childElementCount;
+            }
+            else {
+              last_img_index = document.images.length;
+            }
             image_item.innerHTML = `<span class="image_id"></span>
               <br hidden>
-              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${get_last_img_index()}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
+              <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
               <br hidden>
               <span class="image_size"></span>
               <br hidden>
@@ -340,8 +353,12 @@
               <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
               <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`;
 
-            //image_gallery.append(image_item);
-            document.getElementById('output').append(image_item);
+            if (use_document_fragment) {
+              image_gallery.append(image_item);
+            }
+            else {
+              document.getElementById('output').append(image_item);
+            }
 
             // Statistics
             if (show_statistics) {
@@ -377,7 +394,9 @@
             }
           }
 
-          //document.getElementById('output').append(image_gallery);
+          if (use_document_fragment) {
+            document.getElementById('output').append(image_gallery);
+          }
 
           if (show_statistics) {
             galleries_counter.innerText = parseInt(galleries_counter.innerText, 10) + 1;
@@ -503,9 +522,16 @@
           <input type="checkbox" name="blur_images">
           <label for="blur_images">Blur images</label>
         </p>
+      </fieldset>
+      <fieldset>
+        <legend>Experimental options</legend>
         <p>
           <input type="checkbox" name="show_statistics">
           <label for="show_statistics">Show statistics</label>
+        </p>
+        <p>
+          <input type="checkbox" name="use_document_fragment">
+          <label for="use_document_fragment">Load images via <code>DocumentFragment</code></label>
         </p>
       </fieldset>
       <p>
