@@ -11,7 +11,7 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        border: 0;
+        border: none;
         box-sizing: border-box;
       }
 
@@ -22,7 +22,7 @@
         resize: none;
         overflow-x: auto;
         overflow-y: scroll;
-        border: 0;
+        border: none;
         outline: none;
         box-sizing: border-box;
         cursor: auto;
@@ -40,6 +40,9 @@
 
       const textarea = document.getElementById('textarea');
 
+      var current_url = new URL(window.location);
+      var params = Object.fromEntries(current_url.searchParams.entries());
+
       textarea.addEventListener('keydown', (e) => {
         if (e.keyCode === 9) {
           e.preventDefault();
@@ -53,6 +56,17 @@
         }
         */
       });
+
+      if (current_url.search != '' && params.hasOwnProperty('version')) {
+        if (params['version'] == 'classic') {
+          if (document.styleSheets[0].cssRules[1].selectorText == '#textarea') {
+            document.styleSheets[0].cssRules[1].style.removeProperty('padding');
+            document.styleSheets[0].cssRules[1].style.removeProperty('font-family');
+            document.styleSheets[0].cssRules[1].style.removeProperty('font-size');
+            document.styleSheets[0].cssRules[1].style.removeProperty('line-height');
+          }
+        }
+      }
     </script>
   </body>
 </html>
