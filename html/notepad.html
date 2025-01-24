@@ -90,7 +90,9 @@
         // Save Notepad data to LocalStorage as Base64 string
         if (params.hasOwnProperty('save') && params['save'] == 'true') {
           //textarea.value = localStorage.getItem('notepad_data');
-          textarea.value = atob(localStorage.getItem('notepad_data'));
+          if (localStorage.getItem('notepad_data') != null) {
+            textarea.value = atob(localStorage.getItem('notepad_data'));
+          }
 
           textarea.oninput = () => {
             //localStorage.setItem('notepad_data', textarea.value);
