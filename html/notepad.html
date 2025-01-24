@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notepad</title>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
     <style>
       html, body {
         width: 100%;
         height: 100%;
-        margin: 0;
-        padding: 0;
+        margin: 0px;
+        padding: 0px;
         overflow: hidden;
         border: none;
         box-sizing: border-box;
@@ -18,7 +19,7 @@
       #textarea {
         width: 100%;
         height: 100%;
-        padding: 0;
+        padding: 0px;
         resize: none;
         overflow-x: auto;
         overflow-y: scroll;
@@ -39,32 +40,62 @@
       // https://benborgers.com/posts/textarea-tab
 
       const textarea = document.getElementById('textarea');
+      const textarea_css = document.styleSheets[0].cssRules[1];
 
       var current_url = new URL(window.location);
       var params = Object.fromEntries(current_url.searchParams.entries());
 
+      // Hotkeys
       textarea.addEventListener('keydown', (e) => {
+        // [Tab] Tabulation
         if (e.keyCode === 9) {
           e.preventDefault();
           textarea.setRangeText('  ', textarea.selectionStart, textarea.selectionStart, 'end');
         }
-        /*
+        // [F5] Insert current time/date
         else if (e.keyCode === 116) {
           e.preventDefault();
           textarea.focus();
-          document.execCommand('insertText', false, '03:00 01.01.1970');
+          let time_date = moment().format('HH:mm DD.MM.YYYY');
+          document.execCommand('insertText', false, time_date);
         }
-        */
       });
 
-      if (current_url.search != '' && params.hasOwnProperty('version')) {
-        if (params['version'] == 'classic') {
-          if (document.styleSheets[0].cssRules[1].selectorText == '#textarea') {
-            document.styleSheets[0].cssRules[1].style.removeProperty('padding');
-            document.styleSheets[0].cssRules[1].style.removeProperty('font-family');
-            document.styleSheets[0].cssRules[1].style.removeProperty('font-size');
-            document.styleSheets[0].cssRules[1].style.removeProperty('line-height');
-          }
+      // Options
+      if (current_url.search != '') {
+        // Classic Version
+        if (params.hasOwnProperty('version') && params['version'] == 'classic' && textarea_css.selectorText == '#textarea') {
+          textarea_css.style.removeProperty('padding');
+          textarea_css.style.removeProperty('font-family');
+          textarea_css.style.removeProperty('font-size');
+          textarea_css.style.removeProperty('line-height');
+        }
+
+        // Light Theme
+        if (params.hasOwnProperty('theme') && params['theme'] == 'light' && textarea_css.selectorText == '#textarea') {
+          textarea_css.style.setProperty('background', 'white');
+          textarea_css.style.setProperty('color', 'black');
+        }
+        // Dark Theme
+        else if (params.hasOwnProperty('theme') && params['theme'] == 'dark' && textarea_css.selectorText == '#textarea') {
+          textarea_css.style.setProperty('background', 'black');
+          textarea_css.style.setProperty('color', 'white');
+        }
+        // Terminal Theme
+        else if (params.hasOwnProperty('theme') && params['theme'] == 'terminal' && textarea_css.selectorText == '#textarea') {
+          textarea_css.style.setProperty('background', 'black');
+          textarea_css.style.setProperty('color', 'green');
+        }
+
+        // Save Notepad data to LocalStorage as Base64 string
+        if (params.hasOwnProperty('save') && params['save'] == 'true') {
+          //textarea.value = localStorage.getItem('notepad_data');
+          textarea.value = atob(localStorage.getItem('notepad_data'));
+
+          textarea.oninput = () => {
+            //localStorage.setItem('notepad_data', textarea.value);
+            localStorage.setItem('notepad_data', btoa(textarea.value));
+          };
         }
       }
     </script>
