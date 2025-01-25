@@ -53,7 +53,7 @@
           textarea.setRangeText('  ', textarea.selectionStart, textarea.selectionStart, 'end');
         }
         // [F5] Insert current time/date
-        else if (e.keyCode === 116) {
+        else if ((e.keyCode === 116) && (current_url.search != '' && params.hasOwnProperty('td') && params['td'] == 'true')) {
           e.preventDefault();
           textarea.focus();
           let time_date = moment().format('HH:mm DD.MM.YYYY');
@@ -87,16 +87,12 @@
           textarea_css.style.setProperty('color', 'green');
         }
 
-        // Save Notepad data to LocalStorage as Base64 string
+        // Save Notepad data to LocalStorage
         if (params.hasOwnProperty('save') && params['save'] == 'true') {
-          //textarea.value = localStorage.getItem('notepad_data');
-          if (localStorage.getItem('notepad_data') != null) {
-            textarea.value = atob(localStorage.getItem('notepad_data'));
-          }
+          textarea.value = localStorage.getItem('notepad_data');
 
           textarea.oninput = () => {
-            //localStorage.setItem('notepad_data', textarea.value);
-            localStorage.setItem('notepad_data', btoa(textarea.value));
+            localStorage.setItem('notepad_data', textarea.value);
           };
         }
       }
