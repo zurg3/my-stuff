@@ -36,11 +36,16 @@
   </head>
   <body>
     <textarea id="textarea" wrap="soft" autofocus spellcheck="false"></textarea>
+    <div id="debug_text" hidden></div>
     <script>
       // https://benborgers.com/posts/textarea-tab
+      // https://98.js.org/programs/notepad/
+      // https://github.com/1j01/98/tree/master/programs/notepad
 
       const textarea = document.getElementById('textarea');
       const textarea_css = document.styleSheets[0].cssRules[1];
+
+      const debug_text = document.getElementById('debug_text');
 
       var current_url = new URL(window.location);
       var params = Object.fromEntries(current_url.searchParams.entries());
@@ -53,7 +58,7 @@
           textarea.setRangeText('  ', textarea.selectionStart, textarea.selectionStart, 'end');
         }
         // [F5] Insert current time/date
-        else if ((e.keyCode === 116) && (current_url.search != '' && params.hasOwnProperty('td') && params['td'] == 'true')) {
+        else if (e.keyCode === 116) {
           e.preventDefault();
           textarea.focus();
           let time_date = moment().format('HH:mm DD.MM.YYYY');
@@ -86,16 +91,19 @@
           textarea_css.style.setProperty('background', 'black');
           textarea_css.style.setProperty('color', 'green');
         }
-
-        // Save Notepad data to LocalStorage
-        if (params.hasOwnProperty('save') && params['save'] == 'true') {
-          textarea.value = localStorage.getItem('notepad_data');
-
-          textarea.oninput = () => {
-            localStorage.setItem('notepad_data', textarea.value);
-          };
-        }
       }
+
+      // Save Notepad data to LocalStorage
+      window.onload = () => {
+        if (localStorage.getItem('notepad_data') != null) {
+          textarea.value = localStorage.getItem('notepad_data');
+        }
+      };
+
+      textarea.oninput = () => {
+        debug_text.textContent = textarea.value;
+        localStorage.setItem('notepad_data', textarea.value);
+      };
     </script>
   </body>
 </html>
