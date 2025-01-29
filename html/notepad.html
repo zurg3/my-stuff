@@ -48,7 +48,8 @@
       var config = {
         'indent_size': 2,
         'f5_time_date': true,
-        'time_date_format': 'HH:mm DD.MM.YYYY'
+        'time_date_format': 'HH:mm DD.MM.YYYY',
+        'default_theme': 'light'
       };
 
       const textarea = document.getElementById('textarea');
@@ -186,8 +187,12 @@
         if (localStorage.getItem('notepad_data') != null) {
           textarea.value = localStorage.getItem('notepad_data');
         }
+
         if (localStorage.getItem('notepad_theme') != null) {
           set_theme(localStorage.getItem('notepad_theme'));
+        }
+        else {
+          set_theme(config.default_theme);
         }
       };
 
