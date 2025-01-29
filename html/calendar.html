@@ -9,8 +9,12 @@
         color: black;
         font-family: monospace;
         padding-top: 1%;
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 20%;
+        padding-right: 20%;
+      }
+
+      .calendar_container {
+        border: 1px solid black;
       }
 
       .year {
@@ -28,7 +32,7 @@
       }
 
       .month {
-        padding: 2px;
+        padding: 0px;
       }
 
       .month_name {
@@ -41,9 +45,15 @@
         grid-template-columns: repeat(7, 1fr);
       }
 
-      .day, .day_name {
+      .day, .empty_cell, .day_name {
         text-align: center;
-        padding: 2px;
+        padding: 0px;
+      }
+
+      .day:hover {
+        background: orange;
+        font-weight: bold;
+        cursor: default;
       }
 
       .day_name {
@@ -120,7 +130,7 @@
           // Empty cells before first day of the month
           for (var i = 0; i < start_day; i++) {
             const empty_cell = document.createElement('div');
-            empty_cell.className = 'day';
+            empty_cell.className = 'empty_cell';
             days_element.appendChild(empty_cell);
           }
 
