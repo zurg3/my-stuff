@@ -43,13 +43,20 @@
       // https://benborgers.com/textarea-tab
       // https://98.js.org/programs/notepad/
       // https://github.com/1j01/98/tree/master/programs/notepad
+      // https://stackoverflow.com/questions/56393880/
 
       // Config
       var config = {
         'indent_size': 2,
         'f5_time_date': true,
         'time_date_format': 'HH:mm DD.MM.YYYY',
-        'default_theme': 'light'
+        'default_theme': 'system'
+      };
+
+      // Statistics
+      var statistics = {
+        'characters': 0,
+        'lines': 0
       };
 
       const textarea = document.getElementById('textarea');
@@ -58,18 +65,20 @@
       const debug_text = document.getElementById('debug_text');
 
       const themes = [
+        'system',
         'light',
         'dark',
         'terminal',
         'zen',
-        'editorjs'
+        'editorjs',
+        'atom'
       ];
 
       var current_url = new URL(window.location);
       var params = Object.fromEntries(current_url.searchParams.entries());
 
       // Functions
-      function change_font_size(font_size) {
+      function set_font_size(font_size) {
         textarea_css.style.setProperty('font-size', `${font_size}pt`);
       }
 
@@ -83,6 +92,15 @@
         document.execCommand('insertText', false, time_date);
       }
 
+      function detect_system_theme() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          return 'light';
+        }
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+      }
+
       function set_theme_colors(bg_color, font_color) {
         if (bg_color != '' && bg_color != undefined) {
           textarea_css.style.setProperty('background', bg_color);
@@ -94,25 +112,45 @@
 
       function set_theme(theme_name) {
         switch (theme_name) {
+          // System Theme (Light or Dark)
+          case 'system':
+            if (detect_system_theme() == 'light') {
+              set_theme_colors('white', 'black');
+            }
+            else if (detect_system_theme() == 'dark') {
+              set_theme_colors('black', 'white');
+            }
+            localStorage.setItem('notepad_theme', theme_name);
+            break;
+          // Light Theme
           case 'light':
             set_theme_colors('white', 'black');
-            localStorage.setItem('notepad_theme', 'light');
+            localStorage.setItem('notepad_theme', theme_name);
             break;
+          // Dark Theme
           case 'dark':
             set_theme_colors('black', 'white');
-            localStorage.setItem('notepad_theme', 'dark');
+            localStorage.setItem('notepad_theme', theme_name);
             break;
+          // Terminal Theme
           case 'terminal':
             set_theme_colors('black', 'green');
-            localStorage.setItem('notepad_theme', 'terminal');
+            localStorage.setItem('notepad_theme', theme_name);
             break;
+          // Zen Theme (a.k.a. Solarized, colors taken from https://zen.unit.ms)
           case 'zen':
             set_theme_colors('#fdf6e3', '#657b83');
-            localStorage.setItem('notepad_theme', 'zen');
+            localStorage.setItem('notepad_theme', theme_name);
             break;
+          // EditorJS Theme (colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html)
           case 'editorjs':
             set_theme_colors('#f5eedb', '#19160f');
-            localStorage.setItem('notepad_theme', 'editorjs');
+            localStorage.setItem('notepad_theme', theme_name);
+            break;
+          // Atom Theme (a.k.a. Atom One Dark)
+          case 'atom':
+            set_theme_colors('#282c34', '#abb2bf');
+            localStorage.setItem('notepad_theme', theme_name);
             break;
           default:
             console.log('Error: Theme not found!');
@@ -120,14 +158,28 @@
       }
 
       function show_themes() {
+        console.log(`Themes:`);
         themes.forEach((theme) => {
           if (localStorage.getItem('notepad_theme') != null && localStorage.getItem('notepad_theme') == theme) {
             console.log(`-> ${theme}`);
           }
           else {
-            console.log(`${theme}`);
+            console.log(`- ${theme}`);
           }
         });
+      }
+
+      function update_statistics() {
+        statistics.characters = textarea.value.length;
+        statistics.lines = textarea.value.split('\n').length;
+      }
+
+      function show_statistics() {
+        update_statistics();
+
+        console.log(`Statistics:`);
+        console.log(`- Characters: ${statistics.characters}`);
+        console.log(`- Lines: ${statistics.lines}`);
       }
 
       function update_debug_text() {
@@ -160,25 +212,14 @@
           textarea_css.style.removeProperty('line-height');
         }
 
-        // Light Theme
-        if (params.hasOwnProperty('theme') && params['theme'] == 'light') {
-          set_theme('light');
+        // Set theme from URL
+        if (params.hasOwnProperty('theme') && themes.includes(params['theme'])) {
+          set_theme(params['theme']);
         }
-        // Dark Theme
-        else if (params.hasOwnProperty('theme') && params['theme'] == 'dark') {
-          set_theme('dark');
-        }
-        // Terminal Theme
-        else if (params.hasOwnProperty('theme') && params['theme'] == 'terminal') {
-          set_theme('terminal');
-        }
-        // Zen Theme (a.k.a. Solarized, colors taken from https://zen.unit.ms)
-        else if (params.hasOwnProperty('theme') && params['theme'] == 'zen') {
-          set_theme('zen');
-        }
-        // EditorJS Theme (colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html)
-        else if (params.hasOwnProperty('theme') && params['theme'] == 'editorjs') {
-          set_theme('editorjs');
+
+        // Read-Only mode
+        if (params.hasOwnProperty('mode') && params['mode'] == 'read') {
+          textarea.readOnly = true;
         }
       }
 

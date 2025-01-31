@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calendar</title>
     <style>
       body {
@@ -9,12 +10,18 @@
         color: black;
         font-family: monospace;
         padding-top: 1%;
-        padding-left: 20%;
-        padding-right: 20%;
       }
 
       .calendar_container {
         border: 1px solid black;
+        max-width: 740px;
+        margin: auto;
+      }
+
+      @media (min-width: 1920px) {
+        .calendar_container {
+          max-width: 1200px;
+        }
       }
 
       .year {
@@ -26,7 +33,7 @@
 
       .calendar {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
         row-gap: 20px;
         column-gap: 40px;
       }
