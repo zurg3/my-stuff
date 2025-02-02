@@ -47,10 +47,12 @@
 
       // Config
       var config = {
+        'indent_mode': 'tabs',
         'indent_size': 2,
         'f5_time_date': true,
         'time_date_format': 'HH:mm DD.MM.YYYY',
-        'default_theme': 'system'
+        'default_theme': 'system',
+        'word_wrap': true
       };
 
       // Statistics
@@ -71,7 +73,8 @@
         'terminal',
         'zen',
         'editorjs',
-        'atom'
+        'atom',
+        'midnight'
       ];
 
       var current_url = new URL(window.location);
@@ -152,6 +155,11 @@
             set_theme_colors('#282c34', '#abb2bf');
             localStorage.setItem('notepad_theme', theme_name);
             break;
+          // Midnight Theme
+          case 'midnight':
+            set_theme_colors('#191970', '#ffd700');
+            localStorage.setItem('notepad_theme', theme_name);
+            break;
           default:
             console.log('Error: Theme not found!');
         }
@@ -182,6 +190,19 @@
         console.log(`- Lines: ${statistics.lines}`);
       }
 
+      function toggle_word_wrap(option) {
+        // Enable
+        if (option == true) {
+          textarea_css.style.setProperty('overflow-x', 'auto');
+          textarea_css.style.setProperty('white-space', 'pre-wrap');
+        }
+        // Disable
+        else if (option == false) {
+          textarea_css.style.setProperty('overflow-x', 'scroll');
+          textarea_css.style.setProperty('white-space', 'pre');
+        }
+      }
+
       function update_debug_text() {
         //debug_text.textContent = textarea.value;
         debug_text.textContent = '.';
@@ -193,7 +214,12 @@
         // [Tab] Tabulation
         if (e.keyCode === 9) {
           e.preventDefault();
-          textarea.setRangeText(tabulation(config.indent_size), textarea.selectionStart, textarea.selectionStart, 'end');
+          if (config.indent_mode == 'spaces') {
+            textarea.setRangeText(tabulation(config.indent_size), textarea.selectionStart, textarea.selectionStart, 'end');
+          }
+          else if (config.indent_mode == 'tabs') {
+            textarea.setRangeText('\t', textarea.selectionStart, textarea.selectionStart, 'end');
+          }
         }
         // [F5] Insert current time/date
         else if (e.keyCode === 116 && config.f5_time_date) {
@@ -221,24 +247,44 @@
         if (params.hasOwnProperty('mode') && params['mode'] == 'read') {
           textarea.readOnly = true;
         }
+
+        // Enable/disable word wrap from URl
+        if (params.hasOwnProperty('ww') && params['ww'] == 'true') {
+          toggle_word_wrap(true);
+        }
+        else if (params.hasOwnProperty('ww') && params['ww'] == 'false') {
+          toggle_word_wrap(false);
+        }
       }
 
-      // Save Notepad data and theme to LocalStorage
+      // Notepad initial actions (when window is loaded)
       window.onload = () => {
+        // Load Notepad data from LocalStorage
         if (localStorage.getItem('notepad_data') != null) {
           textarea.value = localStorage.getItem('notepad_data');
         }
 
+        // Set default indent size (tabs)
+        textarea_css.style.setProperty('tab-size', `${config.indent_size}`);
+
+        // Load Notepad theme from LocalStorage (or set default)
         if (localStorage.getItem('notepad_theme') != null) {
           set_theme(localStorage.getItem('notepad_theme'));
         }
         else {
           set_theme(config.default_theme);
         }
+
+        // Set default word wrap settings
+        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('ww'))) {
+          config.word_wrap ? toggle_word_wrap(true) : toggle_word_wrap(false);
+        }
       };
 
       textarea.oninput = () => {
         update_debug_text();
+
+        // Save Notepad data to LocalStorage
         localStorage.setItem('notepad_data', textarea.value);
       };
     </script>
