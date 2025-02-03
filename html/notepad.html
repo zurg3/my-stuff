@@ -77,12 +77,23 @@
         'midnight'
       ];
 
+      const local_storage_items = [
+        'notepad_data',
+        'notepad_theme',
+        'notepad_word_wrap'
+      ];
+
       var current_url = new URL(window.location);
       var params = Object.fromEntries(current_url.searchParams.entries());
 
       // Functions
       function set_font_size(font_size) {
         textarea_css.style.setProperty('font-size', `${font_size}pt`);
+      }
+
+      function set_indent_size(indent_size) {
+        config.indent_size = indent_size;
+        textarea_css.style.setProperty('tab-size', `${indent_size}`);
       }
 
       function tabulation() {
@@ -200,13 +211,25 @@
       function toggle_word_wrap(option) {
         // Enable
         if (option == true) {
+          config.word_wrap = true;
           textarea_css.style.setProperty('overflow-x', 'auto');
           textarea_css.style.setProperty('white-space', 'pre-wrap');
+          localStorage.setItem('notepad_word_wrap', 'true');
         }
         // Disable
         else if (option == false) {
+          config.word_wrap = false;
           textarea_css.style.setProperty('overflow-x', 'scroll');
           textarea_css.style.setProperty('white-space', 'pre');
+          localStorage.setItem('notepad_word_wrap', 'false');
+        }
+      }
+
+      function clear_local_storage() {
+        if (confirm('Are you sure?')) {
+          local_storage_items.forEach((local_storage_item) => {
+            localStorage.removeItem(local_storage_item);
+          });
         }
       }
 
@@ -266,20 +289,36 @@
           textarea.value = localStorage.getItem('notepad_data');
         }
 
-        // Set default indent size (tabs)
-        textarea_css.style.setProperty('tab-size', `${config.indent_size}`);
+        // Set default indent size
+        set_indent_size(config.indent_size);
 
-        // Load Notepad theme from LocalStorage (or set default)
-        if (localStorage.getItem('notepad_theme') != null) {
-          set_theme(localStorage.getItem('notepad_theme'));
-        }
-        else {
-          set_theme(config.default_theme);
+        // Set theme (if URL param not passed)
+        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme'))) {
+          // Load theme from LocalStorage
+          if (localStorage.getItem('notepad_theme') != null) {
+            set_theme(localStorage.getItem('notepad_theme'));
+          }
+          // Set default theme from config
+          else {
+            set_theme(config.default_theme);
+          }
         }
 
-        // Set default word wrap settings
+        // Set word wrap settings (if URL param not passed)
         if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('ww'))) {
-          config.word_wrap ? toggle_word_wrap(true) : toggle_word_wrap(false);
+          // Load settings from LocalStorage
+          if (localStorage.getItem('notepad_word_wrap') != null) {
+            if (localStorage.getItem('notepad_word_wrap') == 'true') {
+              toggle_word_wrap(true);
+            }
+            else if (localStorage.getItem('notepad_word_wrap') == 'false') {
+              toggle_word_wrap(false);
+            }
+          }
+          // Set default settings from config
+          else {
+            config.word_wrap ? toggle_word_wrap(true) : toggle_word_wrap(false);
+          }
         }
       };
 
