@@ -255,7 +255,7 @@
         }
 
         // Set theme from URL
-        if (params.hasOwnProperty('theme') && themes.includes(theme_name)) {
+        if (params.hasOwnProperty('theme') && themes.includes(params['theme'])) {
           set_theme(params['theme']);
         }
 
