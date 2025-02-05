@@ -169,7 +169,7 @@
           'retro': ['#2b003c', '#ff6f61']
         };
 
-        if (theme_colors.hasOwnProperty(theme_name)) {
+        if (themes.includes(theme_name) && theme_colors.hasOwnProperty(theme_name)) {
           set_theme_colors(...theme_colors[theme_name]);
           localStorage.setItem('notepad_theme', theme_name);
         }
