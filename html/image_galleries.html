@@ -291,7 +291,7 @@
             // Statistics
             if (show_statistics) {
               var img_test = new Image();
-              img_test.onload = function() {
+              img_test.onload = () => {
                 // Gallery
                 loaded_counter_gallery.innerText = parseInt(loaded_counter_gallery.innerText, 10) + 1;
                 loaded_rate_gallery.innerText = Math.floor(parseInt(loaded_counter_gallery.innerText, 10) / (parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) * 100);
@@ -305,7 +305,7 @@
 
                 update_loaded_rate_color();
               };
-              img_test.onerror = function() {
+              img_test.onerror = () => {
                 // Gallery
                 failed_counter_gallery.innerText = parseInt(failed_counter_gallery.innerText, 10) + 1;
                 loaded_rate_gallery.innerText = Math.floor(parseInt(loaded_counter_gallery.innerText, 10) / (parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) * 100);
