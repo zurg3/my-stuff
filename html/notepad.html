@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
     <style>
       html, body {
+        background: white;
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -62,6 +63,8 @@
       };
 
       const textarea = document.getElementById('textarea');
+
+      const html_body_css = document.styleSheets[0].cssRules[0];
       const textarea_css = document.styleSheets[0].cssRules[1];
 
       const debug_text = document.getElementById('debug_text');
@@ -129,9 +132,12 @@
       }
 
       function set_theme_colors(bg_color, font_color) {
+        // Background
         if (bg_color != '' && bg_color != undefined) {
           textarea_css.style.setProperty('background', bg_color);
+          html_body_css.style.setProperty('background', bg_color);
         }
+        // Font
         if (font_color != '' && font_color != undefined) {
           textarea_css.style.setProperty('color', font_color);
         }
@@ -155,21 +161,21 @@
           'atom': ['#282c34', '#abb2bf'],
           // Midnight Theme
           'midnight': ['#191970', '#ffd700'],
-          // Ocean Breeze Theme (colors suggested by GPT-4o mini)
+          // Ocean Breeze Theme (colors and name suggested by GPT-4o mini)
           'ocean': ['#e0f7fa', '#006064'],
-          // Forest Green Theme (colors suggested by GPT-4o mini)
+          // Forest Green Theme (colors and name suggested by GPT-4o mini)
           'forest': ['#2e3a2c', '#e0f7fa'],
-          // Fiery Red Theme (colors suggested by GPT-4o mini)
+          // Fiery Red Theme (colors and name suggested by GPT-4o mini)
           'fiery': ['#300000', '#ffffff'],
-          // Sunny Orange Theme (colors suggested by GPT-4o mini)
+          // Sunny Orange Theme (colors and name suggested by GPT-4o mini)
           'sunny': ['#ffcc80', '#4e342e'],
-          // Galactic Nebula Theme (colors suggested by GPT-4o mini)
+          // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
           'galactic': ['#1a1a2e', '#e94560'],
-          // Retro Wave Theme (colors suggested by GPT-4o mini)
+          // Retro Wave Theme (colors and name suggested by GPT-4o mini)
           'retro': ['#2b003c', '#ff6f61']
         };
 
-        if (themes.includes(theme_name) && theme_colors.hasOwnProperty(theme_name)) {
+        if (theme_colors.hasOwnProperty(theme_name)) {
           set_theme_colors(...theme_colors[theme_name]);
           localStorage.setItem('notepad_theme', theme_name);
         }
@@ -255,7 +261,7 @@
         }
 
         // Set theme from URL
-        if (params.hasOwnProperty('theme')) {
+        if (params.hasOwnProperty('theme') && themes.includes(params['theme'])) {
           set_theme(params['theme']);
         }
 
@@ -287,7 +293,7 @@
         set_indent_size(config.indent_size);
 
         // Set theme (if URL param not passed)
-        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme'))) {
+        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme')) || (current_url.search != '' && params.hasOwnProperty('theme') && !themes.includes(params['theme']))) {
           // Load theme from LocalStorage
           if (localStorage.getItem('notepad_theme') != null) {
             set_theme(localStorage.getItem('notepad_theme'));
@@ -299,7 +305,7 @@
         }
 
         // Set word wrap settings (if URL param not passed)
-        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('ww'))) {
+        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('ww')) || (current_url.search != '' && params.hasOwnProperty('ww') && !['true', 'false'].includes(params['ww']))) {
           // Load settings from LocalStorage
           if (localStorage.getItem('notepad_word_wrap') != null) {
             if (localStorage.getItem('notepad_word_wrap') == 'true') {

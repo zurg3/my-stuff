@@ -59,22 +59,13 @@
   <body>
     <script>
       function is_mobile() {
-        if (window.screen.width < window.screen.height) {
-          return true;
-        }
-        else {
-          return false;
-        }
+        return window.screen.width < window.screen.height;
       }
 
       new ClipboardJS('.copy_image_url_button');
 
-      if (is_mobile()) {
-        var default_img_scale = 80; // 80%
-      }
-      else {
-        var default_img_scale = 50; // 50%
-      }
+      // 80% - mobile, 50% - desktop
+      var default_img_scale = is_mobile() ? 80 : 50;
       const change_scale_step = 10; // 10%
       var current_img_scale = default_img_scale;
 
@@ -85,12 +76,7 @@
       const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
 
       function detect_scroll() {
-        if (document.body.scrollTop > scroll_top || document.documentElement.scrollTop > scroll_top) {
-          document.getElementById('back_to_top_button').style.display = 'block';
-        }
-        else {
-          document.getElementById('back_to_top_button').style.display = 'none';
-        }
+        document.getElementById('back_to_top_button').style.display = (document.body.scrollTop > scroll_top || document.documentElement.scrollTop > scroll_top) ? 'block' : 'none';
       }
 
       function back_to_top() {
@@ -98,16 +84,11 @@
         document.documentElement.scrollTop = 0;
       }
 
-      window.onscroll = function() {
+      window.onscroll = () => {
         detect_scroll();
       };
 
-      if (is_mobile()) {
-        var current_blur_radius = 16;
-      }
-      else {
-        var current_blur_radius = 28;
-      }
+      var current_blur_radius = is_mobile() ? 16 : 28;
 
       function change_scale(operation) {
         if (operation == 'decrease' && current_img_scale > 10) {
@@ -128,12 +109,7 @@
       }
 
       function is_any_radio_checked(radio_name) {
-        if (document.querySelector(`input[name="${radio_name}"]:checked`) != null) {
-          return true;
-        }
-        else {
-          return false;
-        }
+        return document.querySelector(`input[name="${radio_name}"]:checked`) != null;
       }
 
       function get_checked_radio_value(radio_name) {
@@ -170,23 +146,16 @@
       }
 
       function search_image(img_url, search_engine) {
-        if (search_engine == 'google') {
-          var search_url = `https://lens.google.com/uploadbyurl?url=${img_url}`;
-        }
-        else if (search_engine == 'yandex') {
-          var search_url = `https://ya.ru/images/search?rpt=imageview&url=${img_url}`;
-        }
+        let search_engines = {
+          'google': `https://lens.google.com/uploadbyurl?url=${img_url}`,
+          'yandex': `https://ya.ru/images/search?rpt=imageview&url=${img_url}`
+        };
 
-        window.open(search_url, '_blank');
+        window.open(search_engines[search_engine], '_blank');
       }
 
       function blur_image(image, radius) {
-        if (image.style.filter == 'none') {
-          image.style.filter = `blur(${radius}px)`;
-        }
-        else if (image.style.filter != 'none') {
-          image.style.filter = 'none';
-        }
+        image.style.filter = (image.style.filter == 'none') ? `blur(${radius}px)` : 'none';
       }
 
       function handle_failed_image(image, hide_failed_option, blur_option) {
@@ -207,27 +176,14 @@
       }
 
       function update_loaded_rate_color() {
-        // Gallery
-        if (loaded_rate_gallery.innerText == '100') {
-          loaded_rate_gallery.parentNode.style.color = 'Green';
-        }
-        else if (loaded_rate_gallery.innerText == '0') {
-          loaded_rate_gallery.parentNode.style.color = 'Red';
-        }
-        else if (parseInt(loaded_rate_gallery.innerText, 10) > 0 || parseInt(loaded_rate_gallery.innerText, 10) < 100) {
-          loaded_rate_gallery.parentNode.style.color = 'Black';
-        }
+        let update_color = (loaded_rate_element) => {
+          let rate = parseInt(loaded_rate_element.innerText, 10);
 
-        // All
-        if (loaded_rate_all.innerText == '100') {
-          loaded_rate_all.parentNode.style.color = 'Green';
-        }
-        else if (loaded_rate_all.innerText == '0') {
-          loaded_rate_all.parentNode.style.color = 'Red';
-        }
-        else if (parseInt(loaded_rate_all.innerText, 10) > 0 || parseInt(loaded_rate_all.innerText, 10) < 100) {
-          loaded_rate_all.parentNode.style.color = 'Black';
-        }
+          loaded_rate_element.parentNode.style.color = (rate == 100) ? 'Green' : (rate == 0) ? 'Red' : 'Black';
+        };
+
+        update_color(loaded_rate_gallery);
+        update_color(loaded_rate_all);
       }
 
       function reset_loaded_rate_color() {
@@ -250,10 +206,10 @@
           var file_format = get_checked_radio_value('file_format');
 
           // Optional fields
-          var start_id = document.getElementById('start_id').value;
-          var id_length = document.getElementById('id_length').value;
+          var start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
+          var id_length = parseInt(document.getElementById('id_length').value, 10) || 0;
           var id_additional = document.getElementById('id_additional').value;
-          var id_step = document.getElementById('id_step').value;
+          var id_step = parseInt(document.getElementById('id_step').value, 10) || 1;
           var search_engine = get_checked_radio_value('search_engine');
           var hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
           var blur_images = document.getElementsByName('blur_images')[0].checked;
@@ -262,35 +218,7 @@
           var show_statistics = document.getElementsByName('show_statistics')[0].checked;
           var use_document_fragment = document.getElementsByName('use_document_fragment')[0].checked;
 
-          var final_id = images_amount;
-
-          // Start ID
-          if (start_id == '') {
-            start_id = 1;
-          }
-          else {
-            start_id = parseInt(start_id, 10);
-            if (id_step == '') {
-              final_id = start_id + (images_amount - 1);
-            }
-          }
-
-          // ID length
-          if (id_length != '') {
-            var add_zero = parseInt(id_length, 10);
-          }
-          else {
-            var add_zero = 0;
-          }
-
-          // ID step
-          if (id_step == '') {
-            id_step = 1;
-          }
-          else {
-            id_step = parseInt(id_step, 10);
-            final_id = start_id + ((images_amount - 1) * id_step);
-          }
+          var final_id = start_id + ((images_amount - 1) * id_step);
 
           reset_statistics('gallery');
 
@@ -332,7 +260,7 @@
           clear_output();
 
           for (var i = start_id; i <= final_id; i += id_step) {
-            image_id = `${i.toString().padStart(add_zero, '0')}`;
+            image_id = `${i.toString().padStart(id_length, '0')}`;
             image_url = `${base_link}${image_id}${id_additional}${file_format}`;
 
             image_item = document.createElement('p');
