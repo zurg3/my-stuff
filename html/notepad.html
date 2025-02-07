@@ -71,6 +71,7 @@
 
       const themes = [
         'system',
+        'random',
         'light',
         'dark',
         'terminal',
@@ -96,6 +97,10 @@
       var params = Object.fromEntries(current_url.searchParams.entries());
 
       // Functions
+      function random_number(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
       function set_font_size(font_size) {
         textarea_css.style.setProperty('font-size', `${font_size}pt`);
       }
@@ -131,6 +136,16 @@
         }
       }
 
+      function random_color() {
+        let color_hex = '#';
+
+        for (var i = 0; i < 3; i++) {
+          color_hex += random_number(0, 255).toString(16).padStart(2, '0');
+        }
+
+        return color_hex;
+      }
+
       function set_theme_colors(bg_color, font_color) {
         // Background
         if (bg_color != '' && bg_color != undefined) {
@@ -147,6 +162,8 @@
         let theme_colors = {
           // System Theme (Light or Dark)
           'system': detect_system_theme() == 'light' ? ['white', 'black'] : ['black', 'white'],
+          // Random Colors Theme (colors are generated randomly)
+          'random': [random_color(), random_color()],
           // Light Theme
           'light': ['white', 'black'],
           // Dark Theme
@@ -226,6 +243,20 @@
         }
       }
 
+      function save_file() {
+        let data = textarea.value;
+        let blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
+        let file_name = 'document.txt';
+
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = file_name;
+
+        link.click();
+
+        URL.revokeObjectURL(link.href);
+      }
+
       function update_debug_text() {
         //debug_text.textContent = textarea.value;
         debug_text.textContent = '.';
@@ -292,7 +323,7 @@
         // Set default indent size
         set_indent_size(config.indent_size);
 
-        // Set theme (if URL param not passed)
+        // Set theme (if URL param not passed; or param's value is incorrect)
         if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme')) || (current_url.search != '' && params.hasOwnProperty('theme') && !themes.includes(params['theme']))) {
           // Load theme from LocalStorage
           if (localStorage.getItem('notepad_theme') != null) {
@@ -304,7 +335,7 @@
           }
         }
 
-        // Set word wrap settings (if URL param not passed)
+        // Set word wrap settings (if URL param not passed; or param's value is incorrect)
         if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('ww')) || (current_url.search != '' && params.hasOwnProperty('ww') && !['true', 'false'].includes(params['ww']))) {
           // Load settings from LocalStorage
           if (localStorage.getItem('notepad_word_wrap') != null) {
