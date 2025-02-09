@@ -53,6 +53,7 @@
         'f5_time_date': true,
         'time_date_format': 'HH:mm DD.MM.YYYY',
         'default_theme': 'system',
+        'default_random_color_way': 1,
         'word_wrap': true
       };
 
@@ -71,7 +72,6 @@
 
       const themes = [
         'system',
-        'random',
         'light',
         'dark',
         'terminal',
@@ -84,7 +84,13 @@
         'fiery',
         'sunny',
         'galactic',
-        'retro'
+        'retro',
+        'abyss',
+        'kimbie',
+        'red',
+        'solarized',
+        'tomorrow',
+        'random'
       ];
 
       const local_storage_items = [
@@ -136,11 +142,36 @@
         }
       }
 
-      function random_color() {
+      function random_color(way = config.default_random_color_way) {
+        if (![1, 2, 3, 4].includes(way)) {
+          way = config.default_random_color_way;
+        }
+
         let color_hex = '#';
 
-        for (var i = 0; i < 3; i++) {
-          color_hex += random_number(0, 255).toString(16).padStart(2, '0');
+        if (way == 1) {
+          for (var i = 0; i < 3; i++) {
+            color_hex += random_number(0, 255).toString(16).padStart(2, '0');
+          }
+        }
+        else if (way == 2) {
+          color_hex += random_number(0x000000, 0xffffff).toString(16).padStart(6, '0');
+        }
+        else if (way == 3) {
+          let array = new Uint8Array(3);
+
+          crypto.getRandomValues(array);
+
+          for (var i = 0; i < 3; i++) {
+            color_hex += array[i].toString(16).padStart(2, '0');
+          }
+        }
+        else if (way == 4) {
+          const symbols = '0123456789ABCDEF';
+
+          for (var i = 0; i < 6; i++) {
+            color_hex += symbols[random_number(0, 15)].toLowerCase();
+          }
         }
 
         return color_hex;
@@ -162,8 +193,6 @@
         let theme_colors = {
           // System Theme (Light or Dark)
           'system': detect_system_theme() == 'light' ? ['white', 'black'] : ['black', 'white'],
-          // Random Colors Theme (colors are generated randomly)
-          'random': [random_color(), random_color()],
           // Light Theme
           'light': ['white', 'black'],
           // Dark Theme
@@ -189,7 +218,19 @@
           // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
           'galactic': ['#1a1a2e', '#e94560'],
           // Retro Wave Theme (colors and name suggested by GPT-4o mini)
-          'retro': ['#2b003c', '#ff6f61']
+          'retro': ['#2b003c', '#ff6f61'],
+          // Abyss Theme (colors taken from Visual Studio Code)
+          'abyss': ['#000c18', '#6688cc'],
+          // Kimbie Dark Theme (colors taken from Visual Studio Code)
+          'kimbie': ['#221a0f', '#d3af86'],
+          // Red Theme (colors taken from Visual Studio Code)
+          'red': ['#390000', '#f8f8f8'],
+          // Solarized Dark Theme (colors taken from Visual Studio Code)
+          'solarized': ['#002b36', '#839496'],
+          // Tomorrow Night Blue Theme (colors taken from Visual Studio Code)
+          'tomorrow': ['#002451', '#ffffff'],
+          // Random Colors Theme (colors are generated randomly)
+          'random': [random_color(), random_color()]
         };
 
         if (theme_colors.hasOwnProperty(theme_name)) {
