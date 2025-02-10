@@ -47,7 +47,7 @@
       // https://stackoverflow.com/questions/56393880/
 
       // Config
-      var config = {
+      const config = {
         'indent_mode': 'tabs',
         'indent_size': 2,
         'f5_time_date': true,
@@ -58,7 +58,7 @@
       };
 
       // Statistics
-      var statistics = {
+      const statistics = {
         'characters': 0,
         'lines': 0
       };
@@ -70,28 +70,48 @@
 
       const debug_text = document.getElementById('debug_text');
 
-      const themes = [
-        'system',
-        'light',
-        'dark',
-        'terminal',
-        'zen',
-        'editorjs',
-        'atom',
-        'midnight',
-        'ocean',
-        'forest',
-        'fiery',
-        'sunny',
-        'galactic',
-        'retro',
-        'abyss',
-        'kimbie',
-        'red',
-        'solarized',
-        'tomorrow',
-        'random'
-      ];
+      const themes = {
+        // System Theme (Light or Dark)
+        'system': [],
+        // Light Theme
+        'light': ['white', 'black'],
+        // Dark Theme
+        'dark': ['black', 'white'],
+        // Terminal Theme
+        'terminal': ['black', 'green'],
+        // Zen Theme (a.k.a. Solarized, colors taken from https://zen.unit.ms)
+        'zen': ['#fdf6e3', '#657b83'],
+        // EditorJS Theme (colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html)
+        'editorjs': ['#f5eedb', '#19160f'],
+        // Atom Theme (a.k.a. Atom One Dark)
+        'atom': ['#282c34', '#abb2bf'],
+        // Midnight Theme
+        'midnight': ['#191970', '#ffd700'],
+        // Ocean Breeze Theme (colors and name suggested by GPT-4o mini)
+        'ocean': ['#e0f7fa', '#006064'],
+        // Forest Green Theme (colors and name suggested by GPT-4o mini)
+        'forest': ['#2e3a2c', '#e0f7fa'],
+        // Fiery Red Theme (colors and name suggested by GPT-4o mini)
+        'fiery': ['#300000', '#ffffff'],
+        // Sunny Orange Theme (colors and name suggested by GPT-4o mini)
+        'sunny': ['#ffcc80', '#4e342e'],
+        // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
+        'galactic': ['#1a1a2e', '#e94560'],
+        // Retro Wave Theme (colors and name suggested by GPT-4o mini)
+        'retro': ['#2b003c', '#ff6f61'],
+        // Abyss Theme (colors taken from Visual Studio Code)
+        'abyss': ['#000c18', '#6688cc'],
+        // Kimbie Dark Theme (colors taken from Visual Studio Code)
+        'kimbie': ['#221a0f', '#d3af86'],
+        // Red Theme (colors taken from Visual Studio Code)
+        'red': ['#390000', '#f8f8f8'],
+        // Solarized Dark Theme (colors taken from Visual Studio Code)
+        'solarized': ['#002b36', '#839496'],
+        // Tomorrow Night Blue Theme (colors taken from Visual Studio Code)
+        'tomorrow': ['#002451', '#ffffff'],
+        // Random Colors Theme (colors are generated randomly)
+        'random': []
+      };
 
       const local_storage_items = [
         'notepad_data',
@@ -99,12 +119,14 @@
         'notepad_word_wrap'
       ];
 
-      var current_url = new URL(window.location);
-      var params = Object.fromEntries(current_url.searchParams.entries());
+      const current_url = new URL(window.location);
+      const params = Object.fromEntries(current_url.searchParams.entries());
 
       // Functions
-      function random_number(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+      function random_number(min = 1, max = 100) {
+        if ((typeof min == 'number' && typeof max == 'number') && (min <= max)) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
       }
 
       function set_font_size(font_size) {
@@ -150,7 +172,7 @@
         let color_hex = '#';
 
         if (way == 1) {
-          for (var i = 0; i < 3; i++) {
+          for (let i = 0; i < 3; i++) {
             color_hex += random_number(0, 255).toString(16).padStart(2, '0');
           }
         }
@@ -162,14 +184,14 @@
 
           crypto.getRandomValues(array);
 
-          for (var i = 0; i < 3; i++) {
+          for (let i = 0; i < 3; i++) {
             color_hex += array[i].toString(16).padStart(2, '0');
           }
         }
         else if (way == 4) {
           const symbols = '0123456789ABCDEF';
 
-          for (var i = 0; i < 6; i++) {
+          for (let i = 0; i < 6; i++) {
             color_hex += symbols[random_number(0, 15)].toLowerCase();
           }
         }
@@ -190,51 +212,11 @@
       }
 
       function set_theme(theme_name) {
-        let theme_colors = {
-          // System Theme (Light or Dark)
-          'system': detect_system_theme() == 'light' ? ['white', 'black'] : ['black', 'white'],
-          // Light Theme
-          'light': ['white', 'black'],
-          // Dark Theme
-          'dark': ['black', 'white'],
-          // Terminal Theme
-          'terminal': ['black', 'green'],
-          // Zen Theme (a.k.a. Solarized, colors taken from https://zen.unit.ms)
-          'zen': ['#fdf6e3', '#657b83'],
-          // EditorJS Theme (colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html)
-          'editorjs': ['#f5eedb', '#19160f'],
-          // Atom Theme (a.k.a. Atom One Dark)
-          'atom': ['#282c34', '#abb2bf'],
-          // Midnight Theme
-          'midnight': ['#191970', '#ffd700'],
-          // Ocean Breeze Theme (colors and name suggested by GPT-4o mini)
-          'ocean': ['#e0f7fa', '#006064'],
-          // Forest Green Theme (colors and name suggested by GPT-4o mini)
-          'forest': ['#2e3a2c', '#e0f7fa'],
-          // Fiery Red Theme (colors and name suggested by GPT-4o mini)
-          'fiery': ['#300000', '#ffffff'],
-          // Sunny Orange Theme (colors and name suggested by GPT-4o mini)
-          'sunny': ['#ffcc80', '#4e342e'],
-          // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
-          'galactic': ['#1a1a2e', '#e94560'],
-          // Retro Wave Theme (colors and name suggested by GPT-4o mini)
-          'retro': ['#2b003c', '#ff6f61'],
-          // Abyss Theme (colors taken from Visual Studio Code)
-          'abyss': ['#000c18', '#6688cc'],
-          // Kimbie Dark Theme (colors taken from Visual Studio Code)
-          'kimbie': ['#221a0f', '#d3af86'],
-          // Red Theme (colors taken from Visual Studio Code)
-          'red': ['#390000', '#f8f8f8'],
-          // Solarized Dark Theme (colors taken from Visual Studio Code)
-          'solarized': ['#002b36', '#839496'],
-          // Tomorrow Night Blue Theme (colors taken from Visual Studio Code)
-          'tomorrow': ['#002451', '#ffffff'],
-          // Random Colors Theme (colors are generated randomly)
-          'random': [random_color(), random_color()]
-        };
+        themes['system'] = detect_system_theme() == 'light' ? ['white', 'black'] : ['black', 'white'];
+        themes['random'] = [random_color(), random_color()];
 
-        if (theme_colors.hasOwnProperty(theme_name)) {
-          set_theme_colors(...theme_colors[theme_name]);
+        if (themes.hasOwnProperty(theme_name)) {
+          set_theme_colors(...themes[theme_name]);
           localStorage.setItem('notepad_theme', theme_name);
         }
         else {
@@ -244,7 +226,7 @@
 
       function show_themes() {
         console.log(`Themes:`);
-        themes.forEach((theme) => {
+        Object.keys(themes).forEach((theme) => {
           if (localStorage.getItem('notepad_theme') != null && localStorage.getItem('notepad_theme') == theme) {
             console.log(`-> ${theme}`);
           }
@@ -333,7 +315,7 @@
         }
 
         // Set theme from URL
-        if (params.hasOwnProperty('theme') && themes.includes(params['theme'])) {
+        if (params.hasOwnProperty('theme') && Object.keys(themes).includes(params['theme'])) {
           set_theme(params['theme']);
         }
 
@@ -365,7 +347,7 @@
         set_indent_size(config.indent_size);
 
         // Set theme (if URL param not passed; or param's value is incorrect)
-        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme')) || (current_url.search != '' && params.hasOwnProperty('theme') && !themes.includes(params['theme']))) {
+        if ((current_url.search == '') || (current_url.search != '' && !params.hasOwnProperty('theme')) || (current_url.search != '' && params.hasOwnProperty('theme') && !Object.keys(themes).includes(params['theme']))) {
           // Load theme from LocalStorage
           if (localStorage.getItem('notepad_theme') != null) {
             set_theme(localStorage.getItem('notepad_theme'));
