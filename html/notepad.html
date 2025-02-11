@@ -110,6 +110,8 @@
         solarized: ['#002b36', '#839496'],
         // Tomorrow Night Blue Theme (colors taken from Visual Studio Code)
         tomorrow: ['#002451', '#ffffff'],
+        // Copper Evening Theme (name suggested by GPT-4o mini)
+        copper: ['#24272d', '#d56835'],
         // Random Colors Theme (colors are generated randomly)
         random: []
       };
@@ -170,6 +172,9 @@
           ].forEach((property) => {
             textarea_css.style.removeProperty(property);
           });
+        }
+        else {
+          console.warn('Error: Version not found!');
         }
       }
 
