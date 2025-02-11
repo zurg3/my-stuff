@@ -125,7 +125,7 @@
 
       // Functions
       function random_number(min = 1, max = 100) {
-        if ((typeof min == 'number' && typeof max == 'number') && (min <= max)) {
+        if ((typeof min === 'number' && typeof max === 'number') && (min <= max)) {
           return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         else {
@@ -144,10 +144,10 @@
 
       function tabulation() {
         let indent = '';
-        if (config.indent_mode == 'spaces') {
+        if (config.indent_mode === 'spaces') {
           indent = ' '.repeat(config.indent_size);
         }
-        else if (config.indent_mode == 'tabs') {
+        else if (config.indent_mode === 'tabs') {
           indent = '\t';
         }
         textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
@@ -161,7 +161,7 @@
 
       function set_version(version) {
         // Classic Version
-        if (version == 'classic') {
+        if (version === 'classic') {
           [
             'padding',
             'font-family',
@@ -187,15 +187,15 @@
 
         let color_hex = '#';
 
-        if (way == 1) {
+        if (way === 1) {
           for (let i = 0; i < 3; i++) {
             color_hex += random_number(0, 255).toString(16).padStart(2, '0');
           }
         }
-        else if (way == 2) {
+        else if (way === 2) {
           color_hex += random_number(0x000000, 0xffffff).toString(16).padStart(6, '0');
         }
-        else if (way == 3) {
+        else if (way === 3) {
           let array = new Uint8Array(3);
 
           crypto.getRandomValues(array);
@@ -204,7 +204,7 @@
             color_hex += array[i].toString(16).padStart(2, '0');
           }
         }
-        else if (way == 4) {
+        else if (way === 4) {
           const symbols = '0123456789ABCDEF';
 
           for (let i = 0; i < 6; i++) {
@@ -228,7 +228,7 @@
       }
 
       function set_theme(theme_name) {
-        themes.system = detect_system_theme() == 'light' ? ['white', 'black'] : ['black', 'white'];
+        themes.system = detect_system_theme() === 'light' ? ['white', 'black'] : ['black', 'white'];
         themes.random = [random_color(), random_color()];
 
         if (themes[theme_name]) {
@@ -243,7 +243,7 @@
       function show_themes() {
         console.log(`Themes:`);
         Object.keys(themes).forEach((theme) => {
-          console.log(`${localStorage.getItem('notepad_theme') == theme ? '->' : '-'} ${theme}`);
+          console.log(`${localStorage.getItem('notepad_theme') === theme ? '->' : '-'} ${theme}`);
         });
       }
 
@@ -261,7 +261,7 @@
       }
 
       function toggle_word_wrap(option) {
-        if (typeof option == 'boolean') {
+        if (typeof option === 'boolean') {
           config.word_wrap = option;
           textarea_css.style.setProperty('overflow-x', option ? 'auto' : 'scroll');
           textarea_css.style.setProperty('white-space', option ? 'pre-wrap' : 'pre');
@@ -313,7 +313,7 @@
         if (params.theme && themes[params.theme]) set_theme(params.theme);
 
         // Read-Only mode
-        if (params.mode == 'read') textarea.readOnly = true;
+        if (params.mode === 'read') textarea.readOnly = true;
 
         // Enable/disable word wrap from URL
         if (['true', 'false'].includes(params.ww)) toggle_word_wrap(params.ww === 'true');
