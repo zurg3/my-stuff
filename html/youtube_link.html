@@ -38,8 +38,8 @@
             alert('Invalid URL');
           }
 
-          if (video_id != '') {
-            let yt_url = new URL(`/${video_id}`, 'https://youtu.be');
+          if (video_id) {
+            const yt_url = new URL(`/${video_id}`, 'https://youtu.be');
             youtube_link = yt_url.href;
 
             document.getElementById('output').hidden = false;
