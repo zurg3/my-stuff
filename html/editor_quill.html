@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Editor (Quill)</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai-sublime.min.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <style>
       #editor_header, #editor_footer {
@@ -72,12 +72,12 @@
     <p id="editor_footer" align="center">Based on <a href="https://quilljs.com">Quill</a></p>
 
     <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
 
     <!-- Quill init -->
     <script>
-      var editor = new Quill('#editor', {
+      const editor = new Quill('#editor', {
         modules: {
           syntax: true,
           toolbar: '#toolbar'

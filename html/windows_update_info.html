@@ -8,7 +8,7 @@
   <body>
     <script>
       function show_update_info() {
-        if (document.getElementById('update_id').value != '') {
+        if (document.getElementById('update_id').value) {
           window.open(`https://support.microsoft.com/help/${document.getElementById('update_id').value}`, '_blank');
         }
       }

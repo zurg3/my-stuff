@@ -8,9 +8,9 @@
   <body>
     <script>
       function search_user() {
-        var username = document.getElementById('username').value;
+        const username = document.getElementById('username').value;
 
-        var sites = {
+        const sites = {
           'Bandcamp (Artist)': `https://${username}.bandcamp.com`,
           'Bandcamp (Fan)': `https://bandcamp.com/${username}`,
           'Facebook': `https://www.facebook.com/${username}`,
@@ -49,7 +49,7 @@
 
         document.getElementById('output').innerHTML += `<p>Results for <b>${username}</b></p>`;
         document.getElementById('output').innerHTML += '<ul></ul>';
-        for (var i in sites) {
+        for (let i in sites) {
           document.getElementsByTagName('ul')[0].innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
         }
       }

@@ -17,8 +17,8 @@
       }
 
       function find_item() {
-        var imdb_id = document.getElementById('imdb_id').value;
-        var imdb_item_type = imdb_id.slice(0, 2);
+        const imdb_id = document.getElementById('imdb_id').value;
+        const imdb_item_type = imdb_id.slice(0, 2);
 
         const imdb_title_link = `${imdb_base_link}/title`;
         const imdb_review_link = `${imdb_base_link}/review`;
@@ -34,13 +34,13 @@
 
         const api_key = '3c5677f8';
 
-        if (imdb_item_type == 'tt') {
-          var json_url = `https://www.omdbapi.com/?apikey=${api_key}&i=${imdb_id}`;
+        if (imdb_item_type === 'tt') {
+          const json_url = `https://www.omdbapi.com/?apikey=${api_key}&i=${imdb_id}`;
 
           $.getJSON(json_url, function(json_data) {
-            var movie_title = `${json_data.Title} (${json_data.Year})`;
-            var movie_rating = json_data.imdbRating;
-            var movie_votes = json_data.imdbVotes;
+            const movie_title = `${json_data.Title} (${json_data.Year})`;
+            const movie_rating = json_data.imdbRating;
+            const movie_votes = json_data.imdbVotes;
 
             //console.log(json_url);
 
@@ -110,12 +110,12 @@
             document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
           });
         }
-        else if (imdb_item_type == 'rw') {
+        else if (imdb_item_type === 'rw') {
           document.title = 'IMDb Review';
 
           document.body.innerHTML = `<h3><a href="${imdb_review_link}/${imdb_id}/">Review</a></h3>`;
         }
-        else if (imdb_item_type == 'nm') {
+        else if (imdb_item_type === 'nm') {
           document.title = 'IMDb Name';
 
           document.body.innerHTML = `<h3><a href="${imdb_name_link}/${imdb_id}/">Name</a></h3>`;
@@ -156,22 +156,22 @@
               get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/seen/${imdb_id}/">How much have you seen?</a></li>`;
               get_last_ul(1).innerHTML += `<li><a href="https://pro.imdb.com/name/${imdb_id}/">IMDbPro</a></li>`;
         }
-        else if (imdb_item_type == 'co') {
+        else if (imdb_item_type === 'co') {
           document.title = 'IMDb Company';
 
           document.body.innerHTML = `<h3><a href="${imdb_company_link}/${imdb_id}/">Company</a></h3>`;
         }
-        else if (imdb_item_type == 'ni') {
+        else if (imdb_item_type === 'ni') {
           document.title = 'IMDb News';
 
           document.body.innerHTML = `<h3><a href="${imdb_news_link}/${imdb_id}/">News</a></h3>`;
         }
-        else if (imdb_item_type == 'ev') {
+        else if (imdb_item_type === 'ev') {
           document.title = 'IMDb Event';
 
           document.body.innerHTML = `<h3><a href="${imdb_event_link}/${imdb_id}/">Event</a></h3>`;
         }
-        else if (imdb_item_type == 'ur') {
+        else if (imdb_item_type === 'ur') {
           document.title = 'IMDb User';
 
           document.body.innerHTML = `<h3><a href="${imdb_user_link}/${imdb_id}/">User</a></h3>`;
@@ -182,7 +182,7 @@
             get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/watchlist">Watchlist</a></li>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/reviews">Reviews</a></li>`;
         }
-        else if (imdb_item_type == 'ls') {
+        else if (imdb_item_type === 'ls') {
           document.title = 'IMDb List';
 
           document.body.innerHTML = `<h3><a href="${imdb_list_link}/${imdb_id}/">List</a></h3>`;
@@ -191,17 +191,17 @@
             get_last_ul(1).innerHTML += `<li><a href="${imdb_list_link}/${imdb_id}/?view=detailed">Detailed view</a></li>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_list_link}/${imdb_id}/?view=compact">Compact view</a></li>`;
         }
-        else if (imdb_item_type == 'rg') {
+        else if (imdb_item_type === 'rg') {
           document.title = 'IMDb Gallery';
 
           document.body.innerHTML = `<h3><a href="${imdb_gallery_link}/${imdb_id}/">Gallery</a></h3>`;
         }
-        else if (imdb_item_type == 'vi') {
+        else if (imdb_item_type === 'vi') {
           document.title = 'IMDb Video';
 
           document.body.innerHTML = `<h3><a href="${imdb_video_link}/${imdb_id}/">Video</a></h3>`;
         }
-        else if (imdb_item_type == 'in') {
+        else if (imdb_item_type === 'in') {
           document.title = 'IMDb Interest';
 
           document.body.innerHTML = `<h3><a href="${imdb_interest_link}/${imdb_id}/">Interest</a></h3>`;
@@ -210,13 +210,13 @@
           alert('Invalid ID');
         }
 
-        if (imdb_item_type != 'tt') {
+        if (imdb_item_type !== 'tt') {
           document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
         }
       }
 
       function find_year() {
-        var imdb_year = document.getElementById('imdb_year').value;
+        const imdb_year = document.getElementById('imdb_year').value;
 
         document.title = imdb_year;
 
@@ -226,9 +226,9 @@
       }
 
       function add_name() {
-        var new_input_field = document.createElement('p');
-        var input_fields_count = document.getElementsByClassName('name_search_input_field').length;
-        var new_input_field_num = input_fields_count + 1;
+        let new_input_field = document.createElement('p');
+        let input_fields_count = document.getElementsByClassName('name_search_input_field').length;
+        let new_input_field_num = input_fields_count + 1;
 
         new_input_field.className = 'name_search_input_field';
 
@@ -242,20 +242,20 @@
       }
 
       function search_name() {
-        var roles_query = [];
-        var title_type_query = [];
+        let roles_query = [];
+        let title_type_query = [];
 
-        for (var i = 0; i < document.getElementsByClassName('name_search_input_field').length; i++) {
+        for (let i = 0; i < document.getElementsByClassName('name_search_input_field').length; i++) {
           roles_query.push(document.getElementsByClassName('name_search_input_field')[i].children[1].value);
         }
 
-        for (var i = 0; i < document.getElementsByClassName('name_search_title_type').length; i++) {
-          if (document.getElementsByClassName('name_search_title_type')[i].checked == true) {
+        for (let i = 0; i < document.getElementsByClassName('name_search_title_type').length; i++) {
+          if (document.getElementsByClassName('name_search_title_type')[i].checked) {
             title_type_query.push(document.getElementsByClassName('name_search_title_type')[i].value);
           }
         }
 
-        if ((roles_query.length > 0 && title_type_query.length > 0) && roles_query.includes('') == false) {
+        if ((roles_query.length > 0 && title_type_query.length > 0) && !roles_query.includes('')) {
           roles_query = roles_query.join();
           title_type_query = title_type_query.join();
 
@@ -268,9 +268,9 @@
       }
 
       function add_title() {
-        var new_input_field = document.createElement('p');
-        var input_fields_count = document.getElementsByClassName('title_search_input_field').length;
-        var new_input_field_num = input_fields_count + 1;
+        let new_input_field = document.createElement('p');
+        let input_fields_count = document.getElementsByClassName('title_search_input_field').length;
+        let new_input_field_num = input_fields_count + 1;
 
         new_input_field.className = 'title_search_input_field';
 
@@ -284,13 +284,13 @@
       }
 
       function search_title() {
-        var roles_query = [];
+        let roles_query = [];
 
-        for (var i = 0; i < document.getElementsByClassName('title_search_input_field').length; i++) {
+        for (let i = 0; i < document.getElementsByClassName('title_search_input_field').length; i++) {
           roles_query.push(document.getElementsByClassName('title_search_input_field')[i].children[1].value);
         }
 
-        if (roles_query.length > 0 && roles_query.includes('') == false) {
+        if (roles_query.length > 0 && !roles_query.includes('')) {
           roles_query = roles_query.join();
 
           document.title = 'IMDb Collaborations Search';
@@ -365,14 +365,14 @@
       <label for="imdb_year">Select year</label>
       <select name="imdb_year" id="imdb_year">
         <script>
-          var date = new Date();
-          var current_year = date.getFullYear();
-          var year_option_begin = 1900;
-          var year_option_end = current_year + 5;
+          const date = new Date();
+          const current_year = date.getFullYear();
+          const year_option_begin = 1900;
+          const year_option_end = current_year + 5;
 
-          for (var year_option = year_option_end; year_option >= year_option_begin; year_option--) {
+          for (let year_option = year_option_end; year_option >= year_option_begin; year_option--) {
             document.write(`<option`);
-            if (year_option == current_year) {
+            if (year_option === current_year) {
               document.write(` selected`);
             }
             document.write(` value="${year_option}">${year_option}</option>`);

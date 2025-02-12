@@ -72,19 +72,19 @@
       }
 
       function sort_lines() {
-        if (document.getElementById('input').value != '') {
+        if (document.getElementById('input').value) {
           document.getElementById('output').innerText = document.getElementById('input').value.split('\n').sort(comparator).join('\n');
         }
       }
 
       function reverse_input() {
-        if (document.getElementById('input').value != '') {
+        if (document.getElementById('input').value) {
           document.getElementById('output').innerText = document.getElementById('input').value.split('\n').reverse().join('\n');
         }
       }
 
       function reverse_output() {
-        if (document.getElementById('input').value != '' && document.getElementById('output').innerText != '') {
+        if (document.getElementById('input').value && document.getElementById('output').innerText) {
           document.getElementById('output').innerText = document.getElementById('output').innerText.split('\n').reverse().join('\n');
         }
       }

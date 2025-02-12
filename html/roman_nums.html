@@ -58,12 +58,12 @@
   </head>
   <body>
     <script>
-      var arabic = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
-      var roman = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
+      const arabic = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+      const roman = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
 
       function arabic_to_roman(number) {
-        var ret = '';
-        var i = arabic.length - 1;
+        let ret = '';
+        let i = arabic.length - 1;
         while (number > 0) {
           if (number >= arabic[i]) {
             ret += roman[i];
@@ -79,11 +79,11 @@
       function roman_to_arabic(roman_num) {
         roman_num = roman_num.toUpperCase();
 
-        var ret = 0;
-        var i = arabic.length - 1;
-        var pos = 0;
+        let ret = 0;
+        let i = arabic.length - 1;
+        let pos = 0;
         while ((i >= 0) && (pos < roman_num.length)) {
-          if (roman_num.substr(pos, roman[i].length) == roman[i]) {
+          if (roman_num.substr(pos, roman[i].length) === roman[i]) {
             ret += arabic[i];
             pos += roman[i].length;
           }
@@ -96,27 +96,13 @@
 
       function convert_arabic_to_roman() {
         document.getElementById('arabic').value = document.getElementById('arabic').value.replace(/[^0-9]/, '');
-
-        if (document.getElementById('arabic').value != '') {
-          document.getElementById('roman').value = arabic_to_roman(document.getElementById('arabic').value);
-        }
-        else {
-          document.getElementById('roman').value = '';
-        }
-
+        document.getElementById('roman').value = document.getElementById('arabic').value ? arabic_to_roman(document.getElementById('arabic').value) : '';
         document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
       }
 
       function convert_roman_to_arabic() {
         document.getElementById('roman').value = document.getElementById('roman').value.replace(/[^IiVvXxLlCcDdMm]/, '');
-
-        if (document.getElementById('roman').value != '') {
-          document.getElementById('arabic').value = roman_to_arabic(document.getElementById('roman').value);
-        }
-        else {
-          document.getElementById('arabic').value = '';
-        }
-
+        document.getElementById('arabic').value = document.getElementById('roman').value ? roman_to_arabic(document.getElementById('roman').value) : '';
         document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
       }
 

@@ -80,9 +80,9 @@
   <body>
     <script>
       function get_random_number() {
-        if (document.getElementById('random_num_min').value != '' && document.getElementById('random_num_max').value != '') {
-          var random_num_min = parseInt(document.getElementById('random_num_min').value, 10);
-          var random_num_max = parseInt(document.getElementById('random_num_max').value, 10);
+        if (document.getElementById('random_num_min').value && document.getElementById('random_num_max').value) {
+          const random_num_min = parseInt(document.getElementById('random_num_min').value, 10);
+          const random_num_max = parseInt(document.getElementById('random_num_max').value, 10);
 
           if (random_num_min >= random_num_max) {
             document.getElementById('random_num_max').value = random_num_min + 1;

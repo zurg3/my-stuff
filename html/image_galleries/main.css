@@ -1,0 +1,48 @@
+#back_to_top_button {
+  width: 36px;
+  height: 36px;
+  background: LightGrey;
+  border: 1px solid Black;
+  border-radius: 20px;
+  font-size: 12pt;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+}
+
+#output {
+  border: 1px solid Black;
+  border-radius: 5px;
+}
+
+#decrease_scale_button, #increase_scale_button {
+  width: 40px;
+  height: 30px;
+  margin: 10px;
+}
+
+#reset_scale_button {
+  padding: 10px;
+}
+
+th, td {
+  text-align: center;
+}
+
+.loaded_counter_col {
+  color: Green;
+}
+
+.failed_counter_col {
+  color: Red;
+}
+
+input[type="number"] {
+  width: 80px;
+}
+
+input[type="button"], input[type="reset"] {
+  cursor: pointer;
+}

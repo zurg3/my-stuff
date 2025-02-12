@@ -13,9 +13,9 @@
   <body>
     <script>
       function open_audio() {
-        var audio_src_link = document.getElementById('audio_src').value;
+        const audio_src_link = document.getElementById('audio_src').value;
 
-        if (audio_src_link != '') {
+        if (audio_src_link) {
           document.getElementById('audio_player').innerHTML = `<audio src="${audio_src_link}" controls preload="metadata"></audio>`;
         }
       }
