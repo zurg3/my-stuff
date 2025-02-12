@@ -98,7 +98,7 @@
             if (library.playlists[playlist_id].description != null) {
               $('body').append(`<h4><em>${library.playlists[playlist_id].description}</em></h4>`);
             }
-            $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<p><a href="msl.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
             $('table').append(`<tr class="highlighted_th">
@@ -119,7 +119,7 @@
           }
           else if (params.hasOwnProperty('view') && params['view'] == 'tracks') {
             $('body').append(`<h3>All liked tracks</h3>`);
-            $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<p><a href="msl.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
             $('table').append(`<tr class="highlighted_th">
@@ -142,7 +142,7 @@
           }
           else if (params.hasOwnProperty('view') && params['view'] == 'albums') {
             $('body').append(`<h3>All added albums</h3>`);
-            $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<p><a href="msl.html">Back</a></p>`);
 
             $('body').append(`<table border="1" width="100%"></table>`);
             $('table').append(`<tr class="highlighted_th">
@@ -163,7 +163,7 @@
           }
           else if (params.hasOwnProperty('view') && params['view'] == 'artists') {
             $('body').append(`<h3>All following artists</h3>`);
-            $('body').append(`<p><a href="index.html">Back</a></p>`);
+            $('body').append(`<p><a href="msl.html">Back</a></p>`);
             $('body').append(`<ol></ol>`);
 
             for (var i = 0; i < library.artists.length; i++) {
