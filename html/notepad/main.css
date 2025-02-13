@@ -1,0 +1,29 @@
+html, body {
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  border: none;
+  box-sizing: border-box;
+}
+
+#textarea {
+  background: white;
+  color: black;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  resize: none;
+  overflow-x: auto;
+  overflow-y: scroll;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  cursor: auto;
+  font-family: 'Lucida Console', monospace;
+  font-size: 10pt;
+  line-height: 0.9755;
+  white-space: pre-wrap;
+}
