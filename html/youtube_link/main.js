@@ -1,12 +1,21 @@
+function is_mobile() {
+  return window.screen.width < window.screen.height;
+}
+
+if (is_mobile()) {
+  let url_input_width = Math.floor(document.body.offsetWidth * 0.9);
+
+  document.getElementById('youtube_music_link').style.width = `${url_input_width}px`;
+}
+else {
+  document.getElementById('youtube_music_link').size = 50;
+}
+
 new ClipboardJS('#clipboard_button');
 
 let youtube_music_link = '';
 let youtube_link = '';
 let video_id = '';
-
-function is_mobile() {
-  return window.screen.width < window.screen.height;
-}
 
 function convert() {
   youtube_music_link = document.getElementById('youtube_music_link').value;

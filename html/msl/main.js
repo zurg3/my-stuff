@@ -28,7 +28,7 @@ $.getJSON(json_url, function(library) {
   }
   else if (current_url.search) {
     if (params.playlist) {
-      const playlist_id = params.playlist;
+      const playlist_id = parseInt(params.playlist, 10);
 
       $('body').append(`<h3>${library.playlists[playlist_id].name}</h3>`);
       if (library.playlists[playlist_id].description) {

@@ -1,3 +1,16 @@
+function is_mobile() {
+  return window.screen.width < window.screen.height;
+}
+
+if (is_mobile()) {
+  const base_link_width = Math.floor(document.body.offsetWidth * 0.8);
+
+  document.getElementById('base_link').style.width = `${base_link_width}px`;
+}
+else {
+  document.getElementById('base_link').size = 60;
+}
+
 new ClipboardJS('.copy_image_url_button');
 
 // 80% - mobile, 50% - desktop
@@ -246,6 +259,7 @@ function load_gallery() {
 
           // All
           failed_counter_all.innerText = parseInt(failed_counter_all.innerText, 10) + 1;
+          loaded_rate_all.innerText = Math.floor(parseInt(loaded_counter_all.innerText, 10) / parseInt(total_counter_all.innerText, 10) * 100);
 
           // Loading progress
           loading_progress.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
