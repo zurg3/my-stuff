@@ -164,6 +164,8 @@ function show_statistics() {
   console.log(`Statistics:`);
   console.log(`- Characters: ${statistics.characters}`);
   console.log(`- Lines: ${statistics.lines}`);
+  console.log(`-----`);
+  console.log(`- Themes: ${Object.entries(themes).length}`);
 }
 
 function toggle_word_wrap(option) {

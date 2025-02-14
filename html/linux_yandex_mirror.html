@@ -14,16 +14,16 @@
     <h1>Download GNU/Linux ISO images</h1>
     <h2>from Russian mirror (Yandex)</h2>
     <script>
-      var base_mirror_link = 'https://mirror.yandex.ru';
-      var download_link = '';
+      const base_mirror_link = 'https://mirror.yandex.ru';
+      let download_link = '';
 
       // Debian
-      var debian_version = '12.9.0';
-      var debian_version_codename = 'Bookworm';
-      var debian_arch = 'amd64';
+      const debian_version = '12.9.0';
+      const debian_version_codename = 'Bookworm';
+      const debian_arch = 'amd64';
 
       // Ubuntu
-      var ubuntu_releases = {
+      const ubuntu_releases = {
         '24.10': '24.10',
         '24.04': '24.04.1 LTS',
         '22.04': '22.04.5 LTS',
@@ -31,7 +31,7 @@
         '18.04': '18.04.6 LTS',
         '16.04': '16.04.7 LTS'
       };
-      var ubuntu_releases_full_codenames = {
+      const ubuntu_releases_full_codenames = {
         '24.10': 'Oracular Oriole',
         '24.04': 'Noble Numbat',
         '22.04': 'Jammy Jellyfish',
@@ -39,7 +39,7 @@
         '18.04': 'Bionic Beaver',
         '16.04': 'Xenial Xerus'
       };
-      var ubuntu_editions = {
+      const ubuntu_editions = {
         'desktop': 'Desktop',
         'server': 'Server',
         'ubuntu-base': 'Base',
@@ -48,10 +48,10 @@
         'lubuntu': 'Lubuntu',
         'kubuntu': 'Kubuntu'
       };
-      var ubuntu_arch = 'amd64';
+      const ubuntu_arch = 'amd64';
 
       // Linux Mint
-      var linux_mint_releases = [
+      const linux_mint_releases = [
         '22.1',
         '22',
         '21.3',
@@ -60,7 +60,7 @@
         '21',
         '20.3'
       ];
-      var linux_mint_releases_codenames = {
+      const linux_mint_releases_codenames = {
         '22.1': 'Xia',
         '22': 'Wilma',
         '21.3': 'Virginia',
@@ -69,21 +69,21 @@
         '21': 'Vanessa',
         '20.3': 'Una'
       };
-      var linux_mint_editions = {
+      const linux_mint_editions = {
         'cinnamon': 'Cinnamon',
         'mate': 'MATE',
         'xfce': 'Xfce'
       };
-      var linux_mint_arch = '64bit';
+      const linux_mint_arch = '64bit';
 
       // Arch Linux
-      var current_date = new Date();
-      var yyyy = current_date.getFullYear();
-      var mm = parseInt(String(current_date.getMonth() + 1).padStart(2, '0'), 10);
-      var dd = String(current_date.getDate()).padStart(2, '0');
+      const current_date = new Date();
+      const yyyy = current_date.getFullYear();
+      const mm = parseInt(String(current_date.getMonth() + 1).padStart(2, '0'), 10);
+      const dd = String(current_date.getDate()).padStart(2, '0');
 
-      var arch_linux_releases = [];
-      if (mm == 2) {
+      let arch_linux_releases = [];
+      if (mm === 2) {
         if (parseInt(dd, 10) >= 3) {
           arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
           arch_linux_releases[1] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
@@ -95,7 +95,7 @@
           arch_linux_releases[2] = `${yyyy-1}.${String(mm+9).padStart(2, '0')}.01`;
         }
       }
-      else if (mm == 1) {
+      else if (mm === 1) {
         if (parseInt(dd, 10) >= 3) {
           arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
           arch_linux_releases[1] = `${yyyy-1}.${String(mm+11).padStart(2, '0')}.01`;
@@ -119,12 +119,12 @@
           arch_linux_releases[2] = `${yyyy}.${String(mm-3).padStart(2, '0')}.01`;
         }
       }
-      var arch_linux_arch = 'x86_64';
+      const arch_linux_arch = 'x86_64';
 
       // Fedora
-      var fedora_version = '41';
-      var fedora_edition = 'Workstation';
-      var fedora_arch = 'x86_64';
+      const fedora_version = '41';
+      const fedora_edition = 'Workstation';
+      const fedora_arch = 'x86_64';
 
       /* ********** */
 
@@ -142,18 +142,18 @@
 
       // Ubuntu
       document.write('<h3 id="ubuntu">Ubuntu</h3>');
-      for (var release in ubuntu_releases) {
+      for (let release in ubuntu_releases) {
         document.write('<h4>' + ubuntu_releases[release] + ' (' + ubuntu_releases_full_codenames[release] + ')</h4>');
         document.write('<ul>');
-        for (var edition in ubuntu_editions) {
-          if (edition == 'desktop' || edition == 'server') {
+        for (let edition in ubuntu_editions) {
+          if (['desktop', 'server'].includes(edition)) {
             download_link = `${base_mirror_link}/ubuntu-releases/${release}/`;
           }
           else {
             download_link = `${base_mirror_link}/ubuntu-cdimage/${edition}/releases/${release}/release/`;
           }
 
-          if (edition == 'ubuntu-mate' || edition == 'xubuntu' || edition == 'lubuntu' || edition == 'kubuntu') {
+          if (['ubuntu-mate', 'xubuntu', 'lubuntu', 'kubuntu'].includes(edition)) {
             document.write(`<li><a href="${download_link}">${ubuntu_editions[edition]} ${ubuntu_releases[release]}</a></li>`);
           }
           else {
@@ -167,10 +167,10 @@
 
       // Linux Mint
       document.write('<h3 id="linux_mint">Linux Mint</h3>');
-      for (var release in linux_mint_releases) {
+      for (let release in linux_mint_releases) {
         document.write('<h4>' + linux_mint_releases[release] + ' "' + linux_mint_releases_codenames[linux_mint_releases[release]] + '"' + '</h4>');
         document.write('<ul>');
-        for (var edition in linux_mint_editions) {
+        for (let edition in linux_mint_editions) {
           download_link = `${base_mirror_link}/linuxmint/stable/${linux_mint_releases[release]}/`;
 
           document.write(`<li><a href="${download_link}">Linux Mint ${linux_mint_releases[release]} "${linux_mint_releases_codenames[linux_mint_releases[release]]}" - ${linux_mint_editions[edition]}</a></li>`);
@@ -183,7 +183,7 @@
       // Arch Linux
       document.write('<h3 id="arch_linux">Arch Linux</h3>');
       document.write('<ul>');
-      for (var release in arch_linux_releases) {
+      for (let release in arch_linux_releases) {
         download_link = `${base_mirror_link}/archlinux/iso/${arch_linux_releases[release]}/`;
 
         document.write(`<li><a href="${download_link}">Arch Linux ${arch_linux_releases[release]}</a></li>`);

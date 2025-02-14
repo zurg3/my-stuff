@@ -20,8 +20,6 @@ const themes = {
   ocean: ['#e0f7fa', '#006064'],
   // Forest Green Theme (colors and name suggested by GPT-4o mini)
   forest: ['#2e3a2c', '#e0f7fa'],
-  // Fiery Red Theme (colors and name suggested by GPT-4o mini)
-  fiery: ['#300000', '#ffffff'],
   // Sunny Orange Theme (colors and name suggested by GPT-4o mini)
   sunny: ['#ffcc80', '#4e342e'],
   // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
@@ -46,6 +44,12 @@ const themes = {
   amethyst: ['#0f1623', '#b481c4'],
   // Deep Neon Theme (name suggested by GPT-4o mini)
   neon: ['#1f4060', '#31da52'],
+  // Vintage Paper Theme (colors and name suggested by GPT-4o mini)
+  vintage: ['#f5f5dc', '#8b4513'],
+  // Desert Mirage Theme (colors and name suggested by GPT-4o mini)
+  desert: ['#d2b48c', '#8b4513'],
+  // Autumn Leaves Theme (colors and name suggested by GPT-4o mini)
+  autumn: ['#8b4513', '#ff8c00'],
   // Random Colors Theme (colors are generated randomly)
   random: []
 };
