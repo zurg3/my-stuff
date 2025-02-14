@@ -163,7 +163,7 @@
         const local_time_minutes = local_time.getMinutes().toString().padStart(2, '0');
         const local_time_seconds = local_time.getSeconds().toString().padStart(2, '0');
 
-        document.getElementById('local_time').innerText = ${local_time_hours}:${local_time_minutes}:${local_time_seconds};
+        document.getElementById('local_time').innerText = `${local_time_hours}:${local_time_minutes}:${local_time_seconds}`;
 
         setTimeout(print_local_time, timeout_delay);
       }
