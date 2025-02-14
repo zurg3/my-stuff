@@ -113,8 +113,8 @@ function open_image(img_url) {
 
 function search_image(img_url, search_engine) {
   let search_engines = {
-    'google': `https://lens.google.com/uploadbyurl?url=${img_url}`,
-    'yandex': `https://ya.ru/images/search?rpt=imageview&url=${img_url}`
+    google: `https://lens.google.com/uploadbyurl?url=${img_url}`,
+    yandex: `https://ya.ru/images/search?rpt=imageview&url=${img_url}`
   };
 
   window.open(search_engines[search_engine], '_blank');
