@@ -123,10 +123,10 @@
   </head>
   <body onload="start()">
     <script>
-      var timeout_delay = 500;
+      const timeout_delay = 500;
 
       function print_unix_time() {
-        var unix_time = (Math.floor(Date.now() / 1000)).toString();
+        const unix_time = (Math.floor(Date.now() / 1000)).toString();
 
         document.getElementById('unix_time').innerText = unix_time;
 
@@ -134,90 +134,66 @@
       }
 
       function print_utc_time() {
-        var utc_time = new Date();
+        const utc_time = new Date();
 
-        var utc_time_hours = utc_time.getUTCHours().toString();
-        var utc_time_minutes = utc_time.getUTCMinutes().toString();
-        var utc_time_seconds = utc_time.getUTCSeconds().toString();
+        const utc_time_hours = utc_time.getUTCHours().toString().padStart(2, '0');
+        const utc_time_minutes = utc_time.getUTCMinutes().toString().padStart(2, '0');
+        const utc_time_seconds = utc_time.getUTCSeconds().toString().padStart(2, '0');
 
-        if (utc_time_hours.length == 1) {
-          utc_time_hours = '0' + utc_time_hours;
-        }
-        if (utc_time_minutes.length == 1) {
-          utc_time_minutes = '0' + utc_time_minutes;
-        }
-        if (utc_time_seconds.length == 1) {
-          utc_time_seconds = '0' + utc_time_seconds;
-        }
-
-        utc_time = `${utc_time_hours}:${utc_time_minutes}:${utc_time_seconds}`;
-
-        document.getElementById('utc_time').innerText = utc_time;
+        document.getElementById('utc_time').innerText = `${utc_time_hours}:${utc_time_minutes}:${utc_time_seconds}`;
 
         setTimeout(print_utc_time, timeout_delay);
       }
 
       function print_local_time() {
-        var local_time = new Date();
+        const local_time = new Date();
 
-        var timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
+        const timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
 
-        if (timezone_offset[0] == '-') {
+        if (timezone_offset[0] === '-') {
           timezone_offset = timezone_offset.replace('-', '+');
         }
-        else if (timezone_offset[0] == '+') {
+        else if (timezone_offset[0] === '+') {
           timezone_offset = timezone_offset.replace('+', '-');
         }
 
         document.getElementById('timezone_offset').innerText = timezone_offset;
 
-        var local_time_hours = local_time.getHours().toString();
-        var local_time_minutes = local_time.getMinutes().toString();
-        var local_time_seconds = local_time.getSeconds().toString();
+        const local_time_hours = local_time.getHours().toString().padStart(2, '0');
+        const local_time_minutes = local_time.getMinutes().toString().padStart(2, '0');
+        const local_time_seconds = local_time.getSeconds().toString().padStart(2, '0');
 
-        if (local_time_hours.length == 1) {
-          local_time_hours = '0' + local_time_hours;
-        }
-        if (local_time_minutes.length == 1) {
-          local_time_minutes = '0' + local_time_minutes;
-        }
-        if (local_time_seconds.length == 1) {
-          local_time_seconds = '0' + local_time_seconds;
-        }
-
-        local_time = `${local_time_hours}:${local_time_minutes}:${local_time_seconds}`;
-
-        document.getElementById('local_time').innerText = local_time;
+        document.getElementById('local_time').innerText = ${local_time_hours}:${local_time_minutes}:${local_time_seconds};
 
         setTimeout(print_local_time, timeout_delay);
       }
 
       function change_font_size() {
-        var font_size = document.getElementById('font_size').value;
+        const font_size = document.getElementById('font_size').value;
 
         document.getElementById('main').style.fontSize = font_size.toString() + 'pt';
         document.getElementById('current_font_size').innerText = font_size.toString();
       }
 
       function check_options() {
-        if (document.getElementById('unix_time_option').checked == true) {
+        if (document.getElementById('unix_time_option').checked) {
           document.getElementById('unix_time_full').style.display = 'block';
         }
-        else if (document.getElementById('unix_time_option').checked == false) {
+        else {
           document.getElementById('unix_time_full').style.display = 'none';
         }
 
-        if (document.getElementById('utc_time_option').checked == true) {
+        if (document.getElementById('utc_time_option').checked) {
           document.getElementById('utc_time_full').style.display = 'block';
         }
-        else if (document.getElementById('utc_time_option').checked == false) {
+        else {
           document.getElementById('utc_time_full').style.display = 'none';
         }
 
-        if (document.getElementById('local_time_option').checked == true) {
+        if (document.getElementById('local_time_option').checked) {
           document.getElementById('local_time_full').style.display = 'block';
         }
-        else if (document.getElementById('local_time_option').checked == false) {
+        else {
           document.getElementById('local_time_full').style.display = 'none';
         }
       }
