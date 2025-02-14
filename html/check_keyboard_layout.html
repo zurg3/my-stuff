@@ -10,29 +10,29 @@
     <script type="text/javascript" src="https://cdn.statically.io/gist/zurg3/192988f654c39b314f2038be5900f205/raw/lists_lib.js"></script>
     <script type="text/javascript">
       function check_string() {
-        var check_string_input = document.getElementById('check_string_input').value;
-        var output_string = Array.from(check_string_input);
-        var wrong_chars = 0;
-        var string_lang = document.getElementsByName('string_lang');
+        const check_string_input = document.getElementById('check_string_input').value;
+        let output_string = Array.from(check_string_input);
+        let wrong_chars = 0;
+        let string_lang = document.getElementsByName('string_lang');
 
-        for (var i = 0; i < string_lang.length; i++) {
+        for (let i = 0; i < string_lang.length; i++) {
           if (string_lang[i].checked) {
-            string_lang = string_lang[i].value;
+            string_lang = parseInt(string_lang[i].value, 10);
           }
         }
 
-        for (var i = 0; i < check_string_input.length; i++) {
-          if (string_lang == 1) {
-            for (var j in char_codes_en) {
-              if (char_codes_en[j].charCodeAt() == check_string_input[i].charCodeAt()) {
+        for (let i = 0; i < check_string_input.length; i++) {
+          if (string_lang === 1) {
+            for (let j in char_codes_en) {
+              if (char_codes_en[j].charCodeAt() === check_string_input[i].charCodeAt()) {
                 output_string[i] = '[' + output_string[i] + ']';
                 wrong_chars++;
               }
             }
           }
-          else if (string_lang == 2) {
-            for (var j in char_codes_ru) {
-              if (char_codes_ru[j].charCodeAt() == check_string_input[i].charCodeAt()) {
+          else if (string_lang === 2) {
+            for (let j in char_codes_ru) {
+              if (char_codes_ru[j].charCodeAt() === check_string_input[i].charCodeAt()) {
                 output_string[i] = '[' + output_string[i] + ']';
                 wrong_chars++;
               }
@@ -40,10 +40,10 @@
           }
         }
 
-        if (wrong_chars == 0) {
+        if (wrong_chars === 0) {
           document.getElementById('output_string').innerText = 'String is correct.';
         }
-        else if (wrong_chars == 1) {
+        else if (wrong_chars === 1) {
           document.getElementById('output_string').innerText = 'Found ' + wrong_chars + ' wrong letter.\n';
         }
         else if (wrong_chars > 1) {
