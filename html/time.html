@@ -148,7 +148,7 @@
       function print_local_time() {
         const local_time = new Date();
 
-        const timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
+        let timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
 
         if (timezone_offset[0] === '-') {
           timezone_offset = timezone_offset.replace('-', '+');
