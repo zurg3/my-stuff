@@ -1,11 +1,9 @@
-// You need open a list in compact view to use this script
-// Example link: https://www.imdb.com/list/ls083869018/?mode=simple
+const json_schema = JSON.parse(document.querySelector('script[type="application/ld+json"]').innerText);
+const list_items = json_schema.itemListElement;
 
-var list_items = document.getElementsByClassName('lister-item-header');
-var list_items_num = list_items.length;
-for (var i = 0; i < list_items_num; i++) {
-  var list_item_title = list_items[i].innerText;
-  var list_item = list_items[i].children[1].children[0].attributes[0].nodeValue;
-  var list_item_id = list_item.split('/');
-  console.log(list_item_title + ' - ' + list_item_id[2]);
+for (let i = 0; i < list_items.length; i++) {
+  let list_item_title = list_items[i].item.name.replace('&apos;', '\'');
+  let list_item_id = list_items[i].item.url.split('/')[4];
+
+  console.log(`${i + 1}. ${list_item_title} - ${list_item_id}`);
 }

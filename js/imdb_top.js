@@ -1,5 +1,8 @@
-// https://www.imdb.com/chart/top
+const json_schema = JSON.parse(document.querySelector('script[type="application/ld+json"]').innerText);
+const list_items = json_schema.itemListElement;
 
-for (i = 0; i < 250; i++) {
-  console.log(document.getElementsByClassName('titleColumn')[i].innerText);
+for (let i = 0; i < list_items.length; i++) {
+  let list_item_title = list_items[i].item.name.replace('&apos;', '\'');
+
+  console.log(`${i + 1}. ${list_item_title}`);
 }

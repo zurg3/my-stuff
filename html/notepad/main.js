@@ -201,12 +201,12 @@ function update_debug_text() {
 // Hotkeys
 textarea.addEventListener('keydown', (e) => {
   // [Tab] Tabulation
-  if (e.keyCode === 9) {
+  if (e.key === 'Tab') {
     e.preventDefault();
     tabulation();
   }
   // [F5] Insert current time/date
-  else if (e.keyCode === 116 && config.f5_time_date) {
+  else if (e.key === 'F5' && config.f5_time_date) {
     e.preventDefault();
     insert_time_date();
   }
