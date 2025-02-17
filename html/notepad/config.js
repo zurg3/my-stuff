@@ -5,6 +5,7 @@ const config = {
   f5_time_date: true,
   time_date_format: 'HH:mm DD.MM.YYYY',
   default_theme: 'system',
-  default_random_color_way: 1,
+  random_color_type: 'hex',
+  random_color_hex_way: 1,
   word_wrap: true
 };

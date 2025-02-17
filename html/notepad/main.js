@@ -88,8 +88,8 @@ function detect_system_theme() {
   }
 }
 
-function random_color(way = config.default_random_color_way) {
-  if (![1, 2, 3, 4].includes(way)) way = config.default_random_color_way;
+function random_color_hex(way = config.random_color_hex_way) {
+  if (![1, 2, 3, 4].includes(way)) way = config.random_color_hex_way;
 
   let color_hex = '#';
 
@@ -121,6 +121,16 @@ function random_color(way = config.default_random_color_way) {
   return color_hex;
 }
 
+function random_color_hsl(h, s, l) {
+  if (!h) h = random_number(0, 360);
+  if (!s) s = random_number(0, 100);
+  if (!l) l = random_number(0, 100);
+
+  let color_hsl = `hsl(${h}, ${s}%, ${l}%)`;
+
+  return color_hsl;
+}
+
 function set_theme_colors(bg_color, font_color) {
   // Background
   if (bg_color) {
@@ -133,24 +143,37 @@ function set_theme_colors(bg_color, font_color) {
   }
 }
 
-function set_theme(theme_name) {
-  themes.system = detect_system_theme() === 'light' ? themes.light : themes.dark;
-  themes.random = [random_color(), random_color()];
+function set_theme(theme_key) {
+  themes.system.colors = detect_system_theme() === 'light' ? themes.light.colors : themes.dark.colors;
+  if (config.random_color_type === 'hex') {
+    themes.random.colors = [random_color_hex(), random_color_hex()];
+  }
+  else if (config.random_color_type === 'hsl') {
+    let random_h = random_number(0, 360);
+    themes.random.colors = [random_color_hsl(random_h, 75, 10), random_color_hsl(random_h, 75, 60)];
+  }
 
-  if (themes[theme_name]) {
-    set_theme_colors(...themes[theme_name]);
-    localStorage.setItem('notepad_theme', theme_name);
+  if (themes[theme_key]) {
+    set_theme_colors(...themes[theme_key].colors);
+    localStorage.setItem('notepad_theme', theme_key);
   }
   else {
     console.warn('Error: Theme not found!');
   }
 }
 
-function show_themes() {
-  console.log(`Themes:`);
-  Object.keys(themes).forEach((theme) => {
-    console.log(`${localStorage.getItem('notepad_theme') === theme ? '->' : '-'} ${theme}`);
-  });
+function show_theme(theme_key) {
+  if (theme_key) {
+    console.log(themes[theme_key].name);
+    if (themes[theme_key].description) console.log(themes[theme_key].description);
+    if (!['system', 'random'].includes(theme_key)) console.log(...themes[theme_key].colors);
+  }
+  else {
+    console.log(`Themes:`);
+    Object.keys(themes).forEach((theme) => {
+      console.log(`${localStorage.getItem('notepad_theme') === theme ? '[*]' : '[ ]'} ${theme}`);
+    });
+  }
 }
 
 function update_statistics() {
@@ -178,9 +201,7 @@ function toggle_word_wrap(option) {
 }
 
 function clear_local_storage() {
-  if (confirm('Are you sure?')) {
-    local_storage_items.forEach((item) => localStorage.removeItem(item));
-  }
+  if (confirm('Are you sure?')) local_storage_items.forEach((item) => localStorage.removeItem(item));
 }
 
 function save_file() {

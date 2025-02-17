@@ -1,55 +1,133 @@
 // Themes
 const themes = {
-  // System Theme (Light or Dark)
-  system: [],
-  // Light Theme
-  light: ['white', 'black'],
-  // Dark Theme
-  dark: ['black', 'white'],
-  // Terminal Theme
-  terminal: ['black', 'green'],
-  // Midnight Theme
-  midnight: ['#191970', '#ffd700'],
-  // EditorJS Theme (colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html)
-  editorjs: ['#f5eedb', '#19160f'],
-  // Zen Theme (a.k.a. Solarized, colors taken from https://zen.unit.ms)
-  zen: ['#fdf6e3', '#657b83'],
-  // Atom Theme (a.k.a. Atom One Dark)
-  atom: ['#282c34', '#abb2bf'],
-  // Abyss Theme (colors taken from Visual Studio Code)
-  abyss: ['#000c18', '#6688cc'],
-  // Kimbie Dark Theme (colors taken from Visual Studio Code)
-  kimbie: ['#221a0f', '#d3af86'],
-  // Red Theme (colors taken from Visual Studio Code)
-  red: ['#390000', '#f8f8f8'],
-  // Solarized Dark Theme (colors taken from Visual Studio Code)
-  solarized: ['#002b36', '#839496'],
-  // Tomorrow Night Blue Theme (colors taken from Visual Studio Code)
-  tomorrow: ['#002451', '#ffffff'],
-  // Ocean Breeze Theme (colors and name suggested by GPT-4o mini)
-  ocean: ['#e0f7fa', '#006064'],
-  // Forest Green Theme (colors and name suggested by GPT-4o mini)
-  forest: ['#2e3a2c', '#e0f7fa'],
-  // Sunny Orange Theme (colors and name suggested by GPT-4o mini)
-  sunny: ['#ffcc80', '#4e342e'],
-  // Galactic Nebula Theme (colors and name suggested by GPT-4o mini)
-  galactic: ['#1a1a2e', '#e94560'],
-  // Retro Wave Theme (colors and name suggested by GPT-4o mini)
-  retro: ['#2b003c', '#ff6f61'],
-  // Vintage Paper Theme (colors and name suggested by GPT-4o mini)
-  vintage: ['#f5f5dc', '#8b4513'],
-  // Desert Mirage Theme (colors and name suggested by GPT-4o mini)
-  desert: ['#d2b48c', '#8b4513'],
-  // Autumn Leaves Theme (colors and name suggested by GPT-4o mini)
-  autumn: ['#8b4513', '#ff8c00'],
-  // Copper Evening Theme (name suggested by GPT-4o mini)
-  copper: ['#24272d', '#d56835'],
-  // Night Rose Theme (name suggested by GPT-4o mini)
-  rose: ['#3d2542', '#f53a7f'],
-  // Midnight Amethyst Theme (name suggested by GPT-4o mini)
-  amethyst: ['#0f1623', '#b481c4'],
-  // Deep Neon Theme (name suggested by GPT-4o mini)
-  neon: ['#1f4060', '#31da52'],
-  // Random Colors Theme (colors are generated randomly)
-  random: []
+  system: {
+    name: 'System Theme',
+    description: 'Light or Dark',
+    colors: []
+  },
+  light: {
+    name: 'Light Theme',
+    description: '',
+    colors: ['white', 'black']
+  },
+  dark: {
+    name: 'Dark Theme',
+    description: '',
+    colors: ['black', 'white']
+  },
+  terminal: {
+    name: 'Terminal Theme',
+    description: '',
+    colors: ['black', 'green']
+  },
+  midnight: {
+    name: 'Midnight Theme',
+    description: '',
+    colors: ['#191970', '#ffd700']
+  },
+  editorjs: {
+    name: 'EditorJS Theme',
+    description: 'Colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html',
+    colors: ['#f5eedb', '#19160f']
+  },
+  zen: {
+    name: 'Zen Theme',
+    description: 'a.k.a. Solarized, colors taken from https://zen.unit.ms',
+    colors: ['#fdf6e3', '#657b83']
+  },
+  atom: {
+    name: 'Atom Theme',
+    description: 'a.k.a. Atom One Dark',
+    colors: ['#282c34', '#abb2bf']
+  },
+  abyss: {
+    name: 'Abyss Theme',
+    description: 'Colors taken from Visual Studio Code',
+    colors: ['#000c18', '#6688cc']
+  },
+  kimbie: {
+    name: 'Kimbie Dark Theme',
+    description: 'Colors taken from Visual Studio Code',
+    colors: ['#221a0f', '#d3af86']
+  },
+  red: {
+    name: 'Red Theme',
+    description: 'Colors taken from Visual Studio Code',
+    colors: ['#390000', '#f8f8f8']
+  },
+  solarized: {
+    name: 'Solarized Dark Theme',
+    description: 'Colors taken from Visual Studio Code',
+    colors: ['#002b36', '#839496']
+  },
+  tomorrow: {
+    name: 'Tomorrow Night Blue Theme',
+    description: 'Colors taken from Visual Studio Code',
+    colors: ['#002451', '#ffffff']
+  },
+  ocean: {
+    name: 'Ocean Breeze Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#e0f7fa', '#006064']
+  },
+  forest: {
+    name: 'Forest Green Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#2e3a2c', '#e0f7fa']
+  },
+  sunny: {
+    name: 'Sunny Orange Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#ffcc80', '#4e342e']
+  },
+  galactic: {
+    name: 'Galactic Nebula Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#1a1a2e', '#e94560']
+  },
+  retro: {
+    name: 'Retro Wave Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#2b003c', '#ff6f61']
+  },
+  vintage: {
+    name: 'Vintage Paper Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#f5f5dc', '#8b4513']
+  },
+  desert: {
+    name: 'Desert Mirage Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#d2b48c', '#8b4513']
+  },
+  autumn: {
+    name: 'Autumn Leaves Theme',
+    description: 'Colors and name suggested by GPT-4o mini',
+    colors: ['#8b4513', '#ff8c00']
+  },
+  copper: {
+    name: 'Copper Evening Theme',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#24272d', '#d56835']
+  },
+  rose: {
+    name: 'Night Rose Theme',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#3d2542', '#f53a7f']
+  },
+  amethyst: {
+    name: 'Midnight Amethyst Theme',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#0f1623', '#b481c4']
+  },
+  neon: {
+    name: 'Deep Neon Theme',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#1f4060', '#31da52']
+  },
+  random: {
+    name: 'Random Colors Theme',
+    description: 'Colors are generated randomly',
+    colors: []
+  }
 };
