@@ -42,9 +42,7 @@ function set_version(version) {
       'font-family',
       'font-size',
       'line-height'
-    ].forEach((property) => {
-      textarea_css.style.removeProperty(property);
-    });
+    ].forEach((property) => textarea_css.style.removeProperty(property));
   }
   else {
     console.warn('Error: Version not found!');
@@ -136,15 +134,18 @@ function set_theme(theme_key) {
 
 function show_theme(theme_key) {
   if (theme_key) {
-    console.log(themes[theme_key].name);
-    if (themes[theme_key].description) console.log(themes[theme_key].description);
-    if (!['system', 'random'].includes(theme_key)) console.log(...themes[theme_key].colors);
+    if (themes[theme_key]) {
+      console.log(themes[theme_key].name);
+      if (themes[theme_key].description) console.log(themes[theme_key].description);
+      if (!['system', 'random'].includes(theme_key)) console.log(...themes[theme_key].colors);
+    }
+    else {
+      console.warn('Error: Theme not found!');
+    }
   }
   else {
     console.log(`Themes:`);
-    Object.keys(themes).forEach((theme) => {
-      console.log(`${localStorage.getItem('notepad_theme') === theme ? '[*]' : '[ ]'} ${theme}`);
-    });
+    Object.keys(themes).forEach((theme) => console.log(`${localStorage.getItem('notepad_theme') === theme ? '[*]' : '[ ]'} ${theme}`));
   }
 }
 
