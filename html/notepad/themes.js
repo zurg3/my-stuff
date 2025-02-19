@@ -8,17 +8,17 @@ const themes = {
   light: {
     name: 'Light Theme',
     description: '',
-    colors: ['white', 'black']
+    colors: ['#ffffff', '#000000']
   },
   dark: {
     name: 'Dark Theme',
     description: '',
-    colors: ['black', 'white']
+    colors: ['#000000', '#ffffff']
   },
   terminal: {
     name: 'Terminal Theme',
     description: '',
-    colors: ['black', 'green']
+    colors: ['#000000', '#008000']
   },
   midnight: {
     name: 'Midnight Theme',
