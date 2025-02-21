@@ -24,20 +24,22 @@ const scroll_top = 1000;
 
 const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
 
+// Statistics - Loading progress
 let loading_progress = document.getElementById('loading_progress_value');
 
-// Gallery
+// Statistics - Gallery
 let loaded_counter_gallery = document.getElementById('loaded_counter_gallery');
 let failed_counter_gallery = document.getElementById('failed_counter_gallery');
 let total_counter_gallery = document.getElementById('total_counter_gallery');
 let loaded_rate_gallery = document.getElementById('loaded_rate_gallery');
 
-// All
+// Statistics - All
 let loaded_counter_all = document.getElementById('loaded_counter_all');
 let failed_counter_all = document.getElementById('failed_counter_all');
 let total_counter_all = document.getElementById('total_counter_all');
 let loaded_rate_all = document.getElementById('loaded_rate_all');
 
+// Statistics - Average
 let galleries_counter = document.getElementById('galleries_counter');
 let average_counter = document.getElementById('average_counter');
 
@@ -79,10 +81,10 @@ function is_any_radio_checked(radio_name) {
 }
 
 function get_checked_radio_value(radio_name) {
-  for (let i = 0; i < document.getElementsByName(radio_name).length; i++) {
-    if (document.getElementsByName(radio_name)[i].checked) {
-      return document.getElementsByName(radio_name)[i].value;
-    }
+  const radio_buttons = document.getElementsByName(radio_name);
+
+  for (let i = 0; i < radio_buttons.length; i++) {
+    if (radio_buttons[i].checked) return radio_buttons[i].value;
   }
 }
 
@@ -101,10 +103,7 @@ function handle_loaded_image(img_num, search_option) {
   }
   document.getElementsByClassName('open_image_button')[img_num].hidden = false;
   document.getElementsByClassName('copy_image_url_button')[img_num].hidden = false;
-
-  if (search_option) {
-    document.getElementsByClassName('search_image_button')[img_num].hidden = false;
-  }
+  if (search_option) document.getElementsByClassName('search_image_button')[img_num].hidden = false;
 }
 
 function open_image(img_url) {
@@ -124,29 +123,19 @@ function blur_image(image, radius) {
   image.style.filter = (image.style.filter === 'none') ? `blur(${radius}px)` : 'none';
 }
 
-function handle_failed_image(image, hide_failed_option, blur_option) {
+function handle_failed_image(image, hide_failed_option) {
   image.removeAttribute('onerror');
-
   image.style.filter = 'none';
-
-  if (image.hasAttribute('onclick')) {
-    image.removeAttribute('onclick');
-  }
-
-  if (hide_failed_option) {
-    image.parentNode.hidden = true;
-  }
-  else {
-    image.outerHTML = `<a href="${image.src}" target="_blank">${image.outerHTML}</a>`;
-  }
+  if (image.hasAttribute('onclick')) image.removeAttribute('onclick');
+  hide_failed_option ? image.parentNode.hidden = true : image.outerHTML = `<a href="${image.src}" target="_blank">${image.outerHTML}</a>`;
 }
 
 function update_loaded_rate_color() {
-  let update_color = (loaded_rate_element) => {
+  function update_color(loaded_rate_element) {
     let rate = parseInt(loaded_rate_element.innerText, 10);
 
     loaded_rate_element.parentNode.style.color = (rate === 100) ? 'Green' : (rate === 0) ? 'Red' : 'Black';
-  };
+  }
 
   update_color(loaded_rate_gallery);
   update_color(loaded_rate_all);
@@ -158,7 +147,12 @@ function reset_loaded_rate_color() {
 }
 
 function load_gallery() {
-  if ((document.getElementById('base_link').value && document.getElementById('images_amount').value && is_any_radio_checked('file_format')) && (document.getElementById('base_link').value.startsWith('https://') || document.getElementById('base_link').value.startsWith('http://'))) {
+  // Required fields
+  let base_link = document.getElementById('base_link').value;
+  let images_amount = document.getElementById('images_amount').value;
+  let file_format = is_any_radio_checked('file_format');
+
+  if ((base_link && images_amount && file_format) && (base_link.startsWith('https://') || base_link.startsWith('http://'))) {
     document.getElementById('loading_progress').hidden = true;
     document.getElementById('statistics').hidden = true;
     document.getElementById('scale_control').hidden = false;
@@ -166,10 +160,8 @@ function load_gallery() {
 
     document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
 
-    // Required fields
-    const base_link = document.getElementById('base_link').value;
-    const images_amount = parseInt(document.getElementById('images_amount').value, 10);
-    const file_format = get_checked_radio_value('file_format');
+    images_amount = parseInt(images_amount, 10);
+    file_format = get_checked_radio_value('file_format');
 
     // Optional fields
     let start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
@@ -212,15 +204,10 @@ function load_gallery() {
 
       image_item = document.createElement('p');
       image_item.align = 'center';
-      if (use_document_fragment) {
-        last_img_index = image_gallery.childElementCount;
-      }
-      else {
-        last_img_index = document.images.length;
-      }
+      last_img_index = use_document_fragment ? image_gallery.childElementCount : document.images.length;
       image_item.innerHTML = `<span class="image_id"></span>
         <br hidden>
-        <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images}, ${blur_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
+        <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
         <br hidden>
         <span class="image_size"></span>
         <br hidden>
@@ -228,12 +215,7 @@ function load_gallery() {
         <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
         <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`;
 
-      if (use_document_fragment) {
-        image_gallery.append(image_item);
-      }
-      else {
-        document.getElementById('output').append(image_item);
-      }
+      use_document_fragment ? image_gallery.append(image_item) : document.getElementById('output').append(image_item);
 
       // Statistics
       if (show_statistics) {
@@ -270,9 +252,7 @@ function load_gallery() {
       }
     }
 
-    if (use_document_fragment) {
-      document.getElementById('output').append(image_gallery);
-    }
+    if (use_document_fragment) document.getElementById('output').append(image_gallery);
 
     if (show_statistics) {
       galleries_counter.innerText = parseInt(galleries_counter.innerText, 10) + 1;
