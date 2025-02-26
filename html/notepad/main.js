@@ -25,7 +25,7 @@ if (current_url.search) {
   // Set theme from URL
   if (params.theme && themes[params.theme]) set_theme(params.theme);
 
-  // Set font size
+  // Set font size from URL
   if (params.fs) set_font_size(parseInt(params.fs, 10));
 
   // Read-Only mode
