@@ -29,7 +29,7 @@ function tabulation() {
 }
 
 function insert_time_date() {
-  let time_date = moment().format(config.time_date_format);
+  const time_date = moment().format(config.time_date_format);
   textarea.focus();
   document.execCommand('insertText', false, time_date);
 }
@@ -96,7 +96,7 @@ function random_color_hsl(h, s, l) {
   if (!s) s = random_number(0, 100);
   if (!l) l = random_number(0, 100);
 
-  let color_hsl = `hsl(${h}, ${s}%, ${l}%)`;
+  const color_hsl = `hsl(${h}, ${s}%, ${l}%)`;
 
   return color_hsl;
 }
@@ -119,7 +119,7 @@ function set_theme(theme_key) {
     themes.random.colors = [random_color_hex(), random_color_hex()];
   }
   else if (config.random_color_type === 'hsl') {
-    let random_h = random_number(0, 360);
+    const random_h = random_number(0, 360);
     themes.random.colors = [random_color_hsl(random_h, 75, 10), random_color_hsl(random_h, 75, 60)];
   }
 
@@ -178,8 +178,8 @@ function clear_local_storage() {
 }
 
 function save_file() {
-  let blob = new Blob([textarea.value], {type: 'text/plain;charset=utf-8'});
-  let link = document.createElement('a');
+  const blob = new Blob([textarea.value], {type: 'text/plain;charset=utf-8'});
+  const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = 'document.txt';
   link.click();
@@ -191,3 +191,19 @@ function update_debug_text() {
   debug_text.textContent = '.';
   debug_text.textContent = '';
 }
+
+notepad.write = (data) => {
+  textarea.value = data;
+};
+
+notepad.prepend = (data) => {
+  textarea.value = data + textarea.value;
+};
+
+notepad.append = (data) => {
+  textarea.value = textarea.value + data;
+};
+
+notepad.clear = () => {
+  textarea.value = '';
+};

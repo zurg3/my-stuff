@@ -25,6 +25,9 @@ if (current_url.search) {
   // Set theme from URL
   if (params.theme && themes[params.theme]) set_theme(params.theme);
 
+  // Set font size
+  if (params.fs) set_font_size(parseInt(params.fs, 10));
+
   // Read-Only mode
   if (params.mode === 'read') textarea.readOnly = true;
 
@@ -45,13 +48,13 @@ window.onload = () => {
 
   // Set theme (if URL param not passed; or param's value is incorrect)
   if ((!current_url.search) || (current_url.search && !params.theme) || (current_url.search && params.theme && !themes[params.theme])) {
-    let theme = localStorage.getItem('notepad_theme') || config.default_theme;
+    const theme = localStorage.getItem('notepad_theme') || config.default_theme;
     set_theme(theme);
   }
 
   // Set word wrap settings (if URL param not passed; or param's value is incorrect)
   if ((!current_url.search) || (current_url.search && !params.ww) || (current_url.search && params.ww && !['true', 'false'].includes(params.ww))) {
-    let word_wrap = localStorage.getItem('notepad_word_wrap') || config.word_wrap.toString();
+    const word_wrap = localStorage.getItem('notepad_word_wrap') || config.word_wrap.toString();
     toggle_word_wrap(word_wrap === 'true');
   }
 };

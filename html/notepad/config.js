@@ -1,3 +1,6 @@
+// Notepad
+const notepad = {};
+
 // Config
 const config = {
   indent_mode: 'tabs',

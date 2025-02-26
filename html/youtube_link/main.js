@@ -3,7 +3,7 @@ function is_mobile() {
 }
 
 if (is_mobile()) {
-  let url_input_width = Math.floor(document.body.offsetWidth * 0.9);
+  const url_input_width = Math.floor(document.body.offsetWidth * 0.9);
 
   document.getElementById('youtube_music_link').style.width = `${url_input_width}px`;
 }
@@ -13,12 +13,10 @@ else {
 
 new ClipboardJS('#clipboard_button');
 
-let youtube_music_link = '';
-let youtube_link = '';
 let video_id = '';
 
 function convert() {
-  youtube_music_link = document.getElementById('youtube_music_link').value;
+  const youtube_music_link = document.getElementById('youtube_music_link').value;
 
   if (youtube_music_link && youtube_music_link.startsWith('https://')) {
     const ytm_url = new URL(youtube_music_link);
@@ -38,8 +36,7 @@ function convert() {
     }
 
     if (video_id) {
-      const yt_url = new URL(`/${video_id}`, 'https://youtu.be');
-      youtube_link = yt_url.href;
+      const youtube_link = `https://youtu.be/${video_id}`;
 
       document.getElementById('output').hidden = false;
 
@@ -50,8 +47,8 @@ function convert() {
 
 function play_video() {
   if (video_id) {
-    let video_width = is_mobile() ? document.body.offsetWidth : 640;
-    let video_height = is_mobile() ? Math.floor(video_width / 1.77) : 360;
+    const video_width = !is_mobile() ? 640 : document.body.offsetWidth;
+    const video_height = !is_mobile() ? 360 : Math.floor(video_width / 1.77);
 
     document.getElementById('youtube_video').innerHTML = `<iframe width="${video_width}" height="${video_height}" src="https://www.youtube.com/embed/${video_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   }

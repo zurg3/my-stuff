@@ -24,24 +24,35 @@ const scroll_top = 1000;
 
 const statistics_help = 'L - Loaded\nF - Failed\nT - Total\nLR - Loaded Rate\n\nG - Gallery\nA - All';
 
-// Statistics - Loading progress
-let loading_progress = document.getElementById('loading_progress_value');
+// Loading progress
+const loading_progress = document.getElementById('loading_progress');
+const loading_progress_value = document.getElementById('loading_progress_value');
+
+// Statictics
+const statistics = document.getElementById('statistics');
 
 // Statistics - Gallery
-let loaded_counter_gallery = document.getElementById('loaded_counter_gallery');
-let failed_counter_gallery = document.getElementById('failed_counter_gallery');
-let total_counter_gallery = document.getElementById('total_counter_gallery');
-let loaded_rate_gallery = document.getElementById('loaded_rate_gallery');
+const loaded_counter_gallery = document.getElementById('loaded_counter_gallery');
+const failed_counter_gallery = document.getElementById('failed_counter_gallery');
+const total_counter_gallery = document.getElementById('total_counter_gallery');
+const loaded_rate_gallery = document.getElementById('loaded_rate_gallery');
 
 // Statistics - All
-let loaded_counter_all = document.getElementById('loaded_counter_all');
-let failed_counter_all = document.getElementById('failed_counter_all');
-let total_counter_all = document.getElementById('total_counter_all');
-let loaded_rate_all = document.getElementById('loaded_rate_all');
+const loaded_counter_all = document.getElementById('loaded_counter_all');
+const failed_counter_all = document.getElementById('failed_counter_all');
+const total_counter_all = document.getElementById('total_counter_all');
+const loaded_rate_all = document.getElementById('loaded_rate_all');
 
 // Statistics - Average
-let galleries_counter = document.getElementById('galleries_counter');
-let average_counter = document.getElementById('average_counter');
+const galleries_counter = document.getElementById('galleries_counter');
+const average_counter = document.getElementById('average_counter');
+
+// Image scale
+const scale_control = document.getElementById('scale_control');
+const img_scale_value = document.getElementById('img_scale_value');
+
+// Output
+const output = document.getElementById('output');
 
 function detect_scroll() {
   document.getElementById('back_to_top_button').style.display = (document.body.scrollTop > scroll_top || document.documentElement.scrollTop > scroll_top) ? 'block' : 'none';
@@ -73,7 +84,7 @@ function change_scale(operation) {
     document.images[i].style.maxWidth = `${current_img_scale}%`;
   }
 
-  document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
+  img_scale_value.innerText = `${current_img_scale}%`;
 }
 
 function is_any_radio_checked(radio_name) {
@@ -98,8 +109,8 @@ function handle_loaded_image(img_num, search_option) {
   document.images[img_num].style.border = '1px solid Black';
   document.getElementsByClassName('image_id')[img_num].innerText = document.images[img_num].alt;
   get_image_size(img_num);
-  for (let i = 0; i < document.getElementById('output').getElementsByTagName('p')[img_num].getElementsByTagName('br').length; i++) {
-    document.getElementById('output').getElementsByTagName('p')[img_num].getElementsByTagName('br')[i].hidden = false;
+  for (let i = 0; i < output.getElementsByTagName('p')[img_num].getElementsByTagName('br').length; i++) {
+    output.getElementsByTagName('p')[img_num].getElementsByTagName('br')[i].hidden = false;
   }
   document.getElementsByClassName('open_image_button')[img_num].hidden = false;
   document.getElementsByClassName('copy_image_url_button')[img_num].hidden = false;
@@ -111,7 +122,7 @@ function open_image(img_url) {
 }
 
 function search_image(img_url, search_engine) {
-  let search_engines = {
+  const search_engines = {
     google: `https://lens.google.com/uploadbyurl?url=${img_url}`,
     yandex: `https://ya.ru/images/search?rpt=imageview&url=${img_url}`
   };
@@ -148,41 +159,41 @@ function reset_loaded_rate_color() {
 
 function load_gallery() {
   // Required fields
-  let base_link = document.getElementById('base_link').value;
+  const base_link = document.getElementById('base_link').value;
   let images_amount = document.getElementById('images_amount').value;
   let file_format = is_any_radio_checked('file_format');
 
   if ((base_link && images_amount && file_format) && (base_link.startsWith('https://') || base_link.startsWith('http://'))) {
-    document.getElementById('loading_progress').hidden = true;
-    document.getElementById('statistics').hidden = true;
-    document.getElementById('scale_control').hidden = false;
-    document.getElementById('output').hidden = false;
+    loading_progress.hidden = true;
+    statistics.hidden = true;
+    scale_control.hidden = false;
+    output.hidden = false;
 
-    document.getElementById('img_scale_value').innerText = `${current_img_scale}%`;
+    img_scale_value.innerText = `${current_img_scale}%`;
 
     images_amount = parseInt(images_amount, 10);
     file_format = get_checked_radio_value('file_format');
 
     // Optional fields
-    let start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
-    let id_length = parseInt(document.getElementById('id_length').value, 10) || 0;
-    let id_additional = document.getElementById('id_additional').value;
-    let id_step = parseInt(document.getElementById('id_step').value, 10) || 1;
-    let search_engine = get_checked_radio_value('search_engine');
-    let hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
-    let blur_images = document.getElementsByName('blur_images')[0].checked;
+    const start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
+    const id_length = parseInt(document.getElementById('id_length').value, 10) || 0;
+    const id_additional = document.getElementById('id_additional').value;
+    const id_step = parseInt(document.getElementById('id_step').value, 10) || 1;
+    const search_engine = get_checked_radio_value('search_engine');
+    const hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
+    const blur_images = document.getElementsByName('blur_images')[0].checked;
 
     // Experimental options
-    let show_statistics = document.getElementsByName('show_statistics')[0].checked;
-    let use_document_fragment = document.getElementsByName('use_document_fragment')[0].checked;
+    const show_statistics = document.getElementsByName('show_statistics')[0].checked;
+    const use_document_fragment = document.getElementsByName('use_document_fragment')[0].checked;
 
-    let final_id = start_id + ((images_amount - 1) * id_step);
+    const final_id = start_id + ((images_amount - 1) * id_step);
 
     reset_statistics('gallery');
 
     if (show_statistics) {
-      document.getElementById('loading_progress').hidden = false;
-      document.getElementById('statistics').hidden = false;
+      loading_progress.hidden = false;
+      statistics.hidden = false;
 
       total_counter_gallery.innerText = images_amount;
       total_counter_all.innerText = parseInt(total_counter_all.innerText, 10) + parseInt(total_counter_gallery.innerText, 10);
@@ -190,21 +201,19 @@ function load_gallery() {
       reset_loaded_rate_color();
     }
 
-    let image_id = '';
-    let image_url = '';
-    let image_item;
     let image_gallery = use_document_fragment ? document.createDocumentFragment() : '';
-    let last_img_index = 0;
 
     clear_output();
 
     for (let i = start_id; i <= final_id; i += id_step) {
-      image_id = `${i.toString().padStart(id_length, '0')}`;
-      image_url = `${base_link}${image_id}${id_additional}${file_format}`;
+      const image_id = `${i.toString().padStart(id_length, '0')}`;
+      const image_url = `${base_link}${image_id}${id_additional}${file_format}`;
 
-      image_item = document.createElement('p');
+      const image_item = document.createElement('p');
       image_item.align = 'center';
-      last_img_index = use_document_fragment ? image_gallery.childElementCount : document.images.length;
+
+      const last_img_index = use_document_fragment ? image_gallery.childElementCount : document.images.length;
+
       image_item.innerHTML = `<span class="image_id"></span>
         <br hidden>
         <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
@@ -215,7 +224,7 @@ function load_gallery() {
         <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
         <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`;
 
-      use_document_fragment ? image_gallery.append(image_item) : document.getElementById('output').append(image_item);
+      use_document_fragment ? image_gallery.append(image_item) : output.append(image_item);
 
       // Statistics
       if (show_statistics) {
@@ -230,7 +239,7 @@ function load_gallery() {
           loaded_rate_all.innerText = Math.floor(parseInt(loaded_counter_all.innerText, 10) / parseInt(total_counter_all.innerText, 10) * 100);
 
           // Loading progress
-          loading_progress.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
+          loading_progress_value.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
 
           update_loaded_rate_color();
         };
@@ -244,7 +253,7 @@ function load_gallery() {
           loaded_rate_all.innerText = Math.floor(parseInt(loaded_counter_all.innerText, 10) / parseInt(total_counter_all.innerText, 10) * 100);
 
           // Loading progress
-          loading_progress.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
+          loading_progress_value.innerText = Math.floor((parseInt(loaded_counter_gallery.innerText, 10) + parseInt(failed_counter_gallery.innerText, 10)) / images_amount * 100);
 
           update_loaded_rate_color();
         };
@@ -252,7 +261,7 @@ function load_gallery() {
       }
     }
 
-    if (use_document_fragment) document.getElementById('output').append(image_gallery);
+    if (use_document_fragment) output.append(image_gallery);
 
     if (show_statistics) {
       galleries_counter.innerText = parseInt(galleries_counter.innerText, 10) + 1;
@@ -269,7 +278,7 @@ function clear_base_link() {
 }
 
 function clear_output() {
-  document.getElementById('output').innerHTML = '';
+  output.innerHTML = '';
 }
 
 function reset_statistics_gallery() {
@@ -291,7 +300,7 @@ function reset_statistics_all() {
 
 function reset_statistics(reset_scope) {
   if (reset_scope === 'gallery') {
-    loading_progress.innerText = 0;
+    loading_progress_value.innerText = 0;
     reset_statistics_gallery();
   }
   else if (reset_scope === 'all') {
@@ -309,8 +318,8 @@ function clear_input() {
   reset_statistics('gallery');
   clear_output();
   change_scale('reset');
-  document.getElementById('loading_progress').hidden = true;
-  document.getElementById('statistics').hidden = true;
-  document.getElementById('scale_control').hidden = true;
-  document.getElementById('output').hidden = true;
+  loading_progress.hidden = true;
+  statistics.hidden = true;
+  scale_control.hidden = true;
+  output.hidden = true;
 }
