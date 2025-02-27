@@ -19,18 +19,25 @@ function set_indent_size(indent_size) {
 
 function tabulation() {
   let indent = '';
+
   if (config.indent_mode === 'spaces') {
     indent = ' '.repeat(config.indent_size);
   }
   else if (config.indent_mode === 'tabs') {
     indent = '\t';
   }
+  else if (config.indent_mode === 'dots') {
+    indent = '.'.repeat(config.indent_size);
+  }
+
   textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
 }
 
 function insert_time_date() {
   const time_date = moment().format(config.time_date_format);
+
   textarea.focus();
+
   document.execCommand('insertText', false, time_date);
 }
 
@@ -192,16 +199,34 @@ function update_debug_text() {
   debug_text.textContent = '';
 }
 
-notepad.write = (data) => {
-  textarea.value = data;
+notepad.write = (text) => {
+  textarea.value = text;
 };
 
-notepad.prepend = (data) => {
-  textarea.value = data + textarea.value;
+notepad.prepend = (text) => {
+  textarea.value = text + textarea.value;
 };
 
-notepad.append = (data) => {
-  textarea.value = textarea.value + data;
+notepad.append = (text) => {
+  textarea.value = textarea.value + text;
+};
+
+notepad.minify = () => {
+  let text = textarea.value.split('\n');
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = text[i].trim();
+  }
+
+  textarea.value = text.join('');
+};
+
+notepad.copy = () => {
+  ClipboardJS.copy(textarea.value);
+};
+
+notepad.cut = () => {
+  ClipboardJS.cut(textarea);
 };
 
 notepad.clear = () => {

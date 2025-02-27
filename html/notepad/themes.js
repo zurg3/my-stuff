@@ -65,6 +65,11 @@ const themes = {
     description: 'Colors taken from Visual Studio Code',
     colors: ['#002451', '#ffffff']
   },
+  dracula: {
+    name: 'Dracula Theme',
+    description: '',
+    colors: ['#282a36', '#f8f8f2']
+  },
   ocean: {
     name: 'Ocean Breeze Theme',
     description: 'Colors and name suggested by GPT-4o mini',
@@ -124,6 +129,11 @@ const themes = {
     name: 'Deep Neon Theme',
     description: 'Name suggested by GPT-4o mini',
     colors: ['#1f4060', '#31da52']
+  },
+  makaba: {
+    name: 'Makaba Theme',
+    description: 'Colors taken from https://2ch.hk',
+    colors: ['#eeeeee', '#333333']
   },
   random: {
     name: 'Random Colors Theme',

@@ -72,7 +72,7 @@
       <div class="containers">
         <div class="container">
           <h3>Input <button type="button" onclick="clear_input()">Clear</button></h3>
-          <textarea id="input" oninput="compile_markdown()">Text...</textarea>
+          <textarea id="input" placeholder="Text..." oninput="compile_markdown()"></textarea>
         </div>
         <div class="container">
           <h3>Output</h3>
@@ -89,15 +89,16 @@
 
     <!-- JS -->
     <script>
-      document.getElementById('output').innerHTML = marked.parse(document.getElementById('input').value);
+      const input = document.getElementById('input');
+      const output = document.getElementById('output');
 
       function compile_markdown() {
-        document.getElementById('output').innerHTML = marked.parse(document.getElementById('input').value);
+        output.innerHTML = marked.parse(input.value);
       }
 
       function clear_input() {
-        document.getElementById('input').value = '';
-        document.getElementById('output').innerHTML = '';
+        input.value = '';
+        output.innerHTML = '';
       }
     </script>
   </body>
