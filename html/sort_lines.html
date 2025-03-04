@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Sort lines</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
     <style>
       body {
         margin: 0;
@@ -64,36 +65,6 @@
     </style>
   </head>
   <body>
-    <script>
-      new ClipboardJS('#clipboard_button');
-
-      function comparator(a, b) {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      }
-
-      function sort_lines() {
-        if (document.getElementById('input').value) {
-          document.getElementById('output').innerText = document.getElementById('input').value.split('\n').sort(comparator).join('\n');
-        }
-      }
-
-      function reverse_input() {
-        if (document.getElementById('input').value) {
-          document.getElementById('output').innerText = document.getElementById('input').value.split('\n').reverse().join('\n');
-        }
-      }
-
-      function reverse_output() {
-        if (document.getElementById('input').value && document.getElementById('output').innerText) {
-          document.getElementById('output').innerText = document.getElementById('output').innerText.split('\n').reverse().join('\n');
-        }
-      }
-
-      function clear_input() {
-        document.getElementById('input').value = '';
-        document.getElementById('output').innerText = '';
-      }
-    </script>
     <header>
       <h1 align="center">Sort lines</h1>
     </header>
@@ -116,5 +87,28 @@
         </div>
       </div>
     </div>
+    <script>
+      const input = document.getElementById('input');
+      const output = document.getElementById('output');
+
+      new ClipboardJS('#clipboard_button');
+
+      function sort_lines() {
+        if (input.value) output.innerText = input.value.split('\n').sort(comparator).join('\n');
+      }
+
+      function reverse_input() {
+        if (input.value) output.innerText = input.value.split('\n').reverse().join('\n');
+      }
+
+      function reverse_output() {
+        if (input.value && output.innerText) output.innerText = output.innerText.split('\n').reverse().join('\n');
+      }
+
+      function clear_input() {
+        input.value = '';
+        output.innerText = '';
+      }
+    </script>
   </body>
 </html>

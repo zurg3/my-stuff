@@ -1,13 +1,4 @@
 // Functions
-function random_number(min = 1, max = 100) {
-  if ((typeof min === 'number' && typeof max === 'number') && (min <= max)) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  else {
-    return 0;
-  }
-}
-
 function set_font_size(font_size) {
   textarea_css.style.setProperty('font-size', `${font_size}pt`);
 }

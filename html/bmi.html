@@ -6,6 +6,20 @@
     <title>Body mass index (BMI)</title>
   </head>
   <body>
+    <h1>Body mass index (BMI)</h1>
+    <form>
+      <p>
+        <label for="mass_input">Your mass (kg)</label><br>
+        <input type="text" id="mass_input" size="10">
+      </p>
+      <p>
+        <label for="height_input">Your height (cm)</label><br>
+        <input type="text" id="height_input" size="10">
+      </p>
+      <p><input type="button" value="Calculate" onclick="bmi_category(document.getElementById('mass_input').value, document.getElementById('height_input').value)"></p>
+      <hr>
+      <p><span id="output"></span></p>
+    </form>
     <script>
       function bmi(mass, height) {
         if (document.getElementById('mass_input').value && document.getElementById('height_input').value) {
@@ -42,19 +56,5 @@
         }
       }
     </script>
-    <h1>Body mass index (BMI)</h1>
-    <form>
-      <p>
-        <label for="mass_input">Your mass (kg)</label><br>
-        <input type="text" id="mass_input" size="10">
-      </p>
-      <p>
-        <label for="height_input">Your height (cm)</label><br>
-        <input type="text" id="height_input" size="10">
-      </p>
-      <p><input type="button" value="Calculate" onclick="bmi_category(document.getElementById('mass_input').value, document.getElementById('height_input').value)"></p>
-      <hr>
-      <p><span id="output"></span></p>
-    </form>
   </body>
 </html>

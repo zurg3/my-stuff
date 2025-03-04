@@ -88,6 +88,68 @@
     </style>
   </head>
   <body>
+    <h1>Numeral systems converter</h1>
+    <div id="converter">
+      <form>
+        <p><label for="bin" accesskey="b">BIN:</label> <input type="text" id="bin" name="bin" spellcheck="false" oninput="convert_from_bin()"></p>
+        <p><label for="oct" accesskey="o">OCT:</label> <input type="text" id="oct" name="oct" spellcheck="false" oninput="convert_from_oct()"></p>
+        <p><label for="dec" accesskey="1">DEC:</label> <input type="text" id="dec" name="dec" spellcheck="false" oninput="convert_from_dec()"></p>
+        <p><label for="hex" accesskey="h">HEX:</label> <input type="text" id="hex" name="hex" spellcheck="false" oninput="convert_from_hex()"></p>
+        <p align="center"><input type="button" class="primary_button" value="Clear input" onclick="clear_input()"></p>
+        <p align="center"><input type="button" class="primary_button" value="Show cheat sheet" onclick="cheat_sheet_display()"></p>
+      </form>
+    </div>
+    <div id="hints">
+      <h3>Hints</h3>
+      <p>You can press hotkeys to switch between input fields:</p>
+      <ul class="hint_list">
+        <li>Alt+B - BIN</li>
+        <li>Alt+O - OCT</li>
+        <li>Alt+1 - DEC</li>
+        <li>Alt+H - HEX</li>
+      </ul>
+      <p>Allowed input:</p>
+      <ul class="hint_list">
+        <li>BIN: 0-1</li>
+        <li>OCT: 0-7</li>
+        <li>DEC: 0-9</li>
+        <li>HEX: 0-F</li>
+      </ul>
+      <p>HEX letter symbols:</p>
+      <ul class="hint_list">
+        <li>A = 10</li>
+        <li>B = 11</li>
+        <li>C = 12</li>
+        <li>D = 13</li>
+        <li>E = 14</li>
+        <li>F = 15</li>
+      </ul>
+    </div>
+    <div id="cheat_sheet">
+      <table border="0" align="center">
+        <tr>
+          <td width="80"><b>BIN</b></td>
+          <td width="40"><b>OCT</b></td>
+          <td width="40"><b>DEC</b></td>
+          <td width="40"><b>HEX</b></td>
+        </tr>
+        <script>
+          for (let i = 1; i <= 100; i++) {
+            let bin = parseInt(i, 10).toString(2);
+            let oct = parseInt(i, 10).toString(8);
+            let dec = parseInt(i, 10).toString(10);
+            let hex = parseInt(i, 10).toString(16).toUpperCase();
+
+            document.write('<tr>');
+              document.write(`<td>${bin}</td>`);
+              document.write(`<td>${oct}</td>`);
+              document.write(`<td>${dec}</td>`);
+              document.write(`<td>${hex}</td>`);
+            document.write('</tr>');
+          }
+        </script>
+      </table>
+    </div>
     <script>
       function convert_from_bin() {
         document.getElementById('bin').value = document.getElementById('bin').value.replace(/[^0-1]/, '');
@@ -175,67 +237,5 @@
         document.getElementById('hex').value = '';
       }
     </script>
-    <h1>Numeral systems converter</h1>
-    <div id="converter">
-      <form>
-        <p><label for="bin" accesskey="b">BIN:</label> <input type="text" id="bin" name="bin" spellcheck="false" oninput="convert_from_bin()"></p>
-        <p><label for="oct" accesskey="o">OCT:</label> <input type="text" id="oct" name="oct" spellcheck="false" oninput="convert_from_oct()"></p>
-        <p><label for="dec" accesskey="1">DEC:</label> <input type="text" id="dec" name="dec" spellcheck="false" oninput="convert_from_dec()"></p>
-        <p><label for="hex" accesskey="h">HEX:</label> <input type="text" id="hex" name="hex" spellcheck="false" oninput="convert_from_hex()"></p>
-        <p align="center"><input type="button" class="primary_button" value="Clear input" onclick="clear_input()"></p>
-        <p align="center"><input type="button" class="primary_button" value="Show cheat sheet" onclick="cheat_sheet_display()"></p>
-      </form>
-    </div>
-    <div id="hints">
-      <h3>Hints</h3>
-      <p>You can press hotkeys to switch between input fields:</p>
-      <ul class="hint_list">
-        <li>Alt+B - BIN</li>
-        <li>Alt+O - OCT</li>
-        <li>Alt+1 - DEC</li>
-        <li>Alt+H - HEX</li>
-      </ul>
-      <p>Allowed input:</p>
-      <ul class="hint_list">
-        <li>BIN: 0-1</li>
-        <li>OCT: 0-7</li>
-        <li>DEC: 0-9</li>
-        <li>HEX: 0-F</li>
-      </ul>
-      <p>HEX letter symbols:</p>
-      <ul class="hint_list">
-        <li>A = 10</li>
-        <li>B = 11</li>
-        <li>C = 12</li>
-        <li>D = 13</li>
-        <li>E = 14</li>
-        <li>F = 15</li>
-      </ul>
-    </div>
-    <div id="cheat_sheet">
-      <table border="0" align="center">
-        <tr>
-          <td width="80"><b>BIN</b></td>
-          <td width="40"><b>OCT</b></td>
-          <td width="40"><b>DEC</b></td>
-          <td width="40"><b>HEX</b></td>
-        </tr>
-        <script>
-          for (let i = 1; i <= 100; i++) {
-            let bin = parseInt(i, 10).toString(2);
-            let oct = parseInt(i, 10).toString(8);
-            let dec = parseInt(i, 10).toString(10);
-            let hex = parseInt(i, 10).toString(16).toUpperCase();
-
-            document.write('<tr>');
-              document.write(`<td>${bin}</td>`);
-              document.write(`<td>${oct}</td>`);
-              document.write(`<td>${dec}</td>`);
-              document.write(`<td>${hex}</td>`);
-            document.write('</tr>');
-          }
-        </script>
-      </table>
-    </div>
   </body>
 </html>

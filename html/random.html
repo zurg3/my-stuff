@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Random number generator</title>
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
     <style>
       body {
         font-family: 'Share Tech Mono', monospace;
@@ -78,20 +79,6 @@
     </style>
   </head>
   <body>
-    <script>
-      function get_random_number() {
-        if (document.getElementById('random_num_min').value && document.getElementById('random_num_max').value) {
-          const random_num_min = parseInt(document.getElementById('random_num_min').value, 10);
-          const random_num_max = parseInt(document.getElementById('random_num_max').value, 10);
-
-          if (random_num_min >= random_num_max) {
-            document.getElementById('random_num_max').value = random_num_min + 1;
-          }
-
-          document.getElementById('output').innerText = Math.floor(Math.random() * (random_num_max - random_num_min + 1)) + random_num_min;
-        }
-      }
-    </script>
     <div id="generator">
       <form>
         <h3 id="title">Random number generator</h3>
@@ -109,5 +96,19 @@
         <p id="result"><span id="output">OUTPUT</span></p>
       </form>
     </div>
+    <script>
+      function get_random_number() {
+        if (document.getElementById('random_num_min').value && document.getElementById('random_num_max').value) {
+          const random_num_min = parseInt(document.getElementById('random_num_min').value, 10);
+          const random_num_max = parseInt(document.getElementById('random_num_max').value, 10);
+
+          if (random_num_min >= random_num_max) {
+            document.getElementById('random_num_max').value = random_num_min + 1;
+          }
+
+          document.getElementById('output').innerText = random_number(random_num_min, random_num_max);
+        }
+      }
+    </script>
   </body>
 </html>

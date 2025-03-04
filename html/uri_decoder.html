@@ -4,9 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>URI Decoder</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
   </head>
   <body>
+    <form>
+      <h2>URI Decoder</h2>
+      <h3>Encoded URI</h3>
+      <p><input type="text" id="encoded_uri" size="60"></p>
+      <p><input type="button" id="decode_uri_button" value="DECODE URI" onclick="decode_uri()"></p>
+      <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+      <h3>Decoded URI</h3>
+      <p id="decoded_uri"></p>
+      <p><input type="button" id="clipboard_button" value="Copy to clipboard" data-clipboard-target="#decoded_uri" data-clipboard-action="copy"></p>
+    </form>
     <script>
       new ClipboardJS('#clipboard_button');
 
@@ -19,15 +29,5 @@
         document.getElementById('decoded_uri').innerText = '';
       }
     </script>
-    <form>
-      <h2>URI Decoder</h2>
-      <h3>Encoded URI</h3>
-      <p><input type="text" id="encoded_uri" size="60"></p>
-      <p><input type="button" id="decode_uri_button" value="DECODE URI" onclick="decode_uri()"></p>
-      <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
-      <h3>Decoded URI</h3>
-      <p id="decoded_uri"></p>
-      <p><input type="button" id="clipboard_button" value="Copy to clipboard" data-clipboard-target="#decoded_uri" data-clipboard-action="copy"></p>
-    </form>
   </body>
 </html>

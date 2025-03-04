@@ -11,6 +11,13 @@
     </style>
   </head>
   <body>
+    <form>
+      <label for="audio_src">Enter a link to audio source</label>
+      <input type="text" id="audio_src" size="50">
+      <input type="button" value="Submit" onclick="open_audio()">
+    </form>
+    <hr>
+    <div id="audio_player"></div>
     <script>
       function open_audio() {
         const audio_src_link = document.getElementById('audio_src').value;
@@ -20,12 +27,5 @@
         }
       }
     </script>
-    <form>
-      <label for="audio_src">Enter a link to audio source</label>
-      <input type="text" id="audio_src" size="50">
-      <input type="button" value="Submit" onclick="open_audio()">
-    </form>
-    <hr>
-    <div id="audio_player"></div>
   </body>
 </html>

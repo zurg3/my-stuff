@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tracking number check digit</title>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
     <style>
       .tn_input {
         width: 40px;
@@ -23,6 +24,28 @@
     </style>
   </head>
   <body>
+    <form>
+      <h1>Tracking number check digit</h1>
+      <p>
+        <span>X</span>
+        <span>X</span>
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" class="tn_input" min="0" max="9" step="1">
+        <input type="number" id="tncd" min="0" max="9" step="1">
+        <span>Y</span>
+        <span>Y</span>
+      </p>
+      <p><input type="button" class="button" value="Get TNCD" onclick="set_tncd()"></p>
+      <p><input type="button" class="button" value="Validate TNCD" onclick="validate_tncd()"></p>
+      <p><input type="button" class="button" value="Fill tracking number randomly" onclick="fill_tn()"></p>
+      <p><input type="button" class="button" value="Clear input" onclick="clear_input()"></p>
+    </form>
     <script>
       function get_tncd() {
         const weights = [8, 6, 4, 2, 3, 5, 9, 7];
@@ -80,7 +103,7 @@
         let random_num_max = 9;
 
         for (let i = 0; i < 8; i++) {
-          document.getElementsByClassName('tn_input')[i].value = Math.floor(Math.random() * random_num_max) + random_num_min;
+          document.getElementsByClassName('tn_input')[i].value = random_number(random_num_min, random_num_max);
         }
       }
 
@@ -91,27 +114,5 @@
         document.getElementById('tncd').value = '';
       }
     </script>
-    <form>
-      <h1>Tracking number check digit</h1>
-      <p>
-        <span>X</span>
-        <span>X</span>
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" class="tn_input" min="0" max="9" step="1">
-        <input type="number" id="tncd" min="0" max="9" step="1">
-        <span>Y</span>
-        <span>Y</span>
-      </p>
-      <p><input type="button" class="button" value="Get TNCD" onclick="set_tncd()"></p>
-      <p><input type="button" class="button" value="Validate TNCD" onclick="validate_tncd()"></p>
-      <p><input type="button" class="button" value="Fill tracking number randomly" onclick="fill_tn()"></p>
-      <p><input type="button" class="button" value="Clear input" onclick="clear_input()"></p>
-    </form>
   </body>
 </html>

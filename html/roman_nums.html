@@ -57,6 +57,16 @@
     </style>
   </head>
   <body>
+    <h1>Roman numerals converter</h1>
+    <div id="converter">
+      <form>
+        <p><b>Arabic</b></p>
+        <p><input type="text" id="arabic" name="arabic" spellcheck="false" oninput="convert_arabic_to_roman()"></p>
+        <p><b>Roman</b></p>
+        <p><input type="text" id="roman" name="roman" spellcheck="false" oninput="convert_roman_to_arabic()"></p>
+        <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+      </form>
+    </div>
     <script>
       const arabic = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
       const roman = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
@@ -111,15 +121,5 @@
         document.getElementById('roman').value = '';
       }
     </script>
-    <h1>Roman numerals converter</h1>
-    <div id="converter">
-      <form>
-        <p><b>Arabic</b></p>
-        <p><input type="text" id="arabic" name="arabic" spellcheck="false" oninput="convert_arabic_to_roman()"></p>
-        <p><b>Roman</b></p>
-        <p><input type="text" id="roman" name="roman" spellcheck="false" oninput="convert_roman_to_arabic()"></p>
-        <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
-      </form>
-    </div>
   </body>
 </html>

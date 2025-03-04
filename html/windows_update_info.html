@@ -6,6 +6,10 @@
     <title>Windows update info</title>
   </head>
   <body>
+    <h1>Windows update info</h1>
+    <form>
+      <p>KB<input type="text" id="update_id" size="10"> <input type="button" value="Submit" onclick="show_update_info()"></p>
+    </form>
     <script>
       function show_update_info() {
         if (document.getElementById('update_id').value) {
@@ -13,9 +17,5 @@
         }
       }
     </script>
-    <h1>Windows update info</h1>
-    <form>
-      <p>KB<input type="text" id="update_id" size="10"> <input type="button" value="Submit" onclick="show_update_info()"></p>
-    </form>
   </body>
 </html>

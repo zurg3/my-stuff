@@ -6,7 +6,19 @@
     <title>Check keyboard layout</title>
   </head>
   <body>
-    <!-- <script type="text/javascript" src="https://gist.githack.com/zurg3/192988f654c39b314f2038be5900f205/raw/lists_lib.js"></script> -->
+    <form>
+      <h3>Check string</h3>
+      <p>
+        <input type="radio" name="string_lang" value="1">Check Russian string
+        <input type="radio" name="string_lang" value="2">Check English string
+      </p>
+      <p>
+        <label for="check_string_input">Enter the string</label><br>
+        <input type="text" id="check_string_input" size="30">
+      </p>
+      <p><input type="button" value="Check string" onclick="check_string()"></p>
+      <p id="output_string"></p>
+    </form>
     <script type="text/javascript" src="https://cdn.statically.io/gist/zurg3/192988f654c39b314f2038be5900f205/raw/lists_lib.js"></script>
     <script type="text/javascript">
       function check_string() {
@@ -56,18 +68,5 @@
         }
       }
     </script>
-    <form>
-      <h3>Check string</h3>
-      <p>
-        <input type="radio" name="string_lang" value="1">Check Russian string
-        <input type="radio" name="string_lang" value="2">Check English string
-      </p>
-      <p>
-        <label for="check_string_input">Enter the string</label><br>
-        <input type="text" id="check_string_input" size="30">
-      </p>
-      <p><input type="button" value="Check string" onclick="check_string()"></p>
-      <p id="output_string"></p>
-    </form>
   </body>
 </html>

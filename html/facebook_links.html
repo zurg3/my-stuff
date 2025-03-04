@@ -6,6 +6,12 @@
     <title>Facebook links</title>
   </head>
   <body>
+    <h1>Facebook</h1>
+    <form>
+      <label for="facebook_username">Enter your Facebook username</label>
+      <input type="text" id="facebook_username" size="30">
+      <input type="button" value="Submit" onclick="load_links()">
+    </form>
     <script>
       function load_links() {
         const get_facebook_username = document.getElementById('facebook_username').value;
@@ -66,11 +72,5 @@
         document.write('<hr><p><a href="facebook_links.html">Back</a><p>');
       }
     </script>
-    <h1>Facebook</h1>
-    <form>
-      <label for="facebook_username">Enter your Facebook username</label>
-      <input type="text" id="facebook_username" size="30">
-      <input type="button" value="Submit" onclick="load_links()">
-    </form>
   </body>
 </html>

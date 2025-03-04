@@ -122,6 +122,31 @@
     </style>
   </head>
   <body onload="start()">
+    <div id="main">
+      <p id="unix_time_full"><b>UNIX Time</b>: <span id="unix_time"></span></p>
+      <p id="utc_time_full"><b>UTC Time</b>: <time id="utc_time"></time></p>
+      <p id="local_time_full"><b>Local Time (UTC <span id="timezone_offset"></span>)</b>: <time id="local_time"></time></p>
+    </div>
+    <div id="settings">
+      <h3 align="center">Settings</h3>
+      <p align="center">Font size: <span id="current_font_size">28</span></p>
+      <p align="center"><span id="min_font_size">20</span> <input type="range" id="font_size" min="20" max="40" step="1" value="28" oninput="change_font_size()"> <span id="max_font_size">40</span></p>
+      <p align="center">Show</p>
+      <div id="options">
+        <label class="option">
+          <input type="checkbox" name="unix_time_option" id="unix_time_option" checked oninput="check_options()">UNIX Time
+          <span class="checkmark"></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" name="utc_time_option" id="utc_time_option" checked oninput="check_options()">UTC Time
+          <span class="checkmark"></span>
+        </label>
+        <label class="option">
+          <input type="checkbox" name="local_time_option" id="local_time_option" checked oninput="check_options()">Local Time
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
     <script>
       const timeout_delay = 500;
 
@@ -204,30 +229,5 @@
         print_local_time();
       }
     </script>
-    <div id="main">
-      <p id="unix_time_full"><b>UNIX Time</b>: <span id="unix_time"></span></p>
-      <p id="utc_time_full"><b>UTC Time</b>: <time id="utc_time"></time></p>
-      <p id="local_time_full"><b>Local Time (UTC <span id="timezone_offset"></span>)</b>: <time id="local_time"></time></p>
-    </div>
-    <div id="settings">
-      <h3 align="center">Settings</h3>
-      <p align="center">Font size: <span id="current_font_size">28</span></p>
-      <p align="center"><span id="min_font_size">20</span> <input type="range" id="font_size" min="20" max="40" step="1" value="28" oninput="change_font_size()"> <span id="max_font_size">40</span></p>
-      <p align="center">Show</p>
-      <div id="options">
-        <label class="option">
-          <input type="checkbox" name="unix_time_option" id="unix_time_option" checked oninput="check_options()">UNIX Time
-          <span class="checkmark"></span>
-        </label>
-        <label class="option">
-          <input type="checkbox" name="utc_time_option" id="utc_time_option" checked oninput="check_options()">UTC Time
-          <span class="checkmark"></span>
-        </label>
-        <label class="option">
-          <input type="checkbox" name="local_time_option" id="local_time_option" checked oninput="check_options()">Local Time
-          <span class="checkmark"></span>
-        </label>
-      </div>
-    </div>
   </body>
 </html>

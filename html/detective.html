@@ -6,6 +6,16 @@
     <title>Detective</title>
   </head>
   <body>
+    <form id="input">
+      <p>
+        <b>Nickname:</b>
+        <input type="text" id="username" size="30">
+        <input type="button" id="search_user_button" value="Search for user" onclick="search_user()">
+        <input type="reset" id="clear_input_button" value="Clear input" onclick="clear_input()">
+      </p>
+    </form>
+    <hr>
+    <div id="output"></div>
     <script>
       function search_user() {
         const username = document.getElementById('username').value;
@@ -58,15 +68,5 @@
         document.getElementById('output').innerHTML = '';
       }
     </script>
-    <form id="input">
-      <p>
-        <b>Nickname:</b>
-        <input type="text" id="username" size="30">
-        <input type="button" id="search_user_button" value="Search for user" onclick="search_user()">
-        <input type="reset" id="clear_input_button" value="Clear input" onclick="clear_input()">
-      </p>
-    </form>
-    <hr>
-    <div id="output"></div>
   </body>
 </html>

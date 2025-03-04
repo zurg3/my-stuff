@@ -1,7 +1,3 @@
-function is_mobile() {
-  return window.screen.width < window.screen.height;
-}
-
 if (is_mobile()) {
   const url_input_width = Math.floor(document.body.offsetWidth * 0.9);
 

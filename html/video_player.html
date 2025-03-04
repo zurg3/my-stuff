@@ -6,6 +6,38 @@
     <title>Video player</title>
   </head>
   <body>
+    <form>
+      <p>
+        <label for="video_src">Video link</label>
+        <input type="text" id="video_src" size="50">
+        <input type="button" value="Submit" onclick="open_video()">
+        <input type="button" value="Fit video" onclick="fit_video()">
+        <input type="button" value="Remove video" onclick="remove_video()">
+      </p>
+      <p>
+        <span>Video speed</span>
+        <input type="button" value="0.25" onclick="video_speed(0.25)">
+        <input type="button" value="0.5" onclick="video_speed(0.5)">
+        <input type="button" value="0.75" onclick="video_speed(0.75)">
+        <input type="button" value="1" onclick="video_speed(1)">
+        <input type="button" value="1.25" onclick="video_speed(1.25)">
+        <input type="button" value="1.5" onclick="video_speed(1.5)">
+        <input type="button" value="2" onclick="video_speed(2)">
+        <input type="button" value="4" onclick="video_speed(4)">
+      </p>
+      <p>
+        <span>Expand video size</span>
+        <input type="button" value="0.5" onclick="expand_video_size(0.5)">
+        <input type="button" value="0.75" onclick="expand_video_size(0.75)">
+        <input type="button" value="1" onclick="expand_video_size(1)">
+        <input type="button" value="2" onclick="expand_video_size(2)">
+        <input type="button" value="4" onclick="expand_video_size(4)">
+        <input type="button" value="6" onclick="expand_video_size(6)">
+        <input type="button" value="8" onclick="expand_video_size(8)">
+      </p>
+    </form>
+    <hr>
+    <div id="video_player"></div>
     <script>
       function open_video() {
         const video_src_link = document.getElementById('video_src').value;
@@ -88,37 +120,5 @@
         console.log(`Video speed: ${document.getElementsByTagName('video')[0].playbackRate}`);
       }
     </script>
-    <form>
-      <p>
-        <label for="video_src">Video link</label>
-        <input type="text" id="video_src" size="50">
-        <input type="button" value="Submit" onclick="open_video()">
-        <input type="button" value="Fit video" onclick="fit_video()">
-        <input type="button" value="Remove video" onclick="remove_video()">
-      </p>
-      <p>
-        <span>Video speed</span>
-        <input type="button" value="0.25" onclick="video_speed(0.25)">
-        <input type="button" value="0.5" onclick="video_speed(0.5)">
-        <input type="button" value="0.75" onclick="video_speed(0.75)">
-        <input type="button" value="1" onclick="video_speed(1)">
-        <input type="button" value="1.25" onclick="video_speed(1.25)">
-        <input type="button" value="1.5" onclick="video_speed(1.5)">
-        <input type="button" value="2" onclick="video_speed(2)">
-        <input type="button" value="4" onclick="video_speed(4)">
-      </p>
-      <p>
-        <span>Expand video size</span>
-        <input type="button" value="0.5" onclick="expand_video_size(0.5)">
-        <input type="button" value="0.75" onclick="expand_video_size(0.75)">
-        <input type="button" value="1" onclick="expand_video_size(1)">
-        <input type="button" value="2" onclick="expand_video_size(2)">
-        <input type="button" value="4" onclick="expand_video_size(4)">
-        <input type="button" value="6" onclick="expand_video_size(6)">
-        <input type="button" value="8" onclick="expand_video_size(8)">
-      </p>
-    </form>
-    <hr>
-    <div id="video_player"></div>
   </body>
 </html>

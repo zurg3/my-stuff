@@ -6,6 +6,19 @@
     <title>Difference between dates</title>
   </head>
   <body onload="set_current_date()">
+    <h1>Difference between dates</h1>
+    <form>
+      <p>
+        <label for="date_from">From</label><br>
+        <input type="date" id="date_from" name="date_from">
+      </p>
+      <p>
+        <label for="date_to">To</label><br>
+        <input type="date" id="date_to" name="date_to">
+      </p>
+      <p><input type="button" value="Get difference" onclick="get_difference()"></p>
+      <p>Difference:<br><b><span id="output">Same dates</span></b></p>
+    </form>
     <script>
       function set_current_date() {
         const current_date = new Date();
@@ -49,18 +62,5 @@
         }
       }
     </script>
-    <h1>Difference between dates</h1>
-    <form>
-      <p>
-        <label for="date_from">From</label><br>
-        <input type="date" id="date_from" name="date_from">
-      </p>
-      <p>
-        <label for="date_to">To</label><br>
-        <input type="date" id="date_to" name="date_to">
-      </p>
-      <p><input type="button" value="Get difference" onclick="get_difference()"></p>
-      <p>Difference:<br><b><span id="output">Same dates</span></b></p>
-    </form>
   </body>
 </html>

@@ -6,18 +6,6 @@
     <title>GitHub Compare</title>
   </head>
   <body>
-    <script>
-      function compare() {
-        if (document.getElementById('repo_owner').value && document.getElementById('repo_name').value && document.getElementById('base_ref').value && document.getElementById('head_ref').value) {
-          const repo_owner = document.getElementById('repo_owner').value;
-          const repo_name = document.getElementById('repo_name').value;
-          const base_ref = document.getElementById('base_ref').value;
-          const head_ref = document.getElementById('head_ref').value;
-
-          window.open(`https://github.com/${repo_owner}/${repo_name}/compare/${base_ref}...${head_ref}`, '_blank');
-        }
-      }
-    </script>
     <h2>GitHub Compare</h2>
     <form>
       <p>
@@ -38,5 +26,17 @@
       </p>
       <p><input type="button" value="Compare" onclick="compare()"></p>
     </form>
+    <script>
+      function compare() {
+        if (document.getElementById('repo_owner').value && document.getElementById('repo_name').value && document.getElementById('base_ref').value && document.getElementById('head_ref').value) {
+          const repo_owner = document.getElementById('repo_owner').value;
+          const repo_name = document.getElementById('repo_name').value;
+          const base_ref = document.getElementById('base_ref').value;
+          const head_ref = document.getElementById('head_ref').value;
+
+          window.open(`https://github.com/${repo_owner}/${repo_name}/compare/${base_ref}...${head_ref}`, '_blank');
+        }
+      }
+    </script>
   </body>
 </html>
