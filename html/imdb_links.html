@@ -7,112 +7,114 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   </head>
   <body>
-    <h1>IMDb</h1>
-    <p>Explore IMDb items without referral links.</p>
-    <h2>IDs examples</h2>
-    <table border="1">
-      <tr>
-        <th>Item type</th>
-        <th>ID example</th>
-      </tr>
-      <tr>
-        <td>Title</td>
-        <td>tt0078748</td>
-      </tr>
-      <tr>
-        <td>Review</td>
-        <td>rw0971084</td>
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>nm0000158</td>
-      </tr>
-      <tr>
-        <td>Company</td>
-        <td>co0000756</td>
-      </tr>
-      <tr>
-        <td>News</td>
-        <td>ni62469869</td>
-      </tr>
-      <tr>
-        <td>Event</td>
-        <td>ev0000003</td>
-      </tr>
-      <tr>
-        <td>User</td>
-        <td>ur1000000</td>
-      </tr>
-      <tr>
-        <td>List</td>
-        <td>ls029730123</td>
-      </tr>
-      <tr>
-        <td>Gallery</td>
-        <td>rg1624939264</td>
-      </tr>
-      <tr>
-        <td>Video</td>
-        <td>vi288275481</td>
-      </tr>
-      <tr>
-        <td>Interest</td>
-        <td>in0000159</td>
-      </tr>
-    </table>
-    <br>
-    <form>
-      <label for="imdb_id">Enter IMDb ID</label>
-      <input type="text" id="imdb_id" size="10" autocomplete="off">
-      <input type="button" value="Submit" onclick="find_item()">
-    </form>
-    <br>
-    <form>
-      <label for="imdb_year">Select year</label>
-      <select name="imdb_year" id="imdb_year">
-        <script type="text/javascript" src="imdb_links/years_range.js"></script>
-      </select>
-      <input type="button" value="Submit" onclick="find_year()">
-    </form>
-    <br>
-    <h2>Collaborations Search</h2>
-    <form>
-      <h3>People in the same title</h3>
-      <div class="name_search_input_fields">
-        <p class="name_search_input_field">Name 1 ID<br><input type="text" size="10" autocomplete="off"></p>
-        <p class="name_search_input_field">Name 2 ID<br><input type="text" size="10" autocomplete="off"></p>
-      </div>
-      <h4>Title type</h4>
-      <div class="name_search_title_types">
-        <input type="checkbox" class="name_search_title_type" id="title_type_1" value="feature"> <label for="title_type_1">Feature film</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_2" value="tv_movie"> <label for="title_type_2">TV movie</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_3" value="tv_series"> <label for="title_type_3">TV series</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_4" value="tv_episode"> <label for="title_type_4">TV episode</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_5" value="tv_special"> <label for="title_type_5">TV special</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_6" value="tv_miniseries"> <label for="title_type_6">Mini-series</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_7" value="documentary"> <label for="title_type_7">Documentary</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_8" value="video_game"> <label for="title_type_8">Video game</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_9" value="short"> <label for="title_type_9">Short film</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_10" value="video"> <label for="title_type_10">Video</label><br>
-        <input type="checkbox" class="name_search_title_type" id="title_type_11" value="tv_short"> <label for="title_type_11">TV short</label>
-      </div>
-      <p>
-        <input type="button" value="Search" onclick="search_name()">
-        <input type="button" value="Add name" onclick="add_name()">
-      </p>
-    </form>
-    <br>
-    <form>
-      <h3>Titles with the same people</h3>
-      <div class="title_search_input_fields">
-        <p class="title_search_input_field">Title 1 ID<br><input type="text" size="10" autocomplete="off"></p>
-        <p class="title_search_input_field">Title 2 ID<br><input type="text" size="10" autocomplete="off"></p>
-      </div>
-      <p>
-        <input type="button" value="Search" onclick="search_title()">
-        <input type="button" value="Add title" onclick="add_title()">
-      </p>
-    </form>
+    <div id="main" hidden>
+      <h1>IMDb</h1>
+      <p>Explore IMDb items without referral links.</p>
+      <h2>IDs examples</h2>
+      <table border="1">
+        <tr>
+          <th>Item type</th>
+          <th>ID example</th>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td>tt0078748</td>
+        </tr>
+        <tr>
+          <td>Review</td>
+          <td>rw0971084</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>nm0000158</td>
+        </tr>
+        <tr>
+          <td>Company</td>
+          <td>co0000756</td>
+        </tr>
+        <tr>
+          <td>News</td>
+          <td>ni62469869</td>
+        </tr>
+        <tr>
+          <td>Event</td>
+          <td>ev0000003</td>
+        </tr>
+        <tr>
+          <td>User</td>
+          <td>ur1000000</td>
+        </tr>
+        <tr>
+          <td>List</td>
+          <td>ls029730123</td>
+        </tr>
+        <tr>
+          <td>Gallery</td>
+          <td>rg1624939264</td>
+        </tr>
+        <tr>
+          <td>Video</td>
+          <td>vi288275481</td>
+        </tr>
+        <tr>
+          <td>Interest</td>
+          <td>in0000159</td>
+        </tr>
+      </table>
+      <br>
+      <form>
+        <label for="imdb_id">Enter IMDb ID</label>
+        <input type="text" id="imdb_id" size="10" autocomplete="off">
+        <input type="button" value="Submit" onclick="find_item()">
+      </form>
+      <br>
+      <form>
+        <label for="imdb_year">Select year</label>
+        <select name="imdb_year" id="imdb_year">
+          <script type="text/javascript" src="imdb_links/years_range.js"></script>
+        </select>
+        <input type="button" value="Submit" onclick="find_year()">
+      </form>
+      <br>
+      <h2>Collaborations Search</h2>
+      <form>
+        <h3>People in the same title</h3>
+        <div class="name_search_input_fields">
+          <p class="name_search_input_field">Name 1 ID<br><input type="text" size="10" autocomplete="off"></p>
+          <p class="name_search_input_field">Name 2 ID<br><input type="text" size="10" autocomplete="off"></p>
+        </div>
+        <h4>Title type</h4>
+        <div class="name_search_title_types">
+          <input type="checkbox" class="name_search_title_type" id="title_type_1" value="feature"> <label for="title_type_1">Feature film</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_2" value="tv_movie"> <label for="title_type_2">TV movie</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_3" value="tv_series"> <label for="title_type_3">TV series</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_4" value="tv_episode"> <label for="title_type_4">TV episode</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_5" value="tv_special"> <label for="title_type_5">TV special</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_6" value="tv_miniseries"> <label for="title_type_6">Mini-series</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_7" value="documentary"> <label for="title_type_7">Documentary</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_8" value="video_game"> <label for="title_type_8">Video game</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_9" value="short"> <label for="title_type_9">Short film</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_10" value="video"> <label for="title_type_10">Video</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_11" value="tv_short"> <label for="title_type_11">TV short</label>
+        </div>
+        <p>
+          <input type="button" value="Search" onclick="search_name()">
+          <input type="button" value="Add name" onclick="add_name()">
+        </p>
+      </form>
+      <br>
+      <form>
+        <h3>Titles with the same people</h3>
+        <div class="title_search_input_fields">
+          <p class="title_search_input_field">Title 1 ID<br><input type="text" size="10" autocomplete="off"></p>
+          <p class="title_search_input_field">Title 2 ID<br><input type="text" size="10" autocomplete="off"></p>
+        </div>
+        <p>
+          <input type="button" value="Search" onclick="search_title()">
+          <input type="button" value="Add title" onclick="add_title()">
+        </p>
+      </form>
+    </div>
     <script type="text/javascript" src="imdb_links/main.js"></script>
   </body>
 </html>

@@ -1,11 +1,14 @@
 if (is_mobile()) {
-  const base_link_width = Math.floor(document.body.offsetWidth * 0.8);
+  const base_link = document.getElementById('base_link');
+  const width = Math.floor(document.body.offsetWidth * 0.8);
 
-  document.getElementById('base_link').style.width = `${base_link_width}px`;
+  base_link.removeAttribute('size');
+  base_link.style.width = `${width}px`;
 }
-else {
-  document.getElementById('base_link').size = 60;
-}
+
+// Form
+const form = document.getElementById('form');
+form.hidden = false;
 
 new ClipboardJS('.copy_image_url_button');
 

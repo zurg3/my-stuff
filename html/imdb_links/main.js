@@ -1,3 +1,5 @@
+document.getElementById('main').hidden = false;
+
 const imdb_base_link = 'https://www.imdb.com';
 
 function get_last_ul(ul_index) {

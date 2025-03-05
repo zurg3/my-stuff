@@ -1,11 +1,12 @@
 if (is_mobile()) {
-  const url_input_width = Math.floor(document.body.offsetWidth * 0.9);
+  const url_input = document.getElementById('youtube_music_link');
+  const width = Math.floor(document.body.offsetWidth * 0.9);
 
-  document.getElementById('youtube_music_link').style.width = `${url_input_width}px`;
+  url_input.removeAttribute('size');
+  url_input.style.width = `${width}px`;
 }
-else {
-  document.getElementById('youtube_music_link').size = 50;
-}
+
+document.getElementById('input').hidden = false;
 
 new ClipboardJS('#clipboard_button');
 
