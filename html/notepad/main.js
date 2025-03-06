@@ -1,22 +1,3 @@
-// https://benborgers.com/textarea-tab
-// https://98.js.org/programs/notepad/
-// https://github.com/1j01/98/tree/master/programs/notepad
-// https://stackoverflow.com/questions/56393880/
-
-// Hotkeys
-textarea.addEventListener('keydown', (e) => {
-  // [Tab] Tabulation
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    tabulation();
-  }
-  // [F5] Insert current time/date
-  else if (e.key === 'F5' && config.f5_time_date) {
-    e.preventDefault();
-    insert_time_date();
-  }
-});
-
 // Options
 if (current_url.search) {
   // Set version from URL
@@ -28,8 +9,8 @@ if (current_url.search) {
   // Set font size from URL
   if (params.fs) set_font_size(parseInt(params.fs, 10));
 
-  // Read-Only mode
-  if (params.mode === 'read') textarea.readOnly = true;
+  // Set mode from URL
+  if (params.mode && params.mode !== 'exe') set_mode(params.mode);
 
   // Enable/disable word wrap from URL
   if (['true', 'false'].includes(params.ww)) toggle_word_wrap(params.ww === 'true');
@@ -57,6 +38,9 @@ window.onload = () => {
     const word_wrap = localStorage.getItem('notepad_word_wrap') || config.word_wrap.toString();
     toggle_word_wrap(word_wrap === 'true');
   }
+
+  // Execute
+  if (current_url.search && params.mode && params.mode === 'exe') set_mode(params.mode);
 };
 
 textarea.oninput = () => {

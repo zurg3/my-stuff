@@ -12,8 +12,10 @@
     </form>
     <script>
       function show_update_info() {
-        if (document.getElementById('update_id').value) {
-          window.open(`https://support.microsoft.com/help/${document.getElementById('update_id').value}`, '_blank');
+        const update_id = document.getElementById('update_id').value;
+
+        if (update_id) {
+          window.open(`https://support.microsoft.com/help/${update_id}`, '_blank');
         }
       }
     </script>

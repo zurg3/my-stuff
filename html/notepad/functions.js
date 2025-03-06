@@ -9,17 +9,14 @@ function set_indent_size(indent_size) {
 }
 
 function tabulation() {
-  let indent = '';
+  const indent_modes = {
+    spaces: ' '.repeat(config.indent_size),
+    tabs: '\t',
+    dots: '.'.repeat(config.indent_size),
+    underscores: '_'.repeat(config.indent_size)
+  };
 
-  if (config.indent_mode === 'spaces') {
-    indent = ' '.repeat(config.indent_size);
-  }
-  else if (config.indent_mode === 'tabs') {
-    indent = '\t';
-  }
-  else if (config.indent_mode === 'dots') {
-    indent = '.'.repeat(config.indent_size);
-  }
+  const indent = indent_modes[config.indent_mode] || '';
 
   textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
 }
@@ -44,6 +41,24 @@ function set_version(version) {
   }
   else {
     console.warn('Error: Version not found!');
+  }
+}
+
+function set_mode(mode) {
+  // Write mode (default)
+  if (mode === 'write') {
+    textarea.readOnly = false;
+  }
+  // Read-Only mode
+  else if (mode === 'read') {
+    textarea.readOnly = true;
+  }
+  // Execution mode
+  else if (mode === 'exe') {
+    eval(textarea.value);
+  }
+  else {
+    console.warn('Error: Mode not found!');
   }
 }
 
@@ -173,6 +188,51 @@ function toggle_word_wrap(option) {
 
 function clear_local_storage() {
   if (confirm('Are you sure?')) local_storage_items.forEach((item) => localStorage.removeItem(item));
+}
+
+function open_file() {
+  if (!textarea.value || (textarea.value && confirm('Are you sure?'))) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.txt';
+
+    input.onchange = (event) => {
+      const file = event.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          textarea.value = e.target.result;
+        };
+        reader.readAsText(file);
+      }
+    };
+
+    input.click();
+  }
+}
+
+function open_file_url(url) {
+  if (!url) url = prompt('URL');
+
+  if (url) {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', url, false);
+
+    try {
+      xmlhttp.send();
+
+      if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
+        textarea.value = xmlhttp.responseText;
+      }
+      else {
+        console.warn(`HTTP error: ${xmlhttp.status}`);
+      }
+    }
+    catch (error) {
+      console.warn(`Error: ${error}`);
+    }
+  }
 }
 
 function save_file() {
