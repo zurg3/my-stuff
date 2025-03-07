@@ -130,6 +130,16 @@ const themes = {
     description: 'Name suggested by GPT-4o mini',
     colors: ['#1f4060', '#31da52']
   },
+  coral: {
+    name: 'Coral Sunset',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#6f4252', '#fc5717']
+  },
+  peachy: {
+    name: 'Peachy Passion',
+    description: 'Name suggested by GPT-4o mini',
+    colors: ['#ffc19b', '#f8270e']
+  },
   makaba: {
     name: 'Makaba Theme',
     description: 'Colors taken from https://2ch.hk',

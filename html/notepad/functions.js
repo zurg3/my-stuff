@@ -124,6 +124,10 @@ function set_theme_colors(bg_color, font_color) {
   if (font_color) {
     textarea_css.style.setProperty('color', font_color);
   }
+  // Scrollbar
+  if (bg_color && font_color) {
+    textarea_css.style.setProperty('scrollbar-color', `${font_color} ${bg_color}`);
+  }
 }
 
 function set_theme(theme_key) {
@@ -215,7 +219,7 @@ function open_file() {
 function open_file_url(url) {
   if (!url) url = prompt('URL');
 
-  if (url) {
+  if (url && (url.startsWith('https://') || url.startsWith('http://'))) {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open('GET', url, false);
 
