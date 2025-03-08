@@ -131,12 +131,12 @@ const themes = {
     colors: ['#1f4060', '#31da52']
   },
   coral: {
-    name: 'Coral Sunset',
+    name: 'Coral Sunset Theme',
     description: 'Name suggested by GPT-4o mini',
     colors: ['#6f4252', '#fc5717']
   },
   peachy: {
-    name: 'Peachy Passion',
+    name: 'Peachy Passion Theme',
     description: 'Name suggested by GPT-4o mini',
     colors: ['#ffc19b', '#f8270e']
   },
