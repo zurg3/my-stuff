@@ -24,6 +24,12 @@ window.onload = () => {
   // Set cursor position to beginning
   textarea.setSelectionRange(0, 0);
 
+  // Set font size (if URL param not passed)
+  if ((!current_url.search) || (current_url.search && !params.fs)) {
+    const font_size = localStorage.getItem('notepad_font_size') || config.font_size;
+    set_font_size(parseInt(font_size, 10));
+  }
+
   // Set default indent size
   set_indent_size(config.indent_size);
 

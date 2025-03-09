@@ -1,11 +1,23 @@
 // Functions
 function set_font_size(font_size) {
-  textarea_css.style.setProperty('font-size', `${font_size}pt`);
+  const min_font_size = 4;
+  const max_font_size = 30;
+
+  if ((typeof font_size === 'number') && (font_size >= min_font_size && font_size <= max_font_size)) {
+    config.font_size = font_size;
+    textarea_css.style.setProperty('font-size', `${font_size}pt`);
+    localStorage.setItem('notepad_font_size', `${font_size}`);
+  }
 }
 
 function set_indent_size(indent_size) {
-  config.indent_size = indent_size;
-  textarea_css.style.setProperty('tab-size', `${indent_size}`);
+  const min_indent_size = 2;
+  const max_indent_size = 10;
+
+  if ((typeof indent_size === 'number') && (indent_size >= min_indent_size && indent_size <= max_indent_size)) {
+    config.indent_size = indent_size;
+    textarea_css.style.setProperty('tab-size', `${indent_size}`);
+  }
 }
 
 function tabulation() {
@@ -35,7 +47,6 @@ function set_version(version) {
     [
       'padding',
       'font-family',
-      'font-size',
       'line-height'
     ].forEach((property) => textarea_css.style.removeProperty(property));
   }
@@ -191,7 +202,7 @@ function toggle_word_wrap(option) {
 }
 
 function clear_local_storage() {
-  if (confirm('Are you sure?')) local_storage_items.forEach((item) => localStorage.removeItem(item));
+  local_storage_items.forEach((item) => localStorage.removeItem(item));
 }
 
 function open_file() {
@@ -276,6 +287,14 @@ notepad.minify = () => {
   textarea.value = text.join('');
 };
 
+notepad.undo = () => {
+  document.execCommand('undo');
+};
+
+notepad.redo = () => {
+  document.execCommand('redo');
+};
+
 notepad.copy = () => {
   ClipboardJS.copy(textarea.value);
 };
@@ -286,4 +305,12 @@ notepad.cut = () => {
 
 notepad.clear = () => {
   textarea.value = '';
+};
+
+notepad.reset = () => {
+  if (confirm('Are you sure?')) {
+    notepad.clear();
+    clear_local_storage();
+    window.location.reload();
+  }
 };

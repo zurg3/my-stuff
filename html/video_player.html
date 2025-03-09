@@ -4,16 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Video player</title>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
   </head>
   <body>
-    <form>
+    <form id="form" hidden>
       <p>
         <label for="video_src">Video link</label>
-        <input type="text" id="video_src" size="50">
-        <input type="button" value="Submit" onclick="open_video()">
-        <input type="button" value="Fit video" onclick="fit_video()">
-        <input type="button" value="Remove video" onclick="remove_video()">
+        <input type="url" id="video_src" size="60" autocomplete="off">
       </p>
+      <p>
+        <input type="button" id="open_video_button" value="Submit" onclick="open_video()">
+        <input type="button" id="fit_video_button" value="Fit video" onclick="fit_video()" hidden>
+        <input type="button" id="remove_video_button" value="Remove video" onclick="remove_video()" hidden>
+      </p>
+      <hr>
       <p>
         <span>Video speed</span>
         <input type="button" value="0.25" onclick="video_speed(0.25)">
@@ -39,11 +43,25 @@
     <hr>
     <div id="video_player"></div>
     <script>
+      if (is_mobile()) {
+        const url_input = document.getElementById('video_src');
+        const width = Math.floor(document.body.offsetWidth * 0.9);
+
+        url_input.removeAttribute('size');
+        url_input.style.width = `${width}px`;
+      }
+
+      const form = document.getElementById('form');
+      form.hidden = false;
+
       function open_video() {
         const video_src_link = document.getElementById('video_src').value;
 
         if (video_src_link) {
-          document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden="true" onloadedmetadata="resize_video()"></video>`;
+          document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden onloadedmetadata="resize_video()"></video>`;
+
+          document.getElementById('fit_video_button').hidden = false;
+          document.getElementById('remove_video_button').hidden = false;
         }
       }
 
@@ -87,10 +105,10 @@
       }
 
       function remove_video() {
-        if (document.getElementsByTagName('video')[0]) {
-          document.getElementById('video_src').value = '';
-          document.getElementById('video_player').innerHTML = '';
-        }
+        document.getElementById('video_src').value = '';
+        document.getElementById('video_player').innerHTML = '';
+        document.getElementById('fit_video_button').hidden = true;
+        document.getElementById('remove_video_button').hidden = true;
       }
 
       function video_speed(video_speed_value) {
@@ -115,9 +133,11 @@
       }
 
       function debug_video() {
-        console.log(`Current video size: ${document.getElementsByTagName('video')[0].offsetWidth}x${document.getElementsByTagName('video')[0].offsetHeight}`);
-        console.log(`Actual video size: ${document.getElementsByTagName('video')[0].videoWidth}x${document.getElementsByTagName('video')[0].videoHeight}`);
-        console.log(`Video speed: ${document.getElementsByTagName('video')[0].playbackRate}`);
+        const video = document.getElementsByTagName('video')[0];
+
+        console.log(`Current video size: ${video.offsetWidth}x${video.offsetHeight}`);
+        console.log(`Actual video size: ${video.videoWidth}x${video.videoHeight}`);
+        console.log(`Video speed: ${video.playbackRate}`);
       }
     </script>
   </body>

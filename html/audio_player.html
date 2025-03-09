@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Audio player</title>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
     <style>
       audio:focus {
         outline: none;
@@ -11,20 +12,51 @@
     </style>
   </head>
   <body>
-    <form>
-      <label for="audio_src">Enter a link to audio source</label>
-      <input type="text" id="audio_src" size="50">
-      <input type="button" value="Submit" onclick="open_audio()">
+    <form id="form" hidden>
+      <p>
+        <label for="audio_src">Audio link</label>
+        <input type="url" id="audio_src" size="60" autocomplete="off">
+      </p>
+      <p>
+        <input type="button" id="open_audio_button" value="Submit" onclick="open_audio()">
+        <input type="button" id="fit_audio_button" value="Fit audio" onclick="fit_audio()" hidden>
+        <input type="button" id="remove_audio_button" value="Remove audio" onclick="remove_audio()" hidden>
+      </p>
     </form>
     <hr>
     <div id="audio_player"></div>
     <script>
+      if (is_mobile()) {
+        const url_input = document.getElementById('audio_src');
+        const width = Math.floor(document.body.offsetWidth * 0.9);
+
+        url_input.removeAttribute('size');
+        url_input.style.width = `${width}px`;
+      }
+
+      const form = document.getElementById('form');
+      form.hidden = false;
+
       function open_audio() {
         const audio_src_link = document.getElementById('audio_src').value;
 
         if (audio_src_link) {
           document.getElementById('audio_player').innerHTML = `<audio src="${audio_src_link}" controls preload="metadata"></audio>`;
+
+          document.getElementById('fit_audio_button').hidden = false;
+          document.getElementById('remove_audio_button').hidden = false;
         }
+      }
+
+      function fit_audio() {
+        document.getElementsByTagName('audio')[0].style.width = '100%';
+      }
+
+      function remove_audio() {
+        document.getElementById('audio_src').value = '';
+        document.getElementById('audio_player').innerHTML = '';
+        document.getElementById('fit_audio_button').hidden = true;
+        document.getElementById('remove_audio_button').hidden = true;
       }
     </script>
   </body>

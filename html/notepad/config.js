@@ -3,6 +3,7 @@ const notepad = {};
 
 // Config
 const config = {
+  font_size: 10,
   indent_mode: 'tabs',
   indent_size: 2,
   f5_time_date: true,
@@ -23,7 +24,8 @@ const statistics = {
 const local_storage_items = [
   'notepad_data',
   'notepad_theme',
-  'notepad_word_wrap'
+  'notepad_word_wrap',
+  'notepad_font_size'
 ];
 
 // Elements

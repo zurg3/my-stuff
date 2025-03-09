@@ -35,11 +35,6 @@ textarea.onkeydown = (e) => {
     e.preventDefault();
     eval(textarea.value);
   }
-  // [Ctrl]+[D] Clear all text
-  else if (e.ctrlKey && e.code === 'KeyD') {
-    e.preventDefault();
-    notepad.clear();
-  }
   // [Ctrl]+[H] Toggle write/read mode
   else if (e.ctrlKey && e.code === 'KeyH') {
     e.preventDefault();
@@ -50,30 +45,46 @@ textarea.onkeydown = (e) => {
     e.preventDefault();
     toggle_word_wrap(!config.word_wrap);
   }
-  // [Ctrl]+[K] Clear LocalStorage
+  // [Ctrl]+[K] Reset Notepad settings
   else if (e.ctrlKey && e.code === 'KeyK') {
     e.preventDefault();
-    clear_local_storage();
+    notepad.reset();
   }
   // [Ctrl]+[M] Minify text
   else if (e.ctrlKey && e.code === 'KeyM') {
     e.preventDefault();
     notepad.minify();
   }
+  // [Ctrl]+[{] / [Ctrl]+[}] Change font size
+  else if (e.ctrlKey && (e.code === 'BracketLeft' || e.code === 'BracketRight')) {
+    e.preventDefault();
+
+    const current_font_size = config.font_size;
+
+    // Decrease font size
+    if (e.code === 'BracketLeft') {
+      set_font_size(current_font_size - 1);
+    }
+    // Increase font size
+    else if (e.code === 'BracketRight') {
+      set_font_size(current_font_size + 1);
+    }
+  }
   // [Ctrl]+[<] / [Ctrl]+[>] Switch themes
   else if (e.ctrlKey && (e.code === 'Comma' || e.code === 'Period')) {
     e.preventDefault();
 
-    const theme_index = Object.keys(themes).indexOf(localStorage.notepad_theme);
-    const last_theme_index = Object.entries(themes).length - 1;
+    const theme_keys = Object.keys(themes);
+    const current_theme_index = theme_keys.indexOf(localStorage.notepad_theme);
+    const last_theme_index = theme_keys.length - 1;
 
     // Previous theme
-    if (e.code === 'Comma' && theme_index > 0) {
-      set_theme(Object.keys(themes)[theme_index - 1]);
+    if (e.code === 'Comma' && current_theme_index > 0) {
+      set_theme(theme_keys[current_theme_index - 1]);
     }
     // Next theme
-    else if (e.code === 'Period' && theme_index < last_theme_index) {
-      set_theme(Object.keys(themes)[theme_index + 1]);
+    else if (e.code === 'Period' && current_theme_index < last_theme_index) {
+      set_theme(theme_keys[current_theme_index + 1]);
     }
   }
 };
