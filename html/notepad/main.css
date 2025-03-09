@@ -1,5 +1,4 @@
 html, body {
-  background: white;
   width: 100%;
   height: 100%;
   margin: 0px;
@@ -10,9 +9,6 @@ html, body {
 }
 
 #textarea {
-  background: white;
-  color: black;
-  scrollbar-color: black white;
   width: 100%;
   height: 100%;
   padding: 0px;
