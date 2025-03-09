@@ -24,7 +24,6 @@ html, body {
   box-sizing: border-box;
   cursor: auto;
   font-family: 'Lucida Console', monospace;
-  font-size: 10pt;
   line-height: 0.9755;
   white-space: pre-wrap;
 }
