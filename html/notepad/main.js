@@ -47,9 +47,6 @@ window.onload = () => {
 
   // Execute
   if (current_url.search && params.mode && params.mode === 'exe') set_mode(params.mode);
-
-  // Display Notepad after all initial actions
-  textarea.hidden = false;
 };
 
 textarea.oninput = () => {
