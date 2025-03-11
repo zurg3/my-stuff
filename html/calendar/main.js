@@ -84,7 +84,7 @@ function create_calendar(year) {
 const current_url = new URL(window.location);
 const params = Object.fromEntries(current_url.searchParams.entries());
 
-const current_year = (current_url.search && params.year) ? parseInt(params.year, 10) : new Date().getFullYear();
+const current_year = params.year ? parseInt(params.year, 10) : new Date().getFullYear();
 
 create_calendar(current_year);
 
