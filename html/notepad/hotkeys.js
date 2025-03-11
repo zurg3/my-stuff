@@ -33,7 +33,7 @@ textarea.onkeydown = (e) => {
   // [Ctrl]+[E] Execute
   else if (e.ctrlKey && e.code === 'KeyE') {
     e.preventDefault();
-    eval(textarea.value);
+    notepad.execute();
   }
   // [Ctrl]+[H] Toggle write/read mode
   else if (e.ctrlKey && e.code === 'KeyH') {

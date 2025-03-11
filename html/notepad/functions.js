@@ -66,7 +66,7 @@ function set_mode(mode) {
   }
   // Execution mode
   else if (mode === 'exe') {
-    eval(textarea.value);
+    notepad.execute();
   }
   else {
     console.warn('Error: Mode not found!');
@@ -285,6 +285,10 @@ notepad.minify = () => {
   }
 
   textarea.value = text.join('');
+};
+
+notepad.execute = () => {
+  eval(textarea.value);
 };
 
 notepad.undo = () => {

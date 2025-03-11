@@ -22,7 +22,7 @@ function convert() {
     if (['music.youtube.com', 'www.youtube.com', 'm.youtube.com'].includes(ytm_url.host) && params.v) {
       video_id = params.v;
     }
-    else if (ytm_url.host === 'youtu.be' && ytm_url.searchParams.size > 0) {
+    else if (ytm_url.host === 'youtu.be' && ytm_url.search) {
       video_id = ytm_url.pathname.split('/')[1];
     }
     else if (['www.youtube.com', 'm.youtube.com', 'youtube.com'].includes(ytm_url.host) && ['/shorts/', '/live/', '/embed/'].some(path => ytm_url.pathname.search(path) === 0)) {
