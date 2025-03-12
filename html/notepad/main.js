@@ -3,6 +3,9 @@ window.onload = () => {
   // Set version from URL
   if (params.version) set_version(params.version);
 
+  // Set placeholder
+  if (config.placeholder) textarea.placeholder = config.placeholder;
+
   // Load Notepad data from LocalStorage
   textarea.value = localStorage.getItem('notepad_data') || '';
 

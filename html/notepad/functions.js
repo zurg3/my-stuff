@@ -30,7 +30,11 @@ function tabulation() {
 
   const indent = indent_modes[config.indent_mode] || '';
 
-  textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
+  //textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
+
+  textarea.focus();
+
+  document.execCommand('insertText', false, indent);
 }
 
 function insert_time_date() {
@@ -218,6 +222,7 @@ function open_file() {
         const reader = new FileReader();
         reader.onload = (e) => {
           textarea.value = e.target.result;
+          localStorage.setItem('notepad_data', textarea.value);
         };
         reader.readAsText(file);
       }
@@ -239,6 +244,7 @@ function open_file_url(url) {
 
       if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
         textarea.value = xmlhttp.responseText;
+        localStorage.setItem('notepad_data', textarea.value);
       }
       else {
         console.warn(`HTTP error: ${xmlhttp.status}`);
@@ -267,14 +273,17 @@ function update_debug_text() {
 
 notepad.write = (text) => {
   textarea.value = text;
+  localStorage.setItem('notepad_data', textarea.value);
 };
 
 notepad.prepend = (text) => {
   textarea.value = text + textarea.value;
+  localStorage.setItem('notepad_data', textarea.value);
 };
 
 notepad.append = (text) => {
   textarea.value = textarea.value + text;
+  localStorage.setItem('notepad_data', textarea.value);
 };
 
 notepad.minify = () => {
@@ -285,6 +294,7 @@ notepad.minify = () => {
   }
 
   textarea.value = text.join('');
+  localStorage.setItem('notepad_data', textarea.value);
 };
 
 notepad.execute = () => {
@@ -309,6 +319,7 @@ notepad.cut = () => {
 
 notepad.clear = () => {
   textarea.value = '';
+  localStorage.setItem('notepad_data', textarea.value);
 };
 
 notepad.reset = () => {

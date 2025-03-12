@@ -11,7 +11,8 @@ const config = {
   default_theme: 'system',
   random_color_type: 'hex',
   random_color_hex_way: 1,
-  word_wrap: true
+  word_wrap: true,
+  placeholder: ''
 };
 
 // Statistics
