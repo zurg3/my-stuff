@@ -16,15 +16,18 @@
       <p><input type="button" id="clipboard_button" value="Copy output to clipboard" data-clipboard-target="#output_text" data-clipboard-action="copy"></p>
     </form>
     <script>
+      const input_text = document.getElementById('input_text');
+      const output_text = document.getElementById('output_text');
+
       new ClipboardJS('#clipboard_button');
 
       function convert_text() {
-        document.getElementById('output_text').innerText = document.getElementById('input_text').value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        output_text.innerText = input_text.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       }
 
       function clear_input() {
-        document.getElementById('input_text').value = '';
-        document.getElementById('output_text').innerText = '';
+        input_text.value = '';
+        output_text.innerText = '';
       }
     </script>
   </body>

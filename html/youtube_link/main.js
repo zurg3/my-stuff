@@ -12,6 +12,8 @@ new ClipboardJS('#clipboard_button');
 
 let video_id = '';
 
+const youtube_iframe = document.createElement('iframe');
+
 function convert() {
   const youtube_music_link = document.getElementById('youtube_music_link').value;
 
@@ -47,14 +49,21 @@ function play_video() {
     const video_width = !is_mobile() ? 640 : document.body.offsetWidth;
     const video_height = !is_mobile() ? 360 : Math.floor(video_width / 1.77);
 
-    document.getElementById('youtube_video').innerHTML = `<iframe width="${video_width}" height="${video_height}" src="https://www.youtube.com/embed/${video_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    youtube_iframe.width = video_width;
+    youtube_iframe.height = video_height;
+    youtube_iframe.src = `https://www.youtube.com/embed/${video_id}`;
+    youtube_iframe.frameBorder = 0;
+    youtube_iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    youtube_iframe.allowFullscreen = true;
+
+    document.getElementById('youtube_video').append(youtube_iframe);
   }
 }
 
 function clear_input() {
   document.getElementById('youtube_music_link').value = '';
   document.getElementById('youtube_link').innerHTML = '';
-  document.getElementById('youtube_video').innerHTML = '';
+  youtube_iframe.remove();
   video_id = '';
   document.getElementById('output').hidden = true;
 }

@@ -18,15 +18,18 @@
       <p><input type="button" id="clipboard_button" value="Copy to clipboard" data-clipboard-target="#decoded_uri" data-clipboard-action="copy"></p>
     </form>
     <script>
+      const encoded_uri = document.getElementById('encoded_uri');
+      const decoded_uri = document.getElementById('decoded_uri');
+
       new ClipboardJS('#clipboard_button');
 
       function decode_uri() {
-        document.getElementById('decoded_uri').innerText = decodeURI(document.getElementById('encoded_uri').value);
+        decoded_uri.innerText = decodeURI(encoded_uri.value);
       }
 
       function clear_input() {
-        document.getElementById('encoded_uri').value = '';
-        document.getElementById('decoded_uri').innerText = '';
+        encoded_uri.value = '';
+        decoded_uri.innerText = '';
       }
     </script>
   </body>

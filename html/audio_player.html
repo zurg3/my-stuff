@@ -37,11 +37,16 @@
       const form = document.getElementById('form');
       form.hidden = false;
 
-      function open_audio() {
-        const audio_src_link = document.getElementById('audio_src').value;
+      const audio = document.createElement('audio');
+      const audio_link = document.getElementById('audio_src');
 
-        if (audio_src_link) {
-          document.getElementById('audio_player').innerHTML = `<audio src="${audio_src_link}" controls preload="metadata"></audio>`;
+      function open_audio() {
+        if (audio_link.value) {
+          audio.src = audio_link.value;
+          audio.controls = true;
+          audio.preload = 'metadata';
+
+          document.getElementById('audio_player').append(audio);
 
           document.getElementById('fit_audio_button').hidden = false;
           document.getElementById('remove_audio_button').hidden = false;
@@ -49,12 +54,12 @@
       }
 
       function fit_audio() {
-        document.getElementsByTagName('audio')[0].style.width = '100%';
+        audio.style.width = '100%';
       }
 
       function remove_audio() {
-        document.getElementById('audio_src').value = '';
-        document.getElementById('audio_player').innerHTML = '';
+        audio_link.value = '';
+        audio.remove();
         document.getElementById('fit_audio_button').hidden = true;
         document.getElementById('remove_audio_button').hidden = true;
       }

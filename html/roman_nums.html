@@ -68,21 +68,26 @@
       </form>
     </div>
     <script>
-      const arabic = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
-      const roman = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
+      const arabic = document.getElementById('arabic');
+      const roman = document.getElementById('roman');
+
+      const arabic_array = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+      const roman_array = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'];
 
       function arabic_to_roman(number) {
         let ret = '';
-        let i = arabic.length - 1;
+        let i = arabic_array.length - 1;
+
         while (number > 0) {
-          if (number >= arabic[i]) {
-            ret += roman[i];
-            number -= arabic[i];
+          if (number >= arabic_array[i]) {
+            ret += roman_array[i];
+            number -= arabic_array[i];
           }
           else {
             i--;
           }
         }
+
         return ret;
       }
 
@@ -90,35 +95,37 @@
         roman_num = roman_num.toUpperCase();
 
         let ret = 0;
-        let i = arabic.length - 1;
+        let i = arabic_array.length - 1;
         let pos = 0;
-        while ((i >= 0) && (pos < roman_num.length)) {
-          if (roman_num.substr(pos, roman[i].length) === roman[i]) {
-            ret += arabic[i];
-            pos += roman[i].length;
+
+        while (i >= 0 && pos < roman_num.length) {
+          if (roman_num.substr(pos, roman_array[i].length) === roman_array[i]) {
+            ret += arabic_array[i];
+            pos += roman_array[i].length;
           }
           else {
             i--;
           }
         }
+
         return ret;
       }
 
       function convert_arabic_to_roman() {
-        document.getElementById('arabic').value = document.getElementById('arabic').value.replace(/[^0-9]/, '');
-        document.getElementById('roman').value = document.getElementById('arabic').value ? arabic_to_roman(document.getElementById('arabic').value) : '';
-        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
+        arabic.value = arabic.value.replace(/[^0-9]/, '');
+        roman.value = arabic.value ? arabic_to_roman(arabic.value) : '';
+        roman.value = roman.value.toUpperCase();
       }
 
       function convert_roman_to_arabic() {
-        document.getElementById('roman').value = document.getElementById('roman').value.replace(/[^IiVvXxLlCcDdMm]/, '');
-        document.getElementById('arabic').value = document.getElementById('roman').value ? roman_to_arabic(document.getElementById('roman').value) : '';
-        document.getElementById('roman').value = document.getElementById('roman').value.toUpperCase();
+        roman.value = roman.value.replace(/[^IiVvXxLlCcDdMm]/, '');
+        arabic.value = roman.value ? roman_to_arabic(roman.value) : '';
+        roman.value = roman.value.toUpperCase();
       }
 
       function clear_input() {
-        document.getElementById('arabic').value = '';
-        document.getElementById('roman').value = '';
+        arabic.value = '';
+        roman.value = '';
       }
     </script>
   </body>

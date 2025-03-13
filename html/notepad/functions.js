@@ -30,8 +30,6 @@ function tabulation() {
 
   const indent = indent_modes[config.indent_mode] || '';
 
-  //textarea.setRangeText(indent, textarea.selectionStart, textarea.selectionStart, 'end');
-
   textarea.focus();
 
   document.execCommand('insertText', false, indent);
@@ -177,7 +175,9 @@ function show_theme(theme_key) {
   }
   else {
     console.log(`Themes:`);
-    Object.keys(themes).forEach((theme) => console.log(`${localStorage.getItem('notepad_theme') === theme ? '[*]' : '[ ]'} ${theme}`));
+    for (let i = 0; i < total_themes; i++) {
+      console.log(`${localStorage.getItem('notepad_theme') === theme_keys[i] ? '[*]' : '[ ]'} ${theme_keys[i]} [${i + 1}/${total_themes}]`);
+    }
   }
 }
 
@@ -193,7 +193,7 @@ function show_statistics() {
   console.log(`- Characters: ${statistics.characters}`);
   console.log(`- Lines: ${statistics.lines}`);
   console.log(`-----`);
-  console.log(`- Themes: ${Object.entries(themes).length}`);
+  console.log(`- Themes: ${total_themes}`);
 }
 
 function toggle_word_wrap(option) {

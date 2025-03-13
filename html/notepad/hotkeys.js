@@ -74,9 +74,8 @@ textarea.onkeydown = (e) => {
   else if (e.ctrlKey && (e.code === 'Comma' || e.code === 'Period')) {
     e.preventDefault();
 
-    const theme_keys = Object.keys(themes);
-    const current_theme_index = theme_keys.indexOf(localStorage.notepad_theme);
-    const last_theme_index = theme_keys.length - 1;
+    const current_theme_index = theme_keys.indexOf(localStorage.getItem('notepad_theme'));
+    const last_theme_index = total_themes - 1;
 
     // Previous theme
     if (e.code === 'Comma' && current_theme_index > 0) {

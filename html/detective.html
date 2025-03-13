@@ -17,6 +17,8 @@
     <hr>
     <div id="output"></div>
     <script>
+      const output = document.getElementById('output');
+
       function search_user() {
         const username = document.getElementById('username').value;
 
@@ -55,17 +57,16 @@
           'YouTube': `https://www.youtube.com/@${username}`
         };
 
-        document.getElementById('output').innerHTML = '';
-
-        document.getElementById('output').innerHTML += `<p>Results for <b>${username}</b></p>`;
-        document.getElementById('output').innerHTML += '<ul></ul>';
+        output.innerHTML = '';
+        output.innerHTML += `<p>Results for <b>${username}</b></p>`;
+        output.innerHTML += '<ul></ul>';
         for (let i in sites) {
           document.getElementsByTagName('ul')[0].innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
         }
       }
 
       function clear_input() {
-        document.getElementById('output').innerHTML = '';
+        output.innerHTML = '';
       }
     </script>
   </body>

@@ -97,16 +97,18 @@
       </form>
     </div>
     <script>
+      const min_input = document.getElementById('random_num_min');
+      const max_input = document.getElementById('random_num_max');
+      const output = document.getElementById('output');
+
       function get_random_number() {
-        if (document.getElementById('random_num_min').value && document.getElementById('random_num_max').value) {
-          const random_num_min = parseInt(document.getElementById('random_num_min').value, 10);
-          const random_num_max = parseInt(document.getElementById('random_num_max').value, 10);
+        if (min_input.value && max_input.value) {
+          const min = parseInt(min_input.value, 10);
+          const max = parseInt(max_input.value, 10);
 
-          if (random_num_min >= random_num_max) {
-            document.getElementById('random_num_max').value = random_num_min + 1;
-          }
+          if (min >= max) max_input.value = min + 1;
 
-          document.getElementById('output').innerText = random_number(random_num_min, random_num_max);
+          output.innerText = random_number(min, max);
         }
       }
     </script>

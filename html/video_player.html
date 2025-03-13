@@ -54,11 +54,20 @@
       const form = document.getElementById('form');
       form.hidden = false;
 
-      function open_video() {
-        const video_src_link = document.getElementById('video_src').value;
+      const video = document.createElement('video');
+      const video_link = document.getElementById('video_src');
 
-        if (video_src_link) {
-          document.getElementById('video_player').innerHTML = `<video src="${video_src_link}" width="640" height="480" controls preload="metadata" hidden onloadedmetadata="resize_video()"></video>`;
+      function open_video() {
+        if (video_link.value) {
+          video.src = video_link.value;
+          video.width = 640;
+          video.height = 480;
+          video.controls = true;
+          video.preload = 'metadata';
+          video.hidden = true;
+          video.setAttribute('onloadedmetadata', 'resize_video()');
+
+          document.getElementById('video_player').append(video);
 
           document.getElementById('fit_video_button').hidden = false;
           document.getElementById('remove_video_button').hidden = false;
@@ -68,7 +77,7 @@
       function resize_video() {
         let video_size_scale;
 
-        switch (document.getElementsByTagName('video')[0].videoHeight) {
+        switch (video.videoHeight) {
           case 1080:
             video_size_scale = 0.25;
             break;
@@ -84,57 +93,53 @@
             video_size_scale = 1;
         }
 
-        document.getElementsByTagName('video')[0].width = document.getElementsByTagName('video')[0].videoWidth * video_size_scale;
-        document.getElementsByTagName('video')[0].height = document.getElementsByTagName('video')[0].videoHeight * video_size_scale;
+        video.width = video.videoWidth * video_size_scale;
+        video.height = video.videoHeight * video_size_scale;
 
-        document.getElementsByTagName('video')[0].hidden = false;
+        video.hidden = false;
 
         debug_video();
       }
 
       function fit_video() {
-        if (document.getElementsByTagName('video')[0]) {
-          document.getElementsByTagName('video')[0].removeAttribute('width');
-          document.getElementsByTagName('video')[0].removeAttribute('height');
+        if (video) {
+          video.removeAttribute('width');
+          video.removeAttribute('height');
 
-          document.getElementsByTagName('video')[0].style.width = '100%';
-          document.getElementsByTagName('video')[0].style.height = 'auto';
+          video.style.width = '100%';
+          video.style.height = 'auto';
 
           debug_video();
         }
       }
 
       function remove_video() {
-        document.getElementById('video_src').value = '';
-        document.getElementById('video_player').innerHTML = '';
+        video_link.value = '';
+        video.remove();
         document.getElementById('fit_video_button').hidden = true;
         document.getElementById('remove_video_button').hidden = true;
       }
 
       function video_speed(video_speed_value) {
-        if (document.getElementsByTagName('video')[0]) {
-          document.getElementsByTagName('video')[0].playbackRate = video_speed_value;
+        if (video) {
+          video.playbackRate = video_speed_value;
 
           debug_video();
         }
       }
 
       function expand_video_size(expand_video_size_value) {
-        if (document.getElementsByTagName('video')[0]) {
-          if (document.getElementsByTagName('video')[0].style.width || document.getElementsByTagName('video')[0].style.height) {
-            document.getElementsByTagName('video')[0].removeAttribute('style');
-          }
+        if (video) {
+          if (video.style.width || video.style.height) video.removeAttribute('style');
 
-          document.getElementsByTagName('video')[0].width = document.getElementsByTagName('video')[0].videoWidth * expand_video_size_value;
-          document.getElementsByTagName('video')[0].height = document.getElementsByTagName('video')[0].videoHeight * expand_video_size_value;
+          video.width = video.videoWidth * expand_video_size_value;
+          video.height = video.videoHeight * expand_video_size_value;
 
           debug_video();
         }
       }
 
       function debug_video() {
-        const video = document.getElementsByTagName('video')[0];
-
         console.log(`Current video size: ${video.offsetWidth}x${video.offsetHeight}`);
         console.log(`Actual video size: ${video.videoWidth}x${video.videoHeight}`);
         console.log(`Video speed: ${video.playbackRate}`);

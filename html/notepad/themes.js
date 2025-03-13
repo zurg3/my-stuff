@@ -181,3 +181,6 @@ const themes = {
     colors: []
   }
 };
+
+const theme_keys = Object.keys(themes);
+const total_themes = theme_keys.length;
