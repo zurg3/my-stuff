@@ -44,6 +44,6 @@ function remove_audio() {
 
 function clear_input() {
   audio_link.value = '';
-  remove_audio();
   document.getElementById('fit_audio_button').hidden = true;
+  remove_audio();
 }
