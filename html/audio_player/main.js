@@ -9,19 +9,25 @@ if (is_mobile()) {
 const form = document.getElementById('form');
 form.hidden = false;
 
+const audio_player = document.getElementById('audio_player');
 const audio = document.createElement('audio');
 const audio_link = document.getElementById('audio_src');
 
 function open_audio() {
-  if (audio_link.value) {
+  if (audio_link.value && (audio_link.value.startsWith('https://') || audio_link.value.startsWith('http://'))) {
     audio.src = audio_link.value;
     audio.controls = true;
     audio.preload = 'metadata';
+    audio.muted = false;
+    audio.volume = 1;
+    audio.removeAttribute('style');
 
-    document.getElementById('audio_player').append(audio);
+    audio_player.append(audio);
 
     document.getElementById('fit_audio_button').hidden = false;
-    document.getElementById('remove_audio_button').hidden = false;
+  }
+  else {
+    alert('Something is wrong!');
   }
 }
 
@@ -30,8 +36,14 @@ function fit_audio() {
 }
 
 function remove_audio() {
-  audio_link.value = '';
+  audio.pause();
+  audio.src = '';
+  //video.load();
   audio.remove();
+}
+
+function clear_input() {
+  audio_link.value = '';
+  remove_audio();
   document.getElementById('fit_audio_button').hidden = true;
-  document.getElementById('remove_audio_button').hidden = true;
 }

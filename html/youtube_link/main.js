@@ -63,7 +63,8 @@ function play_video() {
 function clear_input() {
   document.getElementById('youtube_music_link').value = '';
   document.getElementById('youtube_link').innerHTML = '';
+  document.getElementById('output').hidden = true;
+  youtube_iframe.src = '';
   youtube_iframe.remove();
   video_id = '';
-  document.getElementById('output').hidden = true;
 }
