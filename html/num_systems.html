@@ -4,88 +4,8 @@
     <meta charset="utf-8">
     <title>Numeral systems converter</title>
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="num_systems/main.css" rel="stylesheet">
     <link href="https://em-content.zobj.net/thumbs/120/twitter/322/input-numbers_1f522.png" rel="icon">
-    <style>
-      body {
-        font-family: 'Share Tech Mono', monospace;
-        margin-left: 20px;
-      }
-
-      #bin, #oct, #dec, #hex {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 16px;
-        border: 1px solid Grey;
-        border-radius: 4px;
-        width: 200px;
-        height: 20px;
-        padding: 6px;
-      }
-
-      #converter {
-        display: inline-block;
-        float: left;
-        border: 1px solid Black;
-        border-radius: 8px;
-        padding: 12px;
-      }
-
-      #hints {
-        display: inline-block;
-        float: left;
-        width: 280px;
-        border-radius: 4px;
-        background: #d9a762;
-        margin-left: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .hint_list {
-        list-style: square;
-        padding-left: 20px;
-      }
-
-      #cheat_sheet {
-        display: none;
-        float: left;
-        background: Black;
-        color: Green;
-        width: 280px;
-        border-radius: 4px;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        padding-top: 10px;
-        padding-bottom: 20px;
-      }
-
-      .primary_button {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        width: 160px;
-        border: 1px solid rgba(27,31,35,0.2);
-        border-radius: 6px;
-        color: #24292e;
-        background-color: #eff3f6;
-        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-        padding: 3px 14px;
-        line-height: 24px;
-        cursor: pointer;
-      }
-
-      .primary_button:focus {
-        outline: none;
-      }
-
-      .primary_button:hover {
-        background-image: linear-gradient(-180deg,#d0d0d0,#eff3f6 90%);
-      }
-
-      .primary_button:active {
-        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-      }
-    </style>
   </head>
   <body>
     <h1>Numeral systems converter</h1>
@@ -133,82 +53,9 @@
           <td width="40"><b>DEC</b></td>
           <td width="40"><b>HEX</b></td>
         </tr>
-        <script>
-          for (let i = 1; i <= 100; i++) {
-            const cs_bin = parseInt(i, 10).toString(2);
-            const cs_oct = parseInt(i, 10).toString(8);
-            const cs_dec = parseInt(i, 10).toString(10);
-            const cs_hex = parseInt(i, 10).toString(16).toUpperCase();
-
-            document.write('<tr>');
-              document.write(`<td>${cs_bin}</td>`);
-              document.write(`<td>${cs_oct}</td>`);
-              document.write(`<td>${cs_dec}</td>`);
-              document.write(`<td>${cs_hex}</td>`);
-            document.write('</tr>');
-          }
-        </script>
+        <script type="text/javascript" src="num_systems/cheat_sheet.js"></script>
       </table>
     </div>
-    <script>
-      const bin = document.getElementById('bin');
-      const oct = document.getElementById('oct');
-      const dec = document.getElementById('dec');
-      const hex = document.getElementById('hex');
-
-      const cheat_sheet = document.getElementById('cheat_sheet');
-      const cheat_sheet_button = document.getElementsByClassName('primary_button')[1];
-
-      function convert(value, from_base) {
-        if (value) {
-          const num = parseInt(value, from_base);
-
-          bin.value = num.toString(2);
-          oct.value = num.toString(8);
-          dec.value = num.toString(10);
-          hex.value = num.toString(16).toUpperCase();
-        }
-        else {
-          bin.value = '';
-          oct.value = '';
-          dec.value = '';
-          hex.value = '';
-        }
-      }
-
-      function filter_input(input, regex) {
-        return input.replace(regex, '');
-      }
-
-      function convert_from_bin() {
-        convert(filter_input(bin.value, /[^0-1]/), 2);
-      }
-
-      function convert_from_oct() {
-        convert(filter_input(oct.value, /[^0-7]/), 8);
-      }
-
-      function convert_from_dec() {
-        convert(filter_input(dec.value, /[^0-9]/), 10);
-      }
-
-      function convert_from_hex() {
-        convert(filter_input(hex.value, /[^0-9a-fA-F]/), 16);
-      }
-
-      function cheat_sheet_display() {
-        const is_shown = cheat_sheet.style.display === 'inline-block';
-
-        cheat_sheet.style.display = is_shown ? 'none' : 'inline-block';
-        cheat_sheet_button.value = is_shown ? 'Show cheat sheet' : 'Hide cheat sheet';
-      }
-
-      function clear_input() {
-        bin.value = '';
-        oct.value = '';
-        dec.value = '';
-        hex.value = '';
-      }
-    </script>
+    <script type="text/javascript" src="num_systems/main.js"></script>
   </body>
 </html>
