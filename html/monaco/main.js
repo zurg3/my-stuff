@@ -10,7 +10,7 @@ const editor = monaco.editor.create(container, {
   value,
   language: lang,
   theme: 'vs-dark',
-  contextmenu: false,
+  contextmenu: true,
   automaticLayout: true,
   fontFamily: 'Menlo, Consolas, "DejaVu Sans Mono", monospace',
   fontSize: 13,
