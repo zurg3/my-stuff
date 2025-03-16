@@ -355,7 +355,7 @@
       "token": "invalid.deprecated"
     },
     {
-      "foreground": "white",
+      "foreground": "#FFFFFF",
       "background": "#E05252",
       "token": "invalid.illegal"
     },
