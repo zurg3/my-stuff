@@ -679,7 +679,7 @@
       "token": "ng.attribute-with-value string.end"
     },
     {
-      "foreground": "inherit",
+      "foreground": "#56B6C2",
       "token": "source.ruby constant.other.symbol > punctuation"
     },
     {
