@@ -4,7 +4,7 @@ const notepad = {};
 // Config
 const config = {
   font_size: 10,
-  indent_mode: 'tabs',
+  soft_tabs: false,
   indent_size: 2,
   f5_time_date: true,
   time_date_format: 'HH:mm DD.MM.YYYY',

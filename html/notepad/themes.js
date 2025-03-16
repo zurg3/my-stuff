@@ -112,62 +112,62 @@ const themes = {
   },
   copper: {
     name: 'Copper Evening Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#24272d', '#d56835']
   },
   rose: {
     name: 'Night Rose Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#3d2542', '#f53a7f']
   },
   amethyst: {
     name: 'Midnight Amethyst Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#0f1623', '#b481c4']
   },
   neon: {
     name: 'Deep Neon Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#1f4060', '#31da52']
   },
   coral: {
     name: 'Coral Sunset Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#6f4252', '#fc5717']
   },
   peachy: {
     name: 'Peachy Passion Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#ffc19b', '#f8270e']
   },
   emerald: {
     name: 'Emerald Glow Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#345845', '#6cfa29']
   },
   teal: {
     name: 'Mystic Teal Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#0c0104', '#46dbc8']
   },
   ember: {
     name: 'Golden Ember Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#43332a', '#fbe706']
   },
   lime: {
     name: 'Lime Shadow Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#0d080b', '#a6e92c']
   },
   bronze: {
     name: 'Bronze Nightfall Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#d69e53', '#2c1176']
   },
   sapphire: {
     name: 'Midnight Sapphire Theme',
-    description: 'Name suggested by GPT-4o mini',
+    description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#0b0d31', '#b3b7a3']
   },
   makaba: {

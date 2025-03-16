@@ -21,14 +21,7 @@ function set_indent_size(indent_size) {
 }
 
 function tabulation() {
-  const indent_modes = {
-    spaces: ' '.repeat(config.indent_size),
-    tabs: '\t',
-    dots: '.'.repeat(config.indent_size),
-    underscores: '_'.repeat(config.indent_size)
-  };
-
-  const indent = indent_modes[config.indent_mode] || '';
+  const indent = config.soft_tabs ? ' '.repeat(config.indent_size) : '\t';
 
   textarea.focus();
 
