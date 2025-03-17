@@ -22,17 +22,13 @@ function set_indent_size(indent_size) {
 
 function tabulation() {
   const indent = config.soft_tabs ? ' '.repeat(config.indent_size) : '\t';
-
   textarea.focus();
-
   document.execCommand('insertText', false, indent);
 }
 
 function insert_time_date() {
   const time_date = moment().format(config.time_date_format);
-
   textarea.focus();
-
   document.execCommand('insertText', false, time_date);
 }
 

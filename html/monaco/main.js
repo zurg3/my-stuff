@@ -3,24 +3,37 @@ const params = Object.fromEntries(current_url.searchParams.entries());
 
 const container = document.getElementById('container');
 
-const value = '';
 const lang = params.lang ? params.lang : 'plaintext';
 
 const editor = monaco.editor.create(container, {
-  value,
+  value: '',
+  placeholder: '',
   language: lang,
   theme: 'vs-dark',
   contextmenu: true,
   automaticLayout: true,
+  'bracketPairColorization.enabled': false,
+  colorDecorators: true,
+  colorDecoratorsActivatedOn: 'click',
+  folding: true,
   fontFamily: 'Menlo, Consolas, "DejaVu Sans Mono", monospace',
   fontSize: 13,
+  guides: {
+    indentation: false
+  },
+  insertSpaces: true,
   lineHeight: 1.45,
   lineNumbers: 'on',
+  links: true,
+  matchBrackets: 'near',
   minimap: {
     enabled: false
   },
+  occurrencesHighlight: 'off',
   renderWhitespace: 'none',
   scrollBeyondLastLine: false,
+  selectionHighlight: false,
+  showDeprecated: false,
   tabSize: 2
 });
 
