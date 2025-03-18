@@ -194,6 +194,14 @@ function toggle_word_wrap(option) {
   }
 }
 
+function load_data() {
+  textarea.value = localStorage.getItem('notepad_data') || '';
+}
+
+function save_data() {
+  localStorage.setItem('notepad_data', textarea.value);
+}
+
 function clear_local_storage() {
   local_storage_items.forEach((item) => localStorage.removeItem(item));
 }
@@ -211,7 +219,7 @@ function open_file() {
         const reader = new FileReader();
         reader.onload = (e) => {
           textarea.value = e.target.result;
-          localStorage.setItem('notepad_data', textarea.value);
+          save_data();
         };
         reader.readAsText(file);
       }
@@ -233,7 +241,7 @@ function open_file_url(url) {
 
       if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
         textarea.value = xmlhttp.responseText;
-        localStorage.setItem('notepad_data', textarea.value);
+        save_data();
       }
       else {
         console.warn(`HTTP error: ${xmlhttp.status}`);
@@ -262,17 +270,17 @@ function update_debug_text() {
 
 notepad.write = (text) => {
   textarea.value = text;
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };
 
 notepad.prepend = (text) => {
   textarea.value = text + textarea.value;
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };
 
 notepad.append = (text) => {
   textarea.value = textarea.value + text;
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };
 
 notepad.minify = () => {
@@ -283,7 +291,7 @@ notepad.minify = () => {
   }
 
   textarea.value = text.join('');
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };
 
 notepad.execute = () => {
@@ -308,7 +316,7 @@ notepad.cut = () => {
 
 notepad.clear = () => {
   textarea.value = '';
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };
 
 notepad.reset = () => {

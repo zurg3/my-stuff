@@ -7,7 +7,7 @@ window.onload = () => {
   if (config.placeholder) textarea.placeholder = config.placeholder;
 
   // Load Notepad data from LocalStorage
-  textarea.value = localStorage.getItem('notepad_data') || '';
+  load_data();
 
   // Set cursor position to beginning
   textarea.setSelectionRange(0, 0);
@@ -35,5 +35,5 @@ textarea.oninput = () => {
   update_debug_text();
 
   // Save Notepad data to LocalStorage
-  localStorage.setItem('notepad_data', textarea.value);
+  save_data();
 };

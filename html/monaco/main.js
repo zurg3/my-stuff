@@ -13,7 +13,7 @@ const editor = monaco.editor.create(container, {
   contextmenu: true,
   automaticLayout: true,
   'bracketPairColorization.enabled': false,
-  colorDecorators: true,
+  colorDecorators: false,
   colorDecoratorsActivatedOn: 'click',
   folding: true,
   fontFamily: 'Menlo, Consolas, "DejaVu Sans Mono", monospace',

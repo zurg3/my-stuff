@@ -173,7 +173,7 @@ const themes = {
   makaba: {
     name: 'Makaba Theme',
     description: 'Colors taken from https://2ch.hk',
-    colors: ['#eeeeee', '#333333']
+    colors: ['#dddddd', '#ff6600']
   },
   random: {
     name: 'Random Colors Theme',
