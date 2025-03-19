@@ -2,18 +2,23 @@
 const notepad = {};
 
 // Config
-const config = {
+const config = {};
+
+// Default config
+const default_config = {
   font_size: 10,
   soft_tabs: false,
   indent_size: 2,
   f5_time_date: true,
   time_date_format: 'HH:mm DD.MM.YYYY',
-  default_theme: 'system',
+  theme: 'system',
   random_color_type: 'hex',
   random_color_hex_way: 1,
   word_wrap: true,
   placeholder: ''
 };
+
+Object.freeze(default_config);
 
 // Statistics
 const statistics = {
@@ -24,9 +29,7 @@ const statistics = {
 // LocalStorage items
 const local_storage_items = [
   'notepad_data',
-  'notepad_theme',
-  'notepad_word_wrap',
-  'notepad_font_size'
+  'notepad_config'
 ];
 
 // Elements

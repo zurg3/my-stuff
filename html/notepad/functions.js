@@ -4,9 +4,9 @@ function set_font_size(font_size) {
   const max_font_size = 30;
 
   if ((typeof font_size === 'number') && (font_size >= min_font_size && font_size <= max_font_size)) {
-    config.font_size = font_size;
     textarea_css.style.setProperty('font-size', `${font_size}pt`);
-    localStorage.setItem('notepad_font_size', `${font_size}`);
+    config.font_size = font_size;
+    save_config();
   }
 }
 
@@ -15,8 +15,9 @@ function set_indent_size(indent_size) {
   const max_indent_size = 10;
 
   if ((typeof indent_size === 'number') && (indent_size >= min_indent_size && indent_size <= max_indent_size)) {
-    config.indent_size = indent_size;
     textarea_css.style.setProperty('tab-size', `${indent_size}`);
+    config.indent_size = indent_size;
+    save_config();
   }
 }
 
@@ -27,7 +28,7 @@ function tabulation() {
 }
 
 function insert_time_date() {
-  const time_date = moment().format(config.time_date_format);
+  const time_date = dayjs().format(config.time_date_format);
   textarea.focus();
   document.execCommand('insertText', false, time_date);
 }
@@ -144,7 +145,8 @@ function set_theme(theme_key) {
 
   if (themes[theme_key]) {
     set_theme_colors(...themes[theme_key].colors);
-    localStorage.setItem('notepad_theme', theme_key);
+    config.theme = theme_key;
+    save_config();
   }
   else {
     console.warn('Error: Theme not found!');
@@ -165,7 +167,7 @@ function show_theme(theme_key) {
   else {
     console.log(`Themes:`);
     for (let i = 0; i < total_themes; i++) {
-      console.log(`${localStorage.getItem('notepad_theme') === theme_keys[i] ? '[*]' : '[ ]'} ${theme_keys[i]} [${i + 1}/${total_themes}]`);
+      console.log(`${config.theme === theme_keys[i] ? '[*]' : '[ ]'} ${theme_keys[i]} [${i + 1}/${total_themes}]`);
     }
   }
 }
@@ -187,10 +189,10 @@ function show_statistics() {
 
 function toggle_word_wrap(option) {
   if (typeof option === 'boolean') {
-    config.word_wrap = option;
     textarea_css.style.setProperty('overflow-x', option ? 'auto' : 'scroll');
     textarea_css.style.setProperty('white-space', option ? 'pre-wrap' : 'pre');
-    localStorage.setItem('notepad_word_wrap', `${option}`);
+    config.word_wrap = option;
+    save_config();
   }
 }
 
@@ -200,6 +202,15 @@ function load_data() {
 
 function save_data() {
   localStorage.setItem('notepad_data', textarea.value);
+}
+
+function load_config() {
+  const loaded_config = JSON.parse(localStorage.getItem('notepad_config')) || default_config;
+  Object.assign(config, loaded_config);
+}
+
+function save_config() {
+  localStorage.setItem('notepad_config', JSON.stringify(config));
 }
 
 function clear_local_storage() {
