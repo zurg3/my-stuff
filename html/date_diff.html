@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Difference between dates</title>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   </head>
   <body onload="set_current_date()">
     <h1>Difference between dates</h1>
@@ -20,45 +21,41 @@
       <p>Difference:<br><b><span id="output">Same dates</span></b></p>
     </form>
     <script>
+      const date_from = document.getElementById('date_from');
+      const date_to = document.getElementById('date_to');
+      const output = document.getElementById('output');
+
       function set_current_date() {
-        const current_date = new Date();
+        const current_date = dayjs().format('YYYY-MM-DD');
 
-        const yyyy = current_date.getFullYear();
-        const mm = String(current_date.getMonth() + 1).padStart(2, '0');
-        const dd = String(current_date.getDate()).padStart(2, '0');
-
-        const formatted_date = `${yyyy}-${mm}-${dd}`;
-
-        document.getElementById('date_from').value = formatted_date;
-        document.getElementById('date_to').value = formatted_date;
+        date_from.value = current_date;
+        date_to.value = current_date;
       }
 
       function get_difference() {
-        if (document.getElementById('date_from').value && document.getElementById('date_to').value) {
-          const date_from_unix_time = new Date(document.getElementById('date_from').value).getTime() / 1000;
-          const date_to_unix_time = new Date(document.getElementById('date_to').value).getTime() / 1000;
+        if (date_from.value && date_to.value) {
+          const date1 = dayjs(date_from.value);
+          const date2 = dayjs(date_to.value);
 
-          const difference_unix_time = date_to_unix_time - date_from_unix_time;
-          const difference_days = Math.abs(difference_unix_time / 60 / 60 / 24);
+          const diff_days = Math.abs(date1.diff(date2, 'day'));
 
-          let output = '';
+          let diff_output = '';
 
-          if (difference_days === 0) {
-            output = 'Same dates';
+          if (diff_days === 0) {
+            diff_output = 'Same dates';
           }
-          else if (difference_days === 1) {
-            output = `${difference_days} day`;
+          else if (diff_days === 1) {
+            diff_output = `${diff_days} day`;
           }
-          else if (difference_days > 1) {
-            output = `${difference_days} days`;
+          else if (diff_days > 1) {
+            diff_output = `${diff_days} days`;
           }
 
-          document.getElementById('output').innerText = output;
+          output.innerText = diff_output;
         }
         else {
           set_current_date();
-
-          document.getElementById('output').innerText = 'Error';
+          output.innerText = 'Error';
         }
       }
     </script>

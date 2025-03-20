@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My thousand days roadmap</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <style>
       body {
         font-family: 'Source Sans Pro', sans-serif;
@@ -35,8 +36,8 @@
       const seconds_per_day = 1 * 60 * 60 * 24;
       const seconds_per_1k_days = seconds_per_day * 1000;
 
-      const birthday_unix_time = 910249200; // 1998-11-05 10:00:00 (UTC +03:00/MSK)
-      const current_unix_time = Math.floor(Date.now() / 1000);
+      const birthday_unix_time = dayjs('1998-11-05 10:00:00').unix();
+      const current_unix_time = dayjs().unix();
       let milestone_unix_time = birthday_unix_time;
 
       for (let i = 0; i < 30; i++) {

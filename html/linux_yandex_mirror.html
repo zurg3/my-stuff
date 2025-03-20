@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Download GNU/Linux ISO images</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <style>
       body {
         font-family: 'Source Sans Pro', sans-serif;
@@ -77,48 +78,13 @@
       const linux_mint_arch = '64bit';
 
       // Arch Linux
-      const current_date = new Date();
-      const yyyy = current_date.getFullYear();
-      const mm = parseInt(String(current_date.getMonth() + 1).padStart(2, '0'), 10);
-      const dd = String(current_date.getDate()).padStart(2, '0');
+      const current_date = dayjs();
 
-      let arch_linux_releases = [];
-      if (mm === 2) {
-        if (parseInt(dd, 10) >= 3) {
-          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
-        }
-        else {
-          arch_linux_releases[0] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy-1}.${String(mm+9).padStart(2, '0')}.01`;
-        }
-      }
-      else if (mm === 1) {
-        if (parseInt(dd, 10) >= 3) {
-          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy-1}.${String(mm+11).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
-        }
-        else {
-          arch_linux_releases[0] = `${yyyy-1}.${String(mm+11).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy-1}.${String(mm+10).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy-1}.${String(mm+9).padStart(2, '0')}.01`;
-        }
-      }
-      else {
-        if (parseInt(dd, 10) >= 3) {
-          arch_linux_releases[0] = `${yyyy}.${String(mm).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy}.${String(mm-2).padStart(2, '0')}.01`;
-        }
-        else {
-          arch_linux_releases[0] = `${yyyy}.${String(mm-1).padStart(2, '0')}.01`;
-          arch_linux_releases[1] = `${yyyy}.${String(mm-2).padStart(2, '0')}.01`;
-          arch_linux_releases[2] = `${yyyy}.${String(mm-3).padStart(2, '0')}.01`;
-        }
-      }
+      let arch_linux_releases = [
+        `${current_date.format('YYYY.MM')}.01`,
+        `${current_date.subtract(1, 'month').format('YYYY.MM')}.01`,
+        `${current_date.subtract(2, 'month').format('YYYY.MM')}.01`,
+      ];
       const arch_linux_arch = 'x86_64';
 
       // Fedora

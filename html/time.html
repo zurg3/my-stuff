@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Time</title>
     <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
     <style>
       body {
         font-family: 'Fira Mono', monospace;
@@ -148,10 +150,12 @@
       </div>
     </div>
     <script>
+      dayjs.extend(window.dayjs_plugin_utc);
+
       const timeout_delay = 1000;
 
       function print_unix_time() {
-        const unix_time = (Math.floor(Date.now() / 1000)).toString();
+        const unix_time = dayjs().unix();
 
         document.getElementById('unix_time').innerText = unix_time;
 
@@ -159,36 +163,22 @@
       }
 
       function print_utc_time() {
-        const utc_time = new Date();
+        const utc_time = dayjs().utc().format('HH:mm:ss');
 
-        const utc_time_hours = utc_time.getUTCHours().toString().padStart(2, '0');
-        const utc_time_minutes = utc_time.getUTCMinutes().toString().padStart(2, '0');
-        const utc_time_seconds = utc_time.getUTCSeconds().toString().padStart(2, '0');
-
-        document.getElementById('utc_time').innerText = `${utc_time_hours}:${utc_time_minutes}:${utc_time_seconds}`;
+        document.getElementById('utc_time').innerText = utc_time;
 
         setTimeout(print_utc_time, timeout_delay);
       }
 
       function print_local_time() {
-        const local_time = new Date();
+        const local_time = dayjs();
+        const local_time_format = local_time.format('HH:mm:ss');
 
-        let timezone_offset = (local_time.getTimezoneOffset() / 60).toString();
-
-        if (timezone_offset[0] === '-') {
-          timezone_offset = timezone_offset.replace('-', '+');
-        }
-        else if (timezone_offset[0] === '+') {
-          timezone_offset = timezone_offset.replace('+', '-');
-        }
+        let timezone_offset = local_time.utcOffset() / 60;
+        timezone_offset = `${timezone_offset >= 0 ? '+' : '-'}${timezone_offset}`;
 
         document.getElementById('timezone_offset').innerText = timezone_offset;
-
-        const local_time_hours = local_time.getHours().toString().padStart(2, '0');
-        const local_time_minutes = local_time.getMinutes().toString().padStart(2, '0');
-        const local_time_seconds = local_time.getSeconds().toString().padStart(2, '0');
-
-        document.getElementById('local_time').innerText = `${local_time_hours}:${local_time_minutes}:${local_time_seconds}`;
+        document.getElementById('local_time').innerText = local_time_format;
 
         setTimeout(print_local_time, timeout_delay);
       }
@@ -196,8 +186,8 @@
       function change_font_size() {
         const font_size = document.getElementById('font_size').value;
 
-        document.getElementById('main').style.fontSize = font_size.toString() + 'pt';
-        document.getElementById('current_font_size').innerText = font_size.toString();
+        document.getElementById('main').style.fontSize = `${font_size}pt`;
+        document.getElementById('current_font_size').innerText = font_size;
       }
 
       function check_options() {
