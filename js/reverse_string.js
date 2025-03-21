@@ -1,1 +1,0 @@
-'string'.split('').reverse().join('');
