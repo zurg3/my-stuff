@@ -31,7 +31,7 @@ function create_calendar(year) {
     const month_name = document.createElement('div');
     month_name.className = 'month_name';
     month_name.textContent = month;
-    month_element.appendChild(month_name);
+    month_element.append(month_name);
 
     const days_element = document.createElement('div');
     days_element.className = 'days';
@@ -46,7 +46,7 @@ function create_calendar(year) {
       }
 
       day_header.textContent = day;
-      days_element.appendChild(day_header);
+      days_element.append(day_header);
     });
 
     // First day of the month
@@ -58,7 +58,7 @@ function create_calendar(year) {
     for (let i = 0; i < start_day; i++) {
       const empty_cell = document.createElement('div');
       empty_cell.className = 'empty_cell';
-      days_element.appendChild(empty_cell);
+      days_element.append(empty_cell);
     }
 
     // Fill the days of the month
@@ -73,11 +73,11 @@ function create_calendar(year) {
       }
 
       day_cell.textContent = day;
-      days_element.appendChild(day_cell);
+      days_element.append(day_cell);
     }
 
-    month_element.appendChild(days_element);
-    calendar_element.appendChild(month_element);
+    month_element.append(days_element);
+    calendar_element.append(month_element);
   });
 }
 

@@ -224,7 +224,7 @@ function add_name() {
 
   new_input_field.innerHTML = `Name ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_name(this)">`;
 
-  document.getElementsByClassName('name_search_input_fields')[0].appendChild(new_input_field);
+  document.getElementsByClassName('name_search_input_fields')[0].append(new_input_field);
 }
 
 function remove_name(input) {
@@ -266,7 +266,7 @@ function add_title() {
 
   new_input_field.innerHTML = `Title ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_title(this)">`;
 
-  document.getElementsByClassName('title_search_input_fields')[0].appendChild(new_input_field);
+  document.getElementsByClassName('title_search_input_fields')[0].append(new_input_field);
 }
 
 function remove_title(input) {
