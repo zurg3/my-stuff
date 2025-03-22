@@ -42,6 +42,10 @@ function set_version(version) {
       'line-height'
     ].forEach((property) => textarea_css.style.removeProperty(property));
   }
+  // Test Version
+  else if (version === 'test') {
+    window.open('https://zurg3.github.io/test/notepad.html', '_self');
+  }
   else {
     console.warn('Error: Version not found!');
   }

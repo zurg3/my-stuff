@@ -154,33 +154,23 @@
 
       const timeout_delay = 1000;
 
-      function print_unix_time() {
-        const unix_time = dayjs().unix();
+      function print_time() {
+        const now = dayjs();
 
-        document.getElementById('unix_time').innerText = unix_time;
-
-        setTimeout(print_unix_time, timeout_delay);
-      }
-
-      function print_utc_time() {
-        const utc_time = dayjs().utc().format('HH:mm:ss');
-
-        document.getElementById('utc_time').innerText = utc_time;
-
-        setTimeout(print_utc_time, timeout_delay);
-      }
-
-      function print_local_time() {
-        const local_time = dayjs();
+        const unix_time = now.unix();
+        const utc_time = now.utc().format('HH:mm:ss');
+        const local_time = now;
         const local_time_format = local_time.format('HH:mm:ss');
 
         let timezone_offset = local_time.utcOffset() / 60;
         timezone_offset = `${timezone_offset >= 0 ? '+' : '-'}${timezone_offset}`;
 
+        document.getElementById('unix_time').innerText = unix_time;
+        document.getElementById('utc_time').innerText = utc_time;
         document.getElementById('timezone_offset').innerText = timezone_offset;
         document.getElementById('local_time').innerText = local_time_format;
 
-        setTimeout(print_local_time, timeout_delay);
+        setTimeout(print_time, timeout_delay);
       }
 
       function change_font_size() {
@@ -191,32 +181,21 @@
       }
 
       function check_options() {
-        if (document.getElementById('unix_time_option').checked) {
-          document.getElementById('unix_time_full').style.display = 'block';
-        }
-        else {
-          document.getElementById('unix_time_full').style.display = 'none';
-        }
+        const unix_time_full = document.getElementById('unix_time_full');
+        const utc_time_full = document.getElementById('utc_time_full');
+        const local_time_full = document.getElementById('local_time_full');
 
-        if (document.getElementById('utc_time_option').checked) {
-          document.getElementById('utc_time_full').style.display = 'block';
-        }
-        else {
-          document.getElementById('utc_time_full').style.display = 'none';
-        }
+        const unix_time_option = document.getElementById('unix_time_option');
+        const utc_time_option = document.getElementById('utc_time_option');
+        const local_time_option = document.getElementById('local_time_option');
 
-        if (document.getElementById('local_time_option').checked) {
-          document.getElementById('local_time_full').style.display = 'block';
-        }
-        else {
-          document.getElementById('local_time_full').style.display = 'none';
-        }
+        unix_time_full.style.display = unix_time_option.checked ? 'block' : 'none';
+        utc_time_full.style.display = utc_time_option.checked ? 'block' : 'none';
+        local_time_full.style.display = local_time_option.checked ? 'block' : 'none';
       }
 
       function start() {
-        print_unix_time();
-        print_utc_time();
-        print_local_time();
+        print_time();
       }
     </script>
   </body>

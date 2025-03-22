@@ -1,5 +1,4 @@
-const date = new Date();
-const current_year = date.getFullYear();
+const current_year = dayjs().year();
 const year_option_begin = 1900;
 const year_option_end = current_year + 5;
 

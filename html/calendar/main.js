@@ -50,9 +50,9 @@ function create_calendar(year) {
     });
 
     // First day of the month
-    const first_day = new Date(year, index, 1);
-    const start_day = (first_day.getDay() + 6) % 7;
-    const days_in_month = new Date(year, index + 1, 0).getDate();
+    const first_day = dayjs(`${year}-${index + 1}-01`);
+    const start_day = (first_day.day() + 6) % 7;
+    const days_in_month = first_day.daysInMonth();
 
     // Empty cells before first day of the month
     for (let i = 0; i < start_day; i++) {
@@ -84,7 +84,7 @@ function create_calendar(year) {
 const current_url = new URL(window.location);
 const params = Object.fromEntries(current_url.searchParams.entries());
 
-const current_year = params.year ? parseInt(params.year, 10) : new Date().getFullYear();
+const current_year = params.year ? parseInt(params.year, 10) : dayjs().year();
 
 create_calendar(current_year);
 
