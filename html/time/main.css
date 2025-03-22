@@ -1,0 +1,113 @@
+body {
+  font-family: 'Fira Mono', monospace;
+}
+
+#main {
+  font-size: 28pt;
+  margin: 3ex auto;
+  width: 100%;
+  text-align: center;
+}
+
+#settings {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: 0.8s;
+}
+
+#settings:hover {
+  opacity: 1;
+  transition: 0.8s;
+}
+
+#font_size {
+  -webkit-appearance: none;
+  width: 40%;
+  height: 15px;
+  border-radius: 5px;
+  background: #e1eaef;
+  outline: none;
+}
+
+#font_size::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #40a7e3;
+  cursor: pointer;
+}
+
+#font_size::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #40a7e3;
+  cursor: pointer;
+}
+
+#options {
+  margin: 3ex 40%;
+  width: 40%;
+}
+
+.option {
+  width: 180px;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  background-color: #e1eaef;
+}
+
+.option input:checked ~ .checkmark {
+  background-color: #40a7e3;
+}
+
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.option input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.option .checkmark::after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
