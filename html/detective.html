@@ -22,46 +22,49 @@
       function search_user() {
         const username = document.getElementById('username').value;
 
-        const sites = {
-          'Bandcamp (Artist)': `https://${username}.bandcamp.com`,
-          'Bandcamp (Fan)': `https://bandcamp.com/${username}`,
-          'Facebook': `https://www.facebook.com/${username}`,
-          'Genius': `https://genius.com/${username}`,
-          'GitHub Gist': `https://gist.github.com/${username}`,
-          'GitHub Pages': `https://${username}.github.io`,
-          'GitHub': `https://github.com/${username}`,
-          'GitLab': `https://gitlab.com/${username}`,
-          'Glitch': `https://glitch.com/@${username}`,
-          'GOG.com': `https://www.gog.com/u/${username}`,
-          'Instagram': `https://www.instagram.com/${username}/`,
-          'Linktree': `https://linktr.ee/${username}`,
-          'Medium': `https://medium.com/@${username}`,
-          'ModDB': `https://www.moddb.com/members/${username}`,
-          'MyNickname.com': `https://mynickname.com/${username}`,
-          'OpenNet': `https://www.opennet.ru/~${username}`,
-          'Pastebin': `https://pastebin.com/u/${username}`,
-          'RAWG': `https://rawg.io/@${username}`,
-          'Reddit': `https://www.reddit.com/user/${username}/`,
-          'SoundCloud': `https://soundcloud.com/${username}`,
-          'Spotify': `https://open.spotify.com/user/${username}`,
-          'Steam': `https://steamcommunity.com/id/${username}`,
-          'Telegram': `https://t.me/${username}`,
-          'Threads': `https://www.threads.net/@${username}`,
-          'TikTok': `https://www.tiktok.com/@${username}`,
-          'Tumblr': `https://www.tumblr.com/${username}`,
-          'VK Articles': `https://vk.com/@${username}`,
-          'VK Video': `https://vk.com/video/@${username}`,
-          'VK': `https://vk.com/${username}`,
-          'WhoSampled': `https://www.whosampled.com/user/${username}/`,
-          'X': `https://x.com/${username}`,
-          'YouTube': `https://www.youtube.com/@${username}`
-        };
+        if (username) {
+          const sites = {
+            'Bandcamp (Artist)': `https://${username}.bandcamp.com`,
+            'Bandcamp (Fan)': `https://bandcamp.com/${username}`,
+            'Facebook': `https://www.facebook.com/${username}`,
+            'Genius': `https://genius.com/${username}`,
+            'GitHub Gist': `https://gist.github.com/${username}`,
+            'GitHub Pages': `https://${username}.github.io`,
+            'GitHub': `https://github.com/${username}`,
+            'GitLab': `https://gitlab.com/${username}`,
+            'Glitch': `https://glitch.com/@${username}`,
+            'GOG.com': `https://www.gog.com/u/${username}`,
+            'Instagram': `https://www.instagram.com/${username}/`,
+            'Linktree': `https://linktr.ee/${username}`,
+            'Medium': `https://medium.com/@${username}`,
+            'ModDB': `https://www.moddb.com/members/${username}`,
+            'MyNickname.com': `https://mynickname.com/${username}`,
+            'OpenNet': `https://www.opennet.ru/~${username}`,
+            'Pastebin': `https://pastebin.com/u/${username}`,
+            'RAWG': `https://rawg.io/@${username}`,
+            'Reddit': `https://www.reddit.com/user/${username}/`,
+            'SoundCloud': `https://soundcloud.com/${username}`,
+            'Spotify': `https://open.spotify.com/user/${username}`,
+            'Steam': `https://steamcommunity.com/id/${username}`,
+            'Telegram': `https://t.me/${username}`,
+            'Threads': `https://www.threads.net/@${username}`,
+            'TikTok': `https://www.tiktok.com/@${username}`,
+            'Tumblr': `https://www.tumblr.com/${username}`,
+            'VK Articles': `https://vk.com/@${username}`,
+            'VK Video': `https://vk.com/video/@${username}`,
+            'VK': `https://vk.com/${username}`,
+            'WhoSampled': `https://www.whosampled.com/user/${username}/`,
+            'X': `https://x.com/${username}`,
+            'YouTube': `https://www.youtube.com/@${username}`
+          };
 
-        output.innerHTML = '';
-        output.innerHTML += `<p>Results for <b>${username}</b></p>`;
-        output.innerHTML += '<ul></ul>';
-        for (let i in sites) {
-          document.getElementsByTagName('ul')[0].innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
+          output.innerHTML = '';
+          output.innerHTML += `<p>Results for <b>${username}</b></p>`;
+          output.innerHTML += '<ul></ul>';
+
+          for (let i in sites) {
+            document.getElementsByTagName('ul')[0].innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
+          }
         }
       }
 
