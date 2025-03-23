@@ -2,6 +2,9 @@ dayjs.extend(window.dayjs_plugin_utc);
 
 const timeout_delay = 1000;
 
+const main = document.getElementById('main');
+const settings = document.getElementById('settings');
+
 function print_time() {
   const now = dayjs();
 
@@ -24,7 +27,7 @@ function print_time() {
 function change_font_size() {
   const font_size = document.getElementById('font_size').value;
 
-  document.getElementById('main').style.fontSize = `${font_size}pt`;
+  main.style.fontSize = `${font_size}pt`;
   document.getElementById('current_font_size').innerText = font_size;
 }
 
@@ -44,4 +47,6 @@ function check_options() {
 
 function start() {
   print_time();
+  main.hidden = false;
+  settings.hidden = false;
 }

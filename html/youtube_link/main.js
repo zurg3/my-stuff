@@ -8,7 +8,8 @@ if (is_mobile()) {
 
 document.getElementById('input').hidden = false;
 
-new ClipboardJS('#clipboard_button');
+new ClipboardJS('#copy_youtube_link_button');
+new ClipboardJS('#copy_piped_link_button');
 
 let video_id = '';
 
@@ -21,7 +22,7 @@ function convert() {
     const ytm_url = new URL(youtube_music_link);
     const params = Object.fromEntries(ytm_url.searchParams.entries());
 
-    if (['music.youtube.com', 'www.youtube.com', 'm.youtube.com'].includes(ytm_url.host) && params.v) {
+    if (['music.youtube.com', 'www.youtube.com', 'm.youtube.com', 'piped.video'].includes(ytm_url.host) && params.v) {
       video_id = params.v;
     }
     else if (ytm_url.host === 'youtu.be' && ytm_url.search) {
@@ -36,10 +37,12 @@ function convert() {
 
     if (video_id) {
       const youtube_link = `https://youtu.be/${video_id}`;
+      const piped_link = `https://piped.video/watch?v=${video_id}`;
 
       document.getElementById('output').hidden = false;
 
       document.getElementById('youtube_link').innerHTML = `<a href="${youtube_link}" target="_blank">${youtube_link}</a>`;
+      document.getElementById('piped_link').innerHTML = `<a href="${piped_link}" target="_blank">${piped_link}</a>`;
     }
   }
 }
@@ -63,6 +66,7 @@ function play_video() {
 function clear_input() {
   document.getElementById('youtube_music_link').value = '';
   document.getElementById('youtube_link').innerHTML = '';
+  document.getElementById('piped_link').innerHTML = '';
   document.getElementById('output').hidden = true;
   youtube_iframe.src = '';
   youtube_iframe.remove();

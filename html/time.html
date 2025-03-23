@@ -10,12 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
   </head>
   <body onload="start()">
-    <div id="main">
+    <div id="main" hidden>
       <p id="unix_time_full"><b>UNIX Time</b>: <span id="unix_time"></span></p>
       <p id="utc_time_full"><b>UTC Time</b>: <time id="utc_time"></time></p>
       <p id="local_time_full"><b>Local Time (UTC <span id="timezone_offset"></span>)</b>: <time id="local_time"></time></p>
     </div>
-    <div id="settings">
+    <div id="settings" hidden>
       <h3 align="center">Settings</h3>
       <p align="center">Font size: <span id="current_font_size">28</span></p>
       <p align="center"><span id="min_font_size">20</span> <input type="range" id="font_size" min="20" max="40" step="1" value="28" oninput="change_font_size()"> <span id="max_font_size">40</span></p>
