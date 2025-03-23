@@ -37,7 +37,7 @@
           if (string_lang === 1) {
             for (let j in char_codes_en) {
               if (char_codes_en[j].charCodeAt() === check_string_input[i].charCodeAt()) {
-                output_string[i] = '[' + output_string[i] + ']';
+                output_string[i] = `[${output_string[i]}]`;
                 wrong_chars++;
               }
             }
@@ -45,7 +45,7 @@
           else if (string_lang === 2) {
             for (let j in char_codes_ru) {
               if (char_codes_ru[j].charCodeAt() === check_string_input[i].charCodeAt()) {
-                output_string[i] = '[' + output_string[i] + ']';
+                output_string[i] = `[${output_string[i]}]`;
                 wrong_chars++;
               }
             }
@@ -56,15 +56,15 @@
           document.getElementById('output_string').innerText = 'String is correct.';
         }
         else if (wrong_chars === 1) {
-          document.getElementById('output_string').innerText = 'Found ' + wrong_chars + ' wrong letter.\n';
+          document.getElementById('output_string').innerText = `Found ${wrong_chars} wrong letter.`;
         }
         else if (wrong_chars > 1) {
-          document.getElementById('output_string').innerText = 'Found ' + wrong_chars + ' wrong letters.\n';
+          document.getElementById('output_string').innerText = `Found ${wrong_chars} wrong letters.`;
         }
 
         if (wrong_chars >= 1) {
           output_string = output_string.join('');
-          document.getElementById('output_string').innerText = document.getElementById('output_string').innerText + output_string;
+          document.getElementById('output_string').innerText = `${document.getElementById('output_string').innerText}\n${output_string}`;
         }
       }
     </script>
