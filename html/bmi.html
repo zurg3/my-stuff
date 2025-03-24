@@ -16,7 +16,7 @@
         <label for="height_input">Your height (cm)</label><br>
         <input type="text" id="height_input" size="10">
       </p>
-      <p><input type="button" value="Calculate" onclick="bmi_category(document.getElementById('mass_input').value, document.getElementById('height_input').value)"></p>
+      <p><input type="button" value="Calculate" onclick="bmi_category()"></p>
       <hr>
       <p><span id="output"></span></p>
     </form>
@@ -26,37 +26,37 @@
       const output = document.getElementById('output');
 
       function bmi(mass, height) {
-        if (mass_input.value && height_input.value) {
-          return mass / ((height / 100) * (height / 100));
-        }
+        return (mass / ((height / 100) * (height / 100))).toFixed(4);
       }
 
-      function bmi_category(mass, height) {
-        const bmi_value = bmi(mass, height).toFixed(4);
+      function bmi_category() {
+        if (mass_input.value && height_input.value) {
+          const bmi_value = bmi(parseInt(mass_input.value, 10), parseInt(height_input.value, 10));
 
-        if (bmi_value <= 16) {
-          output.innerText = `BMI = ${bmi_value} (Severely underweight)`;
-        }
-        else if (bmi_value > 16 && bmi_value <= 18.5) {
-          output.innerText = `BMI = ${bmi_value} (Underweight)`;
-        }
-        else if (bmi_value > 18.5 && bmi_value <= 25) {
-          output.innerText = `BMI = ${bmi_value} (Normal (healthy weight))`;
-        }
-        else if (bmi_value > 25 && bmi_value <= 30) {
-          output.innerText = `BMI = ${bmi_value} (Overweight)`;
-        }
-        else if (bmi_value > 30 && bmi_value <= 35) {
-          output.innerText = `BMI = ${bmi_value} (Obese Class I (Moderately obese))`;
-        }
-        else if (bmi_value > 35 && bmi_value <= 40) {
-          output.innerText = `BMI = ${bmi_value} (Obese Class II (Severely obese))`;
-        }
-        else if (bmi_value > 40) {
-          output.innerText = `BMI = ${bmi_value} (Obese Class III (Very severely obese))`;
-        }
-        else {
-          output.innerText = `Something is wrong!`;
+          if (bmi_value <= 16) {
+            output.innerText = `BMI = ${bmi_value} (Severely underweight)`;
+          }
+          else if (bmi_value > 16 && bmi_value <= 18.5) {
+            output.innerText = `BMI = ${bmi_value} (Underweight)`;
+          }
+          else if (bmi_value > 18.5 && bmi_value <= 25) {
+            output.innerText = `BMI = ${bmi_value} (Normal (healthy weight))`;
+          }
+          else if (bmi_value > 25 && bmi_value <= 30) {
+            output.innerText = `BMI = ${bmi_value} (Overweight)`;
+          }
+          else if (bmi_value > 30 && bmi_value <= 35) {
+            output.innerText = `BMI = ${bmi_value} (Obese Class I (Moderately obese))`;
+          }
+          else if (bmi_value > 35 && bmi_value <= 40) {
+            output.innerText = `BMI = ${bmi_value} (Obese Class II (Severely obese))`;
+          }
+          else if (bmi_value > 40) {
+            output.innerText = `BMI = ${bmi_value} (Obese Class III (Very severely obese))`;
+          }
+          else {
+            output.innerText = `Something is wrong!`;
+          }
         }
       }
     </script>

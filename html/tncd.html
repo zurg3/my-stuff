@@ -47,13 +47,16 @@
       <p><input type="button" class="button" value="Clear input" onclick="clear_input()"></p>
     </form>
     <script>
+      const tn_inputs = document.getElementsByClassName('tn_input');
+      const tncd_input = document.getElementById('tncd');
+
       function get_tncd() {
         const weights = [8, 6, 4, 2, 3, 5, 9, 7];
         let sum = 0;
         let tncd = 0;
 
         for (let i = 0; i < 8; i++) {
-          sum += parseInt(document.getElementsByClassName('tn_input')[i].value, 10) * weights[i];
+          sum += parseInt(tn_inputs[i].value, 10) * weights[i];
         }
 
         tncd = 11 - (sum % 11);
@@ -72,46 +75,43 @@
         let k = 0;
 
         for (let i = 0; i < 8; i++) {
-          if (!document.getElementsByClassName('tn_input')[i].value || (document.getElementsByClassName('tn_input')[i].value && document.getElementsByClassName('tn_input')[i].value.length !== 1)) {
+          if (!tn_inputs[i].value || (tn_inputs[i].value && tn_inputs[i].value.length !== 1)) {
             k++;
           }
         }
 
-        if (k === 0) document.getElementById('tncd').value = get_tncd();
+        if (k === 0) tncd_input.value = get_tncd();
       }
 
       function validate_tncd() {
         let k = 0;
 
         for (let i = 0; i < 8; i++) {
-          if (!document.getElementsByClassName('tn_input')[i].value || (document.getElementsByClassName('tn_input')[i].value && document.getElementsByClassName('tn_input')[i].value.length !== 1)) {
+          if (!tn_inputs[i].value || (tn_inputs[i].value && tn_inputs[i].value.length !== 1)) {
             k++;
           }
         }
 
-        if (!document.getElementById('tncd').value || (document.getElementById('tncd').value && document.getElementById('tncd').value.length !== 1)) {
+        if (!tncd_input.value || (tncd_input.value && tncd_input.value.length !== 1)) {
           k++;
         }
 
         if (k === 0) {
-          get_tncd() === parseInt(document.getElementById('tncd').value, 10) ? alert('True') : alert('False');
+          get_tncd() === parseInt(tncd_input.value, 10) ? alert('True') : alert('False');
         }
       }
 
       function fill_tn() {
-        let random_num_min = 0;
-        let random_num_max = 9;
-
         for (let i = 0; i < 8; i++) {
-          document.getElementsByClassName('tn_input')[i].value = random_number(random_num_min, random_num_max);
+          tn_inputs[i].value = random_number(0, 9);
         }
       }
 
       function clear_input() {
         for (let i = 0; i < 8; i++) {
-          document.getElementsByClassName('tn_input')[i].value = '';
+          tn_inputs[i].value = '';
         }
-        document.getElementById('tncd').value = '';
+        tncd_input.value = '';
       }
     </script>
   </body>

@@ -5,6 +5,14 @@ const timeout_delay = 1000;
 const main = document.getElementById('main');
 const settings = document.getElementById('settings');
 
+const unix_time_full = document.getElementById('unix_time_full');
+const utc_time_full = document.getElementById('utc_time_full');
+const local_time_full = document.getElementById('local_time_full');
+
+const unix_time_option = document.getElementById('unix_time_option');
+const utc_time_option = document.getElementById('utc_time_option');
+const local_time_option = document.getElementById('local_time_option');
+
 function print_time() {
   const now = dayjs();
 
@@ -32,14 +40,6 @@ function change_font_size() {
 }
 
 function check_options() {
-  const unix_time_full = document.getElementById('unix_time_full');
-  const utc_time_full = document.getElementById('utc_time_full');
-  const local_time_full = document.getElementById('local_time_full');
-
-  const unix_time_option = document.getElementById('unix_time_option');
-  const utc_time_option = document.getElementById('utc_time_option');
-  const local_time_option = document.getElementById('local_time_option');
-
   unix_time_full.style.display = unix_time_option.checked ? 'block' : 'none';
   utc_time_full.style.display = utc_time_option.checked ? 'block' : 'none';
   local_time_full.style.display = local_time_option.checked ? 'block' : 'none';

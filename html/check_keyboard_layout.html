@@ -9,63 +9,62 @@
     <form>
       <h3>Check string</h3>
       <p>
-        <input type="radio" name="string_lang" value="1">Check Russian string
-        <input type="radio" name="string_lang" value="2">Check English string
+        <input type="radio" name="string_lang" value="ru">Check Russian string
+        <input type="radio" name="string_lang" value="en">Check English string
       </p>
       <p>
-        <label for="check_string_input">Enter the string</label><br>
-        <input type="text" id="check_string_input" size="30">
+        <label for="input_string">String</label><br>
+        <input type="text" id="input_string" size="40">
       </p>
-      <p><input type="button" value="Check string" onclick="check_string()"></p>
-      <p id="output_string"></p>
+      <p>
+        <input type="button" value="Check" onclick="check_string()">
+        <input type="button" value="Clear" onclick="clear_input()">
+      </p>
+      <p id="output"></p>
     </form>
     <script src="https://cdn.statically.io/gist/zurg3/192988f654c39b314f2038be5900f205/raw/lists_lib.js"></script>
     <script>
+      const input_string = document.getElementById('input_string');
+      const output = document.getElementById('output');
+
+      const string_lang = {
+        ru: document.getElementsByName('string_lang')[0],
+        en: document.getElementsByName('string_lang')[1]
+      };
+
       function check_string() {
-        const check_string_input = document.getElementById('check_string_input').value;
-        let output_string = Array.from(check_string_input);
-        let wrong_chars = 0;
-        let string_lang = document.getElementsByName('string_lang');
+        if (input_string.value && (string_lang.ru.checked || string_lang.en.checked)) {
+          let output_string = Array.from(input_string.value);
+          let wrong_chars = 0;
+          let result = '';
 
-        for (let i = 0; i < string_lang.length; i++) {
-          if (string_lang[i].checked) {
-            string_lang = parseInt(string_lang[i].value, 10);
-          }
-        }
+          const char_codes = string_lang.ru.checked ? char_codes_en : char_codes_ru;
 
-        for (let i = 0; i < check_string_input.length; i++) {
-          if (string_lang === 1) {
-            for (let j in char_codes_en) {
-              if (char_codes_en[j].charCodeAt() === check_string_input[i].charCodeAt()) {
+          for (let i = 0; i < input_string.value.length; i++) {
+            for (let j in char_codes) {
+              if (char_codes[j].charCodeAt() === input_string.value[i].charCodeAt()) {
                 output_string[i] = `[${output_string[i]}]`;
                 wrong_chars++;
               }
             }
           }
-          else if (string_lang === 2) {
-            for (let j in char_codes_ru) {
-              if (char_codes_ru[j].charCodeAt() === check_string_input[i].charCodeAt()) {
-                output_string[i] = `[${output_string[i]}]`;
-                wrong_chars++;
-              }
-            }
-          }
-        }
 
-        if (wrong_chars === 0) {
-          document.getElementById('output_string').innerText = 'String is correct.';
-        }
-        else if (wrong_chars === 1) {
-          document.getElementById('output_string').innerText = `Found ${wrong_chars} wrong letter.`;
-        }
-        else if (wrong_chars > 1) {
-          document.getElementById('output_string').innerText = `Found ${wrong_chars} wrong letters.`;
-        }
-
-        if (wrong_chars >= 1) {
           output_string = output_string.join('');
-          document.getElementById('output_string').innerText = `${document.getElementById('output_string').innerText}\n${output_string}`;
+
+          if (wrong_chars >= 1) {
+            result = `Found ${wrong_chars} wrong ${wrong_chars === 1 ? 'letter' : 'letters'}.`;
+            output.innerText = `${result}\n${output_string}`;
+          }
+          else {
+            result = 'String is correct.';
+            output.innerText = `${result}`;
+          }
         }
+      }
+
+      function clear_input() {
+        input_string.value = '';
+        output.innerText = '';
       }
     </script>
   </body>

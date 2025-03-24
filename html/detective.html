@@ -62,8 +62,10 @@
           output.innerHTML += `<p>Results for <b>${username}</b></p>`;
           output.innerHTML += '<ul></ul>';
 
+          const ul = document.getElementsByTagName('ul')[0];
+
           for (let i in sites) {
-            document.getElementsByTagName('ul')[0].innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
+            ul.innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
           }
         }
       }

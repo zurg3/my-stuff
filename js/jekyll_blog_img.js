@@ -1,3 +1,3 @@
-for (let i = 0; i < document.getElementsByTagName('img').length; i++) {
-  console.log(document.getElementsByTagName('img')[i].src);
+for (let i = 0; i < document.images.length; i++) {
+  console.log(document.images[i].src);
 }

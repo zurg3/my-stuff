@@ -216,9 +216,9 @@ function find_year() {
 }
 
 function add_name() {
-  let new_input_field = document.createElement('p');
-  let input_fields_count = document.getElementsByClassName('name_search_input_field').length;
-  let new_input_field_num = input_fields_count + 1;
+  const new_input_field = document.createElement('p');
+  const input_fields_count = document.getElementsByClassName('name_search_input_field').length;
+  const new_input_field_num = input_fields_count + 1;
 
   new_input_field.className = 'name_search_input_field';
 
@@ -258,9 +258,9 @@ function search_name() {
 }
 
 function add_title() {
-  let new_input_field = document.createElement('p');
-  let input_fields_count = document.getElementsByClassName('title_search_input_field').length;
-  let new_input_field_num = input_fields_count + 1;
+  const new_input_field = document.createElement('p');
+  const input_fields_count = document.getElementsByClassName('title_search_input_field').length;
+  const new_input_field_num = input_fields_count + 1;
 
   new_input_field.className = 'title_search_input_field';
 
