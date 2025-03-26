@@ -41,14 +41,11 @@
 
           let diff_output = '';
 
-          if (diff_days === 0) {
+          if (diff_days >= 1) {
+            diff_output = `${diff_days} ${diff_days === 1 ? 'day' : 'days'}`;
+          }
+          else {
             diff_output = 'Same dates';
-          }
-          else if (diff_days === 1) {
-            diff_output = `${diff_days} day`;
-          }
-          else if (diff_days > 1) {
-            diff_output = `${diff_days} days`;
           }
 
           output.innerText = diff_output;

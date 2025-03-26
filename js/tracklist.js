@@ -7,7 +7,7 @@ if (json_schema.byArtist.length === 1) {
   artist = json_schema.byArtist[0].name;
 }
 else if (json_schema.byArtist.length >= 2) {
-  let artists_array = [];
+  const artists_array = [];
 
   for (let i = 0; i < json_schema.byArtist.length; i++) {
     artists_array.push(json_schema.byArtist[i].name);
@@ -15,12 +15,12 @@ else if (json_schema.byArtist.length >= 2) {
 
   artist = artists_array.join(', ');
 }
-let album_title = json_schema.name;
-let release_year = document.querySelector('meta[property="music:release_date"]').content.split('-')[0];
+const album_title = json_schema.name;
+const release_year = document.querySelector('meta[property="music:release_date"]').content.split('-')[0];
 
-let tracks = json_schema.tracks;
-let tracks_count = tracks.length;
-let tracks_count_len = tracks_count.toString().length;
+const tracks = json_schema.tracks;
+const tracks_count = tracks.length;
+const tracks_count_len = tracks_count.toString().length;
 
 console.log(`${artist} - ${album_title} (${release_year})`);
 for (let i = 0; i < tracks_count; i++) {

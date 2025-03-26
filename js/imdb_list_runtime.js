@@ -4,7 +4,7 @@ const list_items = json_schema.itemListElement;
 let total_runtime = 0;
 
 for (let i = 0; i < list_items.length; i++) {
-  let runtime = list_items[i].item.duration.replace('PT', '');
+  const runtime = list_items[i].item.duration.replace('PT', '');
   let runtime_min = 0;
 
   if (runtime.match('H') && runtime.match('M')) {
@@ -23,9 +23,9 @@ for (let i = 0; i < list_items.length; i++) {
 
 console.log(`Total runtime: ${total_runtime} minutes`);
 
-let total_runtime_days = total_runtime / 60 / 24;
-let total_runtime_hours = total_runtime / 60 % 24;
-let total_runtime_minutes = total_runtime % 60;
+const total_runtime_days = total_runtime / 60 / 24;
+const total_runtime_hours = total_runtime / 60 % 24;
+const total_runtime_minutes = total_runtime % 60;
 
 console.log(`${Math.floor(total_runtime_days)} days`);
 console.log(`${Math.floor(total_runtime_hours)} hours`);

@@ -4,17 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Body mass index (BMI)</title>
+    <style>
+      input[type="number"] {
+        width: 100px;
+      }
+    </style>
   </head>
   <body>
     <h1>Body mass index (BMI)</h1>
     <form>
       <p>
         <label for="mass_input">Your mass (kg)</label><br>
-        <input type="text" id="mass_input" size="10">
+        <input type="number" id="mass_input" min="1">
       </p>
       <p>
         <label for="height_input">Your height (cm)</label><br>
-        <input type="text" id="height_input" size="10">
+        <input type="number" id="height_input" min="1">
       </p>
       <p><input type="button" value="Calculate" onclick="bmi_category()"></p>
       <hr>
