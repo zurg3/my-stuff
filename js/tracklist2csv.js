@@ -8,12 +8,12 @@ const tracks_count = tracks.length;
 for (let i = 0; i < tracks_count; i++) {
   const track_title_full = tracks[i].name.split(' (feat. ');
   let track_title = track_title_full[0];
-  track_title = track_title.includes(',') ? `"${track_title}"` : track_title;
+  if (track_title.includes(',')) track_title = `"${track_title}"`;
 
   let track_feats = '';
   if (track_title_full.length === 2) {
     track_feats = track_title_full[1].slice(0, -1);
-    track_feats = track_feats.includes(',') ? `"${track_feats}"` : track_feats;
+    if (track_feats.includes(',')) track_feats = `"${track_feats}"`;
   }
 
   let track_len = '';
