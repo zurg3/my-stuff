@@ -99,7 +99,27 @@ const arch_linux = {
 
 // Fedora
 const fedora = {
-  version: '41',
+  version: '42',
   edition: 'Workstation',
+  arch: 'x86_64'
+};
+
+// Alpine Linux
+const alpine_linux = {
+  releases: [
+    '3.21',
+    '3.20',
+    '3.19'
+  ],
+  editions: {
+    'standard': 'Standard',
+    'extended': 'Extended',
+    'netboot': 'Netboot',
+    'rpi': 'Raspberry Pi',
+    'minirootfs': 'Mini Root Filesystem',
+    'virt': 'Virtual',
+    'uboot': 'Generic U-Boot',
+    'xen': 'Xen'
+  },
   arch: 'x86_64'
 };

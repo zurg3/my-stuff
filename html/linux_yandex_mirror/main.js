@@ -12,7 +12,6 @@ document.write('<ul>');
 
   document.write(`<li><a href="${download_link}">Debian ${debian.version} "${debian.codename}"</a></li>`);
 document.write('</ul>');
-
 document.write('<hr>');
 
 // Ubuntu
@@ -69,7 +68,6 @@ for (let release of arch_linux.releases) {
 }
 
 document.write('</ul>');
-
 document.write('<hr>');
 
 // Fedora
@@ -78,4 +76,17 @@ document.write('<ul>');
   download_link = `${base_mirror_link}/fedora/linux/releases/${fedora.version}/${fedora.edition}/${fedora.arch}/iso/`;
 
   document.write(`<li><a href="${download_link}">Fedora ${fedora.version} ${fedora.edition}</a></li>`);
+document.write('</ul>');
+document.write('<hr>');
+
+// Alpine Linux
+document.write('<h3 id="alpine_linux">Alpine Linux</h3>');
+document.write('<ul>');
+
+for (let release of alpine_linux.releases) {
+  download_link = `${base_mirror_link}/mirrors/alpine/v${release}/releases/${alpine_linux.arch}/`;
+
+  document.write(`<li><a href="${download_link}">Alpine Linux ${release}</a></li>`);
+}
+
 document.write('</ul>');
