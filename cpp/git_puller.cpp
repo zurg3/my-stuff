@@ -7,67 +7,38 @@ Compile (static): g++ git_puller.cpp -static -std=c++20 -o git_puller
 
 #include <iostream>
 #include <string>
-#include <unistd.h>
-#include <vector>
 #include <cstdlib>
-#include <filesystem>
-#include <algorithm>
-#include <cctype>
+#include <unistd.h>
 #include <iomanip>
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  string os_user = getlogin();
-  string example_path = string("/home/" + os_user + "/Git");
-  string git_path;
-  vector<string> git_repos;
-  int git_path_len;
-  string git_pull_path;
-  float percentage_of_completion;
+  int git_repos_num;
+  float progress;
 
-  if (argc == 2) {
-    git_path = argv[1];
-  }
-  else if (argc == 1) {
-    cout << "Enter the path of directory with cloned Git repositories." << endl;
-    cout << "Example: " << example_path << endl;
-    cout << "-> ";
-    cin >> git_path;
-  }
+  if (argc > 1) {
+    git_repos_num = argc - 1;
 
-  for (const auto &entry : filesystem::directory_iterator(git_path)) {
-    git_repos.push_back(entry.path().filename().string());
-  }
-
-  sort(git_repos.begin(), git_repos.end(), [](const auto &a, const auto &b) {
-    const auto comp_ci = mismatch(a.cbegin(), a.cend(), b.cbegin(), b.cend(), [](const auto &a, const auto &b) {
-      return tolower(a) == tolower(b);
-    });
-
-    return comp_ci.second != b.cend() && (comp_ci.first == a.cend() || tolower(*comp_ci.first) < tolower(*comp_ci.second));
-  });
-
-  cout << endl;
-
-  git_path_len = git_path.length() - 1;
-
-  for (int i = 0; i < git_repos.size(); i++) {
-    if (git_path[git_path_len] != '/') {
-      git_pull_path = string(git_path + "/" + git_repos[i]);
-    }
-    else if (git_path[git_path_len] == '/') {
-      git_pull_path = string(git_path + git_repos[i]);
-    }
-
-    chdir(git_pull_path.c_str());
-
-    percentage_of_completion = (float)(i + 1) / (float)git_repos.size() * 100;
-
-    cout << i + 1 << " / " << git_repos.size() << endl;
-    cout << git_repos[i] << endl;
-    system("git pull");
-    cout << fixed << setprecision(1) << percentage_of_completion << "% done." << endl;
     cout << endl;
+
+    for (int i = 1; i < argc; i++) {
+      chdir(argv[i]);
+
+      progress = (float)i / (float)git_repos_num * 100;
+
+      cout << i << " / " << git_repos_num << endl;
+      cout << argv[i] << endl;
+      //system("pwd");
+      system("git pull");
+      cout << fixed << setprecision(1) << progress << "% done." << endl;
+      cout << endl;
+    }
+  }
+  else {
+    cout << "Usage examples:" << endl;
+    cout << "git_puller /home/user/git/repo1 /home/user/git/repo2 /home/user/git/repo3" << endl;
+    cout << "git_puller $HOME/git/{repo1,repo2,repo3}" << endl;
+    cout << "git_puller $(xargs -a git_repos.txt)" << endl;
   }
 
   return 0;
