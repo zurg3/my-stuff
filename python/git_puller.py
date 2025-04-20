@@ -3,37 +3,27 @@
 import sys
 import os
 
-# os_user = os.getlogin()
-# example_path = str('/home/' + os_user + '/Git')
+argc = len(sys.argv)
 
-if str(sys.argv[1]) != '':
-    git_path = str(sys.argv[1])
-else:
-    print('Enter the path of directory with cloned Git repositories.')
-    # print('Example:', example_path)
-    git_path = str(input('-> '))
+if argc > 1:
+    git_repos_num = argc - 1
 
-git_repos = os.listdir(git_path)
-
-git_repos.sort(key=str.lower)
-
-print()
-
-git_path_len = len(git_path) - 1
-
-for i in range(len(git_repos)):
-    if git_path[git_path_len] != '/':
-        git_pull_path = str(git_path + '/' + git_repos[i])
-    elif git_path[git_path_len] == '/':
-        git_pull_path = str(git_path + git_repos[i])
-
-    os.chdir(git_pull_path)
-
-    percentage_of_completion = (i + 1) / len(git_repos) * 100
-    percentage_of_completion = str(round(percentage_of_completion, 1))
-
-    print(str(str(i + 1)) + ' / ' + str(len(git_repos)))
-    print(git_repos[i])
-    os.system('git pull')
-    print(percentage_of_completion + '% done.')
     print()
+
+    for i in range(1, argc):
+        os.chdir(sys.argv[i])
+
+        progress = i / git_repos_num * 100
+        progress = str(round(progress, 1))
+
+        print(f'{i} / {git_repos_num}')
+        print(sys.argv[i])
+        # os.system('pwd')
+        os.system('git pull')
+        print(f'{progress}% done.')
+        print()
+else:
+    print('Usage examples:')
+    print('python git_puller.py /home/user/git/repo1 /home/user/git/repo2 /home/user/git/repo3')
+    print('python git_puller.py $HOME/git/{repo1,repo2,repo3}" << endl')
+    print('python git_puller.py $(xargs -a git_repos.txt)')
