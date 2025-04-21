@@ -36,8 +36,9 @@ int main(int argc, char *argv[]) {
   }
   else {
     cout << "Usage examples:" << endl;
-    cout << "git_puller /home/user/git/repo1 /home/user/git/repo2 /home/user/git/repo3" << endl;
-    cout << "git_puller $HOME/git/{repo1,repo2,repo3}" << endl;
+    cout << "git_puller /home/user/git/repo1 ~/git/repo2 $HOME/git/repo3" << endl;
+    cout << "git_puller /home/user/git/{repo1,repo2,repo3}" << endl;
+    cout << "git_puller /home/user/git/*" << endl;
     cout << "git_puller $(xargs -a git_repos.txt)" << endl;
   }
 
