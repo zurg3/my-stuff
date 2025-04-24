@@ -12,7 +12,7 @@ if [[ $distro == "1" ]]; then
   sudo apt install ruby-full build-essential zlib1g-dev
 
   echo 'export GEM_HOME="$HOME/gems"' >> $ruby_env_config
-  echo 'export PATH="$HOME/gems/bin:$PATH"' >> $ruby_env_config
+  echo 'export PATH="$PATH:$HOME/gems/bin"' >> $ruby_env_config
   source $ruby_env_config
 
   gem install jekyll bundler
@@ -26,8 +26,8 @@ elif [[ $distro == "2" ]]; then
   sudo pacman -Syy
   sudo pacman -S ruby ruby-docs
 
-  echo "PATH=\"\$PATH:\$(ruby -e 'print Gem.user_dir')/bin\"" >> $ruby_env_config
-  echo 'export GEM_HOME=$HOME/.gem' >> $ruby_env_config
+  echo 'export GEM_HOME="$HOME/.gem"' >> $ruby_env_config
+  echo "export PATH=\"\$PATH:\$(ruby -e 'print Gem.user_dir')/bin\"" >> $ruby_env_config
   source $ruby_env_config
 
   gem update
