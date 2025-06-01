@@ -111,9 +111,9 @@ const fedora = {
 // Alpine Linux
 const alpine_linux = {
   releases: [
+    '3.22',
     '3.21',
-    '3.20',
-    '3.19'
+    '3.20'
   ],
   editions: {
     'standard': 'Standard',
