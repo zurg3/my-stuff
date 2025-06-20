@@ -171,6 +171,7 @@ function find_item() {
       get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/ratings">Ratings</a></li>`;
       get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/watchlist">Watchlist</a></li>`;
       get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/reviews">Reviews</a></li>`;
+      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/badges">Badges</a></li>`;
   }
   else if (imdb_item_type === 'ls') {
     document.title = 'IMDb List';
