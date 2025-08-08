@@ -12,12 +12,8 @@ const ubuntu = {
       version: '25.04',
       codename: 'Plucky Puffin'
     },
-    '24.10': {
-      version: '24.10',
-      codename: 'Oracular Oriole'
-    },
     '24.04': {
-      version: '24.04.2 LTS',
+      version: '24.04.3 LTS',
       codename: 'Noble Numbat'
     },
     '22.04': {
