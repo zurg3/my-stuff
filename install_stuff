@@ -1,8 +1,8 @@
 #!/bin/bash
 
 dir_name="Software"
-install_path="~/$dir_name"
-bashrc_path="~/.bashrc"
+install_path="$HOME/$dir_name"
+bashrc_path="$HOME/.bashrc"
 
 test -d $install_path
 if [[ $? == "1" ]]; then
