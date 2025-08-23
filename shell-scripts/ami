@@ -2,12 +2,14 @@
 
 ### AUR Mini Installer (AMI)
 
-if [[ $1 == "" ]]; then
+pkg=$1
+
+if [[ -z $pkg ]]; then
   echo "ami [package]"
-elif [[ $1 != "" ]]; then
-  git clone https://aur.archlinux.org/$1.git
-  cd $1
+else
+  git clone https://aur.archlinux.org/$pkg.git
+  cd $pkg
   makepkg -sir --skippgpcheck
   cd ..
-  rm -rf $1
+  rm -rf $pkg
 fi

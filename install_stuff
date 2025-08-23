@@ -11,7 +11,7 @@ fi
 
 g++ cpp/git_puller.cpp -static -std=c++20 -o $install_path/git_puller
 # ln python/git_puller.py $install_path
-ln shell-scripts/{ami,create_code_file,clear_yay_cache} $install_path
+ln shell-scripts/{ami,create_code_file,arch_linux_cleaner} $install_path
 
 {
   echo ""
@@ -19,7 +19,7 @@ ln shell-scripts/{ami,create_code_file,clear_yay_cache} $install_path
   # echo "alias git_puller='python $alias_path/git_puller.py'"
   echo "alias ami='$alias_path/ami'"
   echo "alias create_code_file='$alias_path/create_code_file'"
-  echo "alias clear_yay_cache='$alias_path/clear_yay_cache'"
+  echo "alias arch_linux_cleaner='$alias_path/arch_linux_cleaner'"
 } >> $bashrc_path
 
 source $bashrc_path

@@ -1,9 +1,48 @@
 #!/bin/bash
 
-command -v yay > /dev/null
+clear_pacman_cache() {
+  sudo pacman -Scc
+}
 
-if [[ $? == "0" ]]; then
-  rm -rf $HOME/.cache/yay/*
-elif [[ $? == "1" ]]; then
-  echo "yay isn't installed."
+clear_yay_cache() {
+  command -v yay > /dev/null
+
+  if [[ $? == "0" ]]; then
+    rm -rf ~/.cache/yay/*
+  fi
+}
+
+remove_orphans() {
+  pacman -Qdtq > /dev/null
+
+  if [[ $? == "0" ]]; then
+    sudo pacman -Rs $(pacman -Qdtq)
+  fi
+}
+
+clear_bash_history() {
+  history -c
+  history -w
+}
+
+clear_repl_history() {
+  if [[ -f ~/.python_history ]]; then
+    echo "" > ~/.python_history
+  fi
+
+  if [[ -f ~/.node_repl_history ]]; then
+    echo "" > ~/.node_repl_history
+  fi
+}
+
+run_module=$1
+
+if [[ -z $run_module ]]; then
+  remove_orphans
+  clear_pacman_cache
+  clear_yay_cache
+  clear_repl_history
+  clear_bash_history
+else
+  $run_module
 fi
