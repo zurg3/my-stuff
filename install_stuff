@@ -2,24 +2,24 @@
 
 dir_name="Software"
 install_path="$HOME/$dir_name"
+alias_path="~/$dir_name"
 bashrc_path="$HOME/.bashrc"
 
-test -d $install_path
-if [[ $? == "1" ]]; then
+if [[ ! -d $install_path ]]; then
   mkdir $install_path
 fi
 
 g++ cpp/git_puller.cpp -static -std=c++20 -o $install_path/git_puller
 # ln python/git_puller.py $install_path
-ln shell-scripts/create_code_file $install_path
-ln shell-scripts/clear_yay_cache $install_path
-ln shell-scripts/ami $install_path
+ln shell-scripts/{ami,create_code_file,clear_yay_cache} $install_path
 
-echo "" >> $bashrc_path
-# echo "alias git_puller='python $install_path/git_puller.py'" >> $bashrc_path
-echo "alias git_puller='$install_path/git_puller'" >> $bashrc_path
-echo "alias create_code_file='$install_path/create_code_file'" >> $bashrc_path
-echo "alias clear_yay_cache='$install_path/clear_yay_cache'" >> $bashrc_path
-echo "alias ami='$install_path/ami'" >> $bashrc_path
+{
+  echo ""
+  echo "alias git_puller='$alias_path/git_puller'"
+  # echo "alias git_puller='python $alias_path/git_puller.py'"
+  echo "alias ami='$alias_path/ami'"
+  echo "alias create_code_file='$alias_path/create_code_file'"
+  echo "alias clear_yay_cache='$alias_path/clear_yay_cache'"
+} >> $bashrc_path
 
 source $bashrc_path
