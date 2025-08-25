@@ -16,7 +16,7 @@ remove_orphans() {
   pacman -Qdtq > /dev/null
 
   if [[ $? == "0" ]]; then
-    sudo pacman -Rs $(pacman -Qdtq)
+    sudo pacman -Rsn $(pacman -Qdtq)
   fi
 }
 
