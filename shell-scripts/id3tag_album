@@ -19,7 +19,7 @@ readarray -t tracklist < $tracklist_path
 tracks=${#tracklist[@]}
 
 for (( i = 0; i < $tracks; i++ )); do
-  track_num=$(($i+1))
+  track_num=$(($i + 1))
   track_file="$album_path/$track_num. ${tracklist[$i]}.mp3"
   id3v2 -D "$track_file"
   id3v2 -a "$artist" "$track_file"

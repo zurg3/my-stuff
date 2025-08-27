@@ -2,8 +2,11 @@
 
 # Random Password Generator (RPG)
 
-if [[ $1 == "" || $2 == "" ]]; then
-  echo "rpg [passwords_amount] [passwords_characters_long]"
-elif [[ $1 != "" && $2 != "" ]]; then
-  cat /dev/urandom | tr -dc 'A-Za-z0-9' | fold -w $2 | head -n $1
+num=$1
+len=$2
+
+if [[ -z $num || -z $len ]]; then
+  echo "rpg [amount] [length]"
+elif [[ -n $num && -n $len ]]; then
+  cat /dev/urandom | tr -dc 'A-Za-z0-9' | fold -w $len | head -n $num
 fi

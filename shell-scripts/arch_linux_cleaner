@@ -44,5 +44,11 @@ if [[ -z $run_module ]]; then
   clear_repl_history
   clear_bash_history
 else
-  $run_module
+  declare -f $run_module > /dev/null
+
+  if [[ $? == "0" ]]; then
+    $run_module
+  else
+    echo "Module not found!"
+  fi
 fi

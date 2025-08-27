@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [[ $1 == "" ]]; then
-  year=$(date +%Y)
+if [[ -z $1 ]]; then
+  year=$(date +"%Y")
 else
   year=$1
 fi
 
-if [[ $2 == "" ]]; then
+if [[ -z $2 ]]; then
   col=3
 else
   col=$2

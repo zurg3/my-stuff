@@ -1,8 +1,8 @@
 #!/bin/bash
 
-massiv[0]=zero
-massiv[1]=one
-massiv[2]=two
+massiv[0]="zero"
+massiv[1]="one"
+massiv[2]="two"
 
 for i in {0..2}; do
   echo "${massiv[$i]}"
@@ -11,7 +11,7 @@ done
 world[0]=15
 world[1]=5
 
-world[2]=$((world[0]+world[1]))
+world[2]=$((world[0] + world[1]))
 echo "${world[2]}"
 
 count=${#massiv[@]}

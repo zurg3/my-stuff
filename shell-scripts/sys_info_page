@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Программа вывода страницы с информацией о системе
+# Скрипт для вывода страницы с информацией о системе
 
 # title="System Information Report"
 
@@ -9,8 +9,7 @@ TITLE="System Information Report For $HOSTNAME"
 CURRENT_TIME=$(date +"%x %r %Z")
 TIME_STAMP="Generated $CURRENT_TIME, by $USER"
 
-report_uptime ()
-{
+report_uptime() {
   cat << _EOF_
 <h2>System Uptime</h2>
 <pre>$(uptime)</pre>
@@ -18,8 +17,7 @@ _EOF_
   return
 }
 
-report_disk_space ()
-{
+report_disk_space() {
   cat << _EOF_
 <h2>Disk Space Utilization</h2>
 <pre>$(df -h)</pre>
@@ -27,8 +25,7 @@ _EOF_
   return
 }
 
-report_home_space ()
-{
+report_home_space() {
   if [[ $(id -u) -eq 0 ]]; then
     cat << _EOF_
 <h2>Home Space Utilization (All Users)</h2>
@@ -43,14 +40,12 @@ _EOF_
   return
 }
 
-usage ()
-{
+usage() {
   echo "$PROGNAME: usage: $PROGNAME [-f file | -i]"
   return
 }
 
-write_html_page ()
-{
+write_html_page() {
   cat << _EOF_
   <!DOCTYPE html>
   <html>

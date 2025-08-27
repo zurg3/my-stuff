@@ -1,10 +1,13 @@
 #!/bin/bash
 
-if [[ "$1" == "Stepan" ]]; then
-  echo "Hello, $1"
-elif [[ "$1" == "Jamie" ]]; then
-  echo "Yo, $1"
-else echo "Hi, $1"
+name=$1
+
+if [[ $name == "Stepan" ]]; then
+  echo "Hello, $name"
+elif [[ $name == "Jamie" ]]; then
+  echo "Yo, $name"
+else
+  echo "Hi, $name"
 fi
 
 echo "Enter x"
@@ -17,5 +20,5 @@ case $x in
   3) echo "Three";;
   [4-9]) echo "Four-Nine";;
   10) echo "Ten";;
-  *) echo "Fuck you!";;
+  *) echo "NOT One-Ten";;
 esac

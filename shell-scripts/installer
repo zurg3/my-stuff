@@ -1,16 +1,27 @@
 #!/bin/bash
 
-read -p "What's your Linux distro? 1 - Debian/Ubuntu/Mint, 2 - Arch > " a
-read -p "Enter package/packages name > " b
+echo "Select your distro:"
+echo "1 - Debian/Ubuntu/Linux Mint"
+echo "2 - Arch Linux"
+echo "3 - Alpine Linux"
+read -p "-> " distro
 
-if [[ $a == 1 ]]; then
-  sudo apt update
-  sudo apt install $b
-  echo "$b installed"
-elif [[ $a == 2 ]]; then
-  sudo pacman -Syy
-  sudo pacman -S $b
-  echo "$b installed"
+echo "Enter package/packages name"
+read -p "-> " pkg
+
+if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
+  if [[ $distro == "1" ]]; then
+    sudo apt update
+    sudo apt install $pkg
+  elif [[ $distro == "2" ]]; then
+    sudo pacman -Syy
+    sudo pacman -S $pkg
+  elif [[ $distro == "3" ]]; then
+    sudo apk update
+    sudo apk add $pkg
+  fi
+
+  echo "$pkg installed."
 else
-  echo "Something is wrong."
+  echo "Something is wrong!"
 fi

@@ -9,9 +9,9 @@ if [[ $n > 1 ]]; then
 
   read -p "Enter the file name: " c
 
-  if [[ $sync_type == 1 ]]; then
+  if [[ $sync_type == "1" ]]; then
     for (( i = 0; i < 1; i++ )); do
-      v=$(($i+1))
+      v=$(($i + 1))
       echo "Dir #$v"
 
       read -e -p "I want backup from (full path): " a
@@ -21,7 +21,7 @@ if [[ $n > 1 ]]; then
 
 rsync -av --delete $a $b" > $c
       for (( i = 1; i < $n; i++ )); do
-        v=$(($i+1))
+        v=$(($i + 1))
         echo "Dir #$v"
 
         read -e -p "I want backup from (full path): " a
@@ -32,9 +32,9 @@ rsync -av --delete $a $b" > $c
     done
 
     echo "Your Rsync script has been created."
-  elif [[ $sync_type == 2 ]]; then
+  elif [[ $sync_type == "2" ]]; then
     for (( i = 0; i < 1; i++ )); do
-      v=$(($i+1))
+      v=$(($i + 1))
       echo "Dir #$v"
 
       read -e -p "I want backup from (full path): " a
@@ -44,7 +44,7 @@ rsync -av --delete $a $b" > $c
 
 rsync -av --delete $a $b" > $c
       for (( i = 1; i < $n; i++ )); do
-        v=$(($i+1))
+        v=$(($i + 1))
         echo "Dir #$v"
 
         read -e -p "I want backup from (full path): " a
@@ -59,7 +59,7 @@ rsync -av --delete $a $b" > $c
   else
     echo "Something is wrong!"
   fi
-elif [[ $n == 1 ]]; then
+elif [[ $n == "1" ]]; then
   read -p "Enter the file name: " c
   read -e -p "I want backup from (full path): " a
   read -e -p "I want backup to (full path): " b

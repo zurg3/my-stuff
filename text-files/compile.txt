@@ -1,4 +1,4 @@
-tar xzf [source].tar.gz
+tar -xzf [source].tar.gz
 cd [source]
 ./configure
 make

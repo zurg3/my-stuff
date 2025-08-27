@@ -1,11 +1,14 @@
 #!/bin/bash
 
+file_name=$2
+file_type=$1
+
 create_sh_file() {
   echo "#!/bin/bash
 
-# code" > $2.$1
+# code" > $file_name.$file_type
 
-  chmod +x $2.$1
+  chmod +x $file_name.$file_type
 }
 
 create_c_file() {
@@ -15,7 +18,7 @@ int main() {
   /* code */
 
   return 0;
-}" > $2.$1
+}" > $file_name.$file_type
 }
 
 create_cpp_file() {
@@ -26,7 +29,7 @@ int main() {
   /* code */
 
   return 0;
-}" > $2.$1
+}" > $file_name.$file_type
 }
 
 create_d_file() {
@@ -34,17 +37,17 @@ create_d_file() {
 
 void main() {
   /* code */
-}" > $2.$1
+}" > $file_name.$file_type
 }
 
 create_java_file() {
-  class_name=$(echo $2 | awk -F "/" '{print $NF}')
+  class_name=$(echo $file_name | awk -F "/" '{print $NF}')
 
   echo "public class $class_name {
   public static void main(String[] args) {
     /* code */
   }
-}" > $2.$1
+}" > $file_name.$file_type
 }
 
 create_html_file() {
@@ -56,13 +59,13 @@ create_html_file() {
   </head>
   <body>
   </body>
-</html>" > $2.$1
+</html>" > $file_name.$file_type
 }
 
 create_php_file() {
   echo "<?php
   /* code */
-?>" > $2.$1
+?>" > $file_name.$file_type
 }
 
 create_go_file() {
@@ -72,13 +75,13 @@ import \"fmt\"
 
 func main() {
   /* code */
-}" > $2.$1
+}" > $file_name.$file_type
 }
 
-if [[ $1 == "" || $2 == "" ]]; then
+if [[ -z $file_name || -z $file_type ]]; then
   echo "create_code_file [sh|c|cpp|d|java|html|php|go] [filename]"
-elif [[ $1 != "" && $2 != "" ]]; then
-  case $1 in
+elif [[ -n $file_name && -n $file_type ]]; then
+  case $file_type in
     sh) create_sh_file $@;;
     c) create_c_file $@;;
     cpp) create_cpp_file $@;;

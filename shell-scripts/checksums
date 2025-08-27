@@ -1,8 +1,8 @@
 #!/bin/bash
 
-read -p "Введите текст: " a
+read -p "Введите текст: " x
 
 echo "MD5:"
-echo -n $a | md5sum
+echo -n $x | md5sum | awk '{print $1}'
 echo "SHA1:"
-echo -n $a | sha1sum
+echo -n $x | sha1sum | awk '{print $1}'

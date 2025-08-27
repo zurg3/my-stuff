@@ -18,5 +18,6 @@
 - [Lua](https://github.com/zurg3/my-stuff/tree/master/lua)
 - [Python](https://github.com/zurg3/my-stuff/tree/master/python)
 - [Ruby](https://github.com/zurg3/my-stuff/tree/master/ruby)
+- [Rust](https://github.com/zurg3/my-stuff/tree/master/rust)
 - [Shell scripts (Bash)](https://github.com/zurg3/my-stuff/tree/master/shell-scripts)
 - [Text files](https://github.com/zurg3/my-stuff/tree/master/text-files)

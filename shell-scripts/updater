@@ -1,15 +1,24 @@
 #!/bin/bash
 
-read -p "What's your Linux distro? 1 - Debian/Ubuntu/Mint, 2 - Arch > " a
+echo "Select your distro:"
+echo "1 - Debian/Ubuntu/Linux Mint"
+echo "2 - Arch Linux"
+echo "3 - Alpine Linux"
+read -p "-> " distro
 
-if [[ $a == 1 ]]; then
-  sudo apt update
-  sudo apt upgrade
-  echo "Your system is updated."
-elif [[ $a == 2 ]]; then
-  sudo pacman -Syy
-  sudo pacman -Syu
+if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
+  if [[ $distro == "1" ]]; then
+    sudo apt update
+    sudo apt upgrade
+  elif [[ $distro == "2" ]]; then
+    sudo pacman -Syy
+    sudo pacman -Syu
+  elif [[ $distro == "3" ]]; then
+    sudo apk update
+    sudo apk upgrade
+  fi
+
   echo "Your system is updated."
 else
-  echo "Something is wrong."
+  echo "Something is wrong!"
 fi

@@ -1,7 +1,10 @@
-print "Your first name: ";a1 = gets.chomp
-print "Your last name: ";a2 = gets.chomp
-print "Your country: ";b1 = gets.chomp
+print "Your first name: "
+first_name = gets.chomp
+print "Your last name: "
+last_name = gets.chomp
+print "Your country: "
+country = gets.chomp
 
-puts "I'm #{a1} #{a2} from #{b1}" # output via puts
-print "I'm ", a1, " ", a2, " from ", b1 # output via print
+puts "I'm #{first_name} #{last_name} from #{country}" # output via puts
+print "I'm ", first_name, " ", last_name, " from ", country # output via print
 puts # empty line

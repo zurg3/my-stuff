@@ -1,14 +1,16 @@
 #!/bin/bash
 
 summa=0
-myFuction()
-{
-  echo "23.10.2017"
-  echo "Next day - 24.10.2017"
+today=$(date +"%d.%m.%Y")
+tomorrow=$(date +"%d.%m.%Y" --date 'tomorrow')
+
+my_fuction() {
+  echo "$today"
+  echo "Next day - $tomorrow"
   echo "Num1 = $1"
   echo "Num2 = $2"
-  summa=$(($1+$2))
+  summa=$(($1 + $2))
 }
 
-myFuction 20 10
+my_fuction 10 20
 echo "Summa = $summa"

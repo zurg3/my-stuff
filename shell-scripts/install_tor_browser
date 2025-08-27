@@ -8,7 +8,7 @@ if [[ $? == "0" ]]; then
 
   tor_browser_versions=($(lftp -c "open $tor_browser_base_link; cls -1"))
   for (( i = 0; i < ${#tor_browser_versions[@]}; i++ )); do
-    echo "${tor_browser_versions[$i]}" | grep -q -E "(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
+    echo "${tor_browser_versions[$i]}" | grep -qE "(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
     if [[ $? == "0" ]]; then
       tor_browser_stable_versions+=(${tor_browser_versions[$i]//\/})
     fi
