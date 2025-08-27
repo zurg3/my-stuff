@@ -4,7 +4,7 @@ summa=0
 today=$(date +"%d.%m.%Y")
 tomorrow=$(date +"%d.%m.%Y" --date 'tomorrow')
 
-my_fuction() {
+my_function() {
   echo "$today"
   echo "Next day - $tomorrow"
   echo "Num1 = $1"
@@ -12,5 +12,5 @@ my_fuction() {
   summa=$(($1 + $2))
 }
 
-my_fuction 10 20
+my_function 10 20
 echo "Summa = $summa"
