@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "
-HISTCONTROL=ignorespace" >> ~/.bashrc
