@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run this script: source jekyll_install
+# Run this script: source jekyll_install.sh
 
 ruby_env_config="$HOME/.bashrc"
 gem_config="$HOME/.gemrc"

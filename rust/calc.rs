@@ -8,12 +8,12 @@ fn main() {
     print!("Enter the first number: ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut a).unwrap();
-    let a:f32 = a.trim().parse().unwrap();
+    let a: f32 = a.trim().parse().unwrap();
 
     print!("Enter the second number: ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut b).unwrap();
-    let b:f32 = b.trim().parse().unwrap();
+    let b: f32 = b.trim().parse().unwrap();
 
     println!("{}+{}={}", a, b, a + b);
     println!("{}-{}={}", a, b, a - b);

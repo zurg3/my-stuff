@@ -79,7 +79,7 @@ func main() {
 }
 
 if [[ -z $file_name || -z $file_type ]]; then
-  echo "create_code_file [sh|c|cpp|d|java|html|php|go] [filename]"
+  echo "create_code_file.sh [sh|c|cpp|d|java|html|php|go] [filename]"
 elif [[ -n $file_name && -n $file_type ]]; then
   case $file_type in
     sh) create_sh_file $@;;
