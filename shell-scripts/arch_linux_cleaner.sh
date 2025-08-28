@@ -33,6 +33,10 @@ clear_repl_history() {
   if [[ -f ~/.node_repl_history ]]; then
     echo "" > ~/.node_repl_history
   fi
+
+  if [[ -f ~/.sqlite_history ]]; then
+    echo "" > ~/.sqlite_history
+  fi
 }
 
 run_module=$1
@@ -42,7 +46,7 @@ if [[ -z $run_module ]]; then
   clear_pacman_cache
   clear_yay_cache
   clear_repl_history
-  clear_bash_history
+  # clear_bash_history
 else
   declare -f $run_module > /dev/null
 
