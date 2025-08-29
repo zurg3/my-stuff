@@ -23,7 +23,7 @@ if [[ $? == "1" ]]; then
     echo "alias ami='$alias_path/ami.sh'"
     echo "alias create_code_file='$alias_path/create_code_file.sh'"
     echo "alias arch_linux_cleaner='$alias_path/arch_linux_cleaner.sh'"
-    echo "alias clear_yay_cache='$alias_path/arch_linux_cleaner.sh clear_yay_cache'"
+    # echo "alias clear_yay_cache='$alias_path/arch_linux_cleaner.sh clear_yay_cache'"
   } >> $bashrc_path
 
   source $bashrc_path

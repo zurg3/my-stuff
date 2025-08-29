@@ -34,6 +34,10 @@ clear_repl_history() {
     echo "" > ~/.node_repl_history
   fi
 
+  if [[ -f ~/.irb_history ]]; then
+    echo "" > ~/.irb_history
+  fi
+
   if [[ -f ~/.sqlite_history ]]; then
     echo "" > ~/.sqlite_history
   fi

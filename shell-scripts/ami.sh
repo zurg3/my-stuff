@@ -5,7 +5,7 @@
 pkg=$1
 
 if [[ -z $pkg ]]; then
-  echo "ami.sh [package]"
+  echo "$(basename $0) [package]"
 else
   git clone https://aur.archlinux.org/$pkg.git
   cd $pkg
