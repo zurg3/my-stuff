@@ -20,43 +20,20 @@ remove_orphans() {
   fi
 }
 
-clear_bash_history() {
-  history -c
-  history -w
-}
-
 clear_repl_history() {
-  if [[ -f ~/.python_history ]]; then
-    echo "" > ~/.python_history
-  fi
+  repl_history_files=(
+    ".python_history" # Python
+    ".node_repl_history" # Node.js
+    ".irb_history" # Ruby
+    ".sqlite_history" # SQLite
+  )
 
-  if [[ -f ~/.node_repl_history ]]; then
-    echo "" > ~/.node_repl_history
-  fi
-
-  if [[ -f ~/.irb_history ]]; then
-    echo "" > ~/.irb_history
-  fi
-
-  if [[ -f ~/.sqlite_history ]]; then
-    echo "" > ~/.sqlite_history
-  fi
+  for repl_history_file in ${repl_history_files[@]}; do
+    [[ -f "$HOME/$repl_history_file" ]] && echo "" > "$HOME/$repl_history_file"
+  done
 }
 
-run_module=$1
-
-if [[ -z $run_module ]]; then
-  remove_orphans
-  clear_pacman_cache
-  clear_yay_cache
-  clear_repl_history
-  # clear_bash_history
-else
-  declare -f $run_module > /dev/null
-
-  if [[ $? == "0" ]]; then
-    $run_module
-  else
-    echo "Module not found!"
-  fi
-fi
+remove_orphans
+clear_pacman_cache
+clear_yay_cache
+clear_repl_history

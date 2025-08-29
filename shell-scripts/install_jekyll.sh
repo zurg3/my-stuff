@@ -38,3 +38,5 @@ if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
 else
   echo "Something is wrong!"
 fi
+
+unset ruby_env_config gem_config distro
