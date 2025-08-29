@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run this script: source install_jekyll.sh
+# Run this script: source install_jekyll.sh [path]
 
 ruby_env_config="$HOME/.bashrc"
 gem_config="$HOME/.gemrc"
@@ -30,8 +30,14 @@ if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
 
   gem install jekyll bundler
 
-  jekyll new myblog
-  cd myblog
+  if [[ -n $1 ]]; then
+    jekyll_site_path=$1
+  else
+    jekyll_site_path="myblog"
+  fi
+
+  jekyll new $jekyll_site_path
+  cd $jekyll_site_path
   bundle exec jekyll serve
 
   bundle update
@@ -39,4 +45,4 @@ else
   echo "Something is wrong!"
 fi
 
-unset ruby_env_config gem_config distro
+unset ruby_env_config gem_config distro jekyll_site_path
