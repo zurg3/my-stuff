@@ -49,6 +49,10 @@ const ubuntu = {
 const linux_mint = {
   releases: [
     {
+      version: '22.2',
+      codename: 'Zara'
+    },
+    {
       version: '22.1',
       codename: 'Xia'
     },
