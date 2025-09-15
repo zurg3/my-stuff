@@ -12,6 +12,20 @@ clear_yay_cache() {
   fi
 }
 
+clear_go_cache() {
+  command -v go > /dev/null
+
+  if [[ $? == "0" ]]; then
+    go clean -cache
+  fi
+}
+
+clear_electron_cache() {
+  if [[ -d ~/.cache/electron ]]; then
+    rm -rf ~/.cache/electron/*
+  fi
+}
+
 remove_orphans() {
   pacman -Qdtq > /dev/null
 
@@ -36,4 +50,6 @@ clear_repl_history() {
 remove_orphans
 clear_pacman_cache
 clear_yay_cache
+clear_go_cache
+clear_electron_cache
 clear_repl_history
