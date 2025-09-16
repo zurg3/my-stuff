@@ -12,6 +12,7 @@ shell_scripts=(
   "ami"
   "create_code_file"
   "arch_linux_cleaner"
+  "algu"
 )
 
 g++ cpp/git_puller.cpp -static -std=c++20 -o $install_path/git_puller
@@ -30,12 +31,14 @@ if [[ $? == "1" ]]; then
   update_bashrc="true"
 fi
 
-alias | grep -qE 'greenterm|clear_bash_history'
+alias | grep -qE 'greenterm|sync_time|clear_bash_history|py_server'
 if [[ $? == "1" ]]; then
   {
     echo ""
     echo "alias greenterm='setterm -fore green -back black -store'"
+    echo "alias sync_time='sudo timedatectl set-ntp true'"
     echo "alias clear_bash_history='history -c && history -w'"
+    echo "alias py_server='python -m http.server'"
     # echo "alias git_puller='python ~/git_puller.py'"
   } >> $bashrc_path
 
