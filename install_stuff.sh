@@ -38,7 +38,7 @@ if [[ $? == "1" ]]; then
     echo "alias greenterm='setterm -fore green -back black -store'"
     echo "alias sync_time='sudo timedatectl set-ntp true'"
     echo "alias clear_bash_history='history -c && history -w'"
-    echo "alias py_server='python -m http.server'"
+    echo "alias py_server='python -m http.server 8000 --bind 127.0.0.1'"
     # echo "alias git_puller='python ~/git_puller.py'"
   } >> $bashrc_path
 
