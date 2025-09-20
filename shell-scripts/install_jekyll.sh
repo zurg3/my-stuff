@@ -13,13 +13,10 @@ read -p "-> " distro
 
 if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
   if [[ $distro == "1" ]]; then
-    sudo apt update
     sudo apt install ruby-full build-essential
   elif [[ $distro == "2" ]]; then
-    sudo pacman -Syy
     sudo pacman -S ruby ruby-stdlib
   elif [[ $distro == "3" ]]; then
-    sudo apk update
     sudo apk add ruby ruby-dev build-base
   fi
 

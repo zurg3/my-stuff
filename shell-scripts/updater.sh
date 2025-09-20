@@ -11,7 +11,6 @@ if [[ $distro == "1" || $distro == "2" || $distro == "3" ]]; then
     sudo apt update
     sudo apt upgrade
   elif [[ $distro == "2" ]]; then
-    sudo pacman -Syy
     sudo pacman -Syu
   elif [[ $distro == "3" ]]; then
     sudo apk update

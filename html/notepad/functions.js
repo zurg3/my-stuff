@@ -298,15 +298,24 @@ notepad.append = (text) => {
   save_data();
 };
 
-notepad.minify = () => {
+notepad.split_lines = (delimiter = ' ') => {
+  textarea.value = textarea.value.split('\n').join(' ').split(delimiter).filter(Boolean).join('\n');
+  save_data();
+};
+
+notepad.join_lines = (delimiter = ' ') => {
   let text = textarea.value.split('\n');
 
   for (let i = 0; i < text.length; i++) {
     text[i] = text[i].trim();
   }
 
-  textarea.value = text.join('');
+  textarea.value = text.join(delimiter);
   save_data();
+};
+
+notepad.minify = () => {
+  notepad.join_lines('');
 };
 
 notepad.execute = () => {
