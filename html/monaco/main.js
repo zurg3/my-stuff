@@ -12,6 +12,9 @@ const editor = monaco.editor.create(container, {
   theme: 'vs-dark',
   contextmenu: true,
   automaticLayout: true,
+  accessibilitySupport: 'off',
+  autoIndent: 'full',
+  autoIndentOnPaste: true,
   'bracketPairColorization.enabled': false,
   colorDecorators: false,
   colorDecoratorsActivatedOn: 'click',
@@ -29,11 +32,17 @@ const editor = monaco.editor.create(container, {
   minimap: {
     enabled: false
   },
+  mouseWheelZoom: true,
+  multiCursorModifier: 'ctrlCmd',
   occurrencesHighlight: 'off',
+  renderLineHighlight: 'line',
   renderWhitespace: 'none',
   scrollBeyondLastLine: false,
   selectionHighlight: false,
   showDeprecated: false,
+  stickyScroll: {
+    enabled: false
+  },
   tabSize: 2
 });
 
