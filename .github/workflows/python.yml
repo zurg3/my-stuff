@@ -30,7 +30,7 @@ jobs:
         run: pyinstaller --onefile --windowed python\image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: image_galleries_gui_win
           path: dist\image_galleries_gui.exe
@@ -39,7 +39,7 @@ jobs:
         run: pyinstaller --onefile --windowed python\hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: hash_sums_gui_win
           path: dist\hash_sums_gui.exe
@@ -66,7 +66,7 @@ jobs:
         run: pyinstaller --onefile python/image_galleries_gui.py
 
       - name: Upload artifact (image_galleries_gui.py)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: image_galleries_gui_linux
           path: dist/image_galleries_gui
@@ -75,7 +75,7 @@ jobs:
         run: pyinstaller --onefile python/hash_sums_gui.py
 
       - name: Upload artifact (hash_sums_gui.py)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: hash_sums_gui_linux
           path: dist/hash_sums_gui
