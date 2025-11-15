@@ -318,6 +318,39 @@ notepad.minify = () => {
   notepad.join_lines('');
 };
 
+notepad.add_prefix = (prefix = '') => {
+  let text = textarea.value.split('\n');
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = `${prefix}${text[i]}`;
+  }
+
+  textarea.value = text.join('\n');
+  save_data();
+};
+
+notepad.add_postfix = (postfix = '') => {
+  let text = textarea.value.split('\n');
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = `${text[i]}${postfix}`;
+  }
+
+  textarea.value = text.join('\n');
+  save_data();
+};
+
+notepad.num_lines = () => {
+  let text = textarea.value.split('\n');
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = `${i + 1}. ${text[i]}`;
+  }
+
+  textarea.value = text.join('\n');
+  save_data();
+};
+
 notepad.execute = () => {
   eval(textarea.value);
 };

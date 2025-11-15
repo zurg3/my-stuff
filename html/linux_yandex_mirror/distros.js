@@ -1,6 +1,6 @@
 // Debian
 const debian = {
-  version: '13.1.0',
+  version: '13.2.0',
   codename: 'Trixie',
   arch: 'amd64'
 };
