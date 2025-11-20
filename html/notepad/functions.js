@@ -371,6 +371,11 @@ notepad.cut = () => {
   ClipboardJS.cut(textarea);
 };
 
+notepad.replace = (search, replace) => {
+  textarea.value = textarea.value.replaceAll(search, replace);
+  save_data();
+};
+
 notepad.clear = () => {
   textarea.value = '';
   save_data();
