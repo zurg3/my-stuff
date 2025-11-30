@@ -1,3 +1,9 @@
+/*
+yt - YouTube
+ytm - YouTube Music
+ppd - Piped
+*/
+
 if (is_mobile()) {
   const url_input = document.getElementById('original_link');
   const width = Math.floor(document.body.offsetWidth * 0.9);
@@ -6,25 +12,43 @@ if (is_mobile()) {
   url_input.style.width = `${width}px`;
 }
 
-document.getElementById('input').hidden = false;
+const input_block = document.getElementById('input');
+const original_link = document.getElementById('original_link');
 
-new ClipboardJS('#copy_youtube_link_button');
-new ClipboardJS('#copy_youtube_music_link_button');
-new ClipboardJS('#copy_piped_link_button');
+const video_links_block = document.getElementById('video_links');
+const yt_video_link = document.getElementById('yt_video_link');
+const ytm_video_link = document.getElementById('ytm_video_link');
+const ppd_video_link = document.getElementById('ppd_video_link');
+
+const playlist_links_block = document.getElementById('playlist_links');
+const yt_playlist_link = document.getElementById('yt_playlist_link');
+const ytm_playlist_link = document.getElementById('ytm_playlist_link');
+const ppd_playlist_link = document.getElementById('ppd_playlist_link');
+
+input_block.hidden = false;
+
+new ClipboardJS('#copy_yt_video_link_button');
+new ClipboardJS('#copy_ytm_video_link_button');
+new ClipboardJS('#copy_ppd_video_link_button');
+
+new ClipboardJS('#copy_yt_playlist_link_button');
+new ClipboardJS('#copy_ytm_playlist_link_button');
+new ClipboardJS('#copy_ppd_playlist_link_button');
 
 let video_id = '';
+let playlist_id = '';
 
-const youtube_iframe = document.createElement('iframe');
+const yt_video = document.getElementById('yt_video');
+const yt_iframe = document.createElement('iframe');
 
 function convert() {
-  const original_link = document.getElementById('original_link').value;
-
-  if (original_link && original_link.startsWith('https://')) {
-    const original_url = new URL(original_link);
+  if (original_link.value && original_link.value.startsWith('https://')) {
+    const original_url = new URL(original_link.value);
     const params = Object.fromEntries(original_url.searchParams.entries());
 
-    if (['www.youtube.com', 'm.youtube.com', 'music.youtube.com', 'piped.video'].includes(original_url.host) && params.v) {
+    if (['www.youtube.com', 'm.youtube.com', 'music.youtube.com', 'piped.video'].includes(original_url.host) && (params.v || params.list)) {
       video_id = params.v;
+      playlist_id = params.list;
     }
     else if (original_url.host === 'youtu.be' && original_url.search) {
       video_id = original_url.pathname.split('/')[1];
@@ -37,15 +61,27 @@ function convert() {
     }
 
     if (video_id) {
-      const youtube_link = `https://youtu.be/${video_id}`;
-      const youtube_music_link = `https://music.youtube.com/watch?v=${video_id}`;
-      const piped_link = `https://piped.video/watch?v=${video_id}`;
+      const yt_url = `https://youtu.be/${video_id}`;
+      const ytm_url = `https://music.youtube.com/watch?v=${video_id}`;
+      const ppd_url = `https://piped.video/watch?v=${video_id}`;
 
-      document.getElementById('output').hidden = false;
+      video_links_block.hidden = false;
 
-      document.getElementById('youtube_link').innerHTML = `<a href="${youtube_link}" target="_blank">${youtube_link}</a>`;
-      document.getElementById('youtube_music_link').innerHTML = `<a href="${youtube_music_link}" target="_blank">${youtube_music_link}</a>`;
-      document.getElementById('piped_link').innerHTML = `<a href="${piped_link}" target="_blank">${piped_link}</a>`;
+      yt_video_link.innerHTML = `<a href="${yt_url}" target="_blank">${yt_url}</a>`;
+      ytm_video_link.innerHTML = `<a href="${ytm_url}" target="_blank">${ytm_url}</a>`;
+      ppd_video_link.innerHTML = `<a href="${ppd_url}" target="_blank">${ppd_url}</a>`;
+    }
+
+    if (playlist_id) {
+      const yt_url = `https://www.youtube.com/playlist?list=${playlist_id}`;
+      const ytm_url = `https://music.youtube.com/playlist?list=${playlist_id}`;
+      const ppd_url = `https://piped.video/playlist?list=${playlist_id}`;
+
+      playlist_links_block.hidden = false;
+
+      yt_playlist_link.innerHTML = `<a href="${yt_url}" target="_blank">${yt_url}</a>`;
+      ytm_playlist_link.innerHTML = `<a href="${ytm_url}" target="_blank">${ytm_url}</a>`;
+      ppd_playlist_link.innerHTML = `<a href="${ppd_url}" target="_blank">${ppd_url}</a>`;
     }
   }
 }
@@ -55,24 +91,34 @@ function play_video() {
     const video_width = !is_mobile() ? 640 : document.body.offsetWidth;
     const video_height = !is_mobile() ? 360 : Math.floor(video_width / 1.77);
 
-    youtube_iframe.width = video_width;
-    youtube_iframe.height = video_height;
-    youtube_iframe.src = `https://www.youtube.com/embed/${video_id}`;
-    youtube_iframe.frameBorder = 0;
-    youtube_iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-    youtube_iframe.allowFullscreen = true;
+    yt_iframe.width = video_width;
+    yt_iframe.height = video_height;
+    yt_iframe.src = `https://www.youtube.com/embed/${video_id}`;
+    yt_iframe.frameBorder = 0;
+    yt_iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    yt_iframe.allowFullscreen = true;
 
-    document.getElementById('youtube_video').append(youtube_iframe);
+    yt_video.append(yt_iframe);
   }
 }
 
 function clear_input() {
-  document.getElementById('original_link').value = '';
-  document.getElementById('youtube_link').innerHTML = '';
-  document.getElementById('youtube_music_link').innerHTML = '';
-  document.getElementById('piped_link').innerHTML = '';
-  document.getElementById('output').hidden = true;
-  youtube_iframe.src = '';
-  youtube_iframe.remove();
+  original_link.value = '';
+
+  yt_video_link.innerHTML = '';
+  ytm_video_link.innerHTML = '';
+  ppd_video_link.innerHTML = '';
+
+  yt_playlist_link.innerHTML = '';
+  ytm_playlist_link.innerHTML = '';
+  ppd_playlist_link.innerHTML = '';
+
+  video_links_block.hidden = true;
+  playlist_links_block.hidden = true;
+
+  yt_iframe.src = '';
+  yt_iframe.remove();
+
   video_id = '';
+  playlist_id = '';
 }

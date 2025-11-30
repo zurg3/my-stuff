@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>YouTube share link converter</title>
+    <link href="youtube_link/main.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
   </head>
@@ -17,23 +18,40 @@
         <input type="button" id="clear_input_button" value="Clear" onclick="clear_input()">
       </p>
     </div>
-    <div id="output" hidden>
+    <div id="video_links" hidden>
       <h3>YouTube Share Link</h3>
       <p>
-        <span id="youtube_link"></span>
-        <input type="button" id="copy_youtube_link_button" value="Copy" data-clipboard-target="#youtube_link" data-clipboard-action="copy">
+        <span id="yt_video_link"></span>
+        <input type="button" id="copy_yt_video_link_button" value="Copy" data-clipboard-target="#yt_video_link" data-clipboard-action="copy">
         <input type="button" id="play_video_button" value="Play video" onclick="play_video()">
       </p>
-      <div id="youtube_video"></div>
+      <div id="yt_video"></div>
       <h3>YouTube Music Link</h3>
       <p>
-        <span id="youtube_music_link"></span>
-        <input type="button" id="copy_youtube_music_link_button" value="Copy" data-clipboard-target="#youtube_music_link" data-clipboard-action="copy">
+        <span id="ytm_video_link"></span>
+        <input type="button" id="copy_ytm_video_link_button" value="Copy" data-clipboard-target="#ytm_video_link" data-clipboard-action="copy">
       </p>
       <h3>Piped Link</h3>
       <p>
-        <span id="piped_link"></span>
-        <input type="button" id="copy_piped_link_button" value="Copy" data-clipboard-target="#piped_link" data-clipboard-action="copy">
+        <span id="ppd_video_link"></span>
+        <input type="button" id="copy_ppd_video_link_button" value="Copy" data-clipboard-target="#ppd_video_link" data-clipboard-action="copy">
+      </p>
+    </div>
+    <div id="playlist_links" hidden>
+      <h3>YouTube Playlist</h3>
+      <p>
+        <span id="yt_playlist_link"></span>
+        <input type="button" id="copy_yt_playlist_link_button" value="Copy" data-clipboard-target="#yt_playlist_link" data-clipboard-action="copy">
+      </p>
+      <h3>YouTube Music Playlist</h3>
+      <p>
+        <span id="ytm_playlist_link"></span>
+        <input type="button" id="copy_ytm_playlist_link_button" value="Copy" data-clipboard-target="#ytm_playlist_link" data-clipboard-action="copy">
+      </p>
+      <h3>Piped Playlist</h3>
+      <p>
+        <span id="ppd_playlist_link"></span>
+        <input type="button" id="copy_ppd_playlist_link_button" value="Copy" data-clipboard-target="#ppd_playlist_link" data-clipboard-action="copy">
       </p>
     </div>
     <script src="youtube_link/main.js"></script>
