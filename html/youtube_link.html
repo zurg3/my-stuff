@@ -10,10 +10,12 @@
   <body>
     <h2>YouTube share link converter</h2>
     <div id="input" hidden>
-      <h3>YouTube Music/YouTube/Piped Link</h3>
-      <p><input type="url" id="youtube_music_link" size="50" autocomplete="off"></p>
-      <p><input type="button" id="convert_button" value="Get YouTube link" onclick="convert()"></p>
-      <p><input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()"></p>
+      <h3>YouTube/YouTube Music/Piped Link</h3>
+      <p><input type="url" id="original_link" size="60" autocomplete="off"></p>
+      <p>
+        <input type="button" id="convert_button" value="Convert" onclick="convert()">
+        <input type="button" id="clear_input_button" value="Clear" onclick="clear_input()">
+      </p>
     </div>
     <div id="output" hidden>
       <h3>YouTube Share Link</h3>
@@ -23,6 +25,11 @@
         <input type="button" id="play_video_button" value="Play video" onclick="play_video()">
       </p>
       <div id="youtube_video"></div>
+      <h3>YouTube Music Link</h3>
+      <p>
+        <span id="youtube_music_link"></span>
+        <input type="button" id="copy_youtube_music_link_button" value="Copy" data-clipboard-target="#youtube_music_link" data-clipboard-action="copy">
+      </p>
       <h3>Piped Link</h3>
       <p>
         <span id="piped_link"></span>
