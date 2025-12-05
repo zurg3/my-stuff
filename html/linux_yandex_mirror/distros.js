@@ -75,14 +75,6 @@ const linux_mint = {
     {
       version: '21.1',
       codename: 'Vera'
-    },
-    {
-      version: '21',
-      codename: 'Vanessa'
-    },
-    {
-      version: '20.3',
-      codename: 'Una'
     }
   ],
   editions: {
@@ -115,9 +107,9 @@ const fedora = {
 // Alpine Linux
 const alpine_linux = {
   releases: [
+    '3.23',
     '3.22',
-    '3.21',
-    '3.20'
+    '3.21'
   ],
   editions: {
     'standard': 'Standard',
