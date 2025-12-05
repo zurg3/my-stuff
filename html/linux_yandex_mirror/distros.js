@@ -75,6 +75,14 @@ const linux_mint = {
     {
       version: '21.1',
       codename: 'Vera'
+    },
+    {
+      version: '21',
+      codename: 'Vanessa'
+    },
+    {
+      version: '20.3',
+      codename: 'Una'
     }
   ],
   editions: {
