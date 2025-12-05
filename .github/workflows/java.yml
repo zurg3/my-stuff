@@ -1,6 +1,6 @@
 name: Java
 env:
-  JAVA_VERSION: "20"
+  JAVA_VERSION: "25"
 
 on:
   push:

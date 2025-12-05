@@ -1,6 +1,6 @@
 name: Python
 env:
-  PYTHON_VERSION: "3.12"
+  PYTHON_VERSION: "3.14"
 
 on:
   push:
