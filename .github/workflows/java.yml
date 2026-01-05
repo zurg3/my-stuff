@@ -28,7 +28,7 @@ jobs:
           make
 
       - name: Upload artifact (Calc.java)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Calc_java_win
           path: java\Calc
@@ -53,7 +53,7 @@ jobs:
           make
 
       - name: Upload artifact (Calc.java)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Calc_java_linux
           path: java/Calc
