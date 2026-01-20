@@ -1,6 +1,6 @@
 // Debian
 const debian = {
-  version: '13.2.0',
+  version: '13.3.0',
   codename: 'Trixie',
   arch: 'amd64'
 };
@@ -52,6 +52,10 @@ const ubuntu = {
 // Linux Mint
 const linux_mint = {
   releases: [
+    {
+      version: '22.3',
+      codename: 'Zena'
+    },
     {
       version: '22.2',
       codename: 'Zara'
