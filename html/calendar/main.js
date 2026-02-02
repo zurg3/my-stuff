@@ -89,3 +89,19 @@ const current_year = params.year ? parseInt(params.year, 10) : dayjs().year();
 create_calendar(current_year);
 
 document.title = `Calendar - ${current_year}`;
+
+window.onkeydown = (e) => {
+  if (e.code === 'ArrowLeft') {
+    e.preventDefault();
+    window.open(`?year=${current_year - 1}`, '_self');
+  }
+  else if (e.code === 'ArrowRight') {
+    e.preventDefault();
+    window.open(`?year=${current_year + 1}`, '_self');
+  }
+  else if (e.ctrlKey && e.code === 'KeyY') {
+    e.preventDefault();
+    const year = prompt('Year');
+    if (year) window.open(`?year=${year}`, '_self');
+  }
+};
