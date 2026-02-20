@@ -13,9 +13,10 @@ shell_scripts=(
   "create_code_file"
   "arch_linux_cleaner"
   "algu"
+  "git_puller"
 )
 
-g++ cpp/git_puller.cpp -static -std=c++20 -o $install_path/git_puller
+# g++ cpp/git_puller.cpp -static -std=c++20 -o $install_path/git_puller
 # ln -f python/git_puller.py ~
 for shell_script in ${shell_scripts[@]}; do
   ln -f shell-scripts/$shell_script.sh $install_path/$shell_script

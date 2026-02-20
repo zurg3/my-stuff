@@ -8,9 +8,11 @@ Compile (static): g++ git_puller.cpp -static -std=c++20 -o git_puller
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <filesystem>
 #include <unistd.h>
 #include <iomanip>
 using namespace std;
+namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
   int git_repos_num;
@@ -27,8 +29,8 @@ int main(int argc, char *argv[]) {
       progress = (float)i / (float)git_repos_num * 100;
 
       cout << i << " / " << git_repos_num << endl;
-      cout << argv[i] << endl;
-      //system("pwd");
+      cout << fs::path(argv[i]).filename().string() << endl;
+      //cout << fs::current_path().string() << endl;
       system("git pull");
       cout << fixed << setprecision(1) << progress << "% done." << endl;
       cout << endl;

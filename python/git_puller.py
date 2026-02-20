@@ -17,7 +17,7 @@ if argc > 1:
         progress = i / git_repos_num * 100
 
         print(f'{i} / {git_repos_num}')
-        print(argv[i])
+        print(os.path.basename(argv[i]))
         # print(os.getcwd())
         os.system('git pull')
         print(f'{round(progress, 1)}% done.')
