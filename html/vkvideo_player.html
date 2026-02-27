@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VK Video player</title>
+    <link href="vkvideo_player/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
+  </head>
+  <body>
+    <h2>VK Video player</h2>
+    <div id="input" hidden>
+      <h3>VK Video Link</h3>
+      <p><input type="url" id="video_link" size="60" autocomplete="off"></p>
+      <p>
+        <input type="button" id="open_video_button" value="Submit" onclick="open_video()">
+        <input type="button" id="clear_input_button" value="Clear" onclick="clear_input()">
+      </p>
+    </div>
+    <div id="output" hidden>
+      <p id="links"><a id="video_share_link">Watch on VK Video</a> | <a id="video_embed_link">Embedded player</a></p>
+      <div id="vk_video"></div>
+    </div>
+    <script src="vkvideo_player/main.js"></script>
+  </body>
+</html>
