@@ -24,19 +24,19 @@ jobs:
           cmake --build . --config Release --target unix_time
 
       - name: Upload artifact (calc.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: calc_cpp_win_msvc
           path: cpp\build\Release\calc.exe
 
       - name: Upload artifact (num_systems.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: num_systems_cpp_win_msvc
           path: cpp\build\Release\num_systems.exe
 
       - name: Upload artifact (unix_time.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: unix_time_cpp_win_msvc
           path: cpp\build\Release\unix_time.exe
@@ -59,19 +59,19 @@ jobs:
           cmake --build . --target unix_time
 
       - name: Upload artifact (calc.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: calc_cpp_win_gcc
           path: cpp\build\calc.exe
 
       - name: Upload artifact (num_systems.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: num_systems_cpp_win_gcc
           path: cpp\build\num_systems.exe
 
       - name: Upload artifact (unix_time.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: unix_time_cpp_win_gcc
           path: cpp\build\unix_time.exe
@@ -94,19 +94,19 @@ jobs:
           cmake --build . --target unix_time
 
       - name: Upload artifact (calc.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: calc_cpp_linux
           path: cpp/build/calc
 
       - name: Upload artifact (num_systems.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: num_systems_cpp_linux
           path: cpp/build/num_systems
 
       - name: Upload artifact (unix_time.cpp)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: unix_time_cpp_linux
           path: cpp/build/unix_time
