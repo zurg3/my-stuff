@@ -1,24 +1,15 @@
--- calc
+local a = tonumber(io.read())
+local b = io.read()
+local c = tonumber(io.read())
 
-a = io.read()
-b = io.read()
-c = io.read()
-
-a = tonumber(a)
-c = tonumber(c)
-
-if b == '+' then
-  d = a + c
-  print(d)
-elseif b == '-' then
-  d = a - c
-  print(d)
-elseif b == '*' then
-  d = a * c
-  print(d)
-elseif b == '/' then
-  d = a / c
-  print(d)
+if b == "+" then
+  print(a + c)
+elseif b == "-" then
+  print(a - c)
+elseif b == "*" then
+  print(a * c)
+elseif b == "/" then
+  print(a / c)
 else
-  print('Your input is incorrect!')
+  print("Your input is incorrect!")
 end

@@ -1,10 +1,9 @@
 io.write("Enter the first number: ")
-a = io.read()
+io.flush()
+local a = tonumber(io.read())
 io.write("Enter the second number: ")
-b = io.read()
-
-a = tonumber(a)
-b = tonumber(b)
+io.flush()
+local b = tonumber(io.read())
 
 print(string.format("%g+%g=%g", a, b, a + b))
 print(string.format("%g-%g=%g", a, b, a - b))
