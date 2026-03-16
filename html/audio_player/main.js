@@ -14,7 +14,7 @@ const audio = document.createElement('audio');
 const audio_link = document.getElementById('audio_src');
 
 function open_audio() {
-  if (audio_link.value && (audio_link.value.startsWith('https://') || audio_link.value.startsWith('http://'))) {
+  if (audio_link.value && is_valid_url(audio_link.value)) {
     audio.src = audio_link.value;
     audio.controls = true;
     audio.preload = 'metadata';

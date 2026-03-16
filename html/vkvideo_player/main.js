@@ -17,7 +17,7 @@ const vk_iframe = document.createElement('iframe');
 input_block.hidden = false;
 
 function open_video() {
-  if (!video_link.value || !(video_link.value.startsWith('https://') || video_link.value.startsWith('http://'))) return alert('Invalid URL!');
+  if (!video_link.value || !is_valid_url(video_link.value)) return alert('Invalid URL!');
 
   const video_url = new URL(video_link.value);
   const valid_hosts = ['vk.com', 'vkvideo.ru', 'm.vk.com', 'm.vkvideo.ru'];

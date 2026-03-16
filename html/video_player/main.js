@@ -15,7 +15,7 @@ const video = document.createElement('video');
 const video_link = document.getElementById('video_src');
 
 function open_video() {
-  if (video_link.value && (video_link.value.startsWith('https://') || video_link.value.startsWith('http://'))) {
+  if (video_link.value && is_valid_url(video_link.value)) {
     video.src = video_link.value;
     video.width = 640;
     video.height = 480;

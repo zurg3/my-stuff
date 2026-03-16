@@ -45,7 +45,7 @@ const yt_video = document.getElementById('yt_video');
 const yt_iframe = document.createElement('iframe');
 
 function convert() {
-  if (original_link.value && original_link.value.startsWith('https://')) {
+  if (original_link.value && is_valid_url(original_link.value)) {
     const original_url = new URL(original_link.value);
     const params = Object.fromEntries(original_url.searchParams.entries());
 

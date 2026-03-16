@@ -247,19 +247,19 @@ function open_file() {
 function open_file_url(url) {
   if (!url) url = prompt('URL');
 
-  if (url && (url.startsWith('https://') || url.startsWith('http://'))) {
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', url, false);
+  if (url && is_valid_url(url)) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, false);
 
     try {
-      xmlhttp.send();
+      xhr.send();
 
-      if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
-        textarea.value = xmlhttp.responseText;
+      if (xhr.status >= 200 && xhr.status < 300) {
+        textarea.value = xhr.responseText;
         save_data();
       }
       else {
-        console.warn(`HTTP error: ${xmlhttp.status}`);
+        console.warn(`HTTP error: ${xhr.status}`);
       }
     }
     catch (error) {

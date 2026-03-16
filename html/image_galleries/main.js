@@ -162,7 +162,7 @@ function load_gallery() {
   let images_amount = document.getElementById('images_amount').value;
   let file_format = is_any_radio_checked('file_format');
 
-  if ((base_link && images_amount && file_format) && (base_link.startsWith('https://') || base_link.startsWith('http://'))) {
+  if ((base_link && images_amount && file_format) && is_valid_url(base_link)) {
     loading_progress.hidden = true;
     statistics.hidden = true;
     scale_control.hidden = false;
