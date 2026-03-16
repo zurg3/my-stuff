@@ -2,6 +2,18 @@ function is_mobile() {
   return window.screen.width < window.screen.height;
 }
 
+function is_valid_url(s) {
+  if (typeof s !== 'string') return false;
+
+  try {
+    const url = new URL(s.trim());
+    return ['https:', 'http:'].includes(url.protocol);
+  }
+  catch (error) {
+    return false;
+  }
+}
+
 function random_number(min = 1, max = 100) {
   if ((typeof min === 'number' && typeof max === 'number') && (min <= max)) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -33,4 +45,23 @@ function reverse_string(s) {
 
 function comparator(a, b) {
   return a.toLowerCase().localeCompare(b.toLowerCase());
+}
+
+async function parse_data(url, type) {
+  const data_types = ['html', 'json', 'text'];
+
+  if (!url || !data_types.includes(type)) return false;
+
+  try {
+    const res = await fetch(url);
+
+    if (!res.ok) return false;
+
+    if (type === 'html') return new DOMParser().parseFromString(await res.text(), 'text/html');
+    if (type === 'json') return await res.json();
+    if (type === 'text') return await res.text();
+  }
+  catch (error) {
+    return false;
+  }
 }
