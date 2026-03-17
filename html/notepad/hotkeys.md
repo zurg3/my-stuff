@@ -1,7 +1,7 @@
 # Keyboard Shortcuts
 
 | Action                              | Shortcut               |
-|-------------------------------------|------------------------|
+| ----------------------------------- | ---------------------- |
 | Tabulation                          | `Tab`                  |
 | Insert current time/date            | `F5`                   |
 | Open file                           | `Ctrl` + `O`           |

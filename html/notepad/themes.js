@@ -170,6 +170,56 @@ const themes = {
     description: 'Colors were generated randomly, name suggested by GPT-4o mini',
     colors: ['#0b0d31', '#b3b7a3']
   },
+  gruvbox: {
+    name: 'Gruvbox Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#282828', '#ebdbb2']
+  },
+  mars: {
+    name: 'Mars Rover Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#452019', '#ffccaa']
+  },
+  synthwave: {
+    name: 'Synthwave Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#262335', '#ff7edb']
+  },
+  mirage: {
+    name: 'Ayu Mirage Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#1f2430', '#ffcc66']
+  },
+  amber: {
+    name: 'Terminal Amber Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#0d0200', '#ffb000']
+  },
+  vampire: {
+    name: 'Vampire Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#080808', '#ff3e3e']
+  },
+  outrun: {
+    name: 'Outrun Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#190628', '#00ffd2']
+  },
+  velvet: {
+    name: 'Indigo Velvet Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#0a1128', '#e19570']
+  },
+  slate: {
+    name: 'Retro Slate Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#323232', '#90ee90']
+  },
+  toast: {
+    name: 'Burnt Toast Theme',
+    description: 'Colors and name suggested by Google AI Search',
+    colors: ['#1e1412', '#fb8c00']
+  },
   makaba: {
     name: 'Makaba Theme',
     description: 'Colors taken from https://2ch.hk',
