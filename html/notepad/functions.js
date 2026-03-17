@@ -248,23 +248,8 @@ function open_file_url(url) {
   if (!url) url = prompt('URL');
 
   if (url && is_valid_url(url)) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, false);
-
-    try {
-      xhr.send();
-
-      if (xhr.status >= 200 && xhr.status < 300) {
-        textarea.value = xhr.responseText;
-        save_data();
-      }
-      else {
-        console.warn(`HTTP error: ${xhr.status}`);
-      }
-    }
-    catch (error) {
-      console.warn(`Error: ${error}`);
-    }
+    textarea.value = parse_data_legacy(url, 'text');
+    save_data();
   }
 }
 
