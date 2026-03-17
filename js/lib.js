@@ -47,6 +47,31 @@ function comparator(a, b) {
   return a.toLowerCase().localeCompare(b.toLowerCase());
 }
 
+function parse_data_legacy(url, type) {
+  const data_types = ['html', 'json', 'text'];
+
+  if (!url || !data_types.includes(type)) return false;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, false);
+
+  try {
+    xhr.send();
+
+    if (xhr.status >= 200 && xhr.status < 300) {
+      if (type === 'html') return new DOMParser().parseFromString(xhr.responseText, 'text/html');
+      if (type === 'json') return JSON.parse(xhr.responseText);
+      if (type === 'text') return xhr.responseText;
+    }
+    else {
+      return false;
+    }
+  }
+  catch (error) {
+    return false;
+  }
+}
+
 async function parse_data(url, type) {
   const data_types = ['html', 'json', 'text'];
 
