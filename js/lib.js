@@ -47,6 +47,14 @@ function comparator(a, b) {
   return a.toLowerCase().localeCompare(b.toLowerCase());
 }
 
+function unique_array(array) {
+  return [...new Set(array)];
+}
+
+function count_of(array, value) {
+  return array.filter(item => item === value).length;
+}
+
 function parse_data_legacy(url, type) {
   const data_types = ['html', 'json', 'text'];
 
@@ -89,4 +97,8 @@ async function parse_data(url, type) {
   catch (error) {
     return false;
   }
+}
+
+function sleep(t = 1) {
+  return new Promise(r => setTimeout(r, t * 1000));
 }
