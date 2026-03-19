@@ -43,6 +43,18 @@ function reverse_string(s) {
   if (typeof s === 'string') return s.split('').reverse().join('');
 }
 
+function title_case(s, extended = false) {
+  if (typeof s === 'string') {
+    const reg_exp = extended ? /([- ])/ : /([ ])/;
+
+    return s.toLowerCase().split(reg_exp).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  }
+}
+
+function swap_case(s) {
+  if (typeof s === 'string') return s.split('').map(char => char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()).join('');
+}
+
 function comparator(a, b) {
   return a.toLowerCase().localeCompare(b.toLowerCase());
 }
