@@ -1,5 +1,14 @@
+// zurg3's JavaScript library
+
+const lib = {};
+
 function is_mobile() {
   return window.screen.width < window.screen.height;
+}
+
+function back_to_top() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
 
 function is_valid_url(s) {
@@ -65,6 +74,14 @@ function unique_array(array) {
 
 function count_of(array, value) {
   return array.filter(item => item === value).length;
+}
+
+function is_any_radio_checked(radio_name) {
+  return document.querySelector(`input[name="${radio_name}"]:checked`) !== null;
+}
+
+function get_checked_radio_value(radio_name) {
+  return document.querySelector(`input[name="${radio_name}"]:checked`).value;
 }
 
 function parse_data_legacy(url, type) {

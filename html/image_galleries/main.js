@@ -57,11 +57,6 @@ function detect_scroll() {
   document.getElementById('back_to_top_button').style.display = (document.body.scrollTop > scroll_top || document.documentElement.scrollTop > scroll_top) ? 'block' : 'none';
 }
 
-function back_to_top() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
-
 window.onscroll = () => {
   detect_scroll();
 };
@@ -84,18 +79,6 @@ function change_scale(operation) {
   }
 
   img_scale_value.innerText = `${current_img_scale}%`;
-}
-
-function is_any_radio_checked(radio_name) {
-  return document.querySelector(`input[name="${radio_name}"]:checked`) !== null;
-}
-
-function get_checked_radio_value(radio_name) {
-  const radio_buttons = document.getElementsByName(radio_name);
-
-  for (let i = 0; i < radio_buttons.length; i++) {
-    if (radio_buttons[i].checked) return radio_buttons[i].value;
-  }
 }
 
 function get_image_size(img_num) {
