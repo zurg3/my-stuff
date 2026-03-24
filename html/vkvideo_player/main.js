@@ -1,20 +1,9 @@
-if (is_mobile()) {
-  const url_input = document.getElementById('video_link');
-  const width = Math.floor(document.body.offsetWidth * 0.9);
-
-  url_input.removeAttribute('size');
-  url_input.style.width = `${width}px`;
-}
-
-const input_block = document.getElementById('input');
 const video_link = document.getElementById('video_link');
 const output_block = document.getElementById('output');
 const video_share_link = document.getElementById('video_share_link');
 const video_embed_link = document.getElementById('video_embed_link');
 const vk_video = document.getElementById('vk_video');
 const vk_iframe = document.createElement('iframe');
-
-input_block.hidden = false;
 
 function open_video() {
   if (!video_link.value || !is_valid_url(video_link.value)) return alert('Invalid URL!');

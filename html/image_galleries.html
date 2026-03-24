@@ -10,12 +10,12 @@
   </head>
   <body>
     <input type="button" id="back_to_top_button" value="↑" onclick="back_to_top()" title="Back to top">
-    <form id="form" hidden>
+    <form>
       <fieldset>
         <legend>Required fields</legend>
         <p>
           <label for="base_link">Base link</label><br>
-          <input type="url" id="base_link" size="60">
+          <input type="url" id="base_link" size="60" autocomplete="off">
           <input type="button" value="X" onclick="clear_base_link()">
         </p>
         <p>

@@ -4,15 +4,6 @@ ytm - YouTube Music
 ppd - Piped
 */
 
-if (is_mobile()) {
-  const url_input = document.getElementById('original_link');
-  const width = Math.floor(document.body.offsetWidth * 0.9);
-
-  url_input.removeAttribute('size');
-  url_input.style.width = `${width}px`;
-}
-
-const input_block = document.getElementById('input');
 const original_link = document.getElementById('original_link');
 
 const video_option = document.getElementById('video_option');
@@ -27,8 +18,6 @@ const playlist_links_block = document.getElementById('playlist_links');
 const yt_playlist_link = document.getElementById('yt_playlist_link');
 const ytm_playlist_link = document.getElementById('ytm_playlist_link');
 const ppd_playlist_link = document.getElementById('ppd_playlist_link');
-
-input_block.hidden = false;
 
 new ClipboardJS('#copy_yt_video_link_button');
 new ClipboardJS('#copy_ytm_video_link_button');

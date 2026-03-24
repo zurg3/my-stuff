@@ -1,15 +1,3 @@
-if (is_mobile()) {
-  const base_link = document.getElementById('base_link');
-  const width = Math.floor(document.body.offsetWidth * 0.8);
-
-  base_link.removeAttribute('size');
-  base_link.style.width = `${width}px`;
-}
-
-// Form
-const form = document.getElementById('form');
-form.hidden = false;
-
 new ClipboardJS('.copy_image_url_button');
 
 // 80% - mobile, 50% - desktop

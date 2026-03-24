@@ -1,14 +1,3 @@
-if (is_mobile()) {
-  const url_input = document.getElementById('audio_src');
-  const width = Math.floor(document.body.offsetWidth * 0.9);
-
-  url_input.removeAttribute('size');
-  url_input.style.width = `${width}px`;
-}
-
-const form = document.getElementById('form');
-form.hidden = false;
-
 const audio_player = document.getElementById('audio_player');
 const audio = document.createElement('audio');
 const audio_link = document.getElementById('audio_src');

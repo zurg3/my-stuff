@@ -1,14 +1,3 @@
-if (is_mobile()) {
-  const url_input = document.getElementById('video_src');
-  const width = Math.floor(document.body.offsetWidth * 0.9);
-
-  url_input.removeAttribute('size');
-  url_input.style.width = `${width}px`;
-}
-
-const form = document.getElementById('form');
-form.hidden = false;
-
 const video_player = document.getElementById('video_player');
 const video_controls = document.getElementById('video_controls');
 const video = document.createElement('video');
