@@ -12,10 +12,6 @@
   z-index: 99;
 }
 
-#base_link {
-  max-width: 80%;
-}
-
 #output {
   border: 1px solid Black;
   border-radius: 5px;

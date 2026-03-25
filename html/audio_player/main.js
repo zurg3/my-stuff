@@ -1,4 +1,9 @@
-const {is_valid_url} = lib;
+const {resize_input, is_valid_url} = lib;
+
+resize_input(document.getElementById('audio_src'));
+
+const form = document.getElementsByTagName('form')[0];
+form.hidden = false;
 
 const audio_player = document.getElementById('audio_player');
 const audio = document.createElement('audio');

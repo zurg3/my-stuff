@@ -1,4 +1,9 @@
-const {is_mobile, back_to_top, is_valid_url, is_any_radio_checked, get_checked_radio_value} = lib;
+const {resize_input, is_mobile, back_to_top, is_valid_url, is_any_radio_checked, get_checked_radio_value} = lib;
+
+resize_input(document.getElementById('base_link'), 0.8);
+
+const form = document.getElementsByTagName('form')[0];
+form.hidden = false;
 
 new ClipboardJS('.copy_image_url_button');
 

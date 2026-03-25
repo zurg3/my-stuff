@@ -1,4 +1,9 @@
-const {is_valid_url, is_mobile} = lib;
+const {resize_input, is_valid_url, is_mobile} = lib;
+
+resize_input(document.getElementById('video_src'));
+
+const form = document.getElementsByTagName('form')[0];
+form.hidden = false;
 
 const video_player = document.getElementById('video_player');
 const video_controls = document.getElementById('video_controls');
