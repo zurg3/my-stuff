@@ -4,6 +4,8 @@ ytm - YouTube Music
 ppd - Piped
 */
 
+const {is_valid_url, is_mobile} = lib;
+
 const original_link = document.getElementById('original_link');
 
 const video_option = document.getElementById('video_option');

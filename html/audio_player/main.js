@@ -1,3 +1,5 @@
+const {is_valid_url} = lib;
+
 const audio_player = document.getElementById('audio_player');
 const audio = document.createElement('audio');
 const audio_link = document.getElementById('audio_src');

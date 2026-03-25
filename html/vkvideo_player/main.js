@@ -1,3 +1,5 @@
+const {is_valid_url, is_mobile} = lib;
+
 const video_link = document.getElementById('video_link');
 const output_block = document.getElementById('output');
 const video_share_link = document.getElementById('video_share_link');

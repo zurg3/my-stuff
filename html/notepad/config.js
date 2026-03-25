@@ -43,3 +43,6 @@ const textarea_css = document.styleSheets[0].cssRules[1];
 // URL
 const current_url = new URL(window.location);
 const params = Object.fromEntries(current_url.searchParams.entries());
+
+// Import functions from library
+const {random_number, is_valid_url, parse_data_legacy} = lib;

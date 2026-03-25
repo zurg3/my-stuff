@@ -1,3 +1,5 @@
+const {is_valid_url, is_mobile} = lib;
+
 const video_player = document.getElementById('video_player');
 const video_controls = document.getElementById('video_controls');
 const video = document.createElement('video');

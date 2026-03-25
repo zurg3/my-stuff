@@ -1,3 +1,5 @@
+const {is_mobile, back_to_top, is_valid_url, is_any_radio_checked, get_checked_radio_value} = lib;
+
 new ClipboardJS('.copy_image_url_button');
 
 // 80% - mobile, 50% - desktop
