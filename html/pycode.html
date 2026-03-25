@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PyCode</title>
+    <link href="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.main.min.css" rel="stylesheet" data-name="vs/editor/editor.main">
+    <link href="pycode/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.29.3/full/pyodide.js"></script>
+  </head>
+  <body>
+    <div id="toolbar">
+      <button id="run_code_button" onclick="run_code()" disabled>Loading...</button>
+      <button id="clear_output_button" onclick="clear_output()">Clear Output</button>
+    </div>
+    <div id="container">
+      <div id="input"></div>
+      <div id="resizer"></div>
+      <textarea id="output" disabled></textarea>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/html/monaco/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.main.min.js"></script>
+    <script src="pycode/main.js"></script>
+  </body>
+</html>
