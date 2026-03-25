@@ -176,9 +176,13 @@ function show_theme(theme_key) {
   }
 }
 
+function get_lines() {
+  return textarea.value.split('\n');
+}
+
 function update_statistics() {
   statistics.characters = textarea.value.length;
-  statistics.lines = textarea.value.split('\n').length;
+  statistics.lines = get_lines().length;
 }
 
 function show_statistics() {
@@ -284,12 +288,12 @@ notepad.append = (text) => {
 };
 
 notepad.split_lines = (delimiter = ' ') => {
-  textarea.value = textarea.value.split('\n').join(' ').split(delimiter).filter(Boolean).join('\n');
+  textarea.value = get_lines().join(' ').split(delimiter).filter(Boolean).join('\n');
   save_data();
 };
 
 notepad.join_lines = (delimiter = ' ') => {
-  let text = textarea.value.split('\n');
+  let text = get_lines();
 
   for (let i = 0; i < text.length; i++) {
     text[i] = text[i].trim();
@@ -304,7 +308,7 @@ notepad.minify = () => {
 };
 
 notepad.add_prefix = (prefix = '') => {
-  let text = textarea.value.split('\n');
+  let text = get_lines();
 
   for (let i = 0; i < text.length; i++) {
     text[i] = `${prefix}${text[i]}`;
@@ -315,7 +319,7 @@ notepad.add_prefix = (prefix = '') => {
 };
 
 notepad.add_postfix = (postfix = '') => {
-  let text = textarea.value.split('\n');
+  let text = get_lines();
 
   for (let i = 0; i < text.length; i++) {
     text[i] = `${text[i]}${postfix}`;
@@ -326,7 +330,7 @@ notepad.add_postfix = (postfix = '') => {
 };
 
 notepad.num_lines = () => {
-  let text = textarea.value.split('\n');
+  let text = get_lines();
 
   for (let i = 0; i < text.length; i++) {
     text[i] = `${i + 1}. ${text[i]}`;

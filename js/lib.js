@@ -9,6 +9,18 @@ lib.back_to_top = () => {
   document.documentElement.scrollTop = 0;
 };
 
+lib.resize_input = (element, ratio = 0.9) => {
+  if (!element || !lib.is_mobile()) return;
+
+  const width = Math.floor(document.body.offsetWidth * ratio);
+  const tag = element.tagName.toLowerCase();
+
+  if (tag === 'input' || tag === 'textarea') {
+    element.removeAttribute(tag === 'input' ? 'size' : 'cols');
+    element.style.width = `${width}px`;
+  }
+};
+
 lib.is_valid_url = (s) => {
   if (typeof s !== 'string') return false;
 
