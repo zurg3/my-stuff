@@ -303,6 +303,22 @@ notepad.join_lines = (delimiter = ' ') => {
   save_data();
 };
 
+notepad.trim_final_newlines = () => {
+  textarea.value = textarea.value.trimEnd();
+  save_data();
+};
+
+notepad.trim_trailing_whitespace = () => {
+  let text = get_lines();
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = text[i].trimEnd();
+  }
+
+  textarea.value = text.join('\n');
+  save_data();
+};
+
 notepad.minify = () => {
   notepad.join_lines('');
 };
