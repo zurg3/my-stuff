@@ -137,7 +137,7 @@ function reset_loaded_rate_color() {
 function load_gallery() {
   // Required fields
   const base_link = document.getElementById('base_link').value;
-  let images_amount = document.getElementById('images_amount').value;
+  const images_amount = parseInt(document.getElementById('images_amount').value, 10);
   const file_format = get_checked_radio_value('file_format');
 
   if ((base_link && images_amount && file_format) && is_valid_url(base_link)) {
@@ -147,8 +147,6 @@ function load_gallery() {
     output.hidden = false;
 
     img_scale_value.innerText = `${current_img_scale}%`;
-
-    images_amount = parseInt(images_amount, 10);
 
     // Optional fields
     const start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
