@@ -92,7 +92,9 @@ lib.count_of = (array, value) => array.filter(item => item === value).length;
 
 lib.is_any_radio_checked = (radio_name) => document.querySelector(`input[name="${radio_name}"]:checked`) !== null;
 
-lib.get_checked_radio_value = (radio_name) => document.querySelector(`input[name="${radio_name}"]:checked`).value;
+lib.get_checked_radio_value = (radio_name) => {
+  if (lib.is_any_radio_checked(radio_name)) document.querySelector(`input[name="${radio_name}"]:checked`).value;
+}
 
 lib.parse_data_legacy = (url, type) => {
   const data_types = ['html', 'json', 'text'];
