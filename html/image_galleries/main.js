@@ -1,4 +1,4 @@
-const {resize_input, is_mobile, back_to_top, is_valid_url, is_any_radio_checked, get_checked_radio_value} = lib;
+const {resize_input, is_mobile, back_to_top, is_valid_url, get_checked_radio_value} = lib;
 
 resize_input(document.getElementById('base_link'), 0.8);
 
@@ -138,7 +138,7 @@ function load_gallery() {
   // Required fields
   const base_link = document.getElementById('base_link').value;
   let images_amount = document.getElementById('images_amount').value;
-  let file_format = is_any_radio_checked('file_format');
+  const file_format = get_checked_radio_value('file_format');
 
   if ((base_link && images_amount && file_format) && is_valid_url(base_link)) {
     loading_progress.hidden = true;
@@ -149,7 +149,6 @@ function load_gallery() {
     img_scale_value.innerText = `${current_img_scale}%`;
 
     images_amount = parseInt(images_amount, 10);
-    file_format = get_checked_radio_value('file_format');
 
     // Optional fields
     const start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
@@ -193,7 +192,7 @@ function load_gallery() {
 
       image_item.innerHTML = `<span class="image_id"></span>
         <br hidden>
-        <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${is_any_radio_checked('search_engine')})" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
+        <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, ${search_engine})" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
         <br hidden>
         <span class="image_size"></span>
         <br hidden>
