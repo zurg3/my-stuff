@@ -50,6 +50,12 @@ textarea.onkeydown = (e) => {
     e.preventDefault();
     notepad.reset();
   }
+  // Trim text
+  else if (e.ctrlKey && e.code === 'KeyB') {
+    e.preventDefault();
+    notepad.trim_final_newlines();
+    notepad.trim_trailing_whitespace();
+  }
   // Minify text
   else if (e.ctrlKey && e.code === 'KeyM') {
     e.preventDefault();

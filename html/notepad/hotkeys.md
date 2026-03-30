@@ -12,6 +12,7 @@
 | Toggle write/read mode              | `Ctrl` + `H`           |
 | Toggle word wrap                    | `Ctrl` + `J`           |
 | Reset Notepad settings              | `Ctrl` + `K`           |
+| Trim text                           | `Ctrl` + `B`           |
 | Minify text                         | `Ctrl` + `M`           |
 | Decrease font size                  | `Ctrl` + `[`           |
 | Increase font size                  | `Ctrl` + `]`           |
