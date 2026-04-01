@@ -176,6 +176,12 @@ function show_theme(theme_key) {
   }
 }
 
+function get_selected_text() {
+  if (textarea.selectionStart !== textarea.selectionEnd) {
+    return textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+  }
+}
+
 function get_lines() {
   return textarea.value.split('\n');
 }
