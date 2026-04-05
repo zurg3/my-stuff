@@ -1,0 +1,25 @@
+#preview {
+  background: white;
+  color: black;
+  scrollbar-color: black white;
+  resize: none;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  border: 1px solid grey;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+#bg_color_hex, #font_color_hex {
+  font-family: monospace;
+}
+
+#copy_bg_button, #copy_font_button {
+  cursor: pointer;
+}
+
+@media screen and (orientation: portrait) {
+  #preview {
+    width: 90%;
+  }
+}

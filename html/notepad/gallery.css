@@ -1,0 +1,9 @@
+textarea {
+  margin: 4px;
+  resize: none;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  border: 1px solid grey;
+  outline: none;
+  white-space: pre-wrap;
+}

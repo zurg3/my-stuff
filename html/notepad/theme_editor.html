@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notepad Theme Editor</title>
+    <link href="theme_editor.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  </head>
+  <body>
+    <h2>Notepad Theme Editor</h2>
+    <textarea id="preview" cols="50" rows="10" wrap="soft" spellcheck="false">Hello, World!</textarea>
+    <p>
+      <input type="color" id="bg_color_picker" value="#ffffff">
+      <label for="bg_color_picker">Background:</label>
+      <span id="bg_color_hex">#ffffff</span>
+      <input type="button" id="copy_bg_button" value="Copy" data-clipboard-target="#bg_color_hex" data-clipboard-action="copy">
+    </p>
+    <p>
+      <input type="color" id="font_color_picker" value="#000000">
+      <label for="font_color_picker">Font:</label>
+      <span id="font_color_hex">#000000</span>
+      <input type="button" id="copy_font_button" value="Copy" data-clipboard-target="#font_color_hex" data-clipboard-action="copy">
+    </p>
+    <script src="theme_editor.js"></script>
+  </body>
+</html>
