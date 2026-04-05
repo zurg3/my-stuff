@@ -1,4 +1,46 @@
 // Functions
+function get_text() {
+  return textarea.value;
+}
+
+function get_lines() {
+  return get_text().split('\n');
+}
+
+function get_selected_text() {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  if (start === end) return;
+
+  return get_text().slice(start, end);
+}
+
+function get_selected_lines() {
+  const selection = get_selected_text();
+
+  if (selection) return selection.split('\n');
+}
+
+function set_text(text, save = true) {
+  textarea.value = text;
+  if (save) save_data();
+}
+
+function replace_selection(text, save = true) {
+  textarea.setRangeText(text);
+  if (save) save_data();
+}
+
+function set_result(result) {
+  if (get_selected_text()) {
+    replace_selection(result);
+  }
+  else {
+    set_text(result);
+  }
+}
+
 function set_font_size(font_size) {
   const min_font_size = 4;
   const max_font_size = 30;
@@ -33,35 +75,17 @@ function insert_time_date() {
   document.execCommand('insertText', false, time_date);
 }
 
-function set_version(version) {
-  // Classic Version
-  if (version === 'classic') {
-    [
-      'padding',
-      'font-family',
-      'line-height'
-    ].forEach((property) => textarea_css.style.removeProperty(property));
-  }
-  // Test Version
-  else if (version === 'test') {
-    window.open('https://zurg3.github.io/test/notepad.html', '_self');
-  }
-  else {
-    console.warn('Error: Version not found!');
-  }
-}
-
 function set_mode(mode) {
   // Write mode (default)
-  if (mode === 'write') {
+  if (['write', 'w'].includes(mode)) {
     textarea.readOnly = false;
   }
   // Read-Only mode
-  else if (mode === 'read') {
+  else if (['read', 'r'].includes(mode)) {
     textarea.readOnly = true;
   }
   // Execution mode
-  else if (mode === 'exe') {
+  else if (['exe', 'x'].includes(mode)) {
     notepad.execute();
   }
   else {
@@ -176,18 +200,8 @@ function show_theme(theme_key) {
   }
 }
 
-function get_selected_text() {
-  if (textarea.selectionStart !== textarea.selectionEnd) {
-    return textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
-  }
-}
-
-function get_lines() {
-  return textarea.value.split('\n');
-}
-
 function update_statistics() {
-  statistics.characters = textarea.value.length;
+  statistics.characters = get_text().length;
   statistics.lines = get_lines().length;
 }
 
@@ -211,11 +225,12 @@ function toggle_word_wrap(option) {
 }
 
 function load_data() {
-  textarea.value = localStorage.getItem('notepad_data') || '';
+  const data = localStorage.getItem('notepad_data') || '';
+  set_text(data, false);
 }
 
 function save_data() {
-  localStorage.setItem('notepad_data', textarea.value);
+  localStorage.setItem('notepad_data', get_text());
 }
 
 function load_config() {
@@ -228,11 +243,13 @@ function save_config() {
 }
 
 function clear_local_storage() {
-  local_storage_items.forEach((item) => localStorage.removeItem(item));
+  local_storage_items.forEach(item => localStorage.removeItem(item));
 }
 
 function open_file() {
-  if (!textarea.value || (textarea.value && confirm('Are you sure?'))) {
+  const text = get_text();
+
+  if (!text || (text && confirm('Are you sure?'))) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.txt';
@@ -242,10 +259,7 @@ function open_file() {
 
       if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
-          textarea.value = e.target.result;
-          save_data();
-        };
+        reader.onload = (e) => set_text(e.target.result);
         reader.readAsText(file);
       }
     };
@@ -254,17 +268,16 @@ function open_file() {
   }
 }
 
-function open_file_url(url) {
+async function open_file_url(url) {
   if (!url) url = prompt('URL');
 
   if (url && is_valid_url(url)) {
-    textarea.value = parse_data_legacy(url, 'text');
-    save_data();
+    set_text(await parse_data(url, 'text'));
   }
 }
 
 function save_file() {
-  const blob = new Blob([textarea.value], {type: 'text/plain;charset=utf-8'});
+  const blob = new Blob([get_text()], {type: 'text/plain;charset=utf-8'});
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = 'document.txt';
@@ -273,56 +286,42 @@ function save_file() {
 }
 
 function update_debug_text() {
-  //debug_text.textContent = textarea.value;
   debug_text.textContent = '.';
   debug_text.textContent = '';
 }
 
 notepad.write = (text) => {
-  textarea.value = text;
-  save_data();
+  set_text(text);
 };
 
-notepad.prepend = (text) => {
-  textarea.value = text + textarea.value;
-  save_data();
+notepad.prepend = (text, newline = false) => {
+  set_text(`${text}${newline ? '\n' : ''}${get_text()}`);
 };
 
-notepad.append = (text) => {
-  textarea.value = textarea.value + text;
-  save_data();
+notepad.append = (text, newline = false) => {
+  set_text(`${get_text()}${newline ? '\n' : ''}${text}`);
+};
+
+notepad.process_lines = (callback, delimiter = '\n') => {
+  const text = get_selected_lines() || get_lines();
+  set_result(text.map(callback).join(delimiter));
 };
 
 notepad.split_lines = (delimiter = ' ') => {
-  textarea.value = get_lines().join(' ').split(delimiter).filter(Boolean).join('\n');
-  save_data();
+  const text = get_selected_lines() || get_lines();
+  set_result(text.join(' ').split(delimiter).filter(Boolean).join('\n'));
 };
 
 notepad.join_lines = (delimiter = ' ') => {
-  let text = get_lines();
-
-  for (let i = 0; i < text.length; i++) {
-    text[i] = text[i].trim();
-  }
-
-  textarea.value = text.join(delimiter);
-  save_data();
+  notepad.process_lines(line => line.trim(), delimiter);
 };
 
 notepad.trim_final_newlines = () => {
-  textarea.value = textarea.value.trimEnd();
-  save_data();
+  set_text(get_text().trimEnd());
 };
 
 notepad.trim_trailing_whitespace = () => {
-  let text = get_lines();
-
-  for (let i = 0; i < text.length; i++) {
-    text[i] = text[i].trimEnd();
-  }
-
-  textarea.value = text.join('\n');
-  save_data();
+  notepad.process_lines(line => line.trimEnd());
 };
 
 notepad.minify = () => {
@@ -330,40 +329,20 @@ notepad.minify = () => {
 };
 
 notepad.add_prefix = (prefix = '') => {
-  let text = get_lines();
-
-  for (let i = 0; i < text.length; i++) {
-    text[i] = `${prefix}${text[i]}`;
-  }
-
-  textarea.value = text.join('\n');
-  save_data();
+  notepad.process_lines(line => `${prefix}${line}`);
 };
 
 notepad.add_postfix = (postfix = '') => {
-  let text = get_lines();
-
-  for (let i = 0; i < text.length; i++) {
-    text[i] = `${text[i]}${postfix}`;
-  }
-
-  textarea.value = text.join('\n');
-  save_data();
+  notepad.process_lines(line => `${line}${postfix}`);
 };
 
 notepad.num_lines = () => {
-  let text = get_lines();
-
-  for (let i = 0; i < text.length; i++) {
-    text[i] = `${i + 1}. ${text[i]}`;
-  }
-
-  textarea.value = text.join('\n');
-  save_data();
+  notepad.process_lines((line, i) => `${i + 1}. ${line}`);
 };
 
 notepad.execute = () => {
-  eval(textarea.value);
+  const code = get_selected_text() || get_text();
+  eval(code);
 };
 
 notepad.undo = () => {
@@ -375,7 +354,7 @@ notepad.redo = () => {
 };
 
 notepad.copy = () => {
-  ClipboardJS.copy(textarea.value);
+  ClipboardJS.copy(get_text());
 };
 
 notepad.cut = () => {
@@ -383,13 +362,11 @@ notepad.cut = () => {
 };
 
 notepad.replace = (search, replace) => {
-  textarea.value = textarea.value.replaceAll(search, replace);
-  save_data();
+  set_text(get_text().replaceAll(search, replace));
 };
 
 notepad.clear = () => {
-  textarea.value = '';
-  save_data();
+  set_text('');
 };
 
 notepad.reset = () => {

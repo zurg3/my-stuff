@@ -37,7 +37,7 @@ function create_calendar(year) {
     days_element.className = 'days';
 
     // Day headers
-    day_names.forEach((day) => {
+    day_names.forEach(day => {
       const day_header = document.createElement('div');
       day_header.className = 'day_name';
 

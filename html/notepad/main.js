@@ -3,9 +3,6 @@ window.onload = () => {
   // Load Notepad config from LocalStorage
   load_config();
 
-  // Set version from URL
-  if (params.version) set_version(params.version);
-
   // Set placeholder
   if (config.placeholder) textarea.placeholder = config.placeholder;
 
