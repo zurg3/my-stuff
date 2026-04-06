@@ -53,7 +53,7 @@ textarea.onkeydown = (e) => {
   // Trim text
   else if (e.ctrlKey && e.code === 'KeyB') {
     e.preventDefault();
-    notepad.trim_final_newlines();
+    if (!get_selected_text()) notepad.trim_final_newlines();
     notepad.trim_trailing_whitespace();
   }
   // Minify text

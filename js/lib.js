@@ -84,6 +84,20 @@ lib.swap_case = (s) => {
   if (typeof s === 'string') return s.split('').map(char => char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()).join('');
 };
 
+lib.compare_strings_length = (s1, s2) => {
+  if (typeof s1 === 'string' && typeof s2 === 'string') {
+    if (s1.length > s2.length) {
+      return -1;
+    }
+    else if (s1.length === s2.length) {
+      return 0;
+    }
+    else if (s1.length < s2.length) {
+      return 1;
+    }
+  }
+};
+
 lib.comparator = (a, b) => a.toLowerCase().localeCompare(b.toLowerCase());
 
 lib.unique_array = (array) => [...new Set(array)];

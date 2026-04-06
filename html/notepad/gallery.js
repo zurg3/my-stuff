@@ -1,3 +1,5 @@
+const gallery = document.getElementById('gallery');
+
 delete themes.system;
 delete themes.random;
 
@@ -19,6 +21,7 @@ Object.keys(themes).forEach(theme_key => {
 
   const textarea = document.createElement('textarea');
 
+  textarea.className = 'theme';
   textarea.id = `${theme_key}`;
   textarea.value = theme_info.join('\n');
   textarea.cols = 40;
@@ -30,5 +33,5 @@ Object.keys(themes).forEach(theme_key => {
   textarea.style.color = `${font_color}`;
   textarea.style.scrollbarColor = `${font_color} ${bg_color}`;
 
-  document.body.append(textarea);
+  gallery.append(textarea);
 });
