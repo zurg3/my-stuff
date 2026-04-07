@@ -350,6 +350,24 @@ notepad.num_lines = () => {
   notepad.process_lines((line, i) => `${i + 1}. ${line}`);
 };
 
+notepad.sort_lines = (order = 'asc') => {
+  if (['asc', 'desc'].includes(order)) {
+    const text = get_selected_lines() || get_lines();
+
+    if (order === 'asc') {
+      set_result(text.sort(comparator).join('\n'));
+    }
+    else {
+      set_result(text.sort(comparator).reverse().join('\n'));
+    }
+  }
+};
+
+notepad.reverse_lines = () => {
+  const text = get_selected_lines() || get_lines();
+  set_result(text.reverse().join('\n'));
+};
+
 notepad.execute = () => {
   const code = get_selected_text() || get_text();
   eval(code);
