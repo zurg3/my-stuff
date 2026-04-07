@@ -324,6 +324,16 @@ notepad.trim_trailing_whitespace = () => {
   notepad.process_lines(line => line.trimEnd());
 };
 
+notepad.remove_empty_lines = () => {
+  const text = get_selected_lines() || get_lines();
+  set_result(text.filter(Boolean).join('\n'));
+};
+
+notepad.remove_duplicate_lines = () => {
+  const text = get_selected_lines() || get_lines();
+  set_result(unique_array(text).join('\n'));
+};
+
 notepad.minify = () => {
   notepad.join_lines('');
 };
