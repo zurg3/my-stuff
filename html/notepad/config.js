@@ -45,4 +45,4 @@ const current_url = new URL(window.location);
 const params = Object.fromEntries(current_url.searchParams.entries());
 
 // Import functions from library
-const {random_number, is_valid_url, parse_data, unique_array, comparator} = lib;
+const {random_number, is_valid_url, parse_data, unique_array, comparator, shuffle_array} = lib;

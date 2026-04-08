@@ -100,6 +100,15 @@ lib.compare_strings_length = (s1, s2) => {
 
 lib.comparator = (a, b) => a.toLowerCase().localeCompare(b.toLowerCase());
 
+lib.shuffle_array = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = lib.random_number(0, i);
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+};
+
 lib.unique_array = (array) => [...new Set(array)];
 
 lib.count_of = (array, value) => array.filter(item => item === value).length;

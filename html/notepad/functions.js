@@ -320,8 +320,16 @@ notepad.trim_final_newlines = () => {
   set_text(get_text().trimEnd());
 };
 
+notepad.trim_leading_whitespace = () => {
+  notepad.process_lines(line => line.trimStart());
+};
+
 notepad.trim_trailing_whitespace = () => {
   notepad.process_lines(line => line.trimEnd());
+};
+
+notepad.trim_whitespace = () => {
+  notepad.process_lines(line => line.trim());
 };
 
 notepad.remove_empty_lines = () => {
@@ -366,6 +374,11 @@ notepad.sort_lines = (order = 'asc') => {
 notepad.reverse_lines = () => {
   const text = get_selected_lines() || get_lines();
   set_result(text.reverse().join('\n'));
+};
+
+notepad.shuffle_lines = () => {
+  const text = get_selected_lines() || get_lines();
+  set_result(shuffle_array(text).join('\n'));
 };
 
 notepad.execute = () => {
