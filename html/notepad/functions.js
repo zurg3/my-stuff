@@ -403,7 +403,16 @@ notepad.cut = () => {
 };
 
 notepad.replace = (search, replace) => {
-  set_text(get_text().replaceAll(search, replace));
+  const text = get_selected_text() || get_text();
+  set_result(text.replaceAll(search, replace));
+};
+
+notepad.convert_tabs_to_spaces = () => {
+  notepad.replace('\t', ' '.repeat(config.indent_size));
+};
+
+notepad.convert_spaces_to_tabs = () => {
+  notepad.replace(' '.repeat(config.indent_size), '\t');
 };
 
 notepad.clear = () => {

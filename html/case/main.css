@@ -1,0 +1,10 @@
+body {
+  background: #ebebeb;
+}
+
+#input, #output {
+  background: #ffffff;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 6px;
+}

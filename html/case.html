@@ -4,20 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Case converter</title>
+    <link href="case/main.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
-    <style>
-      body {
-        background: #ebebeb;
-      }
-
-      #input, #output {
-        background: #ffffff;
-        padding: 0.5em 1em;
-        border: none;
-        border-radius: 6px;
-      }
-    </style>
   </head>
   <body>
     <h2>Case converter</h2>
@@ -35,39 +24,6 @@
         <input type="button" value="Clear" id="clear_button" onclick="clear_all()"></p>
       <textarea id="output" cols="50" rows="10" placeholder="Output" readonly></textarea>
     </div>
-    <script>
-      const {resize_input, get_checked_radio_value, upper_case, lower_case, title_case, swap_case} = lib;
-
-      const converter = document.getElementById('converter');
-      const input = document.getElementById('input');
-      const output = document.getElementById('output');
-
-      new ClipboardJS('#copy_button');
-
-      resize_input(input);
-      resize_input(output);
-
-      converter.hidden = false;
-
-      function convert_case() {
-        if (get_checked_radio_value('case_option') === 'upper') {
-          output.value = upper_case(input.value);
-        }
-        else if (get_checked_radio_value('case_option') === 'lower') {
-          output.value = lower_case(input.value);
-        }
-        else if (get_checked_radio_value('case_option') === 'title') {
-          output.value = title_case(input.value);
-        }
-        else if (get_checked_radio_value('case_option') === 'swap') {
-          output.value = swap_case(input.value);
-        }
-      }
-
-      function clear_all() {
-        input.value = '';
-        output.value = '';
-      }
-    </script>
+    <script src="case/main.js"></script>
   </body>
 </html>

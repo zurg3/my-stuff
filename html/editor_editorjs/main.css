@@ -1,0 +1,12 @@
+body {
+  font-family: 'Noto Serif', serif;
+  background: #f5eedb;
+  color: #19160f;
+}
+
+#editorjs {
+  border: 2px solid Grey;
+  border-radius: 18px;
+  margin-left: 20px;
+  margin-right: 20px;
+}

@@ -5,78 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Random number generator</title>
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="random/main.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
-    <style>
-      body {
-        font-family: 'Share Tech Mono', monospace;
-      }
-
-      #generator {
-        display: inline-block;
-        float: left;
-        border: 1px solid Black;
-        border-radius: 8px;
-        padding: 12px;
-        width: 280px;
-      }
-
-      #title {
-        text-transform: uppercase;
-        letter-spacing: 1.2pt;
-        text-align: center;
-      }
-
-      #random_num_min, #random_num_max {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 16px;
-        border: 1px solid Grey;
-        border-radius: 4px;
-        width: 200px;
-        height: 20px;
-        margin-left: 5px;
-        padding: 6px;
-      }
-
-      .primary_button {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 16px;
-        font-weight: 600;
-        text-transform: uppercase;
-        width: 280px;
-        height: 34px;
-        border: 1px solid rgba(27,31,35,0.2);
-        border-radius: 6px;
-        color: #24292e;
-        background-color: #eff3f6;
-        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-        padding: 3px 14px;
-        line-height: 24px;
-        cursor: pointer;
-      }
-
-      .primary_button:focus {
-        outline: none;
-      }
-
-      .primary_button:hover {
-        background-image: linear-gradient(-180deg,#d0d0d0,#eff3f6 90%);
-      }
-
-      .primary_button:active {
-        background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-      }
-
-      #result {
-        text-align: center;
-        font-size: 20px;
-        width: 260px;
-        height: 24px;
-        border-radius: 8px;
-        background: #7ee378;
-        margin-left: -2px;
-        padding: 12px;
-      }
-    </style>
   </head>
   <body>
     <div id="generator">
@@ -96,23 +26,6 @@
         <p id="result"><span id="output">OUTPUT</span></p>
       </form>
     </div>
-    <script>
-      const {random_number} = lib;
-
-      const min_input = document.getElementById('random_num_min');
-      const max_input = document.getElementById('random_num_max');
-      const output = document.getElementById('output');
-
-      function get_random_number() {
-        if (min_input.value && max_input.value) {
-          const min = parseInt(min_input.value, 10);
-          const max = parseInt(max_input.value, 10);
-
-          if (min >= max) max_input.value = min + 1;
-
-          output.innerText = random_number(min, max);
-        }
-      }
-    </script>
+    <script src="random/main.js"></script>
   </body>
 </html>

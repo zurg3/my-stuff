@@ -4,21 +4,8 @@
     <meta charset="utf-8">
     <title>Editor (Editor.js)</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+    <link href="editor_editorjs/main.css" rel="stylesheet">
     <link href="https://em-content.zobj.net/thumbs/120/htc/37/newspaper_1f4f0.png" rel="icon">
-    <style>
-      body {
-        font-family: 'Noto Serif', serif;
-        background: #f5eedb;
-        color: #19160f;
-      }
-
-      #editorjs {
-        border: 2px solid Grey;
-        border-radius: 18px;
-        margin-left: 20px;
-        margin-right: 20px;
-      }
-    </style>
   </head>
   <body>
     <!-- HTML -->
@@ -45,64 +32,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
     <!-- EditorJS init -->
-    <script>
-      const editor = new EditorJS({
-        holder: 'editorjs',
-        tools: {
-          header: {
-            class: Header,
-            inlineToolbar: ['link'],
-            config: {
-              placeholder: 'Header'
-            },
-            shortcut: 'CMD+SHIFT+H'
-          },
-          list: {
-            class: List,
-            inlineToolbar: true,
-            shortcut: 'CMD+SHIFT+L'
-          },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            config: {
-              quotePlaceholder: 'Enter a quote',
-              captionPlaceholder: 'Quote\'s author',
-            },
-            shortcut: 'CMD+SHIFT+O'
-          },
-          linkTool: LinkTool,
-          delimiter: Delimiter,
-          code: {
-            class: CodeTool,
-            shortcut: 'CMD+SHIFT+C'
-          },
-          table: {
-            class: Table,
-            inlineToolbar: true,
-            shortcut: 'CMD+ALT+T'
-          },
-          image: {
-            class: SimpleImage,
-            inlineToolbar: ['link']
-          },
-          checklist: {
-            class: Checklist,
-            inlineToolbar: true
-          },
-          embed: Embed,
-          warning: Warning,
-          marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M'
-          },
-          inlineCode: {
-            class: InlineCode,
-            shortcut: 'CMD+SHIFT+C'
-          }
-        },
-        data: {}
-      });
-    </script>
+    <script src="editor_editorjs/main.js"></script>
   </body>
 </html>
