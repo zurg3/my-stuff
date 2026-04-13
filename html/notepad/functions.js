@@ -116,7 +116,7 @@ function random_color_hex(way = config.random_color_hex_way) {
     color_hex += random_number(0x000000, 0xffffff).toString(16).padStart(6, '0');
   }
   else if (way === 3) {
-    let array = new Uint8Array(3);
+    const array = new Uint8Array(3);
 
     crypto.getRandomValues(array);
 
