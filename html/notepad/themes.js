@@ -27,7 +27,7 @@ const themes = {
   },
   editorjs: {
     name: 'EditorJS Theme',
-    description: 'Colors taken from https://zurg3.github.io/my-stuff/html/editor_editorjs.html',
+    description: 'Colors taken from https://zurg3.github.io/my-stuff/html/editor.html',
     colors: ['#f5eedb', '#19160f']
   },
   zen: {

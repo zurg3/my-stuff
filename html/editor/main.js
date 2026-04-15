@@ -10,7 +10,7 @@ const editor = new EditorJS({
       shortcut: 'CMD+SHIFT+H'
     },
     list: {
-      class: List,
+      class: EditorjsList,
       inlineToolbar: true,
       shortcut: 'CMD+SHIFT+L'
     },
@@ -19,7 +19,7 @@ const editor = new EditorJS({
       inlineToolbar: true,
       config: {
         quotePlaceholder: 'Enter a quote',
-        captionPlaceholder: 'Quote\'s author',
+        captionPlaceholder: `Quote's author`,
       },
       shortcut: 'CMD+SHIFT+O'
     },

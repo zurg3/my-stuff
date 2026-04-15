@@ -2,7 +2,7 @@ const {resize_input, is_valid_url, is_mobile} = lib;
 
 resize_input(document.getElementById('video_src'));
 
-const form = document.getElementsByTagName('form')[0];
+const form = document.forms[0];
 form.hidden = false;
 
 const video_player = document.getElementById('video_player');

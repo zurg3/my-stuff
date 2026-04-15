@@ -2,7 +2,7 @@ const {resize_input, is_valid_url} = lib;
 
 resize_input(document.getElementById('audio_src'));
 
-const form = document.getElementsByTagName('form')[0];
+const form = document.forms[0];
 form.hidden = false;
 
 const audio_player = document.getElementById('audio_player');
