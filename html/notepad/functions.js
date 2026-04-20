@@ -69,6 +69,13 @@ function tabulation() {
   document.execCommand('insertText', false, indent);
 }
 
+function toggle_soft_tabs(option) {
+  if (typeof option === 'boolean') {
+    config.soft_tabs = option;
+    save_config();
+  }
+}
+
 function insert_time_date() {
   const time_date = dayjs().format(config.time_date_format);
   textarea.focus();
