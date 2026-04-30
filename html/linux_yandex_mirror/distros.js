@@ -8,6 +8,10 @@ const debian = {
 // Ubuntu
 const ubuntu = {
   releases: {
+    '26.04': {
+      version: '26.04 LTS',
+      codename: 'Resolute Raccoon'
+    },
     '25.10': {
       version: '25.10',
       codename: 'Questing Quokka'
@@ -107,7 +111,7 @@ const arch_linux = {
 
 // Fedora
 const fedora = {
-  version: '43',
+  version: '44',
   edition: 'Workstation',
   arch: 'x86_64'
 };

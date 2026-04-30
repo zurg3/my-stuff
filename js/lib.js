@@ -100,6 +100,8 @@ lib.compare_strings_length = (s1, s2) => {
 
 lib.comparator = (a, b) => a.toLowerCase().localeCompare(b.toLowerCase());
 
+lib.random_array_item = (array) => array[lib.random_number(0, array.length - 1)];
+
 lib.shuffle_array = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = lib.random_number(0, i);
