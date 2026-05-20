@@ -25,6 +25,7 @@ const editor = monaco.editor.create(input, {
   guides: {
     indentation: true
   },
+  hideCursorInOverviewRuler: true,
   insertSpaces: true,
   lineHeight: 1.45,
   lineNumbers: 'on',
@@ -36,8 +37,14 @@ const editor = monaco.editor.create(input, {
   mouseWheelZoom: true,
   multiCursorModifier: 'ctrlCmd',
   occurrencesHighlight: 'off',
+  renderControlCharacters: false,
   renderLineHighlight: 'line',
   renderWhitespace: 'none',
+  rulers: [80],
+  scrollbar: {
+    horizontalScrollbarSize: 8,
+    verticalScrollbarSize: 8
+  },
   scrollBeyondLastLine: false,
   selectionHighlight: false,
   showDeprecated: false,
