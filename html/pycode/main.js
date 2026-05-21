@@ -6,11 +6,32 @@ const run_code_button = document.getElementById('run_code_button');
 
 let pyodide;
 
+monaco.editor.defineTheme('pycharm-darcula', {
+  base: 'vs-dark',
+  inherit: true,
+  rules: [
+    {token: 'keyword', foreground: 'cc7832'},
+    {token: 'string', foreground: '6a8759'},
+    {token: 'comment', foreground: '808080', fontStyle: 'italic'},
+    {token: 'number', foreground: '6897bb'},
+    {token: 'type', foreground: 'a9b7c6'},
+    {token: 'identifier.function', foreground: 'ffc66d'}
+  ],
+  colors: {
+    'editor.background': '#2b2b2b',
+    'editor.foreground': '#a9b7c6',
+    'editorLineNumber.foreground': '#606366',
+    'editorCursor.foreground': '#bbbbbb',
+    'editor.selectionBackground': '#214283',
+    'editor.lineHighlightBackground': '#323232'
+  }
+});
+
 const editor = monaco.editor.create(input, {
   value: '',
   placeholder: '',
   language: 'python',
-  theme: 'vs-dark',
+  theme: 'pycharm-darcula',
   contextmenu: true,
   automaticLayout: true,
   accessibilitySupport: 'off',
@@ -20,27 +41,27 @@ const editor = monaco.editor.create(input, {
   colorDecorators: false,
   colorDecoratorsActivatedOn: 'click',
   folding: true,
-  fontFamily: 'Menlo, Consolas, "DejaVu Sans Mono", monospace',
-  fontSize: 13,
+  fontFamily: '"JetBrains Mono", monospace',
+  fontSize: 12,
   guides: {
     indentation: true
   },
   hideCursorInOverviewRuler: true,
   insertSpaces: true,
-  lineHeight: 1.45,
+  lineHeight: 1.4,
   lineNumbers: 'on',
   links: true,
   matchBrackets: 'near',
   minimap: {
     enabled: false
   },
-  mouseWheelZoom: true,
+  mouseWheelZoom: false,
   multiCursorModifier: 'ctrlCmd',
-  occurrencesHighlight: 'off',
+  occurrencesHighlight: 'singleFile',
   renderControlCharacters: false,
-  renderLineHighlight: 'line',
+  renderLineHighlight: 'all',
   renderWhitespace: 'none',
-  rulers: [80],
+  rulers: [120],
   scrollbar: {
     horizontalScrollbarSize: 8,
     verticalScrollbarSize: 8
@@ -53,6 +74,8 @@ const editor = monaco.editor.create(input, {
   },
   tabSize: 4
 });
+
+document.fonts.ready.then(() => monaco.editor.remeasureFonts());
 
 async function init_pyodide() {
   pyodide = await loadPyodide();
