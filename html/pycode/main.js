@@ -69,6 +69,7 @@ const editor = monaco.editor.create(input, {
   scrollBeyondLastLine: false,
   selectionHighlight: false,
   showDeprecated: false,
+  smoothScrolling: true,
   stickyScroll: {
     enabled: false
   },

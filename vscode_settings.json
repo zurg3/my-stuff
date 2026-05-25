@@ -29,6 +29,7 @@
   "editor.scrollBeyondLastLine": false,
   "editor.selectionHighlight": false,
   "editor.showDeprecated": false,
+  "editor.smoothScrolling": false,
   "editor.stickyScroll.enabled": false,
   "editor.tabSize": 2,
   "explorer.compactFolders": false,
