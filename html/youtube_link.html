@@ -11,7 +11,7 @@
   <body>
     <h2>YouTube share link converter</h2>
     <div id="input" hidden>
-      <h3>YouTube/YouTube Music/Piped Link</h3>
+      <h3>Original Link <input type="button" id="help_button" value="?" onclick="show_help()"></h3>
       <p><input type="url" id="original_link" size="60" autocomplete="off"></p>
       <p>
         <input type="checkbox" id="video_option" checked><label for="video_option">Video</label>
@@ -40,6 +40,11 @@
         <span id="ppd_video_link"></span>
         <input type="button" id="copy_ppd_video_link_button" value="Copy" data-clipboard-target="#ppd_video_link" data-clipboard-action="copy">
       </p>
+      <h3>ytify Link</h3>
+      <p>
+        <span id="yy_video_link"></span>
+        <input type="button" id="copy_yy_video_link_button" value="Copy" data-clipboard-target="#yy_video_link" data-clipboard-action="copy">
+      </p>
     </div>
     <div id="playlist_links" hidden>
       <h3>YouTube Playlist</h3>
@@ -56,6 +61,11 @@
       <p>
         <span id="ppd_playlist_link"></span>
         <input type="button" id="copy_ppd_playlist_link_button" value="Copy" data-clipboard-target="#ppd_playlist_link" data-clipboard-action="copy">
+      </p>
+      <h3>ytify Playlist</h3>
+      <p>
+        <span id="yy_playlist_link"></span>
+        <input type="button" id="copy_yy_playlist_link_button" value="Copy" data-clipboard-target="#yy_playlist_link" data-clipboard-action="copy">
       </p>
     </div>
     <script src="youtube_link/main.js"></script>

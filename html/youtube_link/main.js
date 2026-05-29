@@ -2,6 +2,7 @@
 yt - YouTube
 ytm - YouTube Music
 ppd - Piped
+yy - ytify
 */
 
 const {resize_input, is_valid_url, is_mobile} = lib;
@@ -18,11 +19,13 @@ const video_links_block = document.getElementById('video_links');
 const yt_video_link = document.getElementById('yt_video_link');
 const ytm_video_link = document.getElementById('ytm_video_link');
 const ppd_video_link = document.getElementById('ppd_video_link');
+const yy_video_link = document.getElementById('yy_video_link');
 
 const playlist_links_block = document.getElementById('playlist_links');
 const yt_playlist_link = document.getElementById('yt_playlist_link');
 const ytm_playlist_link = document.getElementById('ytm_playlist_link');
 const ppd_playlist_link = document.getElementById('ppd_playlist_link');
+const yy_playlist_link = document.getElementById('yy_playlist_link');
 
 input_block.hidden = false;
 
@@ -60,6 +63,11 @@ function convert() {
       valid_url = true;
       video_id = original_url.pathname.split('/')[2];
     }
+    else if (original_url.host === 'ytify.pp.ua' && (params.s || params.playlist)) {
+      valid_url = true;
+      video_id = video_option.checked ? params.s : '';
+      playlist_id = playlist_option.checked ? params.playlist : '';
+    }
     else {
       valid_url = false;
       alert('Invalid URL');
@@ -73,24 +81,28 @@ function convert() {
         const yt_url = `https://youtu.be/${video_id}`;
         const ytm_url = `https://music.youtube.com/watch?v=${video_id}`;
         const ppd_url = `https://piped.video/watch?v=${video_id}`;
+        const yy_url = `https://ytify.pp.ua/?s=${video_id}`;
 
         video_links_block.hidden = false;
 
         yt_video_link.innerHTML = `<a href="${yt_url}" target="_blank">${yt_url}</a>`;
         ytm_video_link.innerHTML = `<a href="${ytm_url}" target="_blank">${ytm_url}</a>`;
         ppd_video_link.innerHTML = `<a href="${ppd_url}" target="_blank">${ppd_url}</a>`;
+        yy_video_link.innerHTML = `<a href="${yy_url}" target="_blank">${yy_url}</a>`;
       }
 
       if (playlist_id) {
         const yt_url = `https://www.youtube.com/playlist?list=${playlist_id}`;
         const ytm_url = `https://music.youtube.com/playlist?list=${playlist_id}`;
         const ppd_url = `https://piped.video/playlist?list=${playlist_id}`;
+        const yy_url = `https://ytify.pp.ua/?playlist=${playlist_id}`;
 
         playlist_links_block.hidden = false;
 
         yt_playlist_link.innerHTML = `<a href="${yt_url}" target="_blank">${yt_url}</a>`;
         ytm_playlist_link.innerHTML = `<a href="${ytm_url}" target="_blank">${ytm_url}</a>`;
         ppd_playlist_link.innerHTML = `<a href="${ppd_url}" target="_blank">${ppd_url}</a>`;
+        yy_playlist_link.innerHTML = `<a href="${yy_url}" target="_blank">${yy_url}</a>`;
       }
     }
   }
@@ -112,14 +124,28 @@ function play_video() {
   }
 }
 
+function show_help() {
+  const message = [
+    'Supported services:',
+    '- YouTube',
+    '- YouTube Music',
+    '- Piped',
+    '- ytify'
+  ];
+
+  alert(message.join('\n'));
+}
+
 function clear_output() {
   yt_video_link.innerHTML = '';
   ytm_video_link.innerHTML = '';
   ppd_video_link.innerHTML = '';
+  yy_video_link.innerHTML = '';
 
   yt_playlist_link.innerHTML = '';
   ytm_playlist_link.innerHTML = '';
   ppd_playlist_link.innerHTML = '';
+  yy_playlist_link.innerHTML = '';
 
   video_links_block.hidden = true;
   playlist_links_block.hidden = true;
