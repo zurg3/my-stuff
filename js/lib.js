@@ -122,7 +122,7 @@ lib.get_checked_radio_value = (radio_name) => {
 }
 
 lib.parse_data_legacy = (url, type) => {
-  const data_types = ['html', 'json', 'text'];
+  const data_types = ['html', 'xml', 'json', 'text'];
 
   if (!url || !data_types.includes(type)) return false;
 
@@ -135,6 +135,9 @@ lib.parse_data_legacy = (url, type) => {
     if (xhr.status >= 200 && xhr.status < 300) {
       if (type === 'html') {
         return new DOMParser().parseFromString(xhr.responseText, 'text/html');
+      }
+      else if (type === 'xml') {
+        return new DOMParser().parseFromString(xhr.responseText, 'application/xml');
       }
       else if (type === 'json') {
         return JSON.parse(xhr.responseText);
@@ -153,7 +156,7 @@ lib.parse_data_legacy = (url, type) => {
 };
 
 lib.parse_data = async (url, type) => {
-  const data_types = ['html', 'json', 'text'];
+  const data_types = ['html', 'xml', 'json', 'text'];
 
   if (!url || !data_types.includes(type)) return false;
 
@@ -164,6 +167,9 @@ lib.parse_data = async (url, type) => {
 
     if (type === 'html') {
       return new DOMParser().parseFromString(await res.text(), 'text/html');
+    }
+    else if (type === 'xml') {
+      return new DOMParser().parseFromString(await res.text(), 'application/xml');
     }
     else if (type === 'json') {
       return await res.json();
