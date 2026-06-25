@@ -390,7 +390,7 @@ notepad.shuffle_lines = () => {
 
 notepad.execute = () => {
   const code = get_selected_text() || get_text();
-  eval(code);
+  if (code && confirm('Confirm code execution')) new Function(code)();
 };
 
 notepad.undo = () => {
