@@ -6,7 +6,7 @@ yy - ytify
 iv - Invidious
 */
 
-const {resize_input, is_valid_url, is_mobile} = lib;
+const {resize_input, is_valid_url, is_mobile, parse_data} = lib;
 
 resize_input(document.getElementById('original_link'));
 
@@ -50,6 +50,10 @@ let playlist_id = '';
 const yt_video = document.getElementById('yt_video');
 const yt_iframe = document.createElement('iframe');
 
+const iv_audio = document.getElementById('iv_audio');
+const audio_info = document.getElementById('audio_info');
+const audio_player = document.createElement('audio');
+
 function convert() {
   if (original_link.value && is_valid_url(original_link.value)) {
     const original_url = new URL(original_link.value);
@@ -83,6 +87,7 @@ function convert() {
     if (valid_url) {
       clear_output();
       remove_video();
+      remove_audio();
 
       if (video_id) {
         const yt_url = `https://youtu.be/${video_id}`;
@@ -135,6 +140,39 @@ function play_video() {
   }
 }
 
+async function play_audio() {
+  if (video_id) {
+    const data = await parse_data(`https://${iv_host}/api/v1/videos/${video_id}`, 'json');
+
+    if (data && data.adaptiveFormats) {
+      const audio = data.adaptiveFormats.filter(f => f.type.startsWith('audio') && f.encoding === 'opus' && f.audioQuality === 'AUDIO_QUALITY_MEDIUM')[0];
+
+      if (audio) {
+        const audio_src = new URL(audio.url);
+        audio_src.host = iv_host;
+
+        audio_player.src = audio_src.href;
+        audio_player.controls = true;
+        audio_player.preload = 'metadata';
+        audio_player.muted = false;
+        audio_player.volume = 1;
+        audio_player.style.width = '100%';
+
+        iv_audio.append(audio_player);
+
+        audio_info.hidden = false;
+        audio_info.innerHTML = `${data.author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
+      }
+      else {
+        alert('Audio not found');
+      }
+    }
+    else {
+      alert('This audio is not available');
+    }
+  }
+}
+
 function show_help() {
   const message = [
     'Supported services:',
@@ -170,10 +208,19 @@ function remove_video() {
   yt_iframe.remove();
 }
 
+function remove_audio() {
+  audio_player.pause();
+  audio_player.src = '';
+  audio_player.remove();
+  audio_info.innerHTML = '';
+  audio_info.hidden = true;
+}
+
 function clear_input() {
   original_link.value = '';
   clear_output();
   remove_video();
+  remove_audio();
   video_id = '';
   playlist_id = '';
 }

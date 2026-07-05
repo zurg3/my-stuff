@@ -49,7 +49,11 @@
       <p>
         <span id="iv_video_link"></span>
         <input type="button" id="copy_iv_video_link_button" value="Copy" data-clipboard-target="#iv_video_link" data-clipboard-action="copy">
+        <input type="button" id="play_audio_button" value="Play audio" onclick="play_audio()">
       </p>
+      <div id="iv_audio">
+        <p id="audio_info" hidden></p>
+      </div>
     </div>
     <div id="playlist_links" hidden>
       <h3>YouTube Playlist</h3>
