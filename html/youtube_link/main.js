@@ -35,14 +35,18 @@ input_block.hidden = false;
 new ClipboardJS('#copy_yt_video_link_button');
 new ClipboardJS('#copy_ytm_video_link_button');
 new ClipboardJS('#copy_ppd_video_link_button');
+new ClipboardJS('#copy_yy_video_link_button');
+new ClipboardJS('#copy_iv_video_link_button');
 
 new ClipboardJS('#copy_yt_playlist_link_button');
 new ClipboardJS('#copy_ytm_playlist_link_button');
 new ClipboardJS('#copy_ppd_playlist_link_button');
+new ClipboardJS('#copy_yy_playlist_link_button');
+new ClipboardJS('#copy_iv_playlist_link_button');
 
-const ppd_host = 'piped.video';
-const yy_host = 'ytify.pp.ua';
-const iv_host = 'yt.omada.cafe';
+const ppd_hosts = ['piped.video', 'cf.piped.video', 'az.piped.video'];
+const yy_hosts = ['ytify.pp.ua', 'ytify.netlify.app'];
+const iv_hosts = ['yt.omada.cafe', 'invidious.schenkel.eti.br'];
 
 let video_id = '';
 let playlist_id = '';
@@ -61,7 +65,7 @@ function convert() {
 
     let valid_url;
 
-    if (['www.youtube.com', 'm.youtube.com', 'music.youtube.com', ppd_host, iv_host].includes(original_url.host) && (params.v || params.list)) {
+    if (['www.youtube.com', 'm.youtube.com', 'music.youtube.com', ...ppd_hosts, ...iv_hosts].includes(original_url.host) && (params.v || params.list)) {
       valid_url = true;
       video_id = video_option.checked ? params.v : '';
       playlist_id = playlist_option.checked ? params.list : '';
@@ -74,7 +78,7 @@ function convert() {
       valid_url = true;
       video_id = original_url.pathname.split('/')[2];
     }
-    else if (original_url.host === yy_host && (params.s || params.playlist)) {
+    else if (yy_hosts.includes(original_url.host) && (params.s || params.playlist)) {
       valid_url = true;
       video_id = video_option.checked ? params.s : '';
       playlist_id = playlist_option.checked ? params.playlist : '';
@@ -92,9 +96,9 @@ function convert() {
       if (video_id) {
         const yt_url = `https://youtu.be/${video_id}`;
         const ytm_url = `https://music.youtube.com/watch?v=${video_id}`;
-        const ppd_url = `https://${ppd_host}/watch?v=${video_id}`;
-        const yy_url = `https://${yy_host}/?s=${video_id}`;
-        const iv_url = `https://${iv_host}/watch?v=${video_id}`;
+        const ppd_url = `https://${ppd_hosts[0]}/watch?v=${video_id}`;
+        const yy_url = `https://${yy_hosts[0]}/?s=${video_id}`;
+        const iv_url = `https://${iv_hosts[0]}/watch?v=${video_id}`;
 
         video_links_block.hidden = false;
 
@@ -108,9 +112,9 @@ function convert() {
       if (playlist_id) {
         const yt_url = `https://www.youtube.com/playlist?list=${playlist_id}`;
         const ytm_url = `https://music.youtube.com/playlist?list=${playlist_id}`;
-        const ppd_url = `https://${ppd_host}/playlist?list=${playlist_id}`;
-        const yy_url = `https://${yy_host}/?playlist=${playlist_id}`;
-        const iv_url = `https://${iv_host}/playlist?list=${playlist_id}`;
+        const ppd_url = `https://${ppd_hosts[0]}/playlist?list=${playlist_id}`;
+        const yy_url = `https://${yy_hosts[0]}/?playlist=${playlist_id}`;
+        const iv_url = `https://${iv_hosts[0]}/playlist?list=${playlist_id}`;
 
         playlist_links_block.hidden = false;
 
@@ -142,14 +146,14 @@ function play_video() {
 
 async function play_audio() {
   if (video_id) {
-    const data = await parse_data(`https://${iv_host}/api/v1/videos/${video_id}`, 'json');
+    const data = await parse_data(`https://${iv_hosts[0]}/api/v1/videos/${video_id}`, 'json');
 
     if (data && data.adaptiveFormats) {
       const audio = data.adaptiveFormats.filter(f => f.type.startsWith('audio') && f.encoding === 'opus' && f.audioQuality === 'AUDIO_QUALITY_MEDIUM')[0];
 
       if (audio) {
         const audio_src = new URL(audio.url);
-        audio_src.host = iv_host;
+        audio_src.host = iv_hosts[0];
 
         audio_player.src = audio_src.href;
         audio_player.controls = true;
@@ -160,15 +164,17 @@ async function play_audio() {
 
         iv_audio.append(audio_player);
 
+        const author = data.author.endsWith('- Topic') ? data.author.slice(0, -8) : data.author;
+
         audio_info.hidden = false;
-        audio_info.innerHTML = `${data.author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
+        audio_info.innerHTML = `${author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
       }
       else {
         alert('Audio not found');
       }
     }
     else {
-      alert('This audio is not available');
+      alert('This video is not available');
     }
   }
 }
