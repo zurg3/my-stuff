@@ -46,7 +46,7 @@ new ClipboardJS('#copy_iv_playlist_link_button');
 
 const ppd_hosts = ['piped.video', 'cf.piped.video', 'az.piped.video'];
 const yy_hosts = ['ytify.pp.ua', 'ytify.netlify.app'];
-const iv_hosts = ['yt.omada.cafe', 'invidious.schenkel.eti.br'];
+const iv_hosts = ['yt.omada.cafe', 'invidious.schenkel.eti.br', 'inv.miningtcup.me'];
 
 let video_id = '';
 let playlist_id = '';
@@ -56,6 +56,8 @@ const yt_iframe = document.createElement('iframe');
 
 const iv_audio = document.getElementById('iv_audio');
 const audio_info = document.getElementById('audio_info');
+const audio_options = document.getElementById('audio_options');
+const audio_repeat_option = document.getElementById('audio_repeat_option');
 const audio_player = document.createElement('audio');
 
 function convert() {
@@ -73,15 +75,22 @@ function convert() {
     else if (original_url.host === 'youtu.be' && original_url.search) {
       valid_url = true;
       video_id = original_url.pathname.split('/')[1];
+      playlist_id = '';
     }
     else if (['www.youtube.com', 'm.youtube.com', 'youtube.com'].includes(original_url.host) && ['/shorts/', '/live/', '/embed/'].some(path => original_url.pathname.search(path) === 0)) {
       valid_url = true;
       video_id = original_url.pathname.split('/')[2];
+      playlist_id = '';
     }
     else if (yy_hosts.includes(original_url.host) && (params.s || params.playlist)) {
       valid_url = true;
       video_id = video_option.checked ? params.s : '';
       playlist_id = playlist_option.checked ? params.playlist : '';
+    }
+    else if (iv_hosts.includes(original_url.host) && ['/embed/'].some(path => original_url.pathname.search(path) === 0)) {
+      valid_url = true;
+      video_id = original_url.pathname.split('/')[2];
+      playlist_id = '';
     }
     else {
       valid_url = false;
@@ -168,6 +177,8 @@ async function play_audio() {
 
         audio_info.hidden = false;
         audio_info.innerHTML = `${author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
+
+        audio_options.hidden = false;
       }
       else {
         alert('Audio not found');
@@ -177,6 +188,10 @@ async function play_audio() {
       alert('This video is not available');
     }
   }
+}
+
+function toggle_audio_repeat() {
+  audio_player.loop = audio_repeat_option.checked;
 }
 
 function show_help() {
@@ -220,6 +235,7 @@ function remove_audio() {
   audio_player.remove();
   audio_info.innerHTML = '';
   audio_info.hidden = true;
+  audio_options.hidden = true;
 }
 
 function clear_input() {
