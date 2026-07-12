@@ -179,6 +179,25 @@ async function play_audio() {
         audio_info.innerHTML = `${author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
 
         audio_options.hidden = false;
+
+        if ('mediaSession' in navigator) {
+          const artwork_list = [];
+          const artwork_sizes = [96, 128, 192, 256, 384, 512];
+
+          for (const size of artwork_sizes) {
+            artwork_list.push({
+              src: `https://wsrv.nl/?url=https://i.ytimg.com/vi_webp/${video_id}/maxresdefault.webp&w=${size}&h=${size}&fit=cover`,
+              sizes: `${size}x${size}`
+            });
+          }
+
+          navigator.mediaSession.metadata = new MediaMetadata({
+            artist: author,
+            title: data.title,
+            //album: 'Album',
+            artwork: artwork_list
+          });
+        }
       }
       else {
         alert('Audio not found');
