@@ -5,18 +5,20 @@ resize_input(document.getElementById('video_link'));
 const input_block = document.getElementById('input');
 const video_link = document.getElementById('video_link');
 const output_block = document.getElementById('output');
-const video_share_link = document.getElementById('video_share_link');
-const video_embed_link = document.getElementById('video_embed_link');
+const video_share_link_desktop = document.getElementById('video_share_link_desktop');
+const video_share_link_mobile = document.getElementById('video_share_link_mobile');
 const vk_video = document.getElementById('vk_video');
 const vk_iframe = document.createElement('iframe');
 
 input_block.hidden = false;
 
 function open_video() {
-  if (!video_link.value || !is_valid_url(video_link.value)) return alert('Invalid URL!');
+  const trimmed_link = video_link.value.trim();
 
-  const video_url = new URL(video_link.value);
-  const valid_hosts = ['vk.com', 'vkvideo.ru', 'm.vk.com', 'm.vkvideo.ru'];
+  if (!trimmed_link || !is_valid_url(trimmed_link)) return alert('Invalid URL!');
+
+  const video_url = new URL(trimmed_link);
+  const valid_hosts = ['vk.com', 'vk.ru', 'vkvideo.ru', 'm.vk.com', 'm.vk.ru', 'm.vkvideo.ru'];
   const match = video_url.pathname.match(/video(-?\d+)_(\d+)/);
 
   if (!valid_hosts.includes(video_url.host) || !match) return alert('Invalid URL!');
@@ -29,7 +31,7 @@ function open_video() {
   const video_width = !is_mobile() ? 640 : document.body.offsetWidth;
   const video_height = !is_mobile() ? 360 : Math.floor(video_width / 1.77);
 
-  const embed_url = `https://vk.com/video_ext.php?oid=${owner_id}&id=${video_id}`;
+  const embed_url = `https://vk.ru/video_ext.php?oid=${owner_id}&id=${video_id}`;
 
   vk_iframe.width = video_width;
   vk_iframe.height = video_height;
@@ -40,8 +42,8 @@ function open_video() {
 
   vk_video.append(vk_iframe);
 
-  video_share_link.href = `https://vkvideo.ru/video${owner_id}_${video_id}`;
-  video_embed_link.href = embed_url;
+  video_share_link_desktop.href = `https://vkvideo.ru/video${owner_id}_${video_id}`;
+  video_share_link_mobile.href = `https://m.vkvideo.ru/video${owner_id}_${video_id}`;
 
   output_block.hidden = false;
 }

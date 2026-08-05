@@ -58,7 +58,7 @@
         let tncd = 0;
 
         for (let i = 0; i < 8; i++) {
-          sum += parseInt(tn_inputs[i].value, 10) * weights[i];
+          sum += tn_inputs[i].valueAsNumber * weights[i];
         }
 
         tncd = 11 - (sum % 11);
@@ -99,7 +99,7 @@
         }
 
         if (k === 0) {
-          get_tncd() === parseInt(tncd_input.value, 10) ? alert('True') : alert('False');
+          get_tncd() === tncd_input.valueAsNumber ? alert('True') : alert('False');
         }
       }
 

@@ -20,7 +20,7 @@
       const output = document.getElementById('output');
 
       function search_user() {
-        const username = document.getElementById('username').value;
+        const username = document.getElementById('username').value.trim();
 
         if (username) {
           const sites = {
@@ -32,13 +32,12 @@
             'GitHub Pages': `https://${username}.github.io`,
             'GitHub': `https://github.com/${username}`,
             'GitLab': `https://gitlab.com/${username}`,
-            'Glitch': `https://glitch.com/@${username}`,
             'GOG.com': `https://www.gog.com/u/${username}`,
             'Instagram': `https://www.instagram.com/${username}/`,
             'Linktree': `https://linktr.ee/${username}`,
             'Medium': `https://medium.com/@${username}`,
             'ModDB': `https://www.moddb.com/members/${username}`,
-            'MyNickname.com': `https://mynickname.com/${username}`,
+            'MyNickname.com': `https://mynickname.com/ru/${username}`,
             'OpenNet': `https://www.opennet.ru/~${username}`,
             'Pastebin': `https://pastebin.com/u/${username}`,
             'RAWG': `https://rawg.io/@${username}`,
@@ -47,12 +46,12 @@
             'Spotify': `https://open.spotify.com/user/${username}`,
             'Steam': `https://steamcommunity.com/id/${username}`,
             'Telegram': `https://t.me/${username}`,
-            'Threads': `https://www.threads.net/@${username}`,
+            'Threads': `https://www.threads.com/@${username}`,
             'TikTok': `https://www.tiktok.com/@${username}`,
             'Tumblr': `https://www.tumblr.com/${username}`,
-            'VK Articles': `https://vk.com/@${username}`,
-            'VK Video': `https://vk.com/video/@${username}`,
-            'VK': `https://vk.com/${username}`,
+            'VK Articles': `https://vk.ru/@${username}`,
+            'VK Video': `https://vk.ru/video/@${username}`,
+            'VK': `https://vk.ru/${username}`,
             'WhoSampled': `https://www.whosampled.com/user/${username}/`,
             'X': `https://x.com/${username}`,
             'YouTube': `https://www.youtube.com/@${username}`
@@ -60,12 +59,12 @@
 
           output.innerHTML = '';
           output.innerHTML += `<p>Results for <b>${username}</b></p>`;
-          output.innerHTML += '<ul></ul>';
+          output.innerHTML += '<ul id="list"></ul>';
 
-          const ul = document.getElementsByTagName('ul')[0];
+          const list = document.getElementById('list');
 
           for (let i in sites) {
-            ul.innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
+            list.innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
           }
         }
       }

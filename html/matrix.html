@@ -38,68 +38,27 @@
         background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
       }
 
+      input[type="number"] {
+        width: 36px;
+      }
+
       .output_field:focus{
         outline: none;
       }
     </style>
   </head>
   <body>
-    <script>
-      const {random_number} = lib;
-
-      const m_size_default = 7;
-
-      function draw_table(table_id, table_size) {
-        let table;
-
-        if (table_id === 1) {
-          table = document.getElementById('matrix1');
-        }
-        else if (table_id === 2) {
-          table = document.getElementById('matrix2');
-        }
-        else if (table_id === 3) {
-          table = document.getElementById('matrix3');
-        }
-
-        for (let i = 0; i < table_size; i++) {
-          let row = table.insertRow(i);
-
-          for (let j = 0; j < table_size; j++) {
-            let cell = row.insertCell(j);
-
-            if (table_id === 1 || table_id === 2) {
-              cell.innerHTML = '<input type="text" size="1">';
-            }
-            else if (table_id === 3) {
-              cell.innerHTML = '<input type="text" class="output_field" size="1" readonly>';
-            }
-          }
-        }
-      }
-    </script>
     <h1>Matrix calculator</h1>
-    <div id="input_matrices">
+    <div id="input_matrices" hidden>
       <form>
         <p><input type="button" class="button" value="Calculate" onclick="calc_matrix()"></p>
         <p><input type="button" class="button" value="Fill matrices randomly" onclick="fill_matrices()"></p>
         <p><input type="button" class="button" value="Clear input" onclick="clear_input()"></p>
-        <p>
-          Matrix size:
-          <select id="matrix_size" onchange="change_matrix_size()">
-            <script>
-              for (let i = 2; i <= 20; i++) {
-                i === m_size_default ? document.write(`<option selected value="${i}">${i}x${i}</option>`) : document.write(`<option value="${i}">${i}x${i}</option>`);
-              }
-            </script>
-          </select>
+        <p>Matrix size:
+          <select id="matrix_size" onchange="change_matrix_size()"></select>
         </p>
         <p><b>Matrix A</b></p>
-        <table id="matrix1" border="0">
-          <script>
-            draw_table(1, m_size_default);
-          </script>
-        </table>
+        <table id="matrix_a" class="matrix" border="0"></table>
         <p>
           <select id="oper">
             <option value="1">+</option>
@@ -108,70 +67,121 @@
           </select>
         </p>
         <p><b>Matrix B</b></p>
-        <table id="matrix2" border="0">
-          <script>
-            draw_table(2, m_size_default);
-          </script>
-        </table>
+        <table id="matrix_b" class="matrix" border="0"></table>
       </form>
     </div>
     <p>=</p>
-    <div id="output_matrix">
+    <div id="output_matrix" hidden>
       <p><b>Matrix C</b></p>
-      <table id="matrix3" border="0">
-        <script>
-          draw_table(3, m_size_default);
-        </script>
-      </table>
+      <table id="matrix_c" class="matrix" border="0"></table>
     </div>
     <script>
+      const {random_number} = lib;
+
+      const default_size = 7;
+
+      const matrix_a = document.getElementById('matrix_a');
+      const matrix_b = document.getElementById('matrix_b');
+      const matrix_c = document.getElementById('matrix_c');
+
+      const matrix_size = document.getElementById('matrix_size');
+      const options = document.createDocumentFragment();
+
+      const oper = document.getElementById('oper');
+
+      for (let i = 2; i <= 20; i++) {
+        const option = document.createElement('option');
+
+        if (i === default_size) {
+          option.selected = true;
+          option.setAttribute('selected', '');
+        }
+        option.value = i;
+        option.innerText = `${i}x${i}`;
+
+        options.append(option);
+      }
+
+      matrix_size.append(options);
+
+      draw_table(0, default_size);
+      draw_table(1, default_size);
+      draw_table(2, default_size);
+
+      document.getElementById('input_matrices').hidden = false;
+      document.getElementById('output_matrix').hidden = false;
+
+      function draw_table(id, size) {
+        const table = document.getElementsByClassName('matrix')[id];
+        const is_output_table = table.id === 'matrix_c';
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < size; i++) {
+          const row = document.createElement('tr');
+
+          for (let j = 0; j < size; j++) {
+            const cell = document.createElement('td');
+            const input = document.createElement('input');
+
+            input.type = 'number';
+            if (is_output_table) {
+              input.className = 'output_field';
+              input.readOnly = true;
+            }
+
+            cell.append(input);
+            row.append(cell);
+          }
+
+          fragment.append(row);
+        }
+
+        table.append(fragment);
+      }
+
       function calc_matrix() {
-        const m_size = document.getElementById('matrix1').rows.length;
-        const oper = parseInt(document.getElementById('oper').value, 10);
+        const size = matrix_a.rows.length;
+
         let empty_fields = 0;
 
-        for (let i = 0; i < m_size; i++) {
-          for (let j = 0; j < m_size; j++) {
-            if (!document.getElementById('matrix1').rows[i].cells[j].children[0].value) {
-              empty_fields++;
-            }
+        for (let i = 0; i < size; i++) {
+          for (let j = 0; j < size; j++) {
+            if (!matrix_a.rows[i].cells[j].children[0].value) empty_fields++;
           }
         }
 
-        for (let i = 0; i < m_size; i++) {
-          for (let j = 0; j < m_size; j++) {
-            if (!document.getElementById('matrix2').rows[i].cells[j].children[0].value) {
-              empty_fields++;
-            }
+        for (let i = 0; i < size; i++) {
+          for (let j = 0; j < size; j++) {
+            if (!matrix_b.rows[i].cells[j].children[0].value) empty_fields++;
           }
         }
 
         if (empty_fields === 0) {
-          for (let i = 0; i < m_size; i++) {
-            for (let j = 0; j < m_size; j++) {
-              if (oper === 1) {
-                let a = parseInt(document.getElementById('matrix1').rows[i].cells[j].children[0].value, 10);
-                let b = parseInt(document.getElementById('matrix2').rows[i].cells[j].children[0].value, 10);
+          for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+              if (oper.value === '1') {
+                const a = matrix_a.rows[i].cells[j].children[0].valueAsNumber;
+                const b = matrix_b.rows[i].cells[j].children[0].valueAsNumber;
 
-                document.getElementById('matrix3').rows[i].cells[j].children[0].value = a + b;
+                matrix_c.rows[i].cells[j].children[0].value = a + b;
               }
-              else if (oper === 2) {
-                let a = parseInt(document.getElementById('matrix1').rows[i].cells[j].children[0].value, 10);
-                let b = parseInt(document.getElementById('matrix2').rows[i].cells[j].children[0].value, 10);
+              else if (oper.value === '2') {
+                const a = matrix_a.rows[i].cells[j].children[0].valueAsNumber;
+                const b = matrix_b.rows[i].cells[j].children[0].valueAsNumber;
 
-                document.getElementById('matrix3').rows[i].cells[j].children[0].value = a - b;
+                matrix_c.rows[i].cells[j].children[0].value = a - b;
               }
-              else if (oper === 3) {
+              else if (oper.value === '3') {
                 let c = 0;
 
-                for (let k = 0; k < m_size; k++) {
-                  let a = parseInt(document.getElementById('matrix1').rows[i].cells[k].children[0].value, 10);
-                  let b = parseInt(document.getElementById('matrix2').rows[k].cells[j].children[0].value, 10);
+                for (let k = 0; k < size; k++) {
+                  const a = matrix_a.rows[i].cells[k].children[0].valueAsNumber;
+                  const b = matrix_b.rows[k].cells[j].children[0].valueAsNumber;
 
                   c += a * b;
                 }
 
-                document.getElementById('matrix3').rows[i].cells[j].children[0].value = c;
+                matrix_c.rows[i].cells[j].children[0].value = c;
               }
             }
           }
@@ -179,50 +189,31 @@
       }
 
       function fill_matrices() {
-        const m_size = document.getElementById('matrix1').rows.length;
+        const inputs = document.querySelectorAll('#matrix_a input, #matrix_b input');
 
-        const random_num_min = 1;
-        const random_num_max = 9;
-
-        for (let i = 0; i < m_size; i++) {
-          for (let j = 0; j < m_size; j++) {
-            document.getElementById('matrix1').rows[i].cells[j].children[0].value = random_number(random_num_min, random_num_max);
-          }
-        }
-
-        for (let i = 0; i < m_size; i++) {
-          for (let j = 0; j < m_size; j++) {
-            document.getElementById('matrix2').rows[i].cells[j].children[0].value = random_number(random_num_min, random_num_max);
-          }
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].value = random_number(1, 9);
         }
       }
 
       function clear_input() {
-        const m_size = document.getElementById('matrix1').rows.length;
+        const inputs = document.querySelectorAll('.matrix input');
 
-        for (let i = 0; i < m_size; i++) {
-          for (let j = 0; j < m_size; j++) {
-            document.getElementById('matrix1').rows[i].cells[j].children[0].value = '';
-            document.getElementById('matrix2').rows[i].cells[j].children[0].value = '';
-            document.getElementById('matrix3').rows[i].cells[j].children[0].value = '';
-          }
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].value = '';
         }
       }
 
       function change_matrix_size() {
-        for (let i = document.getElementById('matrix1').rows.length - 1; i >= 0; i--) {
-          document.getElementById('matrix1').deleteRow(i);
-        }
-        for (let i = document.getElementById('matrix2').rows.length - 1; i >= 0; i--) {
-          document.getElementById('matrix2').deleteRow(i);
-        }
-        for (let i = document.getElementById('matrix3').rows.length - 1; i >= 0; i--) {
-          document.getElementById('matrix3').deleteRow(i);
-        }
+        matrix_a.replaceChildren();
+        matrix_b.replaceChildren();
+        matrix_c.replaceChildren();
 
-        draw_table(1, document.getElementById('matrix_size').value);
-        draw_table(2, document.getElementById('matrix_size').value);
-        draw_table(3, document.getElementById('matrix_size').value);
+        const size = parseInt(matrix_size.value, 10);
+
+        draw_table(0, size);
+        draw_table(1, size);
+        draw_table(2, size);
       }
     </script>
   </body>

@@ -33,16 +33,18 @@
       };
 
       function check_string() {
-        if (input_string.value && (string_lang.ru.checked || string_lang.en.checked)) {
-          let output_string = Array.from(input_string.value);
+        const trimmed_string = input_string.value.trim();
+
+        if (trimmed_string && (string_lang.ru.checked || string_lang.en.checked)) {
+          let output_string = Array.from(trimmed_string);
           let wrong_chars = 0;
           let result = '';
 
           const char_codes = string_lang.ru.checked ? char_codes_en : char_codes_ru;
 
-          for (let i = 0; i < input_string.value.length; i++) {
+          for (let i = 0; i < trimmed_string.length; i++) {
             for (let j in char_codes) {
-              if (char_codes[j].charCodeAt() === input_string.value[i].charCodeAt()) {
+              if (char_codes[j].charCodeAt() === trimmed_string[i].charCodeAt()) {
                 output_string[i] = `[${output_string[i]}]`;
                 wrong_chars++;
               }

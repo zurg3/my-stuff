@@ -61,8 +61,10 @@ const audio_repeat_option = document.getElementById('audio_repeat_option');
 const audio_player = document.createElement('audio');
 
 function convert() {
-  if (original_link.value && is_valid_url(original_link.value)) {
-    const original_url = new URL(original_link.value);
+  const trimmed_link = original_link.value.trim();
+
+  if (trimmed_link && is_valid_url(trimmed_link)) {
+    const original_url = new URL(trimmed_link);
     const params = Object.fromEntries(original_url.searchParams.entries());
 
     let valid_url;

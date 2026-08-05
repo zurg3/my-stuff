@@ -17,7 +17,7 @@
     </form>
     <script>
       function show_update_info() {
-        const update_id = document.getElementById('update_id').value;
+        const update_id = document.getElementById('update_id').value.trim();
 
         if (update_id) {
           window.open(`https://support.microsoft.com/help/${update_id}`, '_blank');

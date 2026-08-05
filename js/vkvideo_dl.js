@@ -1,4 +1,4 @@
-if (['m.vk.com', 'm.vkvideo.ru'].includes(window.location.host)) {
+if (['m.vk.com', 'm.vk.ru', 'm.vkvideo.ru'].includes(window.location.host)) {
   const video = cur.apiPrefetchCache[0].response.items[0];
 
   if (video) {

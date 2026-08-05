@@ -24,7 +24,7 @@
       new ClipboardJS('#clipboard_button');
 
       function decode_uri() {
-        decoded_uri.innerText = decodeURI(encoded_uri.value);
+        decoded_uri.innerText = decodeURI(encoded_uri.value.trim());
       }
 
       function clear_input() {

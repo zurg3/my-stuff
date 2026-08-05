@@ -1,13 +1,35 @@
-document.getElementById('main').hidden = false;
+const imdb_year = document.getElementById('imdb_year');
+const options = document.createDocumentFragment();
+
+const current_year = dayjs().year();
+const year_option_begin = 1900;
+const year_option_end = current_year + 5;
+
+for (let year_option = year_option_end; year_option >= year_option_begin; year_option--) {
+  const option = document.createElement('option');
+
+  if (year_option === current_year) {
+    option.selected = true;
+    option.setAttribute('selected', '');
+  }
+  option.value = year_option;
+  option.innerText = year_option;
+
+  options.append(option);
+}
+
+imdb_year.append(options);
 
 const imdb_base_link = 'https://www.imdb.com';
+
+document.getElementById('main').hidden = false;
 
 function get_last_ul(ul_index) {
   return document.getElementsByTagName('ul')[document.getElementsByTagName('ul').length - ul_index];
 }
 
 function find_item() {
-  const imdb_id = document.getElementById('imdb_id').value;
+  const imdb_id = document.getElementById('imdb_id').value.trim();
   const imdb_item_type = imdb_id.slice(0, 2);
 
   const imdb_title_link = `${imdb_base_link}/title`;
@@ -45,30 +67,26 @@ function find_item() {
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/releaseinfo">Release dates</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/companycredits">Company credits</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/locations">Filming and production</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/technical">Technical specs</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/technical">Technical specifications</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/externalsites">External sites</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/movieconnections">Connections</a></li>`;
       document.body.innerHTML += '<h4>Storyline</h4>';
         document.body.innerHTML += '<ul></ul>';
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/taglines">Taglines</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/plotsummary">Plot summary</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/plotsummary">Plot</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/synopsis">Synopsis</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/keywords">Plot keywords</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/keywords">Keywords</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/parentalguide">Parents guide</a></li>`;
-      document.body.innerHTML += '<h4>Related items</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/news">News</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/showtimes/title/${imdb_id}/">Showtimes</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/externalsites">External sites</a></li>`;
       document.body.innerHTML += '<h4>Opinion</h4>';
         document.body.innerHTML += '<ul></ul>';
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/awards">Awards</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/faq">FAQ</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/reviews">User reviews</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/ratings">User ratings</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/externalreviews">External reviews</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/criticreviews">Metacritic reviews</a></li>`;
       document.body.innerHTML += '<h4>Photo and video</h4>';
         document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex">Photo gallery</a><ul></ul>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex">Photos</a><ul></ul>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=still_frame">Still frame</a></li>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=poster">Poster</a></li>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=product">Product</a></li>`;
@@ -76,25 +94,27 @@ function find_item() {
             get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=event">Event</a></li>`;
             get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=publicity">Publicity</a></li>`;
           document.body.innerHTML += '</li>';
-          get_last_ul(2).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/videogallery">Trailers and videos</a></li>`;
-      document.body.innerHTML += '<h4>Did you know?</h4>';
+          get_last_ul(2).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/videogallery">Videos</a></li>`;
+      document.body.innerHTML += '<h4>Did you know</h4>';
         document.body.innerHTML += '<ul></ul>';
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/trivia">Trivia</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/goofs">Goofs</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/crazycredits">Crazy credits</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/quotes">Quotes</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/alternateversions">Alternate versions</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/movieconnections">Connections</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/soundtrack">Soundtracks</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/faq">FAQ</a></li>`;
       document.body.innerHTML += '<h4>TV</h4>';
         document.body.innerHTML += '<ul></ul>';
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/episodes">Episodes list</a></li>`;
           //get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/tvschedule">TV schedule</a></li>`;
       document.body.innerHTML += '<h4>Related items</h4>';
         document.body.innerHTML += '<ul></ul>';
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/news">News</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="https://pro.imdb.com/title/${imdb_id}/">IMDbPro</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="https://www.boxofficemojo.com/title/${imdb_id}/">Box Office Mojo</a></li>`;
+          get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/showtimes/title/${imdb_id}/">Showtimes</a></li>`;
           get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/reference">Reference view</a></li>`;
 
       document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
@@ -112,8 +132,7 @@ function find_item() {
     document.body.innerHTML += '<h4>Personal details</h4>';
       document.body.innerHTML += '<ul></ul>';
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio">Biography</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/otherworks">Other works</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/publicity">Publicity listings</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/awards">Awards</a></li>`;
     document.body.innerHTML += '<h4>Filmography</h4>';
       document.body.innerHTML += '<ul></ul>';
         get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}">by Popularity</a></li>`;
@@ -124,24 +143,23 @@ function find_item() {
         get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=year,desc">by Year</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`;
-    document.body.innerHTML += '<h4>Did you know?</h4>';
+    document.body.innerHTML += '<h4>Did you know</h4>';
       document.body.innerHTML += '<ul></ul>';
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#overview">Overview</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#quotes">Personal quotes</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#quotes">Quotes</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#trivia">Trivia</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#trademark">Trademark</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/faq">FAQ</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#trademark">Trademarks</a></li>`;
+        //get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/faq">FAQ</a></li>`;
     document.body.innerHTML += '<h4>Photo and video</h4>';
       document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/mediaindex">Photo gallery</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/videogallery">Trailers and videos</a></li>`;
-    document.body.innerHTML += '<h4>Opinion</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/awards">Awards</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/mediaindex">Photos</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/videogallery">Videos</a></li>`;
     document.body.innerHTML += '<h4>Related items</h4>';
       document.body.innerHTML += '<ul></ul>';
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/news">News</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/externalsites">External sites</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/otherworks">Other works</a></li>`;
+        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/publicity">Publicity listings</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/seen/${imdb_id}/">How much have you seen?</a></li>`;
         get_last_ul(1).innerHTML += `<li><a href="https://pro.imdb.com/name/${imdb_id}/">IMDbPro</a></li>`;
@@ -207,11 +225,9 @@ function find_item() {
 }
 
 function find_year() {
-  const imdb_year = document.getElementById('imdb_year').value;
+  document.title = imdb_year.value;
 
-  document.title = imdb_year;
-
-  document.body.innerHTML = `<h3><a href="${imdb_base_link}/year/${imdb_year}/">Open titles for this year</a></h3>`;
+  document.body.innerHTML = `<h3><a href="${imdb_base_link}/year/${imdb_year.value}/">Open titles for this year</a></h3>`;
 
   document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
 }
@@ -233,26 +249,23 @@ function remove_name(input) {
 }
 
 function search_name() {
-  let roles_query = [];
-  let title_type_query = [];
+  const roles_query = [];
+  const title_type_query = [];
 
   for (let i = 0; i < document.getElementsByClassName('name_search_input_field').length; i++) {
-    roles_query.push(document.getElementsByClassName('name_search_input_field')[i].children[1].value);
+    roles_query.push(document.getElementsByClassName('name_search_input_field')[i].children[1].value.trim());
   }
 
   for (let i = 0; i < document.getElementsByClassName('name_search_title_type').length; i++) {
     if (document.getElementsByClassName('name_search_title_type')[i].checked) {
-      title_type_query.push(document.getElementsByClassName('name_search_title_type')[i].value);
+      title_type_query.push(document.getElementsByClassName('name_search_title_type')[i].value.trim());
     }
   }
 
   if ((roles_query.length > 0 && title_type_query.length > 0) && !roles_query.includes('')) {
-    roles_query = roles_query.join();
-    title_type_query = title_type_query.join();
-
     document.title = 'IMDb Collaborations Search';
 
-    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/title/?title_type=${title_type_query}&role=${roles_query}">Open search results</a></h3>`;
+    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/title/?title_type=${title_type_query.join()}&role=${roles_query.join()}">Open search results</a></h3>`;
 
     document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
   }
@@ -275,18 +288,16 @@ function remove_title(input) {
 }
 
 function search_title() {
-  let roles_query = [];
+  const roles_query = [];
 
   for (let i = 0; i < document.getElementsByClassName('title_search_input_field').length; i++) {
-    roles_query.push(document.getElementsByClassName('title_search_input_field')[i].children[1].value);
+    roles_query.push(document.getElementsByClassName('title_search_input_field')[i].children[1].value.trim());
   }
 
   if (roles_query.length > 0 && !roles_query.includes('')) {
-    roles_query = roles_query.join();
-
     document.title = 'IMDb Collaborations Search';
 
-    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/name/?roles=${roles_query}">Open search results</a></h3>`;
+    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/name/?roles=${roles_query.join()}">Open search results</a></h3>`;
 
     document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
   }

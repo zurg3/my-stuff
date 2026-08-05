@@ -8,7 +8,7 @@ async function get_ip_info() {
 
   //console.log(ip_info);
 
-  let data = [];
+  const data = [];
 
   data.push(
     `IP: ${ip_info.ip}`,
@@ -17,9 +17,7 @@ async function get_ip_info() {
     `Route: ${ip_info.asn.route}`
   );
 
-  data = data.join('\n');
-
-  output.innerText = data;
+  output.innerText = data.join('\n');
 }
 
 get_ip_info();

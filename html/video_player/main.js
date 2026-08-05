@@ -11,8 +11,10 @@ const video = document.createElement('video');
 const video_link = document.getElementById('video_src');
 
 function open_video() {
-  if (video_link.value && is_valid_url(video_link.value)) {
-    video.src = video_link.value;
+  const trimmed_link = video_link.value.trim();
+
+  if (trimmed_link && is_valid_url(trimmed_link)) {
+    video.src = trimmed_link;
     video.width = 640;
     video.height = 480;
     video.controls = true;
@@ -29,25 +31,25 @@ function open_video() {
 }
 
 function resize_video() {
-  let video_size_scale;
+  let scale;
 
   switch (video.videoHeight) {
     case 1080:
-      video_size_scale = 0.25;
+      scale = 0.25;
       break;
     case 720:
     case 480:
-      video_size_scale = 0.5;
+      scale = 0.5;
       break;
     case 360:
     case 240:
-      video_size_scale = 1;
+      scale = 1;
       break;
     default:
-      video_size_scale = 1;
+      scale = 1;
   }
 
-  expand_video_size(video_size_scale);
+  expand_video_size(scale);
 }
 
 function fit_video() {
@@ -62,17 +64,17 @@ function fit_video() {
   debug_video();
 }
 
-function video_speed(video_speed_value) {
-  video.playbackRate = video_speed_value;
+function video_speed(speed) {
+  video.playbackRate = speed;
 
   debug_video();
 }
 
-function expand_video_size(expand_video_size_value) {
+function expand_video_size(size) {
   video.removeAttribute('style');
 
-  video.width = video.videoWidth * expand_video_size_value;
-  video.height = video.videoHeight * expand_video_size_value;
+  video.width = video.videoWidth * size;
+  video.height = video.videoHeight * size;
 
   hide_elements(false);
 
@@ -102,7 +104,7 @@ function clear_input() {
 }
 
 function debug_video() {
-  console.log(`Current video size: ${video.offsetWidth}x${video.offsetHeight}`);
-  console.log(`Actual video size: ${video.videoWidth}x${video.videoHeight}`);
-  console.log(`Video speed: ${video.playbackRate}`);
+  console.log(`Player size: ${video.offsetWidth}x${video.offsetHeight}`);
+  console.log(`Video size: ${video.videoWidth}x${video.videoHeight}`);
+  console.log(`Playback speed: ${video.playbackRate}`);
 }

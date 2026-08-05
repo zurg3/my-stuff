@@ -10,8 +10,10 @@ const audio = document.createElement('audio');
 const audio_link = document.getElementById('audio_src');
 
 function open_audio() {
-  if (audio_link.value && is_valid_url(audio_link.value)) {
-    audio.src = audio_link.value;
+  const trimmed_link = audio_link.value.trim();
+
+  if (trimmed_link && is_valid_url(trimmed_link)) {
+    audio.src = trimmed_link;
     audio.controls = true;
     audio.preload = 'metadata';
     audio.muted = false;

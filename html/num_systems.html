@@ -16,7 +16,7 @@
         <p><label for="dec" accesskey="1">DEC:</label> <input type="text" id="dec" name="dec" spellcheck="false" oninput="convert_from_dec()"></p>
         <p><label for="hex" accesskey="h">HEX:</label> <input type="text" id="hex" name="hex" spellcheck="false" oninput="convert_from_hex()"></p>
         <p align="center"><input type="button" class="primary_button" value="Clear input" onclick="clear_input()"></p>
-        <p align="center"><input type="button" class="primary_button" value="Show cheat sheet" onclick="cheat_sheet_display()"></p>
+        <p align="center"><input type="button" class="primary_button" value="Show cheat sheet" onclick="toggle_cheat_sheet()"></p>
       </form>
     </div>
     <div id="hints">
@@ -45,7 +45,7 @@
         <li>F = 15</li>
       </ul>
     </div>
-    <div id="cheat_sheet">
+    <div id="cheat_sheet" hidden>
       <table border="0" align="center">
         <tr>
           <td width="80"><b>BIN</b></td>
@@ -53,9 +53,9 @@
           <td width="40"><b>DEC</b></td>
           <td width="40"><b>HEX</b></td>
         </tr>
-        <script src="num_systems/cheat_sheet.js"></script>
       </table>
     </div>
+    <script src="num_systems/cheat_sheet.js"></script>
     <script src="num_systems/main.js"></script>
   </body>
 </html>

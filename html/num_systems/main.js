@@ -43,11 +43,9 @@ function convert_from_hex() {
   convert(filter_input(hex.value, /[^0-9a-fA-F]/), 16);
 }
 
-function cheat_sheet_display() {
-  const is_shown = cheat_sheet.style.display === 'inline-block';
-
-  cheat_sheet.style.display = is_shown ? 'none' : 'inline-block';
-  cheat_sheet_button.value = is_shown ? 'Show cheat sheet' : 'Hide cheat sheet';
+function toggle_cheat_sheet() {
+  cheat_sheet.hidden = !cheat_sheet.hidden;
+  cheat_sheet_button.value = cheat_sheet.hidden ? 'Show cheat sheet' : 'Hide cheat sheet';
 }
 
 function clear_input() {

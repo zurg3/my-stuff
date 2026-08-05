@@ -136,8 +136,8 @@ function reset_loaded_rate_color() {
 
 function load_gallery() {
   // Required fields
-  const base_link = document.getElementById('base_link').value;
-  const images_amount = parseInt(document.getElementById('images_amount').value, 10);
+  const base_link = document.getElementById('base_link').value.trim();
+  const images_amount = document.getElementById('images_amount').valueAsNumber;
   const file_format = get_checked_radio_value('file_format');
 
   if ((base_link && images_amount && file_format) && is_valid_url(base_link)) {
@@ -149,10 +149,10 @@ function load_gallery() {
     img_scale_value.innerText = `${current_img_scale}%`;
 
     // Optional fields
-    const start_id = parseInt(document.getElementById('start_id').value, 10) || 1;
-    const id_length = parseInt(document.getElementById('id_length').value, 10) || 0;
-    const id_additional = document.getElementById('id_additional').value;
-    const id_step = parseInt(document.getElementById('id_step').value, 10) || 1;
+    const start_id = document.getElementById('start_id').valueAsNumber || 1;
+    const id_length = document.getElementById('id_length').valueAsNumber || 0;
+    const id_additional = document.getElementById('id_additional').value.trim();
+    const id_step = document.getElementById('id_step').valueAsNumber || 1;
     const search_engine = get_checked_radio_value('search_engine');
     const hide_failed_images = document.getElementsByName('hide_failed_images')[0].checked;
     const blur_images = document.getElementsByName('blur_images')[0].checked;

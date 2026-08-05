@@ -71,9 +71,7 @@
       <br>
       <form>
         <label for="imdb_year">Select year</label>
-        <select name="imdb_year" id="imdb_year">
-          <script src="imdb_links/years_range.js"></script>
-        </select>
+        <select name="imdb_year" id="imdb_year"></select>
         <input type="button" value="Submit" onclick="find_year()">
       </form>
       <br>
@@ -86,17 +84,16 @@
         </div>
         <h4>Title type</h4>
         <div class="name_search_title_types">
-          <input type="checkbox" class="name_search_title_type" id="title_type_1" value="feature"> <label for="title_type_1">Feature film</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_2" value="tv_movie"> <label for="title_type_2">TV movie</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_3" value="tv_series"> <label for="title_type_3">TV series</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_4" value="tv_episode"> <label for="title_type_4">TV episode</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_5" value="tv_special"> <label for="title_type_5">TV special</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_6" value="tv_miniseries"> <label for="title_type_6">Mini-series</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_7" value="documentary"> <label for="title_type_7">Documentary</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_8" value="video_game"> <label for="title_type_8">Video game</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_9" value="short"> <label for="title_type_9">Short film</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_10" value="video"> <label for="title_type_10">Video</label><br>
-          <input type="checkbox" class="name_search_title_type" id="title_type_11" value="tv_short"> <label for="title_type_11">TV short</label>
+          <input type="checkbox" class="name_search_title_type" id="title_type_1" value="feature"> <label for="title_type_1">Movie</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_2" value="tv_movie"> <label for="title_type_2">TV Movie</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_3" value="tv_series"> <label for="title_type_3">TV Series</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_4" value="tv_episode"> <label for="title_type_4">TV Episode</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_5" value="tv_special"> <label for="title_type_5">TV Special</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_6" value="tv_miniseries"> <label for="title_type_6">TV Mini Series</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_7" value="video_game"> <label for="title_type_7">Video Game</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_8" value="short"> <label for="title_type_8">Short</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_9" value="video"> <label for="title_type_9">Video</label><br>
+          <input type="checkbox" class="name_search_title_type" id="title_type_10" value="tv_short"> <label for="title_type_10">TV Short</label>
         </div>
         <p>
           <input type="button" value="Search" onclick="search_name()">

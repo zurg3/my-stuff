@@ -6,8 +6,8 @@ const output = document.getElementById('output');
 
 function get_random_number() {
   if (min_input.value && max_input.value) {
-    const min = parseInt(min_input.value, 10);
-    const max = parseInt(max_input.value, 10);
+    const min = min_input.valueAsNumber;
+    const max = max_input.valueAsNumber;
 
     if (min >= max) max_input.value = min + 1;
 
