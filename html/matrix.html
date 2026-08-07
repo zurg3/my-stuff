@@ -205,9 +205,9 @@
       }
 
       function change_matrix_size() {
-        matrix_a.replaceChildren();
-        matrix_b.replaceChildren();
-        matrix_c.replaceChildren();
+        matrix_a.innerHTML = '';
+        matrix_b.innerHTML = '';
+        matrix_c.innerHTML = '';
 
         const size = parseInt(matrix_size.value, 10);
 

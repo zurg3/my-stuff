@@ -57,7 +57,8 @@
             'YouTube': `https://www.youtube.com/@${username}`
           };
 
-          output.innerHTML = '';
+          clear_input();
+
           output.innerHTML += `<p>Results for <b>${username}</b></p>`;
           output.innerHTML += '<ul id="list"></ul>';
 
