@@ -20,9 +20,7 @@ function open_video() {
     video.preload = 'metadata';
     video.muted = false;
     video.volume = 1;
-    video.style.width = '640px';
-    video.style.height = '480px';
-    video.setAttribute('onloadedmetadata', 'resize_video()');
+    video.setAttribute('onloadedmetadata', !is_mobile() ? 'resize_player(calc_scale(video.videoHeight))' : 'resize_player()');
     video.setAttribute('onratechange', 'update_video_info()');
 
     video_player.append(video);
@@ -44,37 +42,19 @@ function calc_scale(video_height) {
   }
 }
 
-function expand_video_size(size) {
-  video.style.width = `${video.videoWidth * size}px`;
-  video.style.height = `${video.videoHeight * size}px`;
+function resize_player(size) {
+  video.style.width = size ? `${video.videoWidth * size}px` : '100%';
+  video.style.height = size ? `${video.videoHeight * size}px` : 'auto';
 
   hide_elements(false);
 
   update_video_info();
 }
 
-function fit_video() {
-  video.style.width = '100%';
-  video.style.height = 'auto';
-
-  hide_elements(false);
-
-  update_video_info();
-}
-
-function video_speed(speed) {
+function set_playback_speed(speed) {
   video.playbackRate = speed;
 
   update_video_info();
-}
-
-function resize_video() {
-  if (!is_mobile()) {
-    expand_video_size(calc_scale(video.videoHeight));
-  }
-  else {
-    fit_video();
-  }
 }
 
 function update_video_info() {
