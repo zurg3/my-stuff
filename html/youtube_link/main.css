@@ -7,3 +7,11 @@ input[type="button"] {
   border: none;
   border-radius: 10px;
 }
+
+audio {
+  width: 100%;
+}
+
+audio:focus {
+  outline: none;
+}

@@ -171,7 +171,6 @@ async function play_audio() {
         audio_player.preload = 'metadata';
         audio_player.muted = false;
         audio_player.volume = 1;
-        audio_player.style.width = '100%';
 
         iv_audio.append(audio_player);
 
