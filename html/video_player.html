@@ -16,10 +16,14 @@
       <p>
         <label for="video_src">Video link</label>
         <input type="url" id="video_src" size="60" autocomplete="off">
+        <input type="button" id="open_video_button" value="Open" onclick="open_video()">
       </p>
       <p>
-        <input type="button" id="open_video_button" value="Submit" onclick="open_video()">
-        <input type="button" id="clear_input_button" value="Clear input" onclick="clear_input()">
+        <label for="file_input">Video file</label>
+        <input type="file" id="file_input" accept="video/*">
+      </p>
+      <p>
+        <input type="button" id="clear_input_button" value="Clear" onclick="clear_input()">
       </p>
       <div id="video_controls" hidden>
         <hr>

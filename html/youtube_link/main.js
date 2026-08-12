@@ -44,6 +44,8 @@ new ClipboardJS('#copy_ppd_playlist_link_button');
 new ClipboardJS('#copy_yy_playlist_link_button');
 new ClipboardJS('#copy_iv_playlist_link_button');
 
+new ClipboardJS('#copy_audio_name_button');
+
 const ppd_hosts = ['piped.video', 'cf.piped.video', 'az.piped.video'];
 const yy_hosts = ['ytify.pp.ua', 'ytify.netlify.app'];
 const iv_hosts = ['yt.omada.cafe', 'invidious.schenkel.eti.br', 'inv.miningtcup.me'];
@@ -57,6 +59,7 @@ const yt_iframe = document.createElement('iframe');
 const iv_audio = document.getElementById('iv_audio');
 const audio_info = document.getElementById('audio_info');
 const audio_options = document.getElementById('audio_options');
+const copy_audio_name_button = document.getElementById('copy_audio_name_button');
 const audio_repeat_option = document.getElementById('audio_repeat_option');
 const audio_player = document.createElement('audio');
 
@@ -175,11 +178,14 @@ async function play_audio() {
         iv_audio.append(audio_player);
 
         const author = data.author.endsWith('- Topic') ? data.author.slice(0, -8) : data.author;
+        const title = data.title;
+        const bitrate = (audio.bitrate / 1000).toFixed(1);
 
         audio_info.hidden = false;
-        audio_info.innerHTML = `${author} - <b>${data.title}</b> [${(audio.bitrate / 1000).toFixed(1)} kbps]`;
+        audio_info.innerHTML = `${author} - <b>${title}</b> [${bitrate} kbps]`;
 
         audio_options.hidden = false;
+        copy_audio_name_button.dataset.clipboardText = `${author} - ${title}`;
 
         if ('mediaSession' in navigator) {
           const artwork_list = [];
@@ -194,7 +200,7 @@ async function play_audio() {
 
           navigator.mediaSession.metadata = new MediaMetadata({
             artist: author,
-            title: data.title,
+            title: title,
             //album: 'Album',
             artwork: artwork_list
           });
@@ -212,6 +218,10 @@ async function play_audio() {
 
 function toggle_audio_repeat() {
   audio_player.loop = audio_repeat_option.checked;
+}
+
+function seek_audio(seconds) {
+  audio_player.currentTime += seconds;
 }
 
 function show_help() {

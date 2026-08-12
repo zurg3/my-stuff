@@ -8,6 +8,10 @@ input[type="button"] {
   border-radius: 10px;
 }
 
+#copy_audio_name_button, .seek_audio_button {
+  width: 40px;
+}
+
 audio {
   width: 100%;
 }

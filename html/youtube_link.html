@@ -54,7 +54,10 @@
       <div id="iv_audio">
         <p id="audio_info" hidden></p>
         <p id="audio_options" hidden>
-          <input type="checkbox" id="audio_repeat_option" onchange="toggle_audio_repeat()"><label for="audio_repeat_option">Repeat</label>
+          <input type="button" id="copy_audio_name_button" value="📋" title="Copy audio name" data-clipboard-action="copy">
+          <input type="checkbox" id="audio_repeat_option" title="Repeat audio" onchange="toggle_audio_repeat()"><label for="audio_repeat_option" title="Repeat audio">🔁</label>
+          <input type="button" class="seek_audio_button" value="⏪" title="Rewind audio" onclick="seek_audio(-10)">
+          <input type="button" class="seek_audio_button" value="⏩" title="Fast-Forward audio" onclick="seek_audio(10)">
         </p>
       </div>
     </div>
