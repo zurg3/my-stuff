@@ -1,6 +1,6 @@
 const {resize_input, is_valid_url, is_mobile} = lib;
 
-resize_input(document.getElementById('video_src'), 0.8);
+resize_input(document.getElementById('video_src'), 0.85);
 
 const form = document.forms[0];
 form.hidden = false;
@@ -17,6 +17,8 @@ function open_video() {
   const trimmed_link = video_link.value.trim();
 
   if (trimmed_link && is_valid_url(trimmed_link)) {
+    file_input.value = '';
+    revoke_file_url();
     setup_video(trimmed_link);
   }
   else {
@@ -99,6 +101,7 @@ file_input.onchange = (event) => {
   const file = event.target.files[0];
 
   if (file) {
+    video_link.value = '';
     revoke_file_url();
     file_url = URL.createObjectURL(file);
     setup_video(file_url);

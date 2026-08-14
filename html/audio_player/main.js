@@ -1,6 +1,6 @@
 const {resize_input, is_valid_url} = lib;
 
-resize_input(document.getElementById('audio_src'), 0.8);
+resize_input(document.getElementById('audio_src'), 0.85);
 
 const form = document.forms[0];
 form.hidden = false;
@@ -15,6 +15,8 @@ function open_audio() {
   const trimmed_link = audio_link.value.trim();
 
   if (trimmed_link && is_valid_url(trimmed_link)) {
+    file_input.value = '';
+    revoke_file_url();
     setup_audio(trimmed_link);
   }
   else {
@@ -61,6 +63,7 @@ file_input.onchange = (event) => {
   const file = event.target.files[0];
 
   if (file) {
+    audio_link.value = '';
     revoke_file_url();
     file_url = URL.createObjectURL(file);
     setup_audio(file_url);
