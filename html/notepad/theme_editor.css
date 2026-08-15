@@ -14,10 +14,6 @@
   font-family: monospace;
 }
 
-#copy_bg_button, #copy_font_button {
-  cursor: pointer;
-}
-
 @media screen and (orientation: portrait) {
   #preview {
     width: 90%;
