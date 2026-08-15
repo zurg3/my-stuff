@@ -8,8 +8,9 @@
 
 ## A collection of programs and scripts I wrote for fun
 - [Assembly](https://github.com/zurg3/my-stuff/tree/master/asm)
-- [C++](https://github.com/zurg3/my-stuff/tree/master/cpp)
 - [C](https://github.com/zurg3/my-stuff/tree/master/c)
+- [C++](https://github.com/zurg3/my-stuff/tree/master/cpp)
+- [CSS](https://github.com/zurg3/my-stuff/tree/master/css)
 - [D](https://github.com/zurg3/my-stuff/tree/master/d)
 - [Go](https://github.com/zurg3/my-stuff/tree/master/go)
 - [HTML](https://github.com/zurg3/my-stuff/tree/master/html)

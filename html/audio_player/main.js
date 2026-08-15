@@ -1,6 +1,6 @@
 const {resize_input, is_valid_url} = lib;
 
-resize_input(document.getElementById('audio_src'), 0.85);
+resize_input(document.getElementById('audio_src'), 0.8);
 
 const form = document.forms[0];
 form.hidden = false;
