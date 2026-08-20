@@ -1,3 +1,8 @@
-button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"],
+input[type="file"]::file-selector-button {
   cursor: pointer;
 }
