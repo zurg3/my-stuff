@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Detective</title>
     <link href="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/css/input_cursor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
   </head>
   <body>
     <form id="input">
@@ -18,56 +19,59 @@
     <hr>
     <div id="output"></div>
     <script>
+      const {append_html} = lib;
+
       const output = document.getElementById('output');
 
       function search_user() {
         const username = document.getElementById('username').value.trim();
 
         if (username) {
-          const sites = {
-            'Bandcamp (Artist)': `https://${username}.bandcamp.com`,
-            'Bandcamp (Fan)': `https://bandcamp.com/${username}`,
-            'Facebook': `https://www.facebook.com/${username}`,
-            'Genius': `https://genius.com/${username}`,
-            'GitHub Gist': `https://gist.github.com/${username}`,
-            'GitHub Pages': `https://${username}.github.io`,
-            'GitHub': `https://github.com/${username}`,
-            'GitLab': `https://gitlab.com/${username}`,
-            'GOG.com': `https://www.gog.com/u/${username}`,
-            'Instagram': `https://www.instagram.com/${username}/`,
-            'Linktree': `https://linktr.ee/${username}`,
-            'Medium': `https://medium.com/@${username}`,
-            'ModDB': `https://www.moddb.com/members/${username}`,
-            'MyNickname.com': `https://mynickname.com/ru/${username}`,
-            'OpenNet': `https://www.opennet.ru/~${username}`,
-            'Pastebin': `https://pastebin.com/u/${username}`,
-            'RAWG': `https://rawg.io/@${username}`,
-            'Reddit': `https://www.reddit.com/user/${username}/`,
-            'SoundCloud': `https://soundcloud.com/${username}`,
-            'Spotify': `https://open.spotify.com/user/${username}`,
-            'Steam': `https://steamcommunity.com/id/${username}`,
-            'Telegram': `https://t.me/${username}`,
-            'Threads': `https://www.threads.com/@${username}`,
-            'TikTok': `https://www.tiktok.com/@${username}`,
-            'Tumblr': `https://www.tumblr.com/${username}`,
-            'VK Articles': `https://vk.ru/@${username}`,
-            'VK Video': `https://vk.ru/video/@${username}`,
-            'VK': `https://vk.ru/${username}`,
-            'WhoSampled': `https://www.whosampled.com/user/${username}/`,
-            'X': `https://x.com/${username}`,
-            'YouTube': `https://www.youtube.com/@${username}`
-          };
+          const sites = [
+            {name: 'Bandcamp (Artist)', url: `https://${username}.bandcamp.com`},
+            {name: 'Bandcamp (Fan)', url: `https://bandcamp.com/${username}`},
+            {name: 'Facebook', url: `https://www.facebook.com/${username}`},
+            {name: 'Genius', url: `https://genius.com/${username}`},
+            {name: 'GitHub Gist', url: `https://gist.github.com/${username}`},
+            {name: 'GitHub Pages', url: `https://${username}.github.io`},
+            {name: 'GitHub', url: `https://github.com/${username}`},
+            {name: 'GitLab', url: `https://gitlab.com/${username}`},
+            {name: 'GOG.com', url: `https://www.gog.com/u/${username}`},
+            {name: 'Instagram', url: `https://www.instagram.com/${username}/`},
+            {name: 'Linktree', url: `https://linktr.ee/${username}`},
+            {name: 'Medium', url: `https://medium.com/@${username}`},
+            {name: 'ModDB', url: `https://www.moddb.com/members/${username}`},
+            {name: 'MyNickname.com', url: `https://mynickname.com/ru/${username}`},
+            {name: 'OpenNet', url: `https://www.opennet.ru/~${username}`},
+            {name: 'Pastebin', url: `https://pastebin.com/u/${username}`},
+            {name: 'RAWG', url: `https://rawg.io/@${username}`},
+            {name: 'Reddit', url: `https://www.reddit.com/user/${username}/`},
+            {name: 'SoundCloud', url: `https://soundcloud.com/${username}`},
+            {name: 'Spotify', url: `https://open.spotify.com/user/${username}`},
+            {name: 'Steam', url: `https://steamcommunity.com/id/${username}`},
+            {name: 'Telegram', url: `https://t.me/${username}`},
+            {name: 'Threads', url: `https://www.threads.com/@${username}`},
+            {name: 'TikTok', url: `https://www.tiktok.com/@${username}`},
+            {name: 'Tumblr', url: `https://www.tumblr.com/${username}`},
+            {name: 'VK Articles', url: `https://vk.ru/@${username}`},
+            {name: 'VK Video', url: `https://vk.ru/video/@${username}`},
+            {name: 'VK', url: `https://vk.ru/${username}`},
+            {name: 'WhoSampled', url: `https://www.whosampled.com/user/${username}/`},
+            {name: 'X', url: `https://x.com/${username}`},
+            {name: 'YouTube', url: `https://www.youtube.com/@${username}`}
+          ];
 
           clear_input();
 
-          output.innerHTML += `<p>Results for <b>${username}</b></p>`;
-          output.innerHTML += '<ul id="list"></ul>';
+          append_html(output, `<p>Results for <b>${username}</b></p>`);
 
-          const list = document.getElementById('list');
+          const list = document.createElement('ul');
 
-          for (let i in sites) {
-            list.innerHTML += `<li><a href="${sites[i]}">${i}</a></li>`;
+          for (let site of sites) {
+            append_html(list, `<li><a href="${site.url}">${site.name}</a></li>`);
           }
+
+          output.append(list);
         }
       }
 
