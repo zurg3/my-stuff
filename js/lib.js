@@ -25,12 +25,16 @@ lib.is_valid_url = (s) => {
   if (typeof s !== 'string') return false;
 
   try {
-    const url = new URL(s.trim());
+    const url = new URL(s);
     return ['https:', 'http:'].includes(url.protocol);
   }
   catch (error) {
     return false;
   }
+};
+
+lib.append_html = (element, html_string) => {
+  element.insertAdjacentHTML('beforeend', html_string);
 };
 
 lib.random_number = (min = 1, max = 100) => {
