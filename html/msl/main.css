@@ -11,6 +11,10 @@ a:visited {
   color: Blue;
 }
 
+table {
+  width: 100%;
+}
+
 .highlighted_th {
   background: #adbce6;
 }

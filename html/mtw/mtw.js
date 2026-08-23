@@ -1,13 +1,21 @@
-const mtw_json_url = 'https://gist.githubusercontent.com/zurg3/0fd5e740e4c1c4eeb76d089a18fd5725/raw/mtw.json';
+const {parse_data, append_html} = lib;
 
-$.getJSON(mtw_json_url, function(mtw) {
-  const imdb_title_link = 'https://www.imdb.com/title/';
+async function load_mtw() {
+  const mtw_json_url = 'https://gist.githubusercontent.com/zurg3/0fd5e740e4c1c4eeb76d089a18fd5725/raw/mtw.json';
 
-  $('body').append('<b>My temporary watchlist</b>');
-  $('body').append('<ol></ol>');
-  for (let i in mtw) {
-    $('ol').append(`<li><a href="${imdb_title_link}${i}/">${mtw[i]}</a></li>`);
+  const mtw = await parse_data(mtw_json_url, 'json');
+
+  append_html(document.body, '<p><b>My temporary watchlist</b></p>');
+
+  const list = document.createElement('ol');
+
+  for (let id in mtw) {
+    append_html(list, `<li><a href="https://www.imdb.com/title/${id}/">${mtw[id]}</a></li>`);
   }
-});
 
-$('script').remove();
+  document.body.append(list);
+
+  document.querySelectorAll('script').forEach(script => script.remove());
+}
+
+load_mtw();

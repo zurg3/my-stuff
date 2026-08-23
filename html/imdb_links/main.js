@@ -1,3 +1,5 @@
+const {parse_data, append_html, back_to_top} = lib;
+
 const imdb_year = document.getElementById('imdb_year');
 const options = document.createDocumentFragment();
 
@@ -24,11 +26,11 @@ const imdb_base_link = 'https://www.imdb.com';
 
 document.getElementById('main').hidden = false;
 
-function get_last_ul(ul_index) {
-  return document.getElementsByTagName('ul')[document.getElementsByTagName('ul').length - ul_index];
+function get_last_ul(index) {
+  return Array.from(document.querySelectorAll('ul')).at(-index);
 }
 
-function find_item() {
+async function find_item() {
   const imdb_id = document.getElementById('imdb_id').value.trim();
   const imdb_item_type = imdb_id.slice(0, 2);
 
@@ -44,192 +46,214 @@ function find_item() {
   const imdb_video_link = `${imdb_base_link}/video`;
   const imdb_interest_link = `${imdb_base_link}/interest`;
 
-  const api_key = '3c5677f8';
-
   if (imdb_item_type === 'tt') {
+    const api_key = '3c5677f8';
+
     const json_url = `https://www.omdbapi.com/?apikey=${api_key}&i=${imdb_id}`;
 
-    $.getJSON(json_url, function(json_data) {
-      const movie_title = `${json_data.Title} (${json_data.Year})`;
-      const movie_rating = json_data.imdbRating;
-      const movie_votes = json_data.imdbVotes;
+    const json_data = await parse_data(json_url, 'json');
 
-      //console.log(json_url);
+    const movie_title = `${json_data.Title} (${json_data.Year})`;
+    const movie_rating = json_data.imdbRating;
+    const movie_votes = json_data.imdbVotes;
 
-      document.title = movie_title;
+    //console.log(json_url);
 
-      document.body.innerHTML = `<h3><a href="${imdb_title_link}/${imdb_id}/">${movie_title}</a></h3>`;
-      document.body.innerHTML += `<p>★ ${movie_rating}/10 (${movie_votes} votes)</p>`;
+    document.title = movie_title;
 
-      document.body.innerHTML += '<h4>Details</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/fullcredits">Full cast and crew</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/releaseinfo">Release dates</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/companycredits">Company credits</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/locations">Filming and production</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/technical">Technical specifications</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/externalsites">External sites</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/movieconnections">Connections</a></li>`;
-      document.body.innerHTML += '<h4>Storyline</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/taglines">Taglines</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/plotsummary">Plot</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/synopsis">Synopsis</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/keywords">Keywords</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/parentalguide">Parents guide</a></li>`;
-      document.body.innerHTML += '<h4>Opinion</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/awards">Awards</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/reviews">User reviews</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/ratings">User ratings</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/externalreviews">External reviews</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/criticreviews">Metacritic reviews</a></li>`;
-      document.body.innerHTML += '<h4>Photo and video</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex">Photos</a><ul></ul>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=still_frame">Still frame</a></li>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=poster">Poster</a></li>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=product">Product</a></li>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=behind_the_scenes">Behind the scenes</a></li>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=event">Event</a></li>`;
-            get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=publicity">Publicity</a></li>`;
-          document.body.innerHTML += '</li>';
-          get_last_ul(2).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/videogallery">Videos</a></li>`;
-      document.body.innerHTML += '<h4>Did you know</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/trivia">Trivia</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/goofs">Goofs</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/crazycredits">Crazy credits</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/quotes">Quotes</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/alternateversions">Alternate versions</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/soundtrack">Soundtracks</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/faq">FAQ</a></li>`;
-      document.body.innerHTML += '<h4>TV</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/episodes">Episodes list</a></li>`;
-          //get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/tvschedule">TV schedule</a></li>`;
-      document.body.innerHTML += '<h4>Related items</h4>';
-        document.body.innerHTML += '<ul></ul>';
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/news">News</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="https://pro.imdb.com/title/${imdb_id}/">IMDbPro</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="https://www.boxofficemojo.com/title/${imdb_id}/">Box Office Mojo</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/showtimes/title/${imdb_id}/">Showtimes</a></li>`;
-          get_last_ul(1).innerHTML += `<li><a href="${imdb_title_link}/${imdb_id}/reference">Reference view</a></li>`;
+    clear_page();
 
-      document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
-    });
+    append_html(document.body, `<h3><a href="${imdb_title_link}/${imdb_id}/">${movie_title}</a></h3>`);
+    append_html(document.body, `<p>★ ${movie_rating}/10 (${movie_votes} votes)</p>`);
+
+    append_html(document.body, '<h4>Details</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/fullcredits">Full cast and crew</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/releaseinfo">Release dates</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/companycredits">Company credits</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/locations">Filming and production</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/technical">Technical specifications</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/externalsites">External sites</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/movieconnections">Connections</a></li>`);
+    append_html(document.body, '<h4>Storyline</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/taglines">Taglines</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/plotsummary">Plot</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/synopsis">Synopsis</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/keywords">Keywords</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/parentalguide">Parents guide</a></li>`);
+    append_html(document.body, '<h4>Opinion</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/awards">Awards</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/reviews">User reviews</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/ratings">User ratings</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/externalreviews">External reviews</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/criticreviews">Metacritic reviews</a></li>`);
+    append_html(document.body, '<h4>Photo and video</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex">Photos</a><ul></ul>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=still_frame">Still frame</a></li>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=poster">Poster</a></li>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=product">Product</a></li>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=behind_the_scenes">Behind the scenes</a></li>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=event">Event</a></li>`);
+          append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/mediaindex?contentTypes=publicity">Publicity</a></li>`);
+        append_html(document.body, '</li>');
+        append_html(get_last_ul(2), `<li><a href="${imdb_title_link}/${imdb_id}/videogallery">Videos</a></li>`);
+    append_html(document.body, '<h4>Did you know</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/trivia">Trivia</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/goofs">Goofs</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/crazycredits">Crazy credits</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/quotes">Quotes</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/alternateversions">Alternate versions</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/soundtrack">Soundtracks</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/faq">FAQ</a></li>`);
+    append_html(document.body, '<h4>TV</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/episodes">Episodes list</a></li>`);
+        //append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/tvschedule">TV schedule</a></li>`);
+    append_html(document.body, '<h4>Related items</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/news">News</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="https://pro.imdb.com/title/${imdb_id}/">IMDbPro</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="https://www.boxofficemojo.com/title/${imdb_id}/">Box Office Mojo</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/showtimes/title/${imdb_id}/">Showtimes</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_title_link}/${imdb_id}/reference">Reference view</a></li>`);
   }
   else if (imdb_item_type === 'rw') {
     document.title = 'IMDb Review';
 
-    document.body.innerHTML = `<h3><a href="${imdb_review_link}/${imdb_id}/">Review</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_review_link}/${imdb_id}/">Review</a></h3>`);
   }
   else if (imdb_item_type === 'nm') {
     document.title = 'IMDb Name';
 
-    document.body.innerHTML = `<h3><a href="${imdb_name_link}/${imdb_id}/">Name</a></h3>`;
-    document.body.innerHTML += '<h4>Personal details</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio">Biography</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/awards">Awards</a></li>`;
-    document.body.innerHTML += '<h4>Filmography</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}">by Popularity</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=alpha,asc">by Alphabetical</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=user_rating,desc">by IMDb Rating</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=num_votes,desc">by Number Of Votes</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=release_date,desc">by Release Date</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=year,desc">by Year</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`;
-    document.body.innerHTML += '<h4>Did you know</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#overview">Overview</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#quotes">Quotes</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#trivia">Trivia</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/bio#trademark">Trademarks</a></li>`;
-        //get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/faq">FAQ</a></li>`;
-    document.body.innerHTML += '<h4>Photo and video</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/mediaindex">Photos</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/videogallery">Videos</a></li>`;
-    document.body.innerHTML += '<h4>Related items</h4>';
-      document.body.innerHTML += '<ul></ul>';
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/news">News</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/externalsites">External sites</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/otherworks">Other works</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_name_link}/${imdb_id}/publicity">Publicity listings</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="${imdb_base_link}/seen/${imdb_id}/">How much have you seen?</a></li>`;
-        get_last_ul(1).innerHTML += `<li><a href="https://pro.imdb.com/name/${imdb_id}/">IMDbPro</a></li>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_name_link}/${imdb_id}/">Name</a></h3>`);
+    append_html(document.body, '<h4>Personal details</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/bio">Biography</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/awards">Awards</a></li>`);
+    append_html(document.body, '<h4>Filmography</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}">by Popularity</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=alpha,asc">by Alphabetical</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=user_rating,desc">by IMDb Rating</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=num_votes,desc">by Number Of Votes</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=release_date,desc">by Release Date</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=year,desc">by Year</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`);
+    append_html(document.body, '<h4>Did you know</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/bio#overview">Overview</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/bio#quotes">Quotes</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/bio#trivia">Trivia</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/bio#trademark">Trademarks</a></li>`);
+        //append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/faq">FAQ</a></li>`);
+    append_html(document.body, '<h4>Photo and video</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/mediaindex">Photos</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/videogallery">Videos</a></li>`);
+    append_html(document.body, '<h4>Related items</h4>');
+      append_html(document.body, '<ul></ul>');
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/news">News</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/externalsites">External sites</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/otherworks">Other works</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_name_link}/${imdb_id}/publicity">Publicity listings</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="${imdb_base_link}/seen/${imdb_id}/">How much have you seen?</a></li>`);
+        append_html(get_last_ul(1), `<li><a href="https://pro.imdb.com/name/${imdb_id}/">IMDbPro</a></li>`);
   }
   else if (imdb_item_type === 'co') {
     document.title = 'IMDb Company';
 
-    document.body.innerHTML = `<h3><a href="${imdb_company_link}/${imdb_id}/">Company</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_company_link}/${imdb_id}/">Company</a></h3>`);
   }
   else if (imdb_item_type === 'ni') {
     document.title = 'IMDb News';
 
-    document.body.innerHTML = `<h3><a href="${imdb_news_link}/${imdb_id}/">News</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_news_link}/${imdb_id}/">News</a></h3>`);
   }
   else if (imdb_item_type === 'ev') {
     document.title = 'IMDb Event';
 
-    document.body.innerHTML = `<h3><a href="${imdb_event_link}/${imdb_id}/">Event</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_event_link}/${imdb_id}/">Event</a></h3>`);
   }
   else if (imdb_item_type === 'ur') {
     document.title = 'IMDb User';
 
-    document.body.innerHTML = `<h3><a href="${imdb_user_link}/${imdb_id}/">User</a></h3>`;
-    document.body.innerHTML += '<ul></ul>';
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/lists">Lists</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/checkins">Checkins</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/ratings">Ratings</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/watchlist">Watchlist</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/reviews">Reviews</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_user_link}/${imdb_id}/badges">Badges</a></li>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_user_link}/${imdb_id}/">User</a></h3>`);
+    append_html(document.body, '<ul></ul>');
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/lists">Lists</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/checkins">Checkins</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/ratings">Ratings</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/watchlist">Watchlist</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/reviews">Reviews</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_user_link}/${imdb_id}/badges">Badges</a></li>`);
   }
   else if (imdb_item_type === 'ls') {
     document.title = 'IMDb List';
 
-    document.body.innerHTML = `<h3><a href="${imdb_list_link}/${imdb_id}/">List</a></h3>`;
-    document.body.innerHTML += '<ul></ul>';
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_list_link}/${imdb_id}/?view=grid">Grid view</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_list_link}/${imdb_id}/?view=detailed">Detailed view</a></li>`;
-      get_last_ul(1).innerHTML += `<li><a href="${imdb_list_link}/${imdb_id}/?view=compact">Compact view</a></li>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_list_link}/${imdb_id}/">List</a></h3>`);
+    append_html(document.body, '<ul></ul>');
+      append_html(get_last_ul(1), `<li><a href="${imdb_list_link}/${imdb_id}/?view=grid">Grid view</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_list_link}/${imdb_id}/?view=detailed">Detailed view</a></li>`);
+      append_html(get_last_ul(1), `<li><a href="${imdb_list_link}/${imdb_id}/?view=compact">Compact view</a></li>`);
   }
   else if (imdb_item_type === 'rg') {
     document.title = 'IMDb Gallery';
 
-    document.body.innerHTML = `<h3><a href="${imdb_gallery_link}/${imdb_id}/">Gallery</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_gallery_link}/${imdb_id}/">Gallery</a></h3>`);
   }
   else if (imdb_item_type === 'vi') {
     document.title = 'IMDb Video';
 
-    document.body.innerHTML = `<h3><a href="${imdb_video_link}/${imdb_id}/">Video</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_video_link}/${imdb_id}/">Video</a></h3>`);
   }
   else if (imdb_item_type === 'in') {
     document.title = 'IMDb Interest';
 
-    document.body.innerHTML = `<h3><a href="${imdb_interest_link}/${imdb_id}/">Interest</a></h3>`;
+    clear_page();
+
+    append_html(document.body, `<h3><a href="${imdb_interest_link}/${imdb_id}/">Interest</a></h3>`);
   }
   else {
     alert('Invalid ID');
   }
 
-  if (imdb_item_type !== 'tt') {
-    document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
-  }
+  append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
+
+  back_to_top();
 }
 
 function find_year() {
   document.title = imdb_year.value;
 
-  document.body.innerHTML = `<h3><a href="${imdb_base_link}/year/${imdb_year.value}/">Open titles for this year</a></h3>`;
+  clear_page();
 
-  document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
+  append_html(document.body, `<h3><a href="${imdb_base_link}/year/${imdb_year.value}/">Open titles for this year</a></h3>`);
+
+  append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
 }
 
 function add_name() {
@@ -239,7 +263,7 @@ function add_name() {
 
   new_input_field.className = 'name_search_input_field';
 
-  new_input_field.innerHTML = `Name ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_name(this)">`;
+  append_html(new_input_field, `Name ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_name(this)">`);
 
   document.getElementsByClassName('name_search_input_fields')[0].append(new_input_field);
 }
@@ -265,9 +289,11 @@ function search_name() {
   if ((roles_query.length > 0 && title_type_query.length > 0) && !roles_query.includes('')) {
     document.title = 'IMDb Collaborations Search';
 
-    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/title/?title_type=${title_type_query.join()}&role=${roles_query.join()}">Open search results</a></h3>`;
+    clear_page();
 
-    document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
+    append_html(document.body, `<h3><a href="${imdb_base_link}/search/title/?title_type=${title_type_query.join()}&role=${roles_query.join()}">Open search results</a></h3>`);
+
+    append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
   }
 }
 
@@ -278,7 +304,7 @@ function add_title() {
 
   new_input_field.className = 'title_search_input_field';
 
-  new_input_field.innerHTML = `Title ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_title(this)">`;
+  append_html(new_input_field, `Title ${new_input_field_num} ID<br><input type="text" size="10" autocomplete="off"> <input type="button" value="[X]" onclick="remove_title(this)">`);
 
   document.getElementsByClassName('title_search_input_fields')[0].append(new_input_field);
 }
@@ -297,8 +323,14 @@ function search_title() {
   if (roles_query.length > 0 && !roles_query.includes('')) {
     document.title = 'IMDb Collaborations Search';
 
-    document.body.innerHTML = `<h3><a href="${imdb_base_link}/search/name/?roles=${roles_query.join()}">Open search results</a></h3>`;
+    clear_page();
 
-    document.body.innerHTML += '<hr><p><a href="imdb_links.html">Back</a></p>';
+    append_html(document.body, `<h3><a href="${imdb_base_link}/search/name/?roles=${roles_query.join()}">Open search results</a></h3>`);
+
+    append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
   }
+}
+
+function clear_page() {
+  document.body.innerHTML = '';
 }

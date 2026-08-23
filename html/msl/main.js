@@ -1,108 +1,160 @@
+const {parse_data, append_html} = lib;
+
 const current_url = new URL(window.location);
 const params = Object.fromEntries(current_url.searchParams.entries());
 
-const empty_url_search = !params.playlist && !params.view;
+async function load_msl() {
+  const empty_url_search = !params.playlist && !params.view;
 
-let json_url = '';
+  let json_url = '';
 
-if (empty_url_search || params.playlist) {
-  json_url = 'msl/Playlist1.json';
-  //json_url = 'https://zurg3.github.io/my-stuff/html/msl/Playlist1.json';
-}
-else if (params.view) {
-  json_url = 'msl/YourLibrary.json';
-  //json_url = 'https://zurg3.github.io/my-stuff/html/msl/YourLibrary.json';
-}
+  if (empty_url_search || params.playlist) {
+    //json_url = 'msl/Playlist1.json';
+    json_url = 'https://zurg3.github.io/my-stuff/html/msl/Playlist1.json';
+  }
+  else if (params.view) {
+    //json_url = 'msl/YourLibrary.json';
+    json_url = 'https://zurg3.github.io/my-stuff/html/msl/YourLibrary.json';
+  }
 
-$.getJSON(json_url, function(library) {
-  $('body').append(`<h2>My Spotify library</h2>`);
+  const library = await parse_data(json_url, 'json');
+
+  append_html(document.body, '<h2>My Spotify library</h2>');
 
   if (empty_url_search) {
-    $('body').append(`<h3><a href="?view=tracks">All liked tracks</a></h3>`);
-    $('body').append(`<h3><a href="?view=albums">All added albums</a></h3>`);
-    $('body').append(`<h3><a href="?view=artists">All following artists</a></h3>`);
-    $('body').append(`<h3>Playlists</h3>`);
-    $('body').append(`<ul></ul>`);
+    const playlists = library.playlists;
 
-    for (let i = 0; i < library.playlists.length; i++) {
-      $('ul').append(`<li><a href="?playlist=${i}">${library.playlists[i].name}</a> (${library.playlists[i].items.length})</li>`);
+    append_html(document.body, '<h3><a href="?view=tracks">All liked tracks</a></h3>');
+    append_html(document.body, '<h3><a href="?view=albums">All added albums</a></h3>');
+    append_html(document.body, '<h3><a href="?view=artists">All following artists</a></h3>');
+    append_html(document.body, '<h3>Playlists</h3>');
+
+    const list = document.createElement('ul');
+
+    for (let i = 0; i < playlists.length; i++) {
+      append_html(list, `<li><a href="?playlist=${i}">${playlists[i].name}</a> (${playlists[i].items.length})</li>`);
     }
+
+    document.body.append(list);
   }
   else if (params.playlist) {
     const playlist_id = parseInt(params.playlist, 10);
+    const playlist = library.playlists[playlist_id];
 
-    $('body').append(`<h3>${library.playlists[playlist_id].name}</h3>`);
-    if (library.playlists[playlist_id].description) {
-      $('body').append(`<h4><em>${library.playlists[playlist_id].description}</em></h4>`);
+    append_html(document.body, `<h3>${playlist.name}</h3>`);
+    if (playlist.description) append_html(document.body, `<h4><em>${playlist.description}</em></h4>`);
+    append_html(document.body, '<p><a href="msl.html">Back</a></p>');
+
+    const table = document.createElement('table');
+
+    const table_header = [
+      '<tr class="highlighted_th">',
+        '<th>#</th>',
+        '<th>Artist</th>',
+        '<th>Track</th>',
+        '<th>Album</th>',
+      '</tr>'
+    ];
+
+    append_html(table, table_header.join(''));
+
+    for (let i = 0; i < playlist.items.length; i++) {
+      const table_row = [
+        '<tr class="highlighted_tr">',
+          `<td>${i + 1}</td>`,
+          `<td>${playlist.items[i].track.artistName}</td>`,
+          `<td>${playlist.items[i].track.trackName}</td>`,
+          `<td>${playlist.items[i].track.albumName}</td>`,
+        '</tr>'
+      ];
+
+      append_html(table, table_row.join(''));
     }
-    $('body').append(`<p><a href="msl.html">Back</a></p>`);
 
-    $('body').append(`<table border="1" width="100%"></table>`);
-    $('table').append(`<tr class="highlighted_th">
-      <th>#</th>
-      <th>Artist</th>
-      <th>Track</th>
-      <th>Album</th>
-    </tr>`);
-
-    for (let i = 0; i < library.playlists[playlist_id].items.length; i++) {
-      $('table').append(`<tr class="highlighted_tr">
-        <td>${i + 1}</td>
-        <td>${library.playlists[playlist_id].items[i].track.artistName}</td>
-        <td>${library.playlists[playlist_id].items[i].track.trackName}</td>
-        <td>${library.playlists[playlist_id].items[i].track.albumName}</td>
-      </tr>`);
-    }
+    document.body.append(table);
   }
   else if (params.view) {
     if (params.view === 'tracks') {
-      $('body').append(`<h3>All liked tracks</h3>`);
-      $('body').append(`<p><a href="msl.html">Back</a></p>`);
+      const tracks = library.tracks;
 
-      $('body').append(`<table border="1" width="100%"></table>`);
-      $('table').append(`<tr class="highlighted_th">
-        <th>#</th>
-        <th>Artist</th>
-        <th>Track</th>
-        <th>Album</th>
-      </tr>`);
+      append_html(document.body, '<h3>All liked tracks</h3>');
+      append_html(document.body, '<p><a href="msl.html">Back</a></p>');
 
-      for (let i = 0; i < library.tracks.length; i++) {
-        $('table').append(`<tr class="highlighted_tr">
-          <td>${i + 1}</td>
-          <td>${library.tracks[i].artist}</td>
-          <td>${library.tracks[i].track}</td>
-          <td>${library.tracks[i].album}</td>
-        </tr>`);
+      const table = document.createElement('table');
+
+      const table_header = [
+        '<tr class="highlighted_th">',
+          '<th>#</th>',
+          '<th>Artist</th>',
+          '<th>Track</th>',
+          '<th>Album</th>',
+        '</tr>'
+      ];
+
+      append_html(table, table_header.join(''));
+
+      for (let i = 0; i < tracks.length; i++) {
+        const table_row = [
+          '<tr class="highlighted_tr">',
+            `<td>${i + 1}</td>`,
+            `<td>${tracks[i].artist}</td>`,
+            `<td>${tracks[i].track}</td>`,
+            `<td>${tracks[i].album}</td>`,
+          '</tr>'
+        ];
+
+        append_html(table, table_row.join(''));
       }
+
+      document.body.append(table);
     }
     else if (params.view === 'albums') {
-      $('body').append(`<h3>All added albums</h3>`);
-      $('body').append(`<p><a href="msl.html">Back</a></p>`);
+      const albums = library.albums;
 
-      $('body').append(`<table border="1" width="100%"></table>`);
-      $('table').append(`<tr class="highlighted_th">
-        <th>#</th>
-        <th>Artist</th>
-        <th>Album</th>
-      </tr>`);
+      append_html(document.body, '<h3>All added albums</h3>');
+      append_html(document.body, '<p><a href="msl.html">Back</a></p>');
 
-      for (let i = 0; i < library.albums.length; i++) {
-        $('table').append(`<tr class="highlighted_tr">
-          <td>${i + 1}</td>
-          <td>${library.albums[i].artist}</td>
-          <td>${library.albums[i].album}</td>
-        </tr>`);
+      const table = document.createElement('table');
+
+      const table_header = [
+        '<tr class="highlighted_th">',
+          '<th>#</th>',
+          '<th>Artist</th>',
+          '<th>Album</th>',
+        '</tr>'
+      ];
+
+      append_html(table, table_header.join(''));
+
+      for (let i = 0; i < albums.length; i++) {
+        const table_row = [
+          '<tr class="highlighted_tr">',
+            `<td>${i + 1}</td>`,
+            `<td>${albums[i].artist}</td>`,
+            `<td>${albums[i].album}</td>`,
+          '</tr>'
+        ];
+
+        append_html(table, table_row.join(''));
       }
+
+      document.body.append(table);
     }
     else if (params.view === 'artists') {
-      $('body').append(`<h3>All following artists</h3>`);
-      $('body').append(`<p><a href="msl.html">Back</a></p>`);
-      $('body').append(`<ol></ol>`);
+      const artists = library.artists;
 
-      for (let i = 0; i < library.artists.length; i++) {
-        $('ol').append(`<li>${library.artists[i].name}</li>`);
+      append_html(document.body, '<h3>All following artists</h3>');
+      append_html(document.body, '<p><a href="msl.html">Back</a></p>');
+
+      const list = document.createElement('ol');
+
+      for (let i = 0; i < artists.length; i++) {
+        append_html(list, `<li>${artists[i].name}</li>`);
       }
+
+      document.body.append(list);
     }
   }
-});
+}
+
+load_msl();
