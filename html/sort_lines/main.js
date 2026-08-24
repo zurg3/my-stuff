@@ -1,9 +1,7 @@
-const {comparator} = lib;
+const {comparator, copy_text} = lib;
 
 const input = document.getElementById('input');
 const output = document.getElementById('output');
-
-new ClipboardJS('#clipboard_button');
 
 function sort_lines() {
   if (input.value) output.innerText = input.value.split('\n').sort(comparator).join('\n');

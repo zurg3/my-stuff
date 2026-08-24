@@ -1,11 +1,9 @@
-const {resize_input, is_mobile, back_to_top, is_valid_url, get_checked_radio_value} = lib;
+const {resize_input, is_mobile, back_to_top, is_valid_url, get_checked_radio_value, copy_text} = lib;
 
 resize_input(document.getElementById('base_link'), 0.8);
 
 const form = document.forms[0];
 form.hidden = false;
-
-new ClipboardJS('.copy_image_url_button');
 
 // 80% - mobile, 50% - desktop
 const default_img_scale = is_mobile() ? 80 : 50;
@@ -195,7 +193,7 @@ function load_gallery() {
         <span class="image_size"></span>
         <br hidden>
         <input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>
-        <input type="button" class="copy_image_url_button" value="Copy URL" data-clipboard-text="${image_url}" data-clipboard-action="copy" hidden>
+        <input type="button" class="copy_image_url_button" value="Copy URL" onclick="copy_text('${image_url}')">
         <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`;
 
       use_document_fragment ? image_gallery.append(image_item) : output.append(image_item);

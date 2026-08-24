@@ -6,7 +6,7 @@ yy - ytify
 iv - Invidious
 */
 
-const {resize_input, is_valid_url, is_mobile, parse_data} = lib;
+const {resize_input, is_valid_url, is_mobile, copy_text, parse_data} = lib;
 
 resize_input(document.getElementById('original_link'));
 
@@ -31,20 +31,6 @@ const yy_playlist_link = document.getElementById('yy_playlist_link');
 const iv_playlist_link = document.getElementById('iv_playlist_link');
 
 input_block.hidden = false;
-
-new ClipboardJS('#copy_yt_video_link_button');
-new ClipboardJS('#copy_ytm_video_link_button');
-new ClipboardJS('#copy_ppd_video_link_button');
-new ClipboardJS('#copy_yy_video_link_button');
-new ClipboardJS('#copy_iv_video_link_button');
-
-new ClipboardJS('#copy_yt_playlist_link_button');
-new ClipboardJS('#copy_ytm_playlist_link_button');
-new ClipboardJS('#copy_ppd_playlist_link_button');
-new ClipboardJS('#copy_yy_playlist_link_button');
-new ClipboardJS('#copy_iv_playlist_link_button');
-
-new ClipboardJS('#copy_audio_name_button');
 
 const ppd_hosts = ['piped.video', 'cf.piped.video', 'az.piped.video'];
 const yy_hosts = ['ytify.pp.ua', 'ytify.netlify.app'];
@@ -185,7 +171,7 @@ async function play_audio() {
         audio_info.innerHTML = `${author} - <b>${title}</b> [${bitrate} kbps]`;
 
         audio_options.hidden = false;
-        copy_audio_name_button.dataset.clipboardText = `${author} - ${title}`;
+        copy_audio_name_button.setAttribute('onclick', `copy_text('${author} - ${title}')`);
 
         if ('mediaSession' in navigator) {
           const artwork_list = [];

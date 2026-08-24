@@ -1,10 +1,8 @@
-const {resize_input, get_checked_radio_value, upper_case, lower_case, title_case, swap_case} = lib;
+const {resize_input, get_checked_radio_value, upper_case, lower_case, title_case, swap_case, copy_text} = lib;
 
 const converter = document.getElementById('converter');
 const input = document.getElementById('input');
 const output = document.getElementById('output');
-
-new ClipboardJS('#copy_button');
 
 resize_input(input);
 resize_input(output);

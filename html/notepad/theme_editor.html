@@ -6,7 +6,7 @@
     <title>Notepad Theme Editor</title>
     <link href="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/css/input_cursor.min.css" rel="stylesheet">
     <link href="theme_editor.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/zurg3/my-stuff@master/js/lib.min.js"></script>
   </head>
   <body>
     <h2>Notepad Theme Editor</h2>
@@ -15,13 +15,13 @@
       <input type="color" id="bg_color_picker" value="#ffffff">
       <label for="bg_color_picker">Background:</label>
       <span id="bg_color_hex">#ffffff</span>
-      <input type="button" id="copy_bg_button" value="Copy" data-clipboard-target="#bg_color_hex" data-clipboard-action="copy">
+      <input type="button" id="copy_bg_button" value="Copy" onclick="copy_text(bg_color_hex.innerText)">
     </p>
     <p>
       <input type="color" id="font_color_picker" value="#000000">
       <label for="font_color_picker">Font:</label>
       <span id="font_color_hex">#000000</span>
-      <input type="button" id="copy_font_button" value="Copy" data-clipboard-target="#font_color_hex" data-clipboard-action="copy">
+      <input type="button" id="copy_font_button" value="Copy" onclick="copy_text(font_color_hex.innerText)">
     </p>
     <script src="theme_editor.js"></script>
   </body>
