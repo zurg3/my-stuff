@@ -33,8 +33,8 @@ lib.is_valid_url = (s) => {
   }
 };
 
-lib.append_html = (element, html_string) => {
-  element.insertAdjacentHTML('beforeend', html_string);
+lib.append_html = (element, ...html_strings) => {
+  element.insertAdjacentHTML('beforeend', html_strings.join(''));
 };
 
 lib.random_number = (min = 1, max = 100) => {
@@ -188,3 +188,12 @@ lib.parse_data = async (url, type) => {
 };
 
 lib.sleep = (t = 1) => new Promise(r => setTimeout(r, t * 1000));
+
+lib.copy_text = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  }
+  catch (error) {
+    console.error(error.message);
+  }
+};
