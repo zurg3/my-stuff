@@ -402,11 +402,15 @@ notepad.redo = () => {
 };
 
 notepad.copy = () => {
-  ClipboardJS.copy(get_text());
+  textarea.select();
+  document.execCommand('copy');
+  textarea.setSelectionRange(0, 0);
 };
 
 notepad.cut = () => {
-  ClipboardJS.cut(textarea);
+  textarea.select();
+  document.execCommand('cut');
+  textarea.setSelectionRange(0, 0);
 };
 
 notepad.replace = (search, replace) => {

@@ -47,9 +47,7 @@ async function show_system_info() {
 
   append_html(document.body,
     '<h1>System Info</h1>',
-    '<ul>',
-      ...items,
-    '</ul>'
+    `<ul>${items.join('')}</ul>`
   );
 }
 

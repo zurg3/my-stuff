@@ -32,9 +32,7 @@ async function load_msl() {
       '<h3><a href="?view=albums">All added albums</a></h3>',
       '<h3><a href="?view=artists">All following artists</a></h3>',
       '<h3>Playlists</h3>',
-      '<ul>',
-        ...items,
-      '</ul>'
+      `<ul>${items.join('')}</ul>`
     );
   }
   else if (params.playlist) {
@@ -65,7 +63,7 @@ async function load_msl() {
           '<th>Track</th>',
           '<th>Album</th>',
         '</tr>',
-        ...table_data,
+        table_data.join(''),
       '</table>'
     );
   }
@@ -95,7 +93,7 @@ async function load_msl() {
             '<th>Track</th>',
             '<th>Album</th>',
           '</tr>',
-          ...table_data,
+          table_data.join(''),
         '</table>'
       );
     }
@@ -122,7 +120,7 @@ async function load_msl() {
             '<th>Artist</th>',
             '<th>Album</th>',
           '</tr>',
-          ...table_data,
+          table_data.join(''),
         '</table>'
       );
     }
@@ -137,9 +135,7 @@ async function load_msl() {
       append_html(document.body,
         '<h3>All following artists</h3>',
         '<p><a href="msl.html">Back</a></p>',
-        '<ol>',
-          ...items,
-        '</ol>'
+        `<ol>${items.join('')}</ol>`
       );
     }
   }

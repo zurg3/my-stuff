@@ -12,9 +12,7 @@ async function load_mtw() {
 
   append_html(document.body,
     '<p><b>My temporary watchlist</b></p>',
-    '<ol>',
-      ...items,
-    '</ol>'
+    `<ol>${items.join('')}</ol>`
   );
 }
 
