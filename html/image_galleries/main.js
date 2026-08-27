@@ -1,4 +1,4 @@
-const {resize_input, is_mobile, back_to_top, is_valid_url, get_checked_radio_value, copy_text} = lib;
+const {resize_input, is_mobile, back_to_top, is_valid_url, get_checked_radio_value, append_html, copy_text} = lib;
 
 resize_input(document.getElementById('base_link'), 0.8);
 
@@ -186,15 +186,19 @@ function load_gallery() {
 
       const last_img_index = use_document_fragment ? image_gallery.childElementCount : document.images.length;
 
-      image_item.innerHTML = `<span class="image_id"></span>
-        <br hidden>
-        <img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, '${search_engine}')" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>
-        <br hidden>
-        <span class="image_size"></span>
-        <br hidden>
-        <input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>
-        <input type="button" class="copy_image_url_button" value="Copy URL" onclick="copy_text('${image_url}')">
-        <input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`;
+      append_html(image_item,
+        '<span class="image_id"></span>',
+        '<br hidden>',
+        `<img style="max-width: ${current_img_scale}%; filter: blur(${blur_images ? `${current_blur_radius}px` : `0px`});" src="${image_url}" alt="image${image_id}" onload="handle_loaded_image(${last_img_index}, '${search_engine}')" onerror="handle_failed_image(this, ${hide_failed_images})"${blur_images ? ` onclick="blur_image(this, ${current_blur_radius})"` : ''}>`,
+        '<br hidden>',
+        '<span class="image_size"></span>',
+        '<br hidden>',
+        `<input type="button" class="open_image_button" value="Open" onclick="open_image('${image_url}')" title="${image_url}" hidden>`,
+        ' ',
+        `<input type="button" class="copy_image_url_button" value="Copy URL" onclick="copy_text('${image_url}')" hidden>`,
+        ' ',
+        `<input type="button" class="search_image_button" value="Search" onclick="search_image('${image_url}', '${search_engine}')" hidden>`
+      );
 
       use_document_fragment ? image_gallery.append(image_item) : output.append(image_item);
 

@@ -63,16 +63,17 @@
 
           clear_input();
 
-          append_html(output, `<p>Results for <b>${username}</b></p>`);
-
-          const list = document.createElement('ul');
+          const items = [];
 
           for (let site of sites) {
-            append_html(list, `<li><a href="${site.url}">${site.name}</a></li>`);
+            items.push(`<li><a href="${site.url}">${site.name}</a></li>`);
           }
-
-          output.append(list);
         }
+
+        append_html(output,
+          `<p>Results for <b>${username}</b></p>`,
+          `<ul>${items.join('')}</ul>`
+        );
       }
 
       function clear_input() {

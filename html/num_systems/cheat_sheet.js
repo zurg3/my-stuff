@@ -1,5 +1,7 @@
-const table = document.getElementsByTagName('table')[0];
-const fragment = document.createDocumentFragment();
+const {append_html} = lib;
+
+const table = document.querySelector('table');
+const table_data = [];
 
 for (let i = 1; i <= 100; i++) {
   const cs_bin = i.toString(2);
@@ -7,17 +9,14 @@ for (let i = 1; i <= 100; i++) {
   const cs_dec = i.toString(10);
   const cs_hex = i.toString(16).toUpperCase();
 
-  const row = document.createElement('tr');
-  const row_data = [cs_bin, cs_oct, cs_dec, cs_hex];
-
-  for (let j = 0; j < row_data.length; j++) {
-    const cell = document.createElement('td');
-
-    cell.textContent = row_data[j];
-    row.append(cell);
-  }
-
-  fragment.append(row);
+  table_data.push(
+    '<tr>',
+      `<td>${cs_bin}</td>`,
+      `<td>${cs_oct}</td>`,
+      `<td>${cs_dec}</td>`,
+      `<td>${cs_hex}</td>`,
+    '</tr>'
+  );
 }
 
-table.append(fragment);
+append_html(table, table_data.join(''));
