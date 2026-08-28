@@ -9,7 +9,7 @@ const debian = {
 const ubuntu = {
   releases: {
     '26.04': {
-      version: '26.04 LTS',
+      version: '26.04.1 LTS',
       codename: 'Resolute Raccoon'
     },
     '25.10': {

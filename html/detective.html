@@ -68,12 +68,12 @@
           for (let site of sites) {
             items.push(`<li><a href="${site.url}">${site.name}</a></li>`);
           }
-        }
 
-        append_html(output,
-          `<p>Results for <b>${username}</b></p>`,
-          `<ul>${items.join('')}</ul>`
-        );
+          append_html(output,
+            `<p>Results for <b>${username}</b></p>`,
+            `<ul>${items.join('')}</ul>`
+          );
+        }
       }
 
       function clear_input() {
