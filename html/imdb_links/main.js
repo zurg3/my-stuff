@@ -22,7 +22,22 @@ for (let year_option = year_option_end; year_option >= year_option_begin; year_o
 
 imdb_year.append(options);
 
-const imdb_base_link = 'https://www.imdb.com';
+const imdb_origin = 'https://www.imdb.com';
+
+const imdb_title_link = `${imdb_origin}/title`;
+const imdb_review_link = `${imdb_origin}/review`;
+const imdb_name_link = `${imdb_origin}/name`;
+const imdb_company_link = `${imdb_origin}/company`;
+const imdb_news_link = `${imdb_origin}/news`;
+const imdb_event_link = `${imdb_origin}/event`;
+const imdb_user_link = `${imdb_origin}/user`;
+const imdb_list_link = `${imdb_origin}/list`;
+const imdb_gallery_link = `${imdb_origin}/gallery`;
+const imdb_video_link = `${imdb_origin}/video`;
+const imdb_interest_link = `${imdb_origin}/interest`;
+
+const imdb_title_search_link = `${imdb_origin}/search/title`;
+const imdb_name_search_link = `${imdb_origin}/search/name`;
 
 document.getElementById('main').hidden = false;
 
@@ -33,18 +48,6 @@ function get_last_ul() {
 async function find_item() {
   const imdb_id = document.getElementById('imdb_id').value.trim();
   const imdb_item_type = imdb_id.slice(0, 2);
-
-  const imdb_title_link = `${imdb_base_link}/title`;
-  const imdb_review_link = `${imdb_base_link}/review`;
-  const imdb_name_link = `${imdb_base_link}/name`;
-  const imdb_company_link = `${imdb_base_link}/company`;
-  const imdb_news_link = `${imdb_base_link}/news`;
-  const imdb_event_link = `${imdb_base_link}/event`;
-  const imdb_user_link = `${imdb_base_link}/user`;
-  const imdb_list_link = `${imdb_base_link}/list`;
-  const imdb_gallery_link = `${imdb_base_link}/gallery`;
-  const imdb_video_link = `${imdb_base_link}/video`;
-  const imdb_interest_link = `${imdb_base_link}/interest`;
 
   if (imdb_item_type === 'tt') {
     const api_key = '3c5677f8';
@@ -116,10 +119,10 @@ async function find_item() {
     append_html(document.body, '<h4>Related items</h4>', '<ul></ul>');
     append_html(get_last_ul(),
       `<li><a href="${imdb_title_link}/${imdb_id}/news">News</a></li>`,
-      `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`,
+      `<li><a href="${imdb_origin}/lists/${imdb_id}/">Related lists</a></li>`,
       `<li><a href="https://pro.imdb.com/title/${imdb_id}/">IMDbPro</a></li>`,
       `<li><a href="https://www.boxofficemojo.com/title/${imdb_id}/">Box Office Mojo</a></li>`,
-      `<li><a href="${imdb_base_link}/showtimes/title/${imdb_id}/">Showtimes</a></li>`,
+      `<li><a href="${imdb_origin}/showtimes/title/${imdb_id}/">Showtimes</a></li>`,
       `<li><a href="${imdb_title_link}/${imdb_id}/reference">Reference view</a></li>`
     );
   }
@@ -143,14 +146,16 @@ async function find_item() {
     );
     append_html(document.body, '<h4>Filmography</h4>', '<ul></ul>');
     append_html(get_last_ul(),
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}">by Popularity</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=alpha,asc">by Alphabetical</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=user_rating,desc">by IMDb Rating</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=num_votes,desc">by Number Of Votes</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=release_date,desc">by Release Date</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`,
-      `<li><a href="${imdb_base_link}/search/title/?role=${imdb_id}&sort=year,desc">by Year</a></li>`,
-      `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}">by Popularity</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=alpha,asc">by Alphabetical</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=user_rating,desc">by IMDb Rating</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=num_votes,desc">by Number Of Votes</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=release_date,desc">by Release Date</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=runtime,desc">by Runtime</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?role=${imdb_id}&sort=year,desc">by Year</a></li>`,
+      `<li><a href="${imdb_name_link}/${imdb_id}/#credits">All credits</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?title_type=feature&groups=top_250&role=${imdb_id}">Top 250 Movies</a></li>`,
+      `<li><a href="${imdb_title_search_link}/?title_type=feature&groups=oscar_winner&role=${imdb_id}">Oscar-Winning Movies</a></li>`
     );
     append_html(document.body, '<h4>Did you know</h4>', '<ul></ul>');
     append_html(get_last_ul(),
@@ -171,8 +176,8 @@ async function find_item() {
       `<li><a href="${imdb_name_link}/${imdb_id}/externalsites">External sites</a></li>`,
       `<li><a href="${imdb_name_link}/${imdb_id}/otherworks">Other works</a></li>`,
       `<li><a href="${imdb_name_link}/${imdb_id}/publicity">Publicity listings</a></li>`,
-      `<li><a href="${imdb_base_link}/lists/${imdb_id}/">Related lists</a></li>`,
-      `<li><a href="${imdb_base_link}/seen/${imdb_id}/">How much have you seen?</a></li>`,
+      `<li><a href="${imdb_origin}/lists/${imdb_id}/">Related lists</a></li>`,
+      `<li><a href="${imdb_origin}/seen/${imdb_id}/">How much have you seen?</a></li>`,
       `<li><a href="https://pro.imdb.com/name/${imdb_id}/">IMDbPro</a></li>`
     );
   }
@@ -255,11 +260,14 @@ async function find_item() {
 }
 
 function find_year() {
-  document.title = imdb_year.value;
+  const year = imdb_year.value;
+
+  document.title = year;
 
   clear_page();
 
-  append_html(document.body, `<h3><a href="${imdb_base_link}/year/${imdb_year.value}/">Open titles for this year</a></h3>`);
+  //append_html(document.body, `<h3><a href="${imdb_origin}/year/${imdb_year.value}/">Open titles for this year</a></h3>`);
+  append_html(document.body, `<h3><a href="${imdb_title_search_link}/?title_type=feature&year=${year}">Movies of ${year}</a></h3>`);
 
   append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
 }
@@ -299,7 +307,7 @@ function search_name() {
 
     clear_page();
 
-    append_html(document.body, `<h3><a href="${imdb_base_link}/search/title/?title_type=${title_type_query.join()}&role=${roles_query.join()}">Open search results</a></h3>`);
+    append_html(document.body, `<h3><a href="${imdb_title_search_link}/?title_type=${title_type_query.join()}&role=${roles_query.join()}">Open search results</a></h3>`);
 
     append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
   }
@@ -333,7 +341,7 @@ function search_title() {
 
     clear_page();
 
-    append_html(document.body, `<h3><a href="${imdb_base_link}/search/name/?roles=${roles_query.join()}">Open search results</a></h3>`);
+    append_html(document.body, `<h3><a href="${imdb_name_search_link}/?roles=${roles_query.join()}">Open search results</a></h3>`);
 
     append_html(document.body, '<hr><p><a href="imdb_links.html">Back</a></p>');
   }
