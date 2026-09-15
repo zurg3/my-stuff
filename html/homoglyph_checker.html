@@ -44,7 +44,7 @@
           const char_codes = string_lang.ru.checked ? char_codes_en : char_codes_ru;
 
           for (let i = 0; i < trimmed_string.length; i++) {
-            for (let j in char_codes) {
+            for (const j in char_codes) {
               if (char_codes[j].charCodeAt() === trimmed_string[i].charCodeAt()) {
                 output_string[i] = `[${output_string[i]}]`;
                 wrong_chars++;

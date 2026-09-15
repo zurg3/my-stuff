@@ -88,6 +88,10 @@ button:disabled {
   cursor: wait;
 }
 
+#run_code_button {
+  width: 100px;
+}
+
 #clear_output_button {
   background: transparent;
   color: #e8eaed;

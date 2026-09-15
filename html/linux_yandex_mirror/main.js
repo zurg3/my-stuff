@@ -17,11 +17,11 @@ document.write('<hr>');
 // Ubuntu
 document.write('<h3 id="ubuntu">Ubuntu</h3>');
 
-for (let release in ubuntu.releases) {
+for (const release in ubuntu.releases) {
   document.write(`<h4>${ubuntu.releases[release].version} (${ubuntu.releases[release].codename})</h4>`);
   document.write('<ul>');
 
-  for (let edition in ubuntu.editions) {
+  for (const edition in ubuntu.editions) {
     if (edition === 'desktop') {
       download_link = `${base_mirror_link}/ubuntu-releases/${release}/`;
 
@@ -48,7 +48,7 @@ document.write('<hr>');
 document.write('<h3 id="linux_mint">Linux Mint</h3>');
 document.write('<ul>');
 
-for (let release of linux_mint.releases) {
+for (const release of linux_mint.releases) {
   download_link = `${base_mirror_link}/linuxmint/stable/${release.version}/`;
 
   document.write(`<li><a href="${download_link}">Linux Mint ${release.version} "${release.codename}"</a></li>`);
@@ -61,7 +61,7 @@ document.write('<hr>');
 document.write('<h3 id="arch_linux">Arch Linux</h3>');
 document.write('<ul>');
 
-for (let release of arch_linux.releases) {
+for (const release of arch_linux.releases) {
   download_link = `${base_mirror_link}/archlinux/iso/${release}/`;
 
   document.write(`<li><a href="${download_link}">Arch Linux ${release}</a></li>`);
@@ -83,7 +83,7 @@ document.write('<hr>');
 document.write('<h3 id="alpine_linux">Alpine Linux</h3>');
 document.write('<ul>');
 
-for (let release of alpine_linux.releases) {
+for (const release of alpine_linux.releases) {
   download_link = `${base_mirror_link}/mirrors/alpine/v${release}/releases/${alpine_linux.arch}/`;
 
   document.write(`<li><a href="${download_link}">Alpine Linux ${release}</a></li>`);

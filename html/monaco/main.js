@@ -12,6 +12,7 @@ const editor = monaco.editor.create(container, {
   theme: 'vs-dark',
   contextmenu: true,
   automaticLayout: true,
+  acceptSuggestionOnCommitCharacter: false,
   accessibilitySupport: 'off',
   autoIndent: 'full',
   autoIndentOnPaste: true,

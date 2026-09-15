@@ -1,6 +1,6 @@
 // Debian
 const debian = {
-  version: '13.6.0',
+  version: '13.7.0',
   codename: 'Trixie',
   arch: 'amd64'
 };
@@ -17,7 +17,7 @@ const ubuntu = {
       codename: 'Questing Quokka'
     },
     '24.04': {
-      version: '24.04.4 LTS',
+      version: '24.04.5 LTS',
       codename: 'Noble Numbat'
     },
     '22.04': {

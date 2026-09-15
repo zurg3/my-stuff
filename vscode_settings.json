@@ -1,5 +1,6 @@
 {
   "breadcrumbs.enabled": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.accessibilitySupport": "off",
   "editor.autoIndent": "full",
   "editor.autoIndentOnPaste": true,

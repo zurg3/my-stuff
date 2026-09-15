@@ -6,7 +6,7 @@ async function load_mtw() {
 
   const items = [];
 
-  for (let id in mtw) {
+  for (const id in mtw) {
     items.push(`<li><a href="https://www.imdb.com/title/${id}/">${mtw[id]}</a></li>`);
   }
 

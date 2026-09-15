@@ -34,6 +34,7 @@ const editor = monaco.editor.create(input, {
   theme: 'pycharm-darcula',
   contextmenu: true,
   automaticLayout: true,
+  acceptSuggestionOnCommitCharacter: false,
   accessibilitySupport: 'off',
   autoIndent: 'full',
   autoIndentOnPaste: true,
