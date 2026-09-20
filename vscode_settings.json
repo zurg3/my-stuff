@@ -34,7 +34,7 @@
   "editor.stickyScroll.enabled": false,
   "editor.tabSize": 2,
   "explorer.compactFolders": false,
-  "extensions.autoUpdate": false,
+  "extensions.autoUpdate": "off",
   "files.autoSave": "off",
   "files.enableTrash": false,
   "files.insertFinalNewline": true,
