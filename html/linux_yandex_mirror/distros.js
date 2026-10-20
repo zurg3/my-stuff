@@ -8,6 +8,10 @@ const debian = {
 // Ubuntu
 const ubuntu = {
   releases: {
+    '26.10': {
+      version: '26.10',
+      codename: 'Stonking Stingray'
+    },
     '26.04': {
       version: '26.04.1 LTS',
       codename: 'Resolute Raccoon'
