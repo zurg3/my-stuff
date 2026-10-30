@@ -16,10 +16,6 @@ const ubuntu = {
       version: '26.04.1 LTS',
       codename: 'Resolute Raccoon'
     },
-    '25.10': {
-      version: '25.10',
-      codename: 'Questing Quokka'
-    },
     '24.04': {
       version: '24.04.5 LTS',
       codename: 'Noble Numbat'
