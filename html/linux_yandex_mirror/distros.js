@@ -111,7 +111,7 @@ const arch_linux = {
 
 // Fedora
 const fedora = {
-  version: '44',
+  version: '45',
   edition: 'Workstation',
   arch: 'x86_64'
 };
